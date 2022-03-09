@@ -1,5 +1,8 @@
+package src;
 public class Guest {
-    enum Gender {Male, Female}
+    enum Gender {
+        Male, Female
+    };
 
     String name;
     String creditCard;
