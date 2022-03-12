@@ -1,16 +1,17 @@
 package src;
 
-public class HotelMenu {
-    private String name;
-    private double price;
-    private String description;
+public class MenuItem {
 
-    public HotelMenu(String newName, double newPrice, String newDescription) {
-        this.name = newName;
-        this.price = newPrice;
-        this.description = newDescription;
+    private String name;
+    private String description;
+    private double price;
+
+    public MenuItem(String name, String description, double price){
+        this.name = name;
+        this.description = description;
+        this.price = price;
     }
-    
+
     public String getName() {
         return name;
     }
