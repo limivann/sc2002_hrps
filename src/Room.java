@@ -1,5 +1,7 @@
 package src;
 
+import java.util.ArrayList;
+
 public class Room {
 	enum RoomStatus {VACANT, OCCUPIED, RESERVED, UNDER_MAINTENANCE};
 	enum RoomType {SINGLE, DOUBLE, DELUXE, VIP_SUITE}
@@ -12,7 +14,7 @@ public class Room {
 	private boolean isWifiEnabled;
 	private boolean isSmokingAllowed;
 	private String guestName;
-	
+	private ArrayList<OrderItem> orders;
 	
 	/**
 	 * The constructor of a Room
@@ -35,6 +37,7 @@ public class Room {
 		this.price = price;
 		this.isWifiEnabled = isWifiEnabled;
 		this.isSmokingAllowed = isSmokingAllowed;
+		this.orders = new ArrayList<OrderItem>();
 	}
 
 	/**
@@ -136,6 +139,4 @@ public class Room {
 		System.out.printf("Smoking Allowed: %s\n", isSmokingAllowed);
         System.out.println("----------------");
 	}
-
-
 }

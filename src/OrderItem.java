@@ -1,6 +1,6 @@
 package src;
 
-public class Item extends MenuItem {
+public class OrderItem extends MenuItem {
     enum OrderStatus {
         CONFIRMED, PREPARING, DELIVERED
     };
@@ -8,12 +8,12 @@ public class Item extends MenuItem {
     private OrderStatus orderStatus;
     private String remarks;
 
-    public Item(String itemName, double itemPrice, String itemDescription) {
+    public OrderItem(String itemName, double itemPrice, String itemDescription) {
         super(itemName, itemDescription, itemPrice);
         this.orderStatus = OrderStatus.CONFIRMED;
     }
     
-    public Item(String itemName, double itemPrice, String itemDescription, String remarks) {
+    public OrderItem(String itemName, double itemPrice, String itemDescription, String remarks) {
         super(itemName, itemDescription, itemPrice);
         this.orderStatus = OrderStatus.CONFIRMED;
         this.remarks = remarks;
