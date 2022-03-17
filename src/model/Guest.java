@@ -1,8 +1,10 @@
-package src;
+package src.model;
 
 import java.io.Serializable;
 import java.util.Scanner;
 
+import src.model.enums.Gender;
+import src.model.enums.IdentityType;
 /**
  * Class that represent the guest
  * @author Zhang Kaichen
@@ -11,17 +13,18 @@ public class Guest implements Serializable{
     /**
      * This enum class define the gender of the Guest
      */
-    enum Gender {
-        MALE, FEMALE
-    };
 
     private String name;
+    private String first_name;
+    private String last_name;
     private String creditCard;
     private String address;
     private Gender gender;
     private Identity identity;
     private String nationality;
     private String contact;
+    private String guest_id;
+    private static int id = 1;
     
     // Payment paymentDetails;
     // Reservation reservationDetails;
@@ -46,6 +49,10 @@ public class Guest implements Serializable{
     public String getContact() {
         return contact;
     }
+
+    public String getguest_id(){
+        return guest_id;
+    }
     
     /**
      * This is the function that add personal detail to a Guest object
@@ -55,8 +62,11 @@ public class Guest implements Serializable{
      */
     public void add_personal_detail(){
         Scanner sc = new Scanner(System.in);
-        System.out.printf("Please enter your name: ");
-        name = sc.nextLine();
+        System.out.printf("Please enter your first name: ");
+        first_name = sc.nextLine();
+        System.out.printf("Please enter your last name: ");
+        last_name = sc.nextLine();
+        name = first_name + " " + last_name;
         System.out.printf("Please enter your credit card number: ");
         creditCard = sc.nextLine();
         System.out.printf("Please enter your address: ");
@@ -67,7 +77,9 @@ public class Guest implements Serializable{
         nationality = sc.nextLine();
         System.out.printf("Please enter your contact number: ");
         contact = sc.nextLine();
-
+        guest_id = last_name + id;
+        System.out.printf("Your Guest ID is: %s\n", guest_id);
+        id++;
 
     }
     /**
@@ -89,28 +101,40 @@ public class Guest implements Serializable{
         sc.nextLine();
         switch(choice){
             case 1:
-            System.out.println("Please enter your new name:");
-            name = sc.nextLine();
+            System.out.println("Please enter your new first name:");
+            first_name = sc.nextLine();
+            last_name = sc.nextLine();
+            name = first_name + " " + last_name;
             break;
+
             case 2:
             System.out.println("Please enter your new credit card number:");
             creditCard = sc.nextLine();
             break;
+
             case 3:
             System.out.println("Please enter your new address:");
             address = sc.nextLine();
             break;
+
             case 4:
             setgender();
             break;
+
             case 5:
             setidentity();
+            break;
+
             case 6:
             System.out.println("Please enter your nationality:");
             nationality = sc.nextLine();
+            break;
+
             case 7:
             System.out.println("Please enter your contact number:");
             contact = sc.nextLine();
+            break;
+
             default:
                 try {
                     throw new Exception("Invalid choice");
@@ -195,6 +219,7 @@ public class Guest implements Serializable{
     public void printGuestDetails(){
         System.out.println("----------------");
         System.out.printf("Name: %s\n", name);
+        System.out.printf("Guest ID: %s\n", guest_id);
         System.out.printf("Credit Card No: %s\n", creditCard);
         System.out.printf("Address: %s\n", address);
         if(gender == Gender.MALE){

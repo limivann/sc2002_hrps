@@ -1,4 +1,4 @@
-package model;
+package src.model;
 
 public enum ReservationStatus {
     CONFIRMED,
@@ -7,5 +7,4 @@ public enum ReservationStatus {
     EXPIRED,
     CHECKED_OUT,
     CANCELLED;
-
 }
