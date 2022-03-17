@@ -22,7 +22,6 @@ public class GuestView extends MainView{
         System.out.println("(4) Search a Guest");
         System.out.println("(5) Print all Guest");
         System.out.println("(6) Exit Guest View");
-        
     }
 
     @Override

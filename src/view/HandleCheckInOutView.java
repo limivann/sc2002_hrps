@@ -1,6 +1,5 @@
 package src.view;
 
-import java.util.Scanner;
 import java.lang.Thread;
 import src.helper.Helper;
 
@@ -10,26 +9,33 @@ public class HandleCheckInOutView extends MainView {
     }
     @Override
     public void printMenu() {
-        System.out.println("===================");
-        System.out.println("1. Check In");
+        System.out.println("Please select an option (1-3)");
+        System.out.println("1. Check In ");
         System.out.println("2. Check Out");
+        System.out.println("3. Exit");
     }
 
     @Override
     public void viewapp() {
         int opt = -1;
-        printMenu();
-        opt = Helper.sc.nextInt();
-        switch (opt) {
-            case 1:
-                checkin();
-                break;
-            case 2:
-                checkout();
-                break;
-            default:
-                break;
-        }
+        do{
+            printMenu();
+            opt = Helper.sc.nextInt();
+            switch (opt) {
+                case 1:
+                    checkin();
+                    break;
+                case 2:
+                    checkout();
+                    break;
+                case 3:
+                    break;
+                default:
+                    System.out.println("Invalid choice ... Please try again");
+                    break;
+            }
+        } while (opt != 3);
+        
     }
     
     public void checkin() {

@@ -37,8 +37,15 @@ public class RoomView extends MainView{
                 case 5:
                     removeRoom();
                     break;
+                case 6:
+                    break;
+                default:
+                    // TODO: Handle exception
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+                
             }
-        }while (opt < 6);
+        }while (opt != 6);
     }
     public void createRoom(){
         Scanner sc = new Scanner(System.in);

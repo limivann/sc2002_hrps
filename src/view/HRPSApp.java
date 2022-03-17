@@ -2,7 +2,7 @@ package src.view;
 import java.util.Scanner;
 import src.helper.Helper;
 import src.view.*;
-public class Main {
+public class HRPSApp {
     public static void main(String[] args) {
         // Intialize helpers and view apps
         Helper helper = new Helper();
