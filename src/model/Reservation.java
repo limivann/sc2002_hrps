@@ -2,6 +2,8 @@ package src.model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import src.model.enums.ReservationStatus;
+
 public class Reservation {
     private String checkedInDate;
     private String checkedOutDate;

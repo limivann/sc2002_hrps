@@ -3,6 +3,8 @@ package src.model;
 import java.io.Serializable;
 import java.util.Scanner;
 
+import src.model.enums.Gender;
+import src.model.enums.IdentityType;
 /**
  * Class that represent the guest
  * @author Zhang Kaichen
@@ -11,9 +13,6 @@ public class Guest implements Serializable{
     /**
      * This enum class define the gender of the Guest
      */
-    enum Gender {
-        MALE, FEMALE
-    };
 
     private String name;
     private String first_name;

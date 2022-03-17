@@ -2,12 +2,13 @@ package src.controller;
 import java.util.HashMap;
 import java.util.Scanner;
 import src.model.Room;
+import src.model.enums.*;
 public class RoomManager{
     HashMap<String, Room> RoomList = new HashMap<String, Room>();
 
-    public void create(Room.RoomType type, int floor, int room, double price, boolean wifi, boolean smoking) {
+    public void create(RoomType type, int floor, int room, double price, boolean wifi, boolean smoking) {
         String id = floor+"-"+room;
-        Room newRoom = new Room(type, floor, room, Room.RoomStatus.VACANT, price, wifi, smoking);
+        Room newRoom = new Room(type, floor, room, RoomStatus.VACANT, price, wifi, smoking);
         RoomList.put(id, newRoom);
     }
 
@@ -19,13 +20,13 @@ public class RoomManager{
     public void updateStatus(int floor, int room, int status){
         Room target = searchRoom(floor, room);
         if (status == 1){
-            target.setRoomStatus(Room.RoomStatus.VACANT);
+            target.setRoomStatus(RoomStatus.VACANT);
         }else if (status == 2){
-            target.setRoomStatus(Room.RoomStatus.OCCUPIED);
+            target.setRoomStatus(RoomStatus.OCCUPIED);
         }else if (status == 3){
-            target.setRoomStatus(Room.RoomStatus.RESERVED);
+            target.setRoomStatus(RoomStatus.RESERVED);
         }else if (status == 4){
-            target.setRoomStatus(Room.RoomStatus.UNDER_MAINTENANCE);
+            target.setRoomStatus(RoomStatus.UNDER_MAINTENANCE);
         }
     }
 

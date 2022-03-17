@@ -3,6 +3,8 @@ import java.util.Scanner;
 import src.model.Room;
 import src.controller.RoomManager;
 
+import src.model.enums.*;
+
 public class RoomView extends MainView{
     private RoomManager a = new RoomManager();   
     public void printMenu(){
@@ -70,16 +72,16 @@ public class RoomView extends MainView{
         
         switch (opt){
             case 1:
-            a.create(Room.RoomType.SINGLE, floor, room,  price, wifi, smoking);
+            a.create(RoomType.SINGLE, floor, room,  price, wifi, smoking);
             break;
             case 2:
-            a.create(Room.RoomType.DOUBLE, floor, room,  price, wifi, smoking);
+            a.create(RoomType.DOUBLE, floor, room,  price, wifi, smoking);
             break;
             case 3:
-            a.create(Room.RoomType.DELUXE, floor, room,  price, wifi, smoking);
+            a.create(RoomType.DELUXE, floor, room,  price, wifi, smoking);
             break;
             case 4:
-            a.create(Room.RoomType.VIP_SUITE, floor, room,  price, wifi, smoking);
+            a.create(RoomType.VIP_SUITE, floor, room,  price, wifi, smoking);
             break;
         }     
     }

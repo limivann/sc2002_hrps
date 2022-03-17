@@ -1,10 +1,10 @@
 package src.model;
 
 // import java.util.ArrayList;
+import src.model.enums.RoomType;
+import src.model.enums.RoomStatus;
 
 public class Room {
-	public enum RoomStatus {VACANT, OCCUPIED, RESERVED, UNDER_MAINTENANCE};
-	public enum RoomType {SINGLE, DOUBLE, DELUXE, VIP_SUITE}
 	private RoomType type;
 	private int floorNumber;
 	private int roomNumber;
