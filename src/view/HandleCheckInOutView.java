@@ -5,9 +5,8 @@ import java.lang.Thread;
 import src.helper.Helper;
 
 public class HandleCheckInOutView extends MainView {
-    private Helper helper;
     public HandleCheckInOutView() {
-        helper = new Helper();
+        super();
     }
     @Override
     public void printMenu() {

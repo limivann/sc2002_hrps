@@ -10,7 +10,6 @@ public class GuestManager extends MainManager{
     HashMap<String, Guest> GuestList =  new HashMap<String, Guest>();
     @Override
     public void create() {
-        // TODO Auto-generated method stub
         Guest new_Guest = new Guest();
         new_Guest.add_personal_detail();
         GuestList.put(new_Guest.getguest_id(), new_Guest);
@@ -19,7 +18,6 @@ public class GuestManager extends MainManager{
 
     @Override
     public void remove() {
-        // TODO Auto-generated method stub
         System.out.println("Search for guest that you want to remove:");
         ArrayList<Guest> removelist = search();
         System.out.println("The remove Guest information:");
@@ -31,7 +29,6 @@ public class GuestManager extends MainManager{
 
     @Override
     public void update() {
-        // TODO Auto-generated method stub
         System.out.println("Search for guest that you want to update");
         ArrayList<Guest> updateList = search();
         for (Guest guest: updateList) {

@@ -17,28 +17,27 @@ public class RoomView extends MainView{
     @Override
     public void viewapp() {
         Scanner sc = new Scanner(System.in);
-        printMenu();
-        int opt = sc.nextInt();
+        int opt = -1;
         do{
-            switch (opt){
-                case 1:
-                createRoom();
-                break;
-                case 2:
-                printRoom();
-                break;
-                case 3:
-                updateRoom();
-                break;
-                case 4:
-                printRoomStatus();
-                break;
-                case 5:
-                removeRoom();
-                break;
-            }
             printMenu();
             opt = sc.nextInt();
+            switch (opt){
+                case 1:
+                    createRoom();
+                    break;
+                case 2:
+                    printRoom();
+                    break;
+                case 3:
+                    updateRoom();
+                    break;
+                case 4:
+                    printRoomStatus();
+                    break;
+                case 5:
+                    removeRoom();
+                    break;
+            }
         }while (opt < 6);
     }
     public void createRoom(){

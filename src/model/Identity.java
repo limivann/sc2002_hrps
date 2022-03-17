@@ -1,4 +1,4 @@
-package src;
+package src.model;
 enum IdentityType{ DRIVING_LICENSE, PASSPORT}
 public class Identity {
     private IdentityType type;
