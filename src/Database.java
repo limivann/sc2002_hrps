@@ -11,7 +11,8 @@ import java.io.ObjectOutputStream;
 public class Database {
     private static final String folder = "data";
     protected static HashMap<String, Guest> GUESTS = new HashMap<String, Guest>();
-
+    protected static HashMap<String, Guest> ROOMS = new HashMap<String, Guest>();
+    
     public Database() {
         readSerializedObject(FileType.GUESTS);
     }
