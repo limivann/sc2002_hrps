@@ -7,5 +7,4 @@ public enum ReservationStatus {
     EXPIRED,
     CHECKED_OUT,
     CANCELLED;
-
 }
