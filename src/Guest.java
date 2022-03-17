@@ -1,12 +1,13 @@
 package src;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
 /**
  * Class that represent the guest
  * @author Zhang Kaichen
  */
-public class Guest {
+public class Guest implements Serializable{
     /**
      * This enum class define the gender of the Guest
      */
