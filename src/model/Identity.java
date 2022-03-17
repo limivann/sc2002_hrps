@@ -1,5 +1,6 @@
-package src;
-enum IdentityType{ DRIVING_LICENSE, PASSPORT}
+package src.model;
+
+import src.model.enums.IdentityType;
 public class Identity {
     private IdentityType type;
     private String identity_no;

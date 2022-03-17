@@ -4,6 +4,8 @@ import src.model.Room;
 import src.controller.RoomManager;
 import java.util.InputMismatchException;
 
+import src.model.enums.*;
+
 public class RoomView extends MainView{
     private RoomManager a = new RoomManager();   
     public void printMenu(){
@@ -18,29 +20,40 @@ public class RoomView extends MainView{
     @Override
     public void viewapp() {
         Scanner sc = new Scanner(System.in);
-        printMenu();
-        int opt = sc.nextInt();
+        int opt = -1;
         do{
-            switch (opt){
-                case 1:
-                createRoom();
-                break;
-                case 2:
-                printRoom();
-                break;
-                case 3:
-                updateRoom();
-                break;
-                case 4:
-                printRoomStatus();
-                break;
-                case 5:
-                removeRoom();
-                break;
+            try{
+                printMenu();
+                opt = sc.nextInt();
+                switch (opt){
+                    case 1:
+                        createRoom();
+                        break;
+                    case 2:
+                        printRoom();
+                        break;
+                    case 3:
+                        updateRoom();
+                        break;
+                    case 4:
+                        printRoomStatus();
+                        break;
+                    case 5:
+                        removeRoom();
+                        break;
+                    case 6:
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                        break;
+                    
+                }                
+            }catch (InputMismatchException e){
+                System.out.println("Wrong data type! ");
+                System.out.println("________________\n");
             }
-            printMenu();
-            opt = sc.nextInt();
-        }while (opt < 6);
+            sc.nextLine();
+        }while (opt != 6 || opt < 0 || opt > 6);
     }
     public void createRoom(){
         int floor = 0, room = 0, opt = 0;
@@ -77,16 +90,16 @@ public class RoomView extends MainView{
                 opt = sc.nextInt();            
                 switch (opt){
                     case 1:
-                    a.create(Room.RoomType.SINGLE, floor, room,  price, wifi, smoking);
+                    a.create(RoomType.SINGLE, floor, room,  price, wifi, smoking);
                     break;
                     case 2:
-                    a.create(Room.RoomType.DOUBLE, floor, room,  price, wifi, smoking);
+                    a.create(RoomType.DOUBLE, floor, room,  price, wifi, smoking);
                     break;
                     case 3:
-                    a.create(Room.RoomType.DELUXE, floor, room,  price, wifi, smoking);
+                    a.create(RoomType.DELUXE, floor, room,  price, wifi, smoking);
                     break;
                     case 4:
-                    a.create(Room.RoomType.VIP_SUITE, floor, room,  price, wifi, smoking);
+                    a.create(RoomType.VIP_SUITE, floor, room,  price, wifi, smoking);
                     break;
                     default: 
                     System.out.println("Please enter number from 1 to 4 only.");
@@ -94,16 +107,10 @@ public class RoomView extends MainView{
                 }                    
             }catch (InputMismatchException e){
                 System.out.println("Wrong data type!");
+                System.out.println("________________\n");
             }
-             sc.nextLine();
+            sc.nextLine();
         }while (opt < 1 && opt > 4);
-
-    }
-    private boolean isBoolean(String str) {
-        if (str.equalsIgnoreCase("true") || str.equalsIgnoreCase("false")) {
-            return true;
-        }
-        return false;
     }
 
     public void printRoom(){
