@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import src.model.*;
+
 public class Database {
     private static final String folder = "data";
     protected static HashMap<String, Guest> GUESTS = new HashMap<String, Guest>();

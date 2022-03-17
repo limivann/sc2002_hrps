@@ -10,17 +10,22 @@ public class OrderView extends MainView{
 
     @Override
     public void printMenu() {
-        System.out.println("***** CUSTOMIZE MENU *****\n1.) Add menu items\n2.) Remove menu items\n" +
-                "3.) Update menu items\n4.) Print menu items\n5.) Exit");
+        System.out.println("***** ORDER MENU *****");
+        System.out.println("Please enter an option (1-6)");
+        System.out.println("1) Print menu");
+        System.out.println("2) Add menu items");
+        System.out.println("3) Remove menu items");
+        System.out.println("4) Print order");
+        System.out.println("5) Enter remarks");
+        System.out.println("6) Checkout");
     }
 
     @Override
     public void viewapp() {
         Scanner sc = new Scanner(System.in);
-        int option = 99;
-        printMenu();
+        int option = -1;
         do{
-            System.out.println("Enter option");
+            printMenu();
             option = sc.nextInt();
             sc.nextLine();
             switch (option){
