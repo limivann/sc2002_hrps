@@ -17,15 +17,22 @@ public class PaymentManager {
         return subTotal * (1 + taxRate) * (1 - discountRate);
     }
 
-    public void printInvoice(Reservation reservation) {
+    public static void printInvoice(Reservation reservation) {
         // TODO: Collab with max
         Invoice testInvoice = new Invoice(reservation);
-        System.out.println(testInvoice);
+        String receipt = "";
+        receipt += String.format("Guest ID: %s\n", "G0001");
+        receipt += String.format("receiptervation ID: %s\n", "R0001");
+        receipt += String.format("Room ID: %s\n", "01-02");
+        receipt += String.format("Sub-total: %,.2f\n", testInvoice.getSubTotal());
+        receipt += String.format("Tax Rate: %,.2f\n", testInvoice.getTaxRate());
+        receipt += String.format("Discount Rate: %,.2f\n", testInvoice.getDiscountRate());
+        receipt += String.format("Total: %,.2f\n", testInvoice.getTotal());
+        System.out.println(receipt);
     }
 
     public static void main(String[] args) {
         Reservation testReservation = new Reservation("2022-03-08 12:00", "2022-03-24 12:11", 1, 1, 2);
-        PaymentManager paymentManager = new PaymentManager();
-        paymentManager.printInvoice(testReservation);
+        PaymentManager.printInvoice(testReservation);
     }
 }

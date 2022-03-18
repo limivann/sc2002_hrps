@@ -19,7 +19,7 @@ public class Invoice {
         this.reservationDetails = reservationDetails;
         setDateOfPayment();
         setTaxRate(0.2);
-        setDiscountRate(0.2);
+        setDiscountRate();
         setSubTotal(reservationDetails);
         setTotal();
     }
@@ -38,11 +38,9 @@ public class Invoice {
         this.taxRate = taxRate;
     }
     
-    private void setDiscountRate(double discountRate) {
-        if (discountRate < 0 || discountRate > 1) {
-            // TODO: Throw error
-        }
-        this.discountRate = discountRate;
+    private void setDiscountRate() {
+        PromotionDetails promotionDetails = new PromotionDetails();
+        this.discountRate = PromotionDetails.getDiscountRate();
     }
 
     private void setSubTotal(Reservation reservationDetails) {
@@ -78,20 +76,5 @@ public class Invoice {
     
     public double getTaxRate() {
         return taxRate;
-    }
-
-    @Override
-    public String toString() {
-        // TODO: get reservation details
-        String res = "";
-        res += String.format("Guest ID: %s\n", "G0001");
-        res += String.format("Reservation ID: %s\n", "R0001");
-        res += String.format("Room ID: %s\n", "01-02");
-        res += String.format("Sub-total: %,.2f\n", getSubTotal());
-        res += String.format("Tax Rate: %,.2f\n", getTaxRate());
-        res += String.format("Discount Rate: %,.2f\n", getDiscountRate());
-        res += String.format("Total: %,.2f\n", getTotal());
-
-        return res;
     }
 }   
