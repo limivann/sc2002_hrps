@@ -80,7 +80,6 @@ public class Guest implements Serializable{
         guest_id = last_name + id;
         System.out.printf("Your Guest ID is: %s\n", guest_id);
         id++;
-
     }
     /**
      * This is the function that can update the personal detail
