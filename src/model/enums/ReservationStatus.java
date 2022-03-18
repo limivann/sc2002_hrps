@@ -1,4 +1,4 @@
-package src.model;
+package src.model.enums;
 
 public enum ReservationStatus {
     CONFIRMED,
