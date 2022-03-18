@@ -1,5 +1,7 @@
 package src;
 import java.util.HashMap;
+import java.util.Locale;
+
 public class Menu {
 
     private HashMap<String,MenuItem> menu;
@@ -9,6 +11,7 @@ public class Menu {
     }
 
     public boolean addMenuItem(String name, String description, double price){
+        name = name.toUpperCase(Locale.ROOT);
         if (!menu.containsKey(name)){
             menu.put(name, new MenuItem(name, description, price));
             return true;
@@ -17,6 +20,7 @@ public class Menu {
     }
 
     public boolean updateMenuItem(String name, String description, double price){
+        name = name.toUpperCase(Locale.ROOT);
         if (menu.containsKey(name)){
             menu.replace(name, new MenuItem(name, description, price));
             return true;
@@ -24,6 +28,7 @@ public class Menu {
         return false;
     }
     public boolean removeMenuItem(String name){
+        name = name.toUpperCase(Locale.ROOT);
         if (menu.containsKey(name)){
             menu.remove(name);
             return true;
@@ -40,6 +45,7 @@ public class Menu {
     }
 
     public MenuItem findItem(String name){
+        name = name.toUpperCase(Locale.ROOT);
         if (menu.containsKey(name)){
             return menu.get(name);
         }

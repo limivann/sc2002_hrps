@@ -1,52 +1,48 @@
 package src.controller;
 import src.*;
 import src.model.enums.*;
+import java.util.HashMap;
 
 public class RoomServiceManager {
     private Menu menu;
-    private Order order;
+    private HashMap<String,Order> order;
+    private String currId;
 
-    public RoomServiceManager(){ // created by default, unlike order. Menu is necessary
+    public RoomServiceManager(){
         menu = new Menu();
+        order = new HashMap<String, Order>();
     }
 
     /* Create Order methods */
     public void createOrder(String date, String time){
-        this.order = new Order(date, time);
+        currId = "O" + order.size();
+        Order newOrder = new Order(currId , date, time);
+        order.put(currId, newOrder);
     }
 
     public boolean addOrderItem(String name){
         MenuItem target = findMenuItem(name);
         if(target != null){
-            order.addOrderItem(target);
+            order.get(currId).addOrderItem(target);
             return true;
         }
         return false;
     }
 
     public boolean removeOrderItem(String name){
-        MenuItem target = findOrderItem(name);
-        if (target != null){
-            order.removeOrderItem(target);
-            return true;
-        }
-        return false;
+        return order.get(currId).removeOrderItem(name);
     }
 
     public void printOrder(){
-        order.printOrder();
+        order.get(currId).printOrder();
     }
 
     public void setRemarks(String remarks){
-        order.setRemarks(remarks);
+        order.get(currId).setRemarks(remarks);
     }
 
     public void updateStatus(OrderStatus currentStatus){
-        order.updateStatus(OrderStatus.CONFIRMED);
-    }
-
-    private MenuItem findOrderItem(String name){
-        return order.findOrderItem(name);
+        order.get(currId).updateStatus(OrderStatus.CONFIRMED);
     }
 
     /* Customize Menu methods */

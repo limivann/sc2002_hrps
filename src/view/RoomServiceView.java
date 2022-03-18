@@ -104,7 +104,7 @@ public class RoomServiceView extends MainView{
             System.out.printf("\"%s\" added to order SUCCESSFULLY\n", name);
         }
         else{
-            System.out.printf("Addition to order FAILED (\"%s\" NOT FOUND in order)\n", name);
+            System.out.printf("Addition to order FAILED (\"%s\" NOT FOUND in menu)\n", name);
         };
     }
 
@@ -118,7 +118,7 @@ public class RoomServiceView extends MainView{
     }
 
     private void confirmOrder() {
-        System.out.println("FINAL BILL:");
+        System.out.println("RECEIPT:");
         roomServiceManager.printOrder();
         System.out.println("Order Sent!!!\nThank you for ordering!!! :):):)");
         roomServiceManager.updateStatus(OrderStatus.CONFIRMED);
