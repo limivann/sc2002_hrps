@@ -78,5 +78,6 @@ public class HandleCheckInOutView extends MainView {
     
     public void printInvoice(String roomId) {
         // Print Invoice
+        
     }
 }
