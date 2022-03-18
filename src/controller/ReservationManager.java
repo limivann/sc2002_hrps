@@ -2,7 +2,7 @@ package src.controller;
 import java.util.Scanner;
 
 import src.model.Reservation;
-
+import src.model.enums.ReservationStatus;
 public class ReservationManager {
     Scanner sc = new Scanner(System.in);
 
@@ -70,7 +70,7 @@ public class ReservationManager {
                 case 7:
                     System.out.println("Enter reservation status");
             }
-        }
+        } while (opt != 8);
     }
 }
 
