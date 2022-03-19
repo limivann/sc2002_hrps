@@ -29,6 +29,7 @@ public class HRPSApp {
                     break;
                 case 4:
                     roomServiceView.viewapp();
+                    break;
                 case 5:
                     handleCheckInOutView.viewapp();
                     break;
@@ -44,7 +45,7 @@ public class HRPSApp {
     }
     
     public static void printMainMenu() {
-        System.out.println("Please select an option 1-7");
+        System.out.println("Please select an option 1-6");
         System.out.println("(1) Manage Guests");
         System.out.println("(2) Manage Rooms");
         System.out.println("(3) Manage Reservations");

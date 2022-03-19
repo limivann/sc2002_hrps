@@ -1,6 +1,7 @@
-package src;
+package src.model;
 
 import java.util.HashMap;
+
 import src.model.enums.*;
 import java.util.ArrayList;
 
