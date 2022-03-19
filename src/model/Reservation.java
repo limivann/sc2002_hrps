@@ -13,6 +13,7 @@ public class Reservation {
     private int numberOfPax;
     private boolean isExpired;
     private ReservationStatus reservationStatus;
+    private double subTotal;
 
     public Reservation(String checkedInDate, String checkedOutDate, int guestId, int roomId, int numberOfPax){
         LocalDateTime date = LocalDateTime.now();

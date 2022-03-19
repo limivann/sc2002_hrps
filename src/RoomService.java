@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import src.model.MenuItem;
+
 public class RoomService {
 
     private enum OrderStatus{
