@@ -1,9 +1,12 @@
-package src.model;
+package src;
 
-// import java.util.ArrayList;
-import src.model.enums.RoomType;
+import java.util.ArrayList;
 import src.model.enums.RoomStatus;
+import src.model.enums.RoomType;
+
 public class Room {
+	enum RoomStatus {VACANT, OCCUPIED, RESERVED, UNDER_MAINTENANCE};
+	enum RoomType {SINGLE, DOUBLE, DELUXE, VIP_SUITE}
 	private RoomType type;
 	private int floorNumber;
 	private int roomNumber;
@@ -31,7 +34,7 @@ public class Room {
 		this.type = type;
 		this.floorNumber = floorNumber;
 		this.roomNumber = roomNumber;
-		this.roomNumberString = "0"+floorNumber+"-"+"0"+roomNumber;
+		this.roomNumberString = floorNumber+"-"+roomNumber;
 		this.roomStatus = roomStatus;
 		this.price = price;
 		this.isWifiEnabled = isWifiEnabled;
@@ -70,13 +73,6 @@ public class Room {
 		return this.price;
 	}
 	/**
-	 * Setter for guest name
-	 * @param guestName The name of the guest in the room
-	 */
-	public void setPrice(double price) {
-		this.price = price;
-	}
-	/**
 	 * Getter method of guest's name
 	 * @return guest name of the room
 	 */
@@ -91,6 +87,13 @@ public class Room {
 		this.guestName = guestName;
 	}
 
+    public int getFloorNumber() {
+        return floorNumber;
+    }
+
+    public int getRoomNumber() {
+        return roomNumber;
+    }
 	/**
 	 * Print out the room status of the room
 	 * @param roomStatus the status of the room
@@ -144,14 +147,5 @@ public class Room {
 		System.out.printf("Wifi Enabled: %s\n", isWifiEnabled);
 		System.out.printf("Smoking Allowed: %s\n", isSmokingAllowed);
         System.out.println("----------------");
-	}
-	public int getFloorNumber() {
-		return floorNumber;
-	}
-	public int getRoomNumber() {
-		return roomNumber;
-	}
-	public RoomType getType() {
-		return type;
 	}
 }
