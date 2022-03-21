@@ -12,9 +12,10 @@ public class RoomView extends MainView{
         System.out.println("\n1. Create room");
         System.out.println("2. Print room");
         System.out.println("3. Update room");
-        System.out.println("4. Print room status");
-        System.out.println("5. Remove room");
-        System.out.println("6. Exit");
+        System.out.println("4. Print room by status");
+        System.out.println("5. Print room by occupancy rate");
+        System.out.println("6. Remove room");
+        System.out.println("7. Exit");
     }
 
     @Override
@@ -36,13 +37,16 @@ public class RoomView extends MainView{
                         updateRoom();
                         break;
                     case 4:
-                        printRoomStatus();
+                        printRoomByStatus();
                         break;
                     case 5:
-                        removeRoom();
+                        printRoomByOccupancyRate();
                         break;
                     case 6:
+                        removeRoom();
                         break;
+                    case 7:
+                        break; 
                     default:
                         System.out.println("Invalid choice. Please try again.");
                         break;
@@ -199,22 +203,11 @@ public class RoomView extends MainView{
             sc.nextLine();
         }while (floor <= 0 || room <= 0);
     }
-
-    public void printRoomStatus(){
-        Scanner sc = new Scanner(System.in);
-
-        int floor = 0, room = 0;
-        do{
-            try{
-                System.out.println("Enter the floor: ");
-                floor = sc.nextInt();
-                System.out.println("Enter the room: ");
-                room = sc.nextInt();
-                a.printStatus(floor, room);                
-            }catch (InputMismatchException e){
-                System.out.println("Wrong data type!");
-            }
-            sc.nextLine();
-        }while (floor <= 0 || room <= 0);
+    
+    public void printRoomByStatus(){
+        a.printStatus();
+    }
+    public void printRoomByOccupancyRate(){
+        a.printOccupancyRate();
     }
 }
