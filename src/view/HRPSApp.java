@@ -11,12 +11,15 @@ public class HRPSApp {
         ReservationView reservationView = new ReservationView();
         RoomServiceView roomServiceView = new RoomServiceView();
         HandleCheckInOutView handleCheckInOutView = new HandleCheckInOutView();
+        ManagePaymentView managePaymentView = new ManagePaymentView();
+
+        // TODO: Initialize Database
 
         System.out.println("Welcome to Hotel Reservation and Payment System");
         int opt = -1;
         do{
             printMainMenu();
-            opt = helper.sc.nextInt();
+            opt = Helper.sc.nextInt();
             switch (opt) {
                 case 1:
                     guestView.viewapp();
@@ -34,23 +37,27 @@ public class HRPSApp {
                     handleCheckInOutView.viewapp();
                     break;
                 case 6:
+                    managePaymentView.viewapp();
+                    break;
+                case 7:
                     break;
                 default:
                     // TODO: Throw Exception
                     System.out.println("Invalid input. Please try again.");
                     break;
             }
-        } while (opt != 6);
+        } while (opt != 7);
         System.out.println("Program closing ... Thank you for using HRPS!");
     }
     
     public static void printMainMenu() {
-        System.out.println("Please select an option 1-6");
+        System.out.println("Please select an option 1-7");
         System.out.println("(1) Manage Guests");
         System.out.println("(2) Manage Rooms");
         System.out.println("(3) Manage Reservations");
         System.out.println("(4) Manage Room Service (Customize Menu/ Create New Order)");
         System.out.println("(5) Manage check in / check out");
-        System.out.println("(6) Quit");
+        System.out.println("(6) Manage payment settings (prices, discount rates, taxes)");
+        System.out.println("(7) Quit");
     }
 }
