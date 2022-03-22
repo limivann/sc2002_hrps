@@ -30,7 +30,7 @@ public class PromotionDetails {
 
         PromotionDetails.singleRoomPrice = 30;
         PromotionDetails.doubleRoomPrice = 60;
-        PromotionDetails.deluxeRoomTax = 70;
+        PromotionDetails.deluxeRoomPrice = 70;
         PromotionDetails.vipSuitePrice = 120;
 
         PromotionDetails.wifiEnabledMultiplier = 1.2;

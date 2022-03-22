@@ -2,9 +2,15 @@ package src.model;
 
 // import java.util.ArrayList;
 import src.model.enums.RoomType;
+
+import java.io.Serializable;
+
 import src.database.Database;
 import src.model.enums.RoomStatus;
-public class Room {
+
+public class Room implements Serializable {
+	private static final long serialVersionUID = 2L;
+
 	private RoomType type;
 	private int floorNumber;
 	private int roomNumber;
@@ -157,9 +163,9 @@ public class Room {
 		}
 	}
 
-	public void printRoom(){
+	public void printRoomDetails(){
 		System.out.println("----------------");
-        System.out.printf("Room number: %s\n", roomNumberString);
+        System.out.printf("Room number: %s\n", roomId);
 		System.out.printf("Room status: %s\n", roomStatus);
 		if (roomStatus == RoomStatus.OCCUPIED || roomStatus == RoomStatus.RESERVED) {
 			System.out.printf("Guest Name: %s\n", guestName);

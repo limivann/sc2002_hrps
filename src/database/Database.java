@@ -3,11 +3,13 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.xml.crypto.Data;
 import java.io.IOException;
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import src.controller.RoomManager;
 import src.model.*;
 
 public class Database {
@@ -36,6 +38,7 @@ public class Database {
         if (!readSerializedObject(FileType.ROOMS)) {
             System.out.println("Read into Rooms failed!");
         }
+        System.out.println("Database init");
     }
     
     public static void saveFileIntoDatabase(FileType fileType) {
@@ -67,6 +70,13 @@ public class Database {
 
             objectInputStream.close();
             fileInputStream.close();
+        } catch (EOFException err) {
+            System.out.println("Warning: " + err.getMessage());
+            if (fileType == FileType.GUESTS) {
+                GUESTS = new HashMap<String, Guest>();
+            } else if (fileType == FileType.ROOMS) {
+                ROOMS = new HashMap<String, Room>();
+            }
         } catch (IOException err) {
             err.printStackTrace();
             return false;
@@ -88,10 +98,11 @@ public class Database {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             if (fileType == FileType.GUESTS) {
                 objectOutputStream.writeObject(GUESTS);
+            }else if (fileType == FileType.ROOMS) {
+                objectOutputStream.writeObject(ROOMS);
             }
             objectOutputStream.close();
             fileOutputStream.close();
-            System.out.println("Write into file success!");
             return true;
         } catch (Exception err) {
             System.out.println("Error: " + err.getMessage());
@@ -107,8 +118,11 @@ public class Database {
     public static boolean clearDatabase() {
         // Initialize empty data
         GUESTS = new HashMap<String, Guest>();
-        ROOMS = new HashMap<String, Room>();
         writeSerializedObject(FileType.GUESTS);
+        
+        ROOMS = new HashMap<String, Room>();
+        RoomManager roomManager = new RoomManager();
+        RoomManager.initializeAllRooms();
         writeSerializedObject(FileType.ROOMS);
         System.out.println("Database cleared");
         return true;
@@ -120,11 +134,12 @@ public class Database {
     }
 
     private static boolean initializeRooms() {
-
+        RoomManager.initializeAllRooms();
         return true;
     }
 
     public static void main(String[] args) {
         Database.clearDatabase();
+
     }
 }

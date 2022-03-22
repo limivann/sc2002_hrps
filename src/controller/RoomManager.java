@@ -1,14 +1,20 @@
 package src.controller;
 import java.util.HashMap;
 
+import java.util.Map;
+import java.util.Iterator;
 import src.database.Database;
 import src.database.FileType;
+import src.helper.Helper;
 import src.model.PromotionDetails;
 import src.model.Room;
 import src.model.enums.*;
 public class RoomManager{
     HashMap<String, Room> RoomList = new HashMap<String, Room>();
 
+    public RoomManager() {
+        PromotionManager promotionManager = new PromotionManager();
+    }
     public void create(RoomType type, int floor, int room, double price, boolean wifi, boolean smoking) {
         String id = floor+"-"+room;
         if (!RoomList.containsKey(id)){
@@ -63,16 +69,16 @@ public class RoomManager{
         
     }
 
-    public Room searchRoom(int floor, int room){
-        String id = floor+"-"+room;
-        return RoomList.get(id);
+    public static Room searchRoom(int floor, int room){
+        String roomId = String.format("%02d-%02d", floor, room);
+        return Database.ROOMS.get(roomId);
     }
     
-    public void printRoom(int floor, int room){
-        String id = floor+"-"+room;
-        if (RoomList.containsKey(id)){
+    public static void printRoom(int floor, int room){
+        String roomId = String.format("%02d-%02d", floor, room);
+        if (Database.ROOMS.containsKey(roomId)){
             Room target = searchRoom(floor, room);
-            target.printRoom();            
+            target.printRoomDetails();            
         }else{
             System.out.println("Room doesn't exists.");
         }
@@ -152,6 +158,16 @@ public class RoomManager{
             System.out.printf("Rooms: %s\n", list2[i]);
         }
     }
+
+    public static void printAllRooms() {
+        HashMap<String, Room> toIterate = Helper.copyHashMap(Database.ROOMS);
+        Iterator it = toIterate.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            System.out.println(pair.getKey() + " = " + pair.getValue());
+            it.remove(); // avoids a ConcurrentModificationException
+        }
+    }
     
     public static void initializeAllRooms() {
         // One floor 12 rooms, 4 floors in total
@@ -208,12 +224,15 @@ public class RoomManager{
             }
         }
         Database.saveFileIntoDatabase(FileType.ROOMS);
+        printAllRooms();
     }
     
     public static Room createRoom(RoomType roomType, String roomId, int floorNumber, int roomNumber, RoomStatus roomStatus,
             boolean isWifiEnabled, boolean isSmokingAllowed) {
+
         double roomPrice = calculateRoomPrice(roomType, isWifiEnabled);
-        Room newRoom = new Room(roomType, roomId, floorNumber, roomNumber, roomStatus, isWifiEnabled, isSmokingAllowed, roomPrice);
+        Room newRoom = new Room(roomType, roomId, floorNumber, roomNumber, roomStatus, isWifiEnabled, isSmokingAllowed,
+                roomPrice);
         return newRoom;
     }
     

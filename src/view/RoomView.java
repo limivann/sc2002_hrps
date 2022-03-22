@@ -31,7 +31,7 @@ public class RoomView extends MainView{
                 opt = Helper.readInt();
                 switch (opt){
                     case 1:
-                        createRoom();
+                        RoomManager.printAllRooms();;
                         break;
                     case 2:
                         printRoom();
@@ -116,21 +116,22 @@ public class RoomView extends MainView{
         }while (opt < 1 && opt > 4);
     }
 
-    public void printRoom(){
+    public void printRoom() {
         int floor = 0, room = 0;
-        do{
-            try{
+        do {
+            try {
                 System.out.println("Enter the floor: ");
                 floor = Helper.readInt();
                 System.out.println("Enter the room: ");
                 room = Helper.readInt();
-                a.printRoom(floor, room);                
-            }catch (InputMismatchException e){
+                RoomManager.printRoom(floor, room);
+            } catch (InputMismatchException e) {
                 System.out.println("Wrong data type!");
             }
-        }while (floor <= 0 || room <= 0);
+        } while (floor <= 0 || room <= 0);
 
     }
+    
     public void updateRoom(){
         int floor = 0, room = 0, status = 0, opt = 0;
         double price = 0;

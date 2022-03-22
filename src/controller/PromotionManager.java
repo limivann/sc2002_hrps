@@ -5,7 +5,7 @@ import src.model.enums.RoomType;
 
 public class PromotionManager {
     public PromotionManager() {
-        // 
+        PromotionDetails promotionDetails = new PromotionDetails();
     }
     
     public static double getRoomPrice(RoomType roomType, boolean isWifiEnabled) {
