@@ -114,9 +114,15 @@ public class Guest implements Serializable{
         nationality = sc.nextLine();
         System.out.printf("Please enter your contact number: ");
         contact = sc.nextLine();
+<<<<<<< HEAD
         guestId = lastName + 1;
         System.out.printf("Your Guest ID is: %s\n", guestId);
 
+=======
+        guest_id = last_name + id;
+        System.out.printf("Your Guest ID is: %s\n", guest_id);
+        id++;
+>>>>>>> 3223624ee033f385c7ecbf7e063c4cbb103e2763
     }
     public void update_detail(){
         System.out.println("Please choose the information that you want to update");
