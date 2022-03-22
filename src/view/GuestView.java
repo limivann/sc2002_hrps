@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import src.helper.Helper;
 import src.controller.GuestManager;
+import src.database.Database;
 import src.model.Guest;
 import src.model.Identity;
 import src.model.enums.Gender;
@@ -31,15 +32,9 @@ public class GuestView extends MainView{
     @Override
     public void viewapp() {
         int opt;
-        Scanner sc = new Scanner(System.in);
-        boolean initialInput = false;
         do {
             printMenu();
-            opt = sc.nextInt();
-            if (!initialInput) {
-                Helper.sc.nextLine();  // Consume newline left-over
-                initialInput = true;
-            }
+            opt = Helper.readInt();
             switch (opt) {
                 case 1:
                     if (!promptCreateGuest()) {
@@ -54,7 +49,11 @@ public class GuestView extends MainView{
                     };
                     break;
                 case 3:
-                    removeGuest();
+                    if (!promptUpdateGuest()) {
+                        System.out.println("Remove guest unsuccessful");
+                    } else {
+                        System.out.println("Remove guest successful");
+                    };
                     break;
                 case 4:
                     promptSearchGuest();
@@ -65,6 +64,7 @@ public class GuestView extends MainView{
                 case 6:
                     break;
                 default:
+                    // TODO: Throw Exception
                     System.out.println("Invalid Choice");
 
             }
@@ -80,7 +80,6 @@ public class GuestView extends MainView{
         String creditCardNumber = Helper.sc.nextLine();
         System.out.println("Please enter guest's address: ");
         String address = Helper.sc.nextLine();
-        System.out.println("HERE");
         Gender gender = promptGender();
         if (gender == null) {
             return false;
@@ -111,8 +110,7 @@ public class GuestView extends MainView{
 
     public Gender promptGender() {
         printGenderMenu();
-        int choice = Helper.sc.nextInt();
-        Helper.sc.nextLine();  // Consume newline left-over
+        int choice = Helper.readInt();
         if (choice != 1 && choice != 2) {
             return null;
         } else {
@@ -130,8 +128,7 @@ public class GuestView extends MainView{
 
     public Identity promptIdentity() {
         printIdentityMenu();
-        int choice = Helper.sc.nextInt();
-        Helper.sc.nextLine(); // Consume newline left-over
+        int choice = Helper.readInt();
         if (choice != 1 && choice != 2) {
             return null;
         } else {
@@ -167,7 +164,7 @@ public class GuestView extends MainView{
         }
         printUpdateGuestMenu();
         int opt = -1;
-        opt = Helper.sc.nextInt();
+        opt = Helper.readInt();
         switch (opt) {
             case 1:
                 System.out.println("Please enter the guest's new first name:");
@@ -231,7 +228,32 @@ public class GuestView extends MainView{
     public void promptSearchGuest() {
         System.out.println("Enter the guest id you want to search (GXXXX): ");
         String guestId = Helper.sc.nextLine();
-        GuestManager.searchGuest(guestId);      
+        GuestManager.searchGuest(guestId);
+    }
+
+    // Remove guest
+    public boolean promptRemoveGuest() {
+        System.out.println("Enter the guest id you want to remove (GXXXX): ");
+        String guestId = Helper.sc.nextLine();
+        if (GuestManager.searchGuestById(guestId) == null) {
+            // TODO: Exception
+            System.out.println("Guest not found!");
+            return false;
+        }
+        ArrayList<Guest> removeList = GuestManager.searchGuestById(guestId);
+        for (Guest guest : removeList) {
+            String userInput = "";
+            System.out.println("Are you sure you want to remove this guest?");
+            guest.printGuestDetails();
+            userInput = Helper.sc.nextLine();
+            if (userInput == "n") {
+                // remove
+                Database.GUESTS.remove(guestId);
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 
     // Print all guest

@@ -161,7 +161,6 @@ public class GuestManager extends MainManager {
     // Search Guest
     public static void searchGuest(String guestId) {
         ArrayList<Guest> searchList = searchGuestById(guestId);
-        System.out.println("Whats");
         for (Guest guest : searchList) {
             guest.printGuestDetails();
         }

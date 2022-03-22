@@ -23,7 +23,7 @@ public class HRPSApp {
         int opt = -1;
         do{
             printMainMenu();
-            opt = Helper.sc.nextInt();
+            opt = Helper.readInt();
             switch (opt) {
                 case 1:
                     guestView.viewapp();
