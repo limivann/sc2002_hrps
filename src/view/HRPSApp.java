@@ -15,6 +15,8 @@ public class HRPSApp {
 
         // TODO: Initialize Database
 
+        // Initialize room
+
         System.out.println("Welcome to Hotel Reservation and Payment System");
         int opt = -1;
         do{

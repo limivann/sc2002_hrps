@@ -5,14 +5,8 @@ import java.util.Scanner;
 
 import src.model.enums.Gender;
 import src.model.enums.IdentityType;
-/**
- * Class that represent the guest
- * @author Zhang Kaichen
- */
+
 public class Guest implements Serializable{
-    /**
-     * This enum class define the gender of the Guest
-     */
 
     private String name;
     private String first_name;
@@ -28,11 +22,6 @@ public class Guest implements Serializable{
     
     // Payment paymentDetails;
     // Reservation reservationDetails;
-
-    /**
-     * This is the default constructor for the guest
-     * It construct a blank Guest through input
-     */
 
     public Guest() {
 
@@ -54,12 +43,6 @@ public class Guest implements Serializable{
         return guest_id;
     }
     
-    /**
-     * This is the function that add personal detail to a Guest object
-     * @exception Exception when input is not Male and Female
-     * @exception Exception when user does not choose between Drving License or Passport
-     * @see Identity
-     */
     public void add_personal_detail(){
         Scanner sc = new Scanner(System.in);
         System.out.printf("Please enter your first name: ");
@@ -82,11 +65,6 @@ public class Guest implements Serializable{
         id++;
 
     }
-    /**
-     * This is the function that can update the personal detail
-     * of a Guest object according to the user's choice
-     * @throws Exception when choice is invalid
-     */
     public void update_detail(){
         System.out.println("Please choose the information that you want to update");
         System.out.println("(1) Name");
@@ -145,10 +123,6 @@ public class Guest implements Serializable{
         }
     }
 
-    /**
-     * This method is used to set the gender
-     * @exception Exception when input is not Male and Female
-     */
     public void setgender(){
         boolean wrong_input = true;
         while(wrong_input){
@@ -178,10 +152,6 @@ public class Guest implements Serializable{
         }
     }
 
-    /**
-     * This method is used to set the identity
-     * @exception Exception when user does not choose between Drving License or Passport
-     */
     public void setidentity(){
         identity = new Identity();
         boolean wrong_input = true;
@@ -215,7 +185,6 @@ public class Guest implements Serializable{
         }
     }
 
-    //make Reservation 
     public void printGuestDetails(){
         System.out.println("----------------");
         System.out.printf("Name: %s\n", name);

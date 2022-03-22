@@ -12,10 +12,18 @@ import src.model.*;
 
 public class Database {
     private static final String folder = "data";
+
+    // Hashmaps for data access
     protected static HashMap<String, Guest> GUESTS = new HashMap<String, Guest>();
     protected static HashMap<String, Room> ROOMS = new HashMap<String, Room>();
     protected static HashMap<String, Reservation> RESERVATIONS = new HashMap<String, Reservation>();
     protected static HashMap<String, Invoice> INVOICES = new HashMap<String, Invoice>();
+
+    // Number of rooms for each room type
+    public static int numOfSingleRooms = 20;
+    public static int numOfDoubleRooms = 10;
+    public static int numOfDeluxeRooms = 10;
+    public static int numOfVipSuites = 8;
     
     public Database() {
         if (!readSerializedObject(FileType.GUESTS)){
@@ -85,6 +93,11 @@ public class Database {
         ROOMS = new HashMap<String, Room>();
         writeSerializedObject(FileType.GUESTS);
         writeSerializedObject(FileType.ROOMS);
+        return true;
+    }
+
+    private static boolean initializeRooms() {
+        
         return true;
     }
 
