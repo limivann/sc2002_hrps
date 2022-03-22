@@ -1,5 +1,7 @@
 package src.helper;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Helper {
@@ -19,6 +21,11 @@ public class Helper {
         double userInput = sc.nextDouble();
         sc.nextLine(); // Consume newline left-over
         return userInput;
+    }
+
+    public static <K, V> HashMap<K, V> copyHashMap(HashMap<K, V> original)
+    {
+        return new HashMap<>(original);
     }
     
 }

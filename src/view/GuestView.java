@@ -2,6 +2,9 @@ package src.view;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.swing.plaf.synth.SynthSplitPaneUI;
+
 import src.helper.Helper;
 import src.controller.GuestManager;
 import src.database.Database;
@@ -228,7 +231,10 @@ public class GuestView extends MainView{
     public void promptSearchGuest() {
         System.out.println("Enter the guest id you want to search (GXXXX): ");
         String guestId = Helper.sc.nextLine();
-        GuestManager.searchGuest(guestId);
+        if (GuestManager.searchGuest(guestId) == null) {
+            // TODO: Exception
+            System.out.println("Guest not found!");
+        };
     }
 
     // Remove guest
@@ -240,19 +246,7 @@ public class GuestView extends MainView{
             System.out.println("Guest not found!");
             return false;
         }
-        ArrayList<Guest> removeList = GuestManager.searchGuestById(guestId);
-        for (Guest guest : removeList) {
-            String userInput = "";
-            System.out.println("Are you sure you want to remove this guest?");
-            guest.printGuestDetails();
-            userInput = Helper.sc.nextLine();
-            if (userInput == "n") {
-                // remove
-                Database.GUESTS.remove(guestId);
-            } else {
-                return false;
-            }
-        }
+        GuestManager.removeGuest(guestId);
         return true;
     }
 

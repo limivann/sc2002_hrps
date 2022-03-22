@@ -85,14 +85,24 @@ public class Guest implements Serializable{
     public String getName() {
         return name;
     }
+
     public String getCreditCard() {
         return creditCard;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public String getContact() {
         return contact;
     }
-
+    public Gender getGender() {
+        return gender;
+    }
+    public String getNationality() {
+        return nationality;
+    }
     public String getGuestId(){
         return guestId;
     }
@@ -238,22 +248,21 @@ public class Guest implements Serializable{
         }
     }
 
-    public void printGuestDetails(){
+    public void printGuestDetails() {
         System.out.println("----------------");
-        System.out.printf("Name: %s\n", name);
-        System.out.printf("Guest ID: %s\n", guestId);
-        System.out.printf("Credit Card No: %s\n", creditCard);
-        System.out.printf("Address: %s\n", address);
-        if(gender == Gender.MALE){
-            System.out.println("Gender: Male");
-        }
-        else{
-            System.out.println("Gender: Female");
-        }
+        System.out.printf("Name: %s\n", getName());
+        System.out.printf("Guest ID: %s\n", getCreditCard());
+        System.out.printf("Credit Card No: %s\n", getCreditCard());
+        System.out.printf("Address: %s\n", getAddress());
+        System.out.println("Gender: " + getGender().genderAsStr);
         identity.printIdentity();
-        System.out.printf("Nationality: %s\n", nationality);
-        System.out.printf("Contact No: %s\n", contact);
+        System.out.printf("Nationality: %s\n", getNationality());
+        System.out.printf("Contact No: %s\n", getContact());
         System.out.println("----------------");
     }
 
+    @Override
+    public String toString() {
+        return String.format("Guest Name: %s, Contact No: %s", getName(), getContact());
+    }
 }

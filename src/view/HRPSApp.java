@@ -16,7 +16,7 @@ public class HRPSApp {
         ManagePaymentView managePaymentView = new ManagePaymentView();
 
         // TODO: Initialize Database
-
+        Database database = new Database();
         // Initialize room
 
         System.out.println("Welcome to Hotel Reservation and Payment System");

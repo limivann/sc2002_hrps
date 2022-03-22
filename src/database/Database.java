@@ -83,6 +83,7 @@ public class Database {
             }
             objectOutputStream.close();
             fileOutputStream.close();
+            System.out.println("Write into file success!");
             return true;
         } catch (Exception err) {
             System.out.println("Error: " + err.getMessage());

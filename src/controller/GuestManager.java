@@ -11,16 +11,17 @@ import javax.imageio.plugins.tiff.GeoTIFFTagSet;
 import javax.xml.crypto.Data;
 
 import src.database.Database;
+import src.database.FileType;
+import src.helper.Helper;
 import src.model.Guest;
 import src.model.Identity;
 import src.model.enums.Gender;
 
-public class GuestManager extends MainManager {
+public class GuestManager {
     public GuestManager() {
-        Database db = new Database();
+
     }
     HashMap<String, Guest> GuestList =  new HashMap<String, Guest>();
-    @Override
     public void create() {
         Guest new_Guest = new Guest();
         new_Guest.add_personal_detail();
@@ -28,7 +29,6 @@ public class GuestManager extends MainManager {
         //GuestList.get(new_Guest.getguest_id()).printGuestDetails();
     }
 
-    @Override
     public void remove() {
         System.out.println("Search for guest that you want to remove:");
         ArrayList<Guest> removelist = search();
@@ -39,7 +39,6 @@ public class GuestManager extends MainManager {
         
     }
 
-    @Override
     public void update() {
         System.out.println("Search for guest that you want to update");
         ArrayList<Guest> updateList = search();
@@ -75,8 +74,10 @@ public class GuestManager extends MainManager {
         Guest newGuest = new Guest(name, firstName, lastName, creditCardNumber, address, gender, identity, nationality,
                 contactNo, guestId);
         Database.GUESTS.put(guestId, newGuest);
+        Database.saveFileIntoDatabase(FileType.GUESTS);
         System.out.println("Guest created! Guest ID: " + guestId);
     }
+
     // All update guest helpers
     // For updating one value only
     public static void updateGuest(String guestId, int attributeCode, String newValue) {
@@ -104,6 +105,7 @@ public class GuestManager extends MainManager {
                     break;
             }
         }
+        Database.saveFileIntoDatabase(FileType.GUESTS);
     }
 
     // For updating more than one value (first name, last name)
@@ -124,6 +126,7 @@ public class GuestManager extends MainManager {
                     break;
             }
         }
+        Database.saveFileIntoDatabase(FileType.GUESTS);
     }
     
     public static void updateGuest(String guestId, int attributeCode, Gender gender) {
@@ -140,6 +143,7 @@ public class GuestManager extends MainManager {
                     break;
             }
         }
+        Database.saveFileIntoDatabase(FileType.GUESTS);
     }
     
     public static void updateGuest(String guestId, int attributeCode, Identity identity) {
@@ -149,21 +153,24 @@ public class GuestManager extends MainManager {
             switch (attributeCode) {
                 case 5:
                     guestToUpdate = Database.GUESTS.get(guestId);
-                    guestToUpdate.setIdentity(identity);;
+                    guestToUpdate.setIdentity(identity);
+                    ;
                     Database.GUESTS.put(guest.getGuestId(), guestToUpdate);
                     break;
                 default:
                     break;
             }
         }
+        Database.saveFileIntoDatabase(FileType.GUESTS);
     }
 
     // Search Guest
-    public static void searchGuest(String guestId) {
+    public static ArrayList<Guest> searchGuest(String guestId) {
         ArrayList<Guest> searchList = searchGuestById(guestId);
         for (Guest guest : searchList) {
             guest.printGuestDetails();
         }
+        return searchList;
     }
 
     public static ArrayList<Guest> searchGuestById(String guestId) {
@@ -174,9 +181,27 @@ public class GuestManager extends MainManager {
         }
         return searchList;
     }
+
+    public static void removeGuest(String guestId) {
+        ArrayList<Guest> removeList = GuestManager.searchGuestById(guestId);
+        for (Guest guest : removeList) {
+            String userInput = "";
+            System.out.println("Are you sure you want to remove this guest?");
+            guest.printGuestDetails();
+            userInput = Helper.sc.nextLine();
+            if (userInput == "n") {
+                // remove
+                Database.GUESTS.remove(guestId);
+            } else {
+                // cancel delete
+            }
+        }
+        Database.saveFileIntoDatabase(FileType.GUESTS);
+    }
     
     public static void printAllGuests() {
-        Iterator it = Database.GUESTS.entrySet().iterator();
+        HashMap<String, Guest> toIterate = Helper.copyHashMap(Database.GUESTS);
+        Iterator it = toIterate.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
             System.out.println(pair.getKey() + " = " + pair.getValue());
