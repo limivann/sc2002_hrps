@@ -74,7 +74,7 @@ public class Database {
         }
     }
 
-    private static boolean createDummyData() {
+    private static boolean initializeDataBase() {
         
         return true;
     }
