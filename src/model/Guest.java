@@ -9,15 +9,15 @@ import src.model.enums.IdentityType;
 public class Guest implements Serializable{
 
     private String name;
-    private String first_name;
-    private String last_name;
+    private String firstName;
+    private String lastName;
     private String creditCard;
     private String address;
     private Gender gender;
     private Identity identity;
     private String nationality;
     private String contact;
-    private String guest_id;
+    private String guestId;
     private static int id = 1;
     
     // Payment paymentDetails;
@@ -25,6 +25,61 @@ public class Guest implements Serializable{
 
     public Guest() {
 
+    }
+
+    public Guest(String name, String firstName, String lastName, String creditCard, String address, Gender gender,
+            Identity identity, String nationality, String contact, String guestId) {
+        setName(name);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setCreditCard(creditCard);
+        setAddress(address);
+        setGender(gender);
+        setIdentity(identity);
+        setNationality(nationality);
+        setContact(contact);
+        setGuestId(guestId);
+    }
+    
+    // SETTERS
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setCreditCard(String creditCard) {
+        this.creditCard = creditCard;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public void setIdentity(Identity identity) {
+        this.identity = identity;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public void setGuestId(String guestId) {
+        this.guestId = guestId;
     }
     
     // SETTERS AND GETTERS
@@ -39,17 +94,17 @@ public class Guest implements Serializable{
         return contact;
     }
 
-    public String getguest_id(){
-        return guest_id;
+    public String getGuestId(){
+        return guestId;
     }
     
     public void add_personal_detail(){
         Scanner sc = new Scanner(System.in);
         System.out.printf("Please enter your first name: ");
-        first_name = sc.nextLine();
+        firstName = sc.nextLine();
         System.out.printf("Please enter your last name: ");
-        last_name = sc.nextLine();
-        name = first_name + " " + last_name;
+        lastName = sc.nextLine();
+        name = firstName + " " + lastName;
         System.out.printf("Please enter your credit card number: ");
         creditCard = sc.nextLine();
         System.out.printf("Please enter your address: ");
@@ -60,8 +115,8 @@ public class Guest implements Serializable{
         nationality = sc.nextLine();
         System.out.printf("Please enter your contact number: ");
         contact = sc.nextLine();
-        guest_id = last_name + id;
-        System.out.printf("Your Guest ID is: %s\n", guest_id);
+        guestId = lastName + id;
+        System.out.printf("Your Guest ID is: %s\n", guestId);
         id++;
 
     }
@@ -80,9 +135,9 @@ public class Guest implements Serializable{
         switch(choice){
             case 1:
             System.out.println("Please enter your new first name:");
-            first_name = sc.nextLine();
-            last_name = sc.nextLine();
-            name = first_name + " " + last_name;
+            firstName = sc.nextLine();
+            lastName = sc.nextLine();
+            name = firstName + " " + lastName;
             break;
 
             case 2:
@@ -175,8 +230,8 @@ public class Guest implements Serializable{
                 }
 
                 System.out.println("Enter your identity no: ");
-                String identity_no = sc.nextLine();
-                identity.setIdentity_no(identity_no);
+                String indentityNo = sc.nextLine();
+                identity.setIdentityNo(indentityNo);
                 wrong_input = false;
             }
             catch(Exception e){
@@ -188,7 +243,7 @@ public class Guest implements Serializable{
     public void printGuestDetails(){
         System.out.println("----------------");
         System.out.printf("Name: %s\n", name);
-        System.out.printf("Guest ID: %s\n", guest_id);
+        System.out.printf("Guest ID: %s\n", guestId);
         System.out.printf("Credit Card No: %s\n", creditCard);
         System.out.printf("Address: %s\n", address);
         if(gender == Gender.MALE){

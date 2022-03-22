@@ -1,4 +1,4 @@
-package src;
+package src.database;
 import java.util.HashMap;
 import java.util.Map;
 import javax.xml.crypto.Data;
@@ -14,10 +14,10 @@ public class Database {
     private static final String folder = "data";
 
     // Hashmaps for data access
-    protected static HashMap<String, Guest> GUESTS = new HashMap<String, Guest>();
-    protected static HashMap<String, Room> ROOMS = new HashMap<String, Room>();
-    protected static HashMap<String, Reservation> RESERVATIONS = new HashMap<String, Reservation>();
-    protected static HashMap<String, Invoice> INVOICES = new HashMap<String, Invoice>();
+    public static HashMap<String, Guest> GUESTS = new HashMap<String, Guest>();
+    public static HashMap<String, Room> ROOMS = new HashMap<String, Room>();
+    public static HashMap<String, Reservation> RESERVATIONS = new HashMap<String, Reservation>();
+    public static HashMap<String, Invoice> INVOICES = new HashMap<String, Invoice>();
 
     // Number of rooms for each room type
     public static int numOfSingleRooms = 20;
@@ -26,14 +26,18 @@ public class Database {
     public static int numOfVipSuites = 8;
     
     public Database() {
-        if (!readSerializedObject(FileType.GUESTS)){
+        if (!readSerializedObject(FileType.GUESTS)) {
             System.out.println("Read into Guest failed!");
         }
-        
     }
+    
+    public static void saveFilesIntoDatabase() {
+        writeSerializedObject(FileType.GUESTS);
+    }
+
     public static boolean readSerializedObject(FileType fileType) {
         String fileExtension = ".dat";
-        String filePath = "./src/" + folder + "/" + fileType.fileName + fileExtension;
+        String filePath = "./src/database/" + folder + "/" + fileType.fileName + fileExtension;
         try{
             FileInputStream fileInputStream = new FileInputStream(filePath);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
@@ -66,7 +70,7 @@ public class Database {
     
     public static boolean writeSerializedObject(FileType fileType) {
         String fileExtension = ".dat";
-        String filePath = "./src/" + folder + "/" + fileType.fileName + fileExtension;
+        String filePath = "./src/database/" + folder + "/" + fileType.fileName + fileExtension;
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(filePath);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -93,11 +97,17 @@ public class Database {
         ROOMS = new HashMap<String, Room>();
         writeSerializedObject(FileType.GUESTS);
         writeSerializedObject(FileType.ROOMS);
+        System.out.println("Database cleared");
         return true;
     }
 
+    private static boolean initalizeDummyGuests() {
+        return true;
+
+    }
+
     private static boolean initializeRooms() {
-        
+
         return true;
     }
 

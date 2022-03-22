@@ -1,13 +1,20 @@
 package src.model;
 
+import java.io.Serializable;
+
 import src.model.enums.IdentityType;
-public class Identity {
+public class Identity implements Serializable{
     private IdentityType type;
-    private String identity_no;
+    private String indentityNo;
 
 
-    public Identity(){
-        
+    public Identity() {
+
+    }
+    
+    public Identity(IdentityType type, String indentityNo) {
+        this.type = type;
+        this.indentityNo = indentityNo;
     }
 
 
@@ -17,11 +24,11 @@ public class Identity {
     public void setType(IdentityType type) {
         this.type = type;
     }
-    public String getIdentity_no() {
-        return identity_no;
+    public String getindentityNo() {
+        return indentityNo;
     }
-    public void setIdentity_no(String identity_no) {
-        this.identity_no = identity_no;
+    public void setIdentityNo(String indentityNo) {
+        this.indentityNo = indentityNo;
     }
 
     public void printIdentity(){
@@ -32,7 +39,7 @@ public class Identity {
             System.out.println("Identity type: Passport");
         }
 
-        System.out.printf("Identity no: %s\n", identity_no);
+        System.out.printf("Identity no: %s\n", indentityNo);
     }
     
 }

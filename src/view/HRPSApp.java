@@ -1,5 +1,7 @@
 package src.view;
 import java.util.Scanner;
+
+import src.database.Database;
 import src.helper.Helper;
 import src.view.*;
 public class HRPSApp {
@@ -49,6 +51,7 @@ public class HRPSApp {
                     break;
             }
         } while (opt != 7);
+        Database.saveFilesIntoDatabase();
         System.out.println("Program closing ... Thank you for using HRPS!");
     }
     
