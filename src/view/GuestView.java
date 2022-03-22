@@ -52,7 +52,7 @@ public class GuestView extends MainView{
                     };
                     break;
                 case 3:
-                    if (!promptUpdateGuest()) {
+                    if (!promptRemoveGuest()) {
                         System.out.println("Remove guest unsuccessful");
                     } else {
                         System.out.println("Remove guest successful");
@@ -255,32 +255,4 @@ public class GuestView extends MainView{
         GuestManager.printAllGuests();
     }
 
-
-    public void createGuest(){
-        g.create();
-    }
-
-    public void updateGuest(){
-        g.update();
-    }
-    
-    public void removeGuest(){
-        g.remove();
-    }
-
-    public void searchGuest(){
-        ArrayList<Guest> searchprint = g.search();
-        for (Guest guest : searchprint) {
-            guest.printGuestDetails();
-        }
-    }
-
-    public void printallguest(){
-        g.printallguest();
-    }
-
-    public static void main(String[] args) {
-        GuestView gv = new GuestView();
-        gv.viewapp();
-    }
 }
