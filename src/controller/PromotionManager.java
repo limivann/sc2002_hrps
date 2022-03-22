@@ -8,16 +8,16 @@ public class PromotionManager {
         // 
     }
     
-    public static double getRoomPrice(RoomType roomType) {
+    public static double getRoomPrice(RoomType roomType, boolean isWifiEnabled) {
         switch (roomType) {
             case SINGLE:
-                return PromotionDetails.getSingleRoomPrice();
+                return PromotionDetails.getSingleRoomPrice() * (isWifiEnabled ? PromotionDetails.getWifiEnabledMultiplier() : 1);
             case DOUBLE:
-                return PromotionDetails.getDoubleRoomPrice();
+                return PromotionDetails.getDoubleRoomPrice() * (isWifiEnabled ? PromotionDetails.getWifiEnabledMultiplier() : 1);
             case DELUXE:
-                return PromotionDetails.getDeluxeRoomPrice();
+                return PromotionDetails.getDeluxeRoomPrice() * (isWifiEnabled ? PromotionDetails.getWifiEnabledMultiplier() : 1);
             case VIP_SUITE:
-                return PromotionDetails.getVipSuitePrice();
+                return PromotionDetails.getVipSuitePrice() * (isWifiEnabled ? PromotionDetails.getWifiEnabledMultiplier() : 1);
         }
         // Cant find
         return -1;

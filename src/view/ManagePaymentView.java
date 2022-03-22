@@ -135,7 +135,7 @@ public class ManagePaymentView extends MainView {
     // Print old prices / taxes / discount rates
     public void printOldPrice(RoomType roomType) {
         System.out.println(String.format("The old price of %s is %.2f", roomType.roomTypeAsStr,
-                PromotionManager.getRoomPrice(roomType)));
+                PromotionManager.getRoomPrice(roomType, false)));
     }
     
     public void printOldTaxRate(RoomType roomType) {

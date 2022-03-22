@@ -24,10 +24,17 @@ public class Database {
     public static int numOfDoubleRooms = 10;
     public static int numOfDeluxeRooms = 10;
     public static int numOfVipSuites = 8;
+
+    public static int numOfFloors = 4;
+    public static int numOfRoomPerFloor = 12;
+    
     
     public Database() {
         if (!readSerializedObject(FileType.GUESTS)) {
-            System.out.println("Read into Guest failed!");
+            System.out.println("Read into Guests failed!");
+        }
+        if (!readSerializedObject(FileType.ROOMS)) {
+            System.out.println("Read into Rooms failed!");
         }
     }
     
@@ -37,6 +44,7 @@ public class Database {
 
     public static void saveAllFiles() {
         saveFileIntoDatabase(FileType.GUESTS);
+        saveFileIntoDatabase(FileType.ROOMS);
     }
 
     public static boolean readSerializedObject(FileType fileType) {
