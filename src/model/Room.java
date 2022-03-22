@@ -132,20 +132,7 @@ public class Room implements Serializable {
 
 	// METHODS
 	public void printRoomStatus() {
-		switch(roomStatus) {
-		case VACANT:
-			System.out.println("Vacant");
-			break;
-		case OCCUPIED:
-			System.out.println("Occupied");
-			break;
-		case RESERVED:
-			System.out.println("Reserved");
-			break;
-		case UNDER_MAINTENANCE:
-			System.out.println("Under UNDER_MAINTENANCE");
-			break;
-		}
+		System.out.println(getRoomStatus().roomStatusAsStr);
 	}
 
 	public void printRoomtype(){

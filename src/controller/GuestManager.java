@@ -110,7 +110,6 @@ public class GuestManager {
                 case 5:
                     guestToUpdate = Database.GUESTS.get(guestId);
                     guestToUpdate.setIdentity(identity);
-                    ;
                     Database.GUESTS.put(guest.getGuestId(), guestToUpdate);
                     break;
                 default:

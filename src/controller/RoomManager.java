@@ -2,6 +2,9 @@ package src.controller;
 import java.util.HashMap;
 
 import java.util.Map;
+
+import javax.xml.crypto.Data;
+
 import java.util.Iterator;
 import src.database.Database;
 import src.database.FileType;
@@ -38,24 +41,19 @@ public class RoomManager{
         
     }
 
-    public void updateStatus(int floor, int room, int status){
-        String id = floor+"-"+room;
-        if (RoomList.containsKey(id)){
-            Room target = searchRoom(floor, room);
-            if (status == 1){
-                target.setRoomStatus(RoomStatus.VACANT);
-            }else if (status == 2){
-                target.setRoomStatus(RoomStatus.OCCUPIED);
-            }else if (status == 3){
-                target.setRoomStatus(RoomStatus.RESERVED);
-            }else if (status == 4){
-                target.setRoomStatus(RoomStatus.UNDER_MAINTENANCE);
-            }    
-            System.out.println("Status updated successfully.");        
-        }else{
+    public static boolean updateRoomStatus(int floorNumber, int roomNumber, RoomStatus roomStatus) {
+        String roomId = String.format("%02d-%02d", floorNumber, roomNumber);
+        if (Database.ROOMS.containsKey(roomId)){
+            Room targetRoom = Database.ROOMS.get(roomId);
+            targetRoom.setRoomStatus(roomStatus);
+            Database.ROOMS.put(roomId, targetRoom);   
+            Database.saveFileIntoDatabase(FileType.ROOMS);
+            return true;        
+        } else {
+            // TODO: Throw exception
             System.out.println("Room id doesn't exists. ");
+            return false;
         }
-
     }
 
     public void remove(int floor, int room) {
