@@ -14,6 +14,11 @@ public class Room {
 	private boolean isSmokingAllowed;
 	private String guestName;
 	// private ArrayList<OrderItem> orders;
+
+	public Room(RoomType type, int floorNumber, int roomNumber, RoomStatus roomStatus, boolean isWifiEnabled,
+			boolean isSmokingAllowed) {
+		
+	}
 	
 	public Room(RoomType type, int floorNumber, int roomNumber, RoomStatus roomStatus, double price, boolean isWifiEnabled, boolean isSmokingAllowed) {
 		this.type = type;
