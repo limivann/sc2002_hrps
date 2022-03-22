@@ -51,7 +51,7 @@ public class HRPSApp {
                     break;
             }
         } while (opt != 7);
-        Database.saveFilesIntoDatabase();
+        Database.saveAllFiles();
         System.out.println("Program closing ... Thank you for using HRPS!");
     }
     

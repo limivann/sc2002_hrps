@@ -13,8 +13,8 @@ public class Identity implements Serializable{
     }
     
     public Identity(IdentityType type, String indentityNo) {
-        this.type = type;
-        this.indentityNo = indentityNo;
+        setType(type);
+        setIdentityNo(indentityNo);
     }
 
 

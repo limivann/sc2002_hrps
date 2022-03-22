@@ -32,26 +32,35 @@ public class GuestView extends MainView{
     public void viewapp() {
         int opt;
         Scanner sc = new Scanner(System.in);
+        boolean initialInput = false;
         do {
             printMenu();
             opt = sc.nextInt();
-
+            if (!initialInput) {
+                Helper.sc.nextLine();  // Consume newline left-over
+                initialInput = true;
+            }
             switch (opt) {
                 case 1:
-                    promptCreateGuest();
-                    // createGuest();
+                    if (!promptCreateGuest()) {
+                        System.out.println("Create guest unsuccessful");
+                    };
                     break;
                 case 2:
-                    updateGuest();
+                    if (!promptUpdateGuest()) {
+                        System.out.println("Update guest unsuccessful");
+                    } else {
+                        System.out.println("Update guest successful");
+                    };
                     break;
                 case 3:
                     removeGuest();
                     break;
                 case 4:
-                    searchGuest();
+                    promptSearchGuest();
                     break;
                 case 5:
-                    printallguest();
+                    printGuests();
                     break;
                 case 6:
                     break;
@@ -61,9 +70,8 @@ public class GuestView extends MainView{
             }
         } while (opt != 6);
     }
-
+    // Create Guest
     public boolean promptCreateGuest() {
-        Helper.sc.nextLine();  // Consume newline left-over
         System.out.println("Please enter guest's first name: ");
         String firstName = Helper.sc.nextLine();
         System.out.println("Please enter guest's last name: ");
@@ -81,7 +89,6 @@ public class GuestView extends MainView{
         if (identity == null) {
             return false;
         }
-        Helper.sc.nextLine();  // Consume newline left-over
         System.out.println("Please enter guest's nationality");
         String nationality = Helper.sc.nextLine();
         System.out.println("Please enter guest's contact number");
@@ -105,6 +112,7 @@ public class GuestView extends MainView{
     public Gender promptGender() {
         printGenderMenu();
         int choice = Helper.sc.nextInt();
+        Helper.sc.nextLine();  // Consume newline left-over
         if (choice != 1 && choice != 2) {
             return null;
         } else {
@@ -123,6 +131,7 @@ public class GuestView extends MainView{
     public Identity promptIdentity() {
         printIdentityMenu();
         int choice = Helper.sc.nextInt();
+        Helper.sc.nextLine(); // Consume newline left-over
         if (choice != 1 && choice != 2) {
             return null;
         } else {
@@ -130,7 +139,8 @@ public class GuestView extends MainView{
             String identityNo;
             switch (choice) {
                 case 1:
-                    System.out.println("Enter the guest's " + IdentityType.DRIVING_LICENSE.identityTypeAsStr + " number: ");
+                    System.out.println(
+                            "Enter the guest's " + IdentityType.DRIVING_LICENSE.identityTypeAsStr + " number: ");
                     identityNo = Helper.sc.nextLine();
                     identity = new Identity(IdentityType.DRIVING_LICENSE, identityNo);
                     return identity;
@@ -144,6 +154,89 @@ public class GuestView extends MainView{
             }
         }
         return null;
+    }
+    
+    // Update Guest
+    public boolean promptUpdateGuest() {
+        System.out.println("Enter the guest that you want to update (GXXXX): ");
+        String guestId = Helper.sc.nextLine();
+        if (GuestManager.searchGuestById(guestId) == null) {
+            // TODO: Exception
+            System.out.println("Guest not found!");
+            return false;
+        }
+        printUpdateGuestMenu();
+        int opt = -1;
+        opt = Helper.sc.nextInt();
+        switch (opt) {
+            case 1:
+                System.out.println("Please enter the guest's new first name:");
+                String firstName = Helper.sc.nextLine();
+                System.out.println("Please enter the guest's new last name:");
+                String lastName = Helper.sc.nextLine();
+                GuestManager.updateGuest(guestId, 1, firstName, lastName);
+                return true;
+            case 2:
+                System.out.println("Please enter the guest's new credit card number:");
+                String creditCardNo = Helper.sc.nextLine();
+                GuestManager.updateGuest(guestId, 2, creditCardNo);
+                return true;
+            case 3:
+                System.out.println("Please enter the guest's new address:");
+                String address = Helper.sc.nextLine();
+                GuestManager.updateGuest(guestId, 3, address);
+                return true;
+            case 4:
+                Gender gender = promptGender();
+                if (gender == null) {
+                    return false;
+                }
+                GuestManager.updateGuest(guestId, 4, gender);
+                return true;
+            case 5:
+                Identity identity = promptIdentity();
+                if (identity == null) {
+                    return false;
+                }
+                GuestManager.updateGuest(guestId, 5, identity);
+                return true;
+            case 6:
+                System.out.println("Please enter your nationality:");
+                String nationality = Helper.sc.nextLine();
+                GuestManager.updateGuest(guestId, 3, nationality);
+                return true;
+            case 7:
+                System.out.println("Please enter your contact number:");
+                String contactNo = Helper.sc.nextLine();
+                GuestManager.updateGuest(guestId, 7, contactNo);
+                return true;
+            default:
+                break;
+        }
+        return false;
+    }
+
+    public void printUpdateGuestMenu() {
+        System.out.println("Please choose the information that you want to update (1-7)");
+        System.out.println("(1) Name");
+        System.out.println("(2) Credit Card");
+        System.out.println("(3) Address");
+        System.out.println("(4) Gender");
+        System.out.println("(5) Identity");
+        System.out.println("(6) Nationality");
+        System.out.println("(7) Contact Number");
+    }
+
+    // Search Guest
+    public void promptSearchGuest() {
+        System.out.println("Enter the guest id you want to search (GXXXX): ");
+        String guestId = Helper.sc.nextLine();
+        GuestManager.searchGuest(guestId);      
+    }
+
+    // Print all guest
+    public void printGuests() {
+        GuestManager.printAllGuests();
     }
 
 

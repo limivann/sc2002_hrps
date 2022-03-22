@@ -18,7 +18,6 @@ public class Guest implements Serializable{
     private String nationality;
     private String contact;
     private String guestId;
-    private static int id = 1;
     
     // Payment paymentDetails;
     // Reservation reservationDetails;
@@ -115,9 +114,8 @@ public class Guest implements Serializable{
         nationality = sc.nextLine();
         System.out.printf("Please enter your contact number: ");
         contact = sc.nextLine();
-        guestId = lastName + id;
+        guestId = lastName + 1;
         System.out.printf("Your Guest ID is: %s\n", guestId);
-        id++;
 
     }
     public void update_detail(){

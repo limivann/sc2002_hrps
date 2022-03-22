@@ -1,10 +1,14 @@
 package src.controller;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
+
+import javax.imageio.plugins.tiff.GeoTIFFTagSet;
+import javax.xml.crypto.Data;
 
 import src.database.Database;
 import src.model.Guest;
@@ -71,12 +75,109 @@ public class GuestManager extends MainManager {
         Guest newGuest = new Guest(name, firstName, lastName, creditCardNumber, address, gender, identity, nationality,
                 contactNo, guestId);
         Database.GUESTS.put(guestId, newGuest);
-        System.out.println("Guest created!");
+        System.out.println("Guest created! Guest ID: " + guestId);
+    }
+    // All update guest helpers
+    // For updating one value only
+    public static void updateGuest(String guestId, int attributeCode, String newValue) {
+        ArrayList<Guest> updateList = searchGuestById(guestId);
+        for (Guest guest : updateList) {
+            Guest guestToUpdate = Database.GUESTS.get(guestId);;
+            switch (attributeCode) {
+                case 2:
+                    guestToUpdate.setCreditCard(newValue);
+                    Database.GUESTS.put(guest.getGuestId(), guestToUpdate);
+                    break;
+                case 3:
+                    guestToUpdate.setAddress(newValue);
+                    Database.GUESTS.put(guest.getGuestId(), guestToUpdate);
+                    break;
+                case 6:
+                    guestToUpdate.setNationality(newValue);
+                    Database.GUESTS.put(guest.getGuestId(), guestToUpdate);
+                    break;
+                case 7:
+                    guestToUpdate.setContact(newValue);
+                    Database.GUESTS.put(guest.getGuestId(), guestToUpdate);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    // For updating more than one value (first name, last name)
+    public static void updateGuest(String guestId, int attributeCode, String newValue1, String newValue2) {
+        ArrayList<Guest> updateList = searchGuestById(guestId);
+        for (Guest guest : updateList) {
+            Guest guestToUpdate;
+            switch (attributeCode) {
+                case 1:
+                    guestToUpdate = Database.GUESTS.get(guestId);
+                    String newName = newValue1 + " " + newValue2;
+                    guestToUpdate.setFirstName(newValue1);
+                    guestToUpdate.setLastName(newValue2);
+                    guestToUpdate.setName(newName);
+                    Database.GUESTS.put(guest.getGuestId(), guestToUpdate);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
     
-    public static void printGuests() {
+    public static void updateGuest(String guestId, int attributeCode, Gender gender) {
+        ArrayList<Guest> updateList = searchGuestById(guestId);
+        for (Guest guest : updateList) {
+            Guest guestToUpdate;
+            switch (attributeCode) {
+                case 4:
+                    guestToUpdate = Database.GUESTS.get(guestId);
+                    guestToUpdate.setGender(gender);
+                    Database.GUESTS.put(guest.getGuestId(), guestToUpdate);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    
+    public static void updateGuest(String guestId, int attributeCode, Identity identity) {
+        ArrayList<Guest> updateList = searchGuestById(guestId);
+        for (Guest guest : updateList) {
+            Guest guestToUpdate;
+            switch (attributeCode) {
+                case 5:
+                    guestToUpdate = Database.GUESTS.get(guestId);
+                    guestToUpdate.setIdentity(identity);;
+                    Database.GUESTS.put(guest.getGuestId(), guestToUpdate);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    // Search Guest
+    public static void searchGuest(String guestId) {
+        ArrayList<Guest> searchList = searchGuestById(guestId);
+        System.out.println("Whats");
+        for (Guest guest : searchList) {
+            guest.printGuestDetails();
+        }
+    }
+
+    public static ArrayList<Guest> searchGuestById(String guestId) {
+        ArrayList<Guest> searchList = new ArrayList<Guest>();
+        Guest searchedGuest = Database.GUESTS.get(guestId);
+        if (searchedGuest != null) {
+            searchList.add(searchedGuest);
+        }
+        return searchList;
+    }
+    
+    public static void printAllGuests() {
         Iterator it = Database.GUESTS.entrySet().iterator();
-        System.out.println("Here");
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
             System.out.println(pair.getKey() + " = " + pair.getValue());
@@ -85,7 +186,7 @@ public class GuestManager extends MainManager {
     }
     public static void main(String[] args) {
         GuestManager gm = new GuestManager();
-        GuestManager.printGuests();
+        GuestManager.printAllGuests();
         
     }
 }

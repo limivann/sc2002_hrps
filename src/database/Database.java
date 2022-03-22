@@ -31,8 +31,12 @@ public class Database {
         }
     }
     
-    public static void saveFilesIntoDatabase() {
-        writeSerializedObject(FileType.GUESTS);
+    public static void saveFileIntoDatabase(FileType fileType) {
+        writeSerializedObject(fileType);
+    }
+
+    public static void saveAllFiles() {
+        saveFileIntoDatabase(FileType.GUESTS);
     }
 
     public static boolean readSerializedObject(FileType fileType) {
