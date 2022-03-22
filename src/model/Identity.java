@@ -3,43 +3,36 @@ package src.model;
 import java.io.Serializable;
 
 import src.model.enums.IdentityType;
-public class Identity implements Serializable{
+
+public class Identity implements Serializable {
+    // Dont need serialization uid
     private IdentityType type;
-    private String indentityNo;
-
-
-    public Identity() {
-
-    }
+    private String identityNo;
     
-    public Identity(IdentityType type, String indentityNo) {
+    public Identity(IdentityType type, String identityNo) {
         setType(type);
-        setIdentityNo(indentityNo);
+        setIdentityNo(identityNo);
     }
 
-
-    public IdentityType getType() {
-        return type;
-    }
     public void setType(IdentityType type) {
         this.type = type;
     }
-    public String getindentityNo() {
-        return indentityNo;
+
+    public void setIdentityNo(String identityNo) {
+        this.identityNo = identityNo;
     }
-    public void setIdentityNo(String indentityNo) {
-        this.indentityNo = indentityNo;
+    
+    public IdentityType getType() {
+        return type;
     }
 
+    public String getIdentityNo() {
+        return identityNo;
+    }
+    
     public void printIdentity(){
-        if(this.type == IdentityType.DRIVING_LICENSE){
-            System.out.println("Identity type: Driving License");
-        }
-        else{
-            System.out.println("Identity type: Passport");
-        }
-
-        System.out.printf("Identity no: %s\n", indentityNo);
+        System.out.println("Identity Type: " + type.identityTypeAsStr);
+        System.out.printf("Identity no: %s\n", getIdentityNo());
     }
     
 }

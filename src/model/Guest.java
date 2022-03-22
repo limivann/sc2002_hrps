@@ -24,10 +24,6 @@ public class Guest implements Serializable {
     // Payment paymentDetails;
     // Reservation reservationDetails;
 
-    public Guest() {
-
-    }
-
     public Guest(String name, String firstName, String lastName, String creditCard, String address, Gender gender,
             Identity identity, String nationality, String contact, String guestId) {
         setName(name);
