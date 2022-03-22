@@ -34,7 +34,6 @@ public class ReservationView extends MainView{
                     System.out.println("Enter number of pax");
                     numberOfPax = Helper.sc.nextInt();
                     manager.create(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax);
-                    
                     break;
                 case 2:
                     System.out.println("Enter Reservation Id");
