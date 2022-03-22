@@ -151,7 +151,7 @@ public class ManagePaymentView extends MainView {
     
 
     public void printEditRoomPriceMenu() {
-        System.out.println("--- Edit Room Price ---");
+        System.out.println("--- Manage Room Price ---");
         System.out.println("Please select a room to edit its price (1-5)");
         System.out.println("(1) Single Room");
         System.out.println("(2) Double Room");
@@ -161,7 +161,7 @@ public class ManagePaymentView extends MainView {
     }
 
     public void printEditRoomTaxRateMenu() {
-        System.out.println("--- Edit Tax Rate ---");
+        System.out.println("--- Manage Tax Rate ---");
         System.out.println("Please select a room to edit its tax rate (1-5)");
         System.out.println("(1) Single Room");
         System.out.println("(2) Double Room");
@@ -169,4 +169,5 @@ public class ManagePaymentView extends MainView {
         System.out.println("(4) Vip Suite");
         System.out.println("(5) Back");
     }
+
 }

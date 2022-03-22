@@ -5,233 +5,121 @@ import java.util.Scanner;
 
 import src.model.enums.Gender;
 import src.model.enums.IdentityType;
-/**
- * Class that represent the guest
- * @author Zhang Kaichen
- */
-public class Guest implements Serializable{
-    /**
-     * This enum class define the gender of the Guest
-     */
+
+public class Guest implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String name;
-    private String first_name;
-    private String last_name;
+    private String firstName;
+    private String lastName;
     private String creditCard;
     private String address;
     private Gender gender;
     private Identity identity;
     private String nationality;
     private String contact;
-    private String guest_id;
-    private static int id = 1;
+    private String guestId;
     
     // Payment paymentDetails;
     // Reservation reservationDetails;
 
-    /**
-     * This is the default constructor for the guest
-     * It construct a blank Guest through input
-     */
-
-    public Guest() {
-
+    public Guest(String name, String firstName, String lastName, String creditCard, String address, Gender gender,
+            Identity identity, String nationality, String contact, String guestId) {
+        setName(name);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setCreditCard(creditCard);
+        setAddress(address);
+        setGender(gender);
+        setIdentity(identity);
+        setNationality(nationality);
+        setContact(contact);
+        setGuestId(guestId);
     }
     
-    // SETTERS AND GETTERS
+    // SETTERS
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setCreditCard(String creditCard) {
+        this.creditCard = creditCard;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public void setIdentity(Identity identity) {
+        this.identity = identity;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public void setGuestId(String guestId) {
+        this.guestId = guestId;
+    }
+    
+    // GETTERS
     public String getName() {
         return name;
     }
+
     public String getCreditCard() {
         return creditCard;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public String getContact() {
         return contact;
     }
-
-    public String getguest_id(){
-        return guest_id;
+    public Gender getGender() {
+        return gender;
+    }
+    public String getNationality() {
+        return nationality;
+    }
+    public String getGuestId(){
+        return guestId;
     }
     
-    /**
-     * This is the function that add personal detail to a Guest object
-     * @exception Exception when input is not Male and Female
-     * @exception Exception when user does not choose between Drving License or Passport
-     * @see Identity
-     */
-    public void add_personal_detail(){
-        Scanner sc = new Scanner(System.in);
-        System.out.printf("Please enter your first name: ");
-        first_name = sc.nextLine();
-        System.out.printf("Please enter your last name: ");
-        last_name = sc.nextLine();
-        name = first_name + " " + last_name;
-        System.out.printf("Please enter your credit card number: ");
-        creditCard = sc.nextLine();
-        System.out.printf("Please enter your address: ");
-        address = sc.nextLine();
-        setgender();
-        setidentity();
-        System.out.printf("Please enter your nationality: ");
-        nationality = sc.nextLine();
-        System.out.printf("Please enter your contact number: ");
-        contact = sc.nextLine();
-        guest_id = last_name + id;
-        System.out.printf("Your Guest ID is: %s\n", guest_id);
-        id++;
-
-    }
-    /**
-     * This is the function that can update the personal detail
-     * of a Guest object according to the user's choice
-     * @throws Exception when choice is invalid
-     */
-    public void update_detail(){
-        System.out.println("Please choose the information that you want to update");
-        System.out.println("(1) Name");
-        System.out.println("(2) Credit Card");
-        System.out.println("(3) Address");
-        System.out.println("(4) Gender");
-        System.out.println("(5) Identity");
-        System.out.println("(6) Nationality");
-        System.out.println("(7) Contact Number");
-        Scanner sc = new Scanner(System.in);
-        int choice = sc.nextInt();
-        sc.nextLine();
-        switch(choice){
-            case 1:
-            System.out.println("Please enter your new first name:");
-            first_name = sc.nextLine();
-            last_name = sc.nextLine();
-            name = first_name + " " + last_name;
-            break;
-
-            case 2:
-            System.out.println("Please enter your new credit card number:");
-            creditCard = sc.nextLine();
-            break;
-
-            case 3:
-            System.out.println("Please enter your new address:");
-            address = sc.nextLine();
-            break;
-
-            case 4:
-            setgender();
-            break;
-
-            case 5:
-            setidentity();
-            break;
-
-            case 6:
-            System.out.println("Please enter your nationality:");
-            nationality = sc.nextLine();
-            break;
-
-            case 7:
-            System.out.println("Please enter your contact number:");
-            contact = sc.nextLine();
-            break;
-
-            default:
-                try {
-                    throw new Exception("Invalid choice");
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-
-        }
-    }
-
-    /**
-     * This method is used to set the gender
-     * @exception Exception when input is not Male and Female
-     */
-    public void setgender(){
-        boolean wrong_input = true;
-        while(wrong_input){
-            try{
-                Scanner sc = new Scanner(System.in);
-                System.out.println("Please choose your gender");
-                System.out.println("(1) Male");
-                System.out.println("(2) Female");
-                int choice = sc.nextInt();
-                sc.nextLine();
-                if(choice != 1 && choice != 2){
-                    throw new Exception("Please choose between Male and Female");
-                }
-
-                if (choice == 1) {
-                    gender = Gender.MALE;
-                }
-                else{
-                    gender = Gender.FEMALE;
-                }
-                wrong_input = false;
-            }
-            catch(Exception e){
-                System.out.println(e.getMessage());
-            }
-            
-        }
-    }
-
-    /**
-     * This method is used to set the identity
-     * @exception Exception when user does not choose between Drving License or Passport
-     */
-    public void setidentity(){
-        identity = new Identity();
-        boolean wrong_input = true;
-        while(wrong_input){
-            try{
-                Scanner sc = new Scanner(System.in);
-                System.out.println("Please choose your identity type");
-                System.out.println("(1) Driving License");
-                System.out.println("(2) Passport");
-                int choice = sc.nextInt();
-                sc.nextLine();
-                if(choice != 1 && choice != 2){
-                    throw new Exception("Please choose between Driving License and Passport");
-                }
-
-                if(choice == 1){
-                    identity.setType(IdentityType.DRIVING_LICENSE);
-                }
-                else{
-                    identity.setType(IdentityType.PASSPORT);
-                }
-
-                System.out.println("Enter your identity no: ");
-                String identity_no = sc.nextLine();
-                identity.setIdentity_no(identity_no);
-                wrong_input = false;
-            }
-            catch(Exception e){
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
-    //make Reservation 
-    public void printGuestDetails(){
+    public void printGuestDetails() {
         System.out.println("----------------");
-        System.out.printf("Name: %s\n", name);
-        System.out.printf("Guest ID: %s\n", guest_id);
-        System.out.printf("Credit Card No: %s\n", creditCard);
-        System.out.printf("Address: %s\n", address);
-        if(gender == Gender.MALE){
-            System.out.println("Gender: Male");
-        }
-        else{
-            System.out.println("Gender: Female");
-        }
+        System.out.printf("Name: %s\n", getName());
+        System.out.printf("Guest ID: %s\n", getCreditCard());
+        System.out.printf("Credit Card No: %s\n", getCreditCard());
+        System.out.printf("Address: %s\n", getAddress());
+        System.out.println("Gender: " + getGender().genderAsStr);
         identity.printIdentity();
-        System.out.printf("Nationality: %s\n", nationality);
-        System.out.printf("Contact No: %s\n", contact);
+        System.out.printf("Nationality: %s\n", getNationality());
+        System.out.printf("Contact No: %s\n", getContact());
         System.out.println("----------------");
     }
 
+    @Override
+    public String toString() {
+        return String.format("Guest Name: %s, Contact No: %s", getName(), getContact());
+    }
 }

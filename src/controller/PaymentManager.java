@@ -32,7 +32,7 @@ public class PaymentManager {
     }
 
     public static void main(String[] args) {
-        Reservation testReservation = new Reservation("2022-03-08 12:00", "2022-03-24 12:11", 1, 1, 2);
-        PaymentManager.printInvoice(testReservation);
+        // Reservation testReservation = new Reservation("2022-03-08 12:00", "2022-03-24 12:11", 1, 1, 2);
+        // PaymentManager.printInvoice(testReservation);
     }
 }

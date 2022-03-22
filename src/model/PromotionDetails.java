@@ -15,6 +15,9 @@ public class PromotionDetails {
     private static double deluxeRoomPrice;
     private static double vipSuitePrice;
 
+    // Multiplier for wifi enabled room
+    private static double wifiEnabledMultiplier;
+
 
     public PromotionDetails() {
         // initalise all prices
@@ -29,6 +32,8 @@ public class PromotionDetails {
         PromotionDetails.doubleRoomPrice = 60;
         PromotionDetails.deluxeRoomTax = 70;
         PromotionDetails.vipSuitePrice = 120;
+
+        PromotionDetails.wifiEnabledMultiplier = 1.2;
     }
 
     public static boolean setDiscountRate(double discountRate) {
@@ -103,6 +108,13 @@ public class PromotionDetails {
         return true;
     }
 
+    public static boolean setWifiEnabledMultiplier(double wifiEnabledMultiplier) {
+        if (wifiEnabledMultiplier < 1) {
+            return false;
+        }
+        PromotionDetails.wifiEnabledMultiplier = wifiEnabledMultiplier;
+        return true;
+    }
 
     public static double getDiscountRate() {
         return discountRate;
@@ -138,5 +150,9 @@ public class PromotionDetails {
 
     public static double getVipSuitePrice() {
         return vipSuitePrice;
+    }
+
+    public static double getWifiEnabledMultiplier() {
+        return wifiEnabledMultiplier;
     }
 }

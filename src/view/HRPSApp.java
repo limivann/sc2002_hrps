@@ -1,5 +1,7 @@
 package src.view;
 import java.util.Scanner;
+
+import src.database.Database;
 import src.helper.Helper;
 import src.view.*;
 public class HRPSApp {
@@ -14,12 +16,14 @@ public class HRPSApp {
         ManagePaymentView managePaymentView = new ManagePaymentView();
 
         // TODO: Initialize Database
+        Database database = new Database();
+        // Initialize room
 
         System.out.println("Welcome to Hotel Reservation and Payment System");
         int opt = -1;
         do{
             printMainMenu();
-            opt = Helper.sc.nextInt();
+            opt = Helper.readInt();
             switch (opt) {
                 case 1:
                     guestView.viewapp();
@@ -47,6 +51,7 @@ public class HRPSApp {
                     break;
             }
         } while (opt != 7);
+        Database.saveAllFiles();
         System.out.println("Program closing ... Thank you for using HRPS!");
     }
     

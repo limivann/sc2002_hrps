@@ -1,4 +1,4 @@
-package src;
+package src.database;
 
 public enum FileType {
     GUESTS("Guests"),

@@ -57,7 +57,7 @@ public class RoomView extends MainView{
                 System.out.println("________________\n");
             }
             sc.nextLine();
-        }while (opt != 6 || opt < 0 || opt > 6);
+        }while (opt != 7 || opt < 0 || opt > 7);
     }
     public void createRoom(){
         int floor = 0, room = 0, opt = 0;
