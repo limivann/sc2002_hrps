@@ -25,7 +25,7 @@ public class ManagePaymentView extends MainView {
         int opt = -1;
         do {
             printMenu();
-            opt = Helper.sc.nextInt();
+            opt = Helper.readInt();
             switch (opt) {
                 case 1:
                     if (promptEditRoomPrice()) {
@@ -58,7 +58,7 @@ public class ManagePaymentView extends MainView {
     public boolean promptEditRoomPrice() {
         int opt = -1;
         printEditRoomPriceMenu();
-        opt = Helper.sc.nextInt();
+        opt = Helper.readInt();
         double newPrice = -1;
         switch (opt) {
             case 1:
@@ -86,7 +86,7 @@ public class ManagePaymentView extends MainView {
     public boolean promptEditTaxRate() {
         int opt = -1;
         printEditRoomTaxRateMenu();
-        opt = Helper.sc.nextInt();
+        opt = Helper.readInt();
         double newTaxRate = -1;
         switch (opt) {
             case 1:

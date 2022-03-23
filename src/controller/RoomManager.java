@@ -304,7 +304,6 @@ public class RoomManager{
             }
         }
         Database.saveFileIntoDatabase(FileType.ROOMS);
-        printAllRooms();
     }
     
     public static Room createRoom(RoomType roomType, String roomId, int floorNumber, int roomNumber, RoomStatus roomStatus,

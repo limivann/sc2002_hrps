@@ -13,26 +13,14 @@ public class Helper {
 
     public static int readInt() {
         int userInput = -1;
-        if(sc.hasNextInt()){
-            userInput = sc.nextInt();
-         }else{
-             // TODO: Throw InputMismatchError
-            System.out.println("Integers only");
-            return userInput;
-        }
+        userInput = sc.nextInt();
         sc.nextLine(); // Consume newline left-over
         return userInput;
     }
 
     public static double readDouble() {
         double userInput = -1;
-        if(sc.hasNextDouble() || sc.hasNextInt()){
-            userInput = sc.nextDouble();
-         }else{
-             // TODO: Throw InputMismatchError
-            System.out.println("Doubles only");
-            return userInput;
-        }
+        userInput = sc.nextDouble();
         sc.nextLine(); // Consume newline left-over
         return userInput;
     }
@@ -42,4 +30,9 @@ public class Helper {
         return new HashMap<>(original);
     }
     
+    public static boolean promptConfirmation(String message) {
+        System.out.println(String.format("Are you sure you want to %s? (yes/no)", message));
+        String userInput = sc.nextLine();
+        return userInput.equals("yes");
+    }
 }
