@@ -39,44 +39,54 @@ public class Guest implements Serializable {
     }
     
     // SETTERS
-    public void setName(String name) {
+    public boolean setName(String name) {
         this.name = name;
+        return true;
     }
 
-    public void setFirstName(String firstName) {
+    public boolean setFirstName(String firstName) {
         this.firstName = firstName;
+        return true;
     }
 
-    public void setLastName(String lastName) {
+    public boolean setLastName(String lastName) {
         this.lastName = lastName;
+        return true;
     }
 
-    public void setCreditCard(String creditCard) {
+    public boolean setCreditCard(String creditCard) {
         this.creditCard = creditCard;
+        return true;
     }
 
-    public void setAddress(String address) {
+    public boolean setAddress(String address) {
         this.address = address;
+        return true;
     }
 
-    public void setGender(Gender gender) {
+    public boolean setGender(Gender gender) {
         this.gender = gender;
+        return true;
     }
 
-    public void setIdentity(Identity identity) {
+    public boolean setIdentity(Identity identity) {
         this.identity = identity;
+        return true;
     }
 
-    public void setNationality(String nationality) {
+    public boolean setNationality(String nationality) {
         this.nationality = nationality;
+        return true;
     }
 
-    public void setContact(String contact) {
+    public boolean setContact(String contact) {
         this.contact = contact;
+        return true;
     }
 
-    public void setGuestId(String guestId) {
+    public boolean setGuestId(String guestId) {
         this.guestId = guestId;
+        return true;
     }
     
     // GETTERS

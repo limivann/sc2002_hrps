@@ -23,6 +23,8 @@ public class Database {
     public static HashMap<String, Room> ROOMS = new HashMap<String, Room>();
     public static HashMap<String, Reservation> RESERVATIONS = new HashMap<String, Reservation>();
     public static HashMap<String, Invoice> INVOICES = new HashMap<String, Invoice>();
+    public static HashMap<String, Order> ORDERS = new HashMap<String, Order>();
+    public static HashMap<String, MenuItem> MENU_ITEMS = new HashMap<String, MenuItem>();
 
     // Number of rooms for each room type
     public static int numOfSingleRooms = 20;
@@ -41,6 +43,12 @@ public class Database {
         if (!readSerializedObject(FileType.ROOMS)) {
             System.out.println("Read into Rooms failed!");
         }
+        if (!readSerializedObject(FileType.ORDERS)) {
+            System.out.println("Read into Orders failed!");
+        }
+        if (!readSerializedObject(FileType.MENU_ITEMS)) {
+            System.out.println("Read into Menu Items failed!");
+        }
         System.out.println("Database init");
     }
     
@@ -51,6 +59,8 @@ public class Database {
     public static void saveAllFiles() {
         saveFileIntoDatabase(FileType.GUESTS);
         saveFileIntoDatabase(FileType.ROOMS);
+        saveFileIntoDatabase(FileType.ORDERS);
+        saveFileIntoDatabase(FileType.MENU_ITEMS);
     }
 
     public static boolean readSerializedObject(FileType fileType) {
@@ -69,6 +79,10 @@ public class Database {
                 GUESTS = (HashMap<String, Guest>) object;
             } else if (fileType == FileType.ROOMS) {
                 ROOMS = (HashMap<String, Room>) object;
+            } else if (fileType == FileType.ORDERS) {
+                ORDERS = (HashMap<String, Order>) object;
+            } else if (fileType == FileType.MENU_ITEMS) {
+                MENU_ITEMS = (HashMap<String, MenuItem>) object;
             }
 
             objectInputStream.close();
@@ -79,6 +93,10 @@ public class Database {
                 GUESTS = new HashMap<String, Guest>();
             } else if (fileType == FileType.ROOMS) {
                 ROOMS = new HashMap<String, Room>();
+            } else if (fileType == FileType.ORDERS) {
+                ORDERS = new HashMap<String, Order>();
+            } else if (fileType == FileType.MENU_ITEMS) {
+                MENU_ITEMS = new HashMap<String, MenuItem>();
             }
         } catch (IOException err) {
             err.printStackTrace();
@@ -103,6 +121,10 @@ public class Database {
                 objectOutputStream.writeObject(GUESTS);
             }else if (fileType == FileType.ROOMS) {
                 objectOutputStream.writeObject(ROOMS);
+            } else if (fileType == FileType.ORDERS) {
+                objectOutputStream.writeObject(ORDERS);
+            } else if (fileType == FileType.MENU_ITEMS) {
+                objectOutputStream.writeObject(MENU_ITEMS);
             }
             objectOutputStream.close();
             fileOutputStream.close();
@@ -113,10 +135,6 @@ public class Database {
         }
     }
 
-    private static boolean initializeDataBase() {
-        
-        return true;
-    }
 
     public static boolean clearDatabase() {
         // Initialize empty data
@@ -124,9 +142,14 @@ public class Database {
         writeSerializedObject(FileType.GUESTS);
         
         ROOMS = new HashMap<String, Room>();
-        RoomManager roomManager = new RoomManager();
-        RoomManager.initializeAllRooms();
+        Database.initializeRooms();
         writeSerializedObject(FileType.ROOMS);
+
+        ORDERS = new HashMap<String, Order>();
+        writeSerializedObject(FileType.ORDERS);
+        
+        MENU_ITEMS = new HashMap<String, MenuItem>();
+        writeSerializedObject(FileType.MENU_ITEMS);
         return true;
     }
 

@@ -2,10 +2,15 @@ package src.model;
 
 import java.util.HashMap;
 
-import src.model.enums.*;
+import src.model.enums.OrderStatus;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Order {
+public class Order implements Serializable {
+    
+    private static final long serialVersionUID = 5L;
+
     private String orderId;
     private String date;
     private String time;
@@ -14,13 +19,18 @@ public class Order {
     private String remarks;
     private OrderStatus status;
 
-    public Order(String orderId ,String date, String time){
+    public Order(String orderId, String date, String time) {
         this.orderId = orderId;
         this.date = date;
         this.time = time;
         totalBill = 0;
         this.remarks = "No Remarks";
         this.currentOrders = new ArrayList<MenuItem>();
+    }
+    
+    // GETTERS
+    public String getOrderId() {
+        return this.orderId;
     }
 
     public void addOrderItem(MenuItem menuItem){
@@ -59,7 +69,6 @@ public class Order {
     }
 
     public MenuItem findOrderItem(String name){
-
         for (int i = 0; i < currentOrders.size(); i++){
             MenuItem searchedItem = currentOrders.get(i);
             if (searchedItem.getName().equalsIgnoreCase(name)){
@@ -69,7 +78,5 @@ public class Order {
         return null;
     }
 
-    public String getOrderId() {
-        return this.orderId;
-    }
+    
 }

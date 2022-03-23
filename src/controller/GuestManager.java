@@ -129,9 +129,9 @@ public class GuestManager {
     }
 
     public static ArrayList<Guest> searchGuestById(String guestId) {
-        ArrayList<Guest> searchList = new ArrayList<Guest>();
-        Guest searchedGuest = Database.GUESTS.get(guestId);
-        if (searchedGuest != null) {
+        ArrayList<Guest> searchList = new ArrayList<Guest>();   
+        if (Database.GUESTS.containsKey(guestId)) {
+            Guest searchedGuest = Database.GUESTS.get(guestId);
             searchList.add(searchedGuest);
         }
         return searchList;

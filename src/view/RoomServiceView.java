@@ -1,7 +1,7 @@
 package src.view;
-import src.controller.*;
-import src.*;
-import src.model.enums.*;
+import src.controller.RoomServiceManager;
+import src.helper.Helper;
+import src.model.enums.OrderStatus;
 import java.util.Scanner;
 
 public class RoomServiceView extends MainView{
@@ -10,21 +10,19 @@ public class RoomServiceView extends MainView{
 
     @Override
     public void printMenu() {
-        System.out.println("*** Room Service App ***");
+        System.out.println("=== Room Service View ===");
         System.out.println("Please enter an option (1-3)");
-        System.out.println("1.) Customize Menu");
-        System.out.println("2.) Create an Order");
-        System.out.println("3.) Exit");
+        System.out.println("(1) Customize Menu");
+        System.out.println("(2) Create an Order");
+        System.out.println("(3) Exit Room Service View");
     }
 
     @Override
     public void viewapp() {
-        Scanner sc = new Scanner(System.in);
         int option = 99;
         do{
             printMenu();
-            option = sc.nextInt();
-            sc.nextLine();
+            option = Helper.readInt();
             switch(option){
                 case 1:
                     customizeMenu();
@@ -55,31 +53,29 @@ public class RoomServiceView extends MainView{
     }
 
     private void createOrder(){
-        Scanner sc = new Scanner(System.in);
         String itemName;
         System.out.println("Enter date: ");
-        String date = sc.nextLine();
+        String date = Helper.sc.nextLine();
         System.out.println("Enter time: ");
-        String time = sc.nextLine();
+        String time = Helper.sc.nextLine();
         roomServiceManager.createOrder(date, time);
         int option = 99;
         do{
             printMenu_createOrder();
             System.out.println("Enter option");
-            option = sc.nextInt();
-            sc.nextLine();
+            option = Helper.readInt();
             switch (option){
                 case 1:
                     roomServiceManager.printMenu();
                     break;
                 case 2:
                     System.out.println("Enter item to be added:\r");
-                    itemName = sc.nextLine();
+                    itemName = Helper.sc.nextLine();
                     addOrderItem(itemName);
                     break;
                 case 3:
                     System.out.println("Enter item to be removed:\r");
-                    itemName = sc.nextLine();
+                    itemName = Helper.sc.nextLine();
                     removeOrderItem(itemName);
                     break;
                 case 4:
@@ -87,7 +83,8 @@ public class RoomServiceView extends MainView{
                     break;
                 case 5:
                     System.out.println("Enter remarks:\r");
-                    roomServiceManager.setRemarks(sc.nextLine());
+                    String remarks = Helper.sc.nextLine();
+                    roomServiceManager.setRemarks(remarks);
                     break;
                 case 6:
                     confirmOrder();
@@ -137,38 +134,35 @@ public class RoomServiceView extends MainView{
     }
 
     private void customizeMenu() {
-        Scanner sc = new Scanner(System.in);
-        int option = 99;
-        String name, description;
-        double price;
+        int option = -1;
+        String name = "";
+        String description = "";
+        double price = 0;
         do{
             printMenu_customizeMenu();
-            option = sc.nextInt();
-            sc.nextLine();
+            option = Helper.readInt();
             switch(option){
                 case 1:
                     System.out.println("Enter name of item to be added:\r");
-                    name = sc.nextLine();
+                    name = Helper.sc.nextLine();
                     System.out.printf("Enter description of %s:\n\r", name);
-                    description = sc.nextLine();
+                    description = Helper.sc.nextLine();
                     System.out.printf("Enter price of %s:\n\r", name);
-                    price = sc.nextDouble();
-                    sc.nextLine();
+                    price = Helper.readDouble();
                     addMenuItem(name, description, price);
                     break;
                 case 2:
                     System.out.println("Enter name of item to be removed:\r");
-                    name = sc.nextLine();
+                    name = Helper.sc.nextLine();
                     removeMenuItem(name);
                     break;
                 case 3:
                     System.out.println("Enter name of item to be updated:\r");
-                    name = sc.nextLine();
+                    name = Helper.sc.nextLine();
                     System.out.printf("Enter description of %s:\n\r", name);
-                    description = sc.nextLine();
+                    description = Helper.sc.nextLine();
                     System.out.printf("Enter price of %s:\n\r", name);
-                    price = sc.nextDouble();
-                    sc.nextLine();
+                    price = Helper.readDouble();
                     updateMenuItem(name, description, price);
                     break;
                 case 4:
