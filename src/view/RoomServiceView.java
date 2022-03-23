@@ -1,6 +1,7 @@
 package src.view;
 import src.controller.RoomServiceManager;
 import src.helper.Helper;
+import src.model.Room;
 import src.model.enums.OrderStatus;
 import java.util.Scanner;
 
@@ -184,7 +185,7 @@ public class RoomServiceView extends MainView{
 
     private void addMenuItem(String name, String description, double price){
 
-        if (roomServiceManager.addMenuItem(name, description, price)){
+        if (RoomServiceManager.addMenuItem(name, description, price)){
             System.out.printf("\"%s\" added to menu SUCCESSFULLY\n", name);
         }
         else{
@@ -193,7 +194,7 @@ public class RoomServiceView extends MainView{
     }
 
     private void removeMenuItem(String name){
-        if (roomServiceManager.removeMenuItem(name)){
+        if (RoomServiceManager.removeMenuItem(name)){
             System.out.printf("\"%s\" removed from menu SUCCESSFULLY\n", name);
         }
         else{
@@ -203,7 +204,7 @@ public class RoomServiceView extends MainView{
 
     private void updateMenuItem(String name, String description, double price){
 
-        if (roomServiceManager.updateMenuItem(name, description, price)){
+        if (RoomServiceManager.updateMenuItem(name, description, price)){
             System.out.printf("%s updated in menu SUCCESSFULLY\n", name);
         }
         else{

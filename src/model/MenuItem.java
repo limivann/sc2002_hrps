@@ -4,14 +4,17 @@ import java.io.Serializable;
 
 public class MenuItem implements Serializable {
     private static final long serialVersionUID = 4L;
+
+    private String menuItemId;
     private String name;
     private String description;
     private double price;
 
-    public MenuItem(String name, String description, double price) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
+    public MenuItem(String menuItemId, String name, String description, double price) {
+        setName(name);
+        setDescription(description);
+        setPrice(price);
+        setMenuItemId(menuItemId);
     }
     
     public boolean setName(String name) {
@@ -32,6 +35,11 @@ public class MenuItem implements Serializable {
         return true;
     }
 
+    public boolean setMenuItemId(String menuItemId) {
+        this.menuItemId = menuItemId;
+        return true;
+    }
+
 
     public String getName() {
         return name;
@@ -43,5 +51,9 @@ public class MenuItem implements Serializable {
 
     public double getPrice() {
         return price;
+    }
+
+    public String getMenuItemId() {
+        return menuItemId;
     }
 }

@@ -35,7 +35,12 @@ public class DatabaseView extends MainView {
                     }
                     break;
                 case 2:
-                    // init menu
+                    if (initializeMenu()) {
+                        System.out.println("Menu initialization successful");
+                    } else {
+                        System.out.println("Menu initialization unsuccessful");
+                    }
+                    break;
                 case 3:
                     if (resetDatabase()) {
                         System.out.println("Database cleared");
@@ -52,6 +57,10 @@ public class DatabaseView extends MainView {
     
     public boolean initializeGuest() {
         return Database.initalizeDummyGuests();
+    }
+
+    public boolean initializeMenu() {
+        return Database.initializeDummyMenu();
     }
     
     public boolean resetDatabase() {

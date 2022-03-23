@@ -10,31 +10,31 @@ public class Menu {
         menu = new HashMap<String, MenuItem>();
     }
 
-    public boolean addMenuItem(String name, String description, double price){
-        name = name.toUpperCase(Locale.ROOT);
-        if (!menu.containsKey(name)){
-            menu.put(name, new MenuItem(name, description, price));
-            return true;
-        }
-        return false;
-    }
+    // public boolean addMenuItem(String name, String description, double price){
+    //     name = name.toUpperCase(Locale.ROOT);
+    //     if (!menu.containsKey(name)){
+    //         menu.put(name, new MenuItem(name, description, price));
+    //         return true;
+    //     }
+    //     return false;
+    // }
 
-    public boolean updateMenuItem(String name, String description, double price){
-        name = name.toUpperCase(Locale.ROOT);
-        if (menu.containsKey(name)){
-            menu.replace(name, new MenuItem(name, description, price));
-            return true;
-        }
-        return false;
-    }
-    public boolean removeMenuItem(String name){
-        name = name.toUpperCase(Locale.ROOT);
-        if (menu.containsKey(name)){
-            menu.remove(name);
-            return true;
-        }
-        return false;
-    }
+    // public boolean updateMenuItem(String name, String description, double price){
+    //     name = name.toUpperCase(Locale.ROOT);
+    //     if (menu.containsKey(name)){
+    //         menu.replace(name, new MenuItem(name, description, price));
+    //         return true;
+    //     }
+    //     return false;
+    // }
+    // public boolean removeMenuItem(String name){
+    //     name = name.toUpperCase(Locale.ROOT);
+    //     if (menu.containsKey(name)){
+    //         menu.remove(name);
+    //         return true;
+    //     }
+    //     return false;
+    // }
 
     public void printMenu(){
         System.out.println("*** Hotel Menu ***");

@@ -38,6 +38,9 @@ public class Helper {
     }
 
     public static <K, V> int generateUniqueId(HashMap<K, V> database) {
+        if (database.size() == 0) {
+            return 1;
+        }
         HashMap<K, V> toIterate = Helper.copyHashMap(database);
         String currentMax = "";
         Iterator it = toIterate.entrySet().iterator();
