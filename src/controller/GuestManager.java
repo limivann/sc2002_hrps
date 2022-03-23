@@ -25,13 +25,13 @@ public class GuestManager {
     public static void createGuest(String firstName, String lastName, String creditCardNumber, String address,
             Gender gender, Identity identity, String nationality, String contactNo) {
         String name = firstName + " " + lastName;
-        int gid = Database.GUESTS.size() + 1;
+        int gid = Helper.generateUniqueId(Database.GUESTS);
         String guestId = String.format("G%04d", gid);
         Guest newGuest = new Guest(name, firstName, lastName, creditCardNumber, address, gender, identity, nationality,
                 contactNo, guestId);
         Database.GUESTS.put(guestId, newGuest);
         Database.saveFileIntoDatabase(FileType.GUESTS);
-        System.out.println("Guest created! Guest ID: " + guestId);
+        System.out.println(String.format("Guest Created! Guest ID: %s, Name: %s", guestId, newGuest.getName()));
     }
 
     // All update guest helpers
@@ -129,29 +129,27 @@ public class GuestManager {
     }
 
     public static ArrayList<Guest> searchGuestById(String guestId) {
-        ArrayList<Guest> searchList = new ArrayList<Guest>();
-        Guest searchedGuest = Database.GUESTS.get(guestId);
-        if (searchedGuest != null) {
+        ArrayList<Guest> searchList = new ArrayList<Guest>();   
+        if (Database.GUESTS.containsKey(guestId)) {
+            Guest searchedGuest = Database.GUESTS.get(guestId);
             searchList.add(searchedGuest);
         }
         return searchList;
     }
 
-    public static void removeGuest(String guestId) {
+    public static boolean removeGuest(String guestId) {
         ArrayList<Guest> removeList = GuestManager.searchGuestById(guestId);
         for (Guest guest : removeList) {
-            String userInput = "";
-            System.out.println("Are you sure you want to remove this guest?");
             guest.printGuestDetails();
-            userInput = Helper.sc.nextLine();
-            if (userInput == "n") {
-                // remove
+            String userInput = "";
+            if (Helper.promptConfirmation("remove this guest")) {
                 Database.GUESTS.remove(guestId);
             } else {
-                // cancel delete
+                return false;
             }
         }
         Database.saveFileIntoDatabase(FileType.GUESTS);
+        return true;
     }
     
     public static void printAllGuests() {

@@ -81,17 +81,19 @@ public class RoomView extends MainView{
         printRoomStatusMenu();
         int opt = Helper.readInt();
         RoomStatus newStatus = RoomStatus.VACANT;
+        int guestId = -1;
         switch (opt) {
             case 1:
                 newStatus = RoomStatus.VACANT;
                 break;
             case 2:
                 newStatus = RoomStatus.OCCUPIED;
-                System.out.println("Please enter guest name (firstName LastName)");
+                System.out.println("Please enter the guest's id");
+                guestId = Helper.readInt();
                 break;
             case 3:
                 newStatus = RoomStatus.RESERVED;
-                System.out.println("Please enter guest name (firstName LastName)");
+                System.out.println("Please enter the guest's id");
                 break;
             case 4:
                 newStatus = RoomStatus.UNDER_MAINTENANCE;

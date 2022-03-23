@@ -246,8 +246,7 @@ public class GuestView extends MainView{
             System.out.println("Guest not found!");
             return false;
         }
-        GuestManager.removeGuest(guestId);
-        return true;
+        return GuestManager.removeGuest(guestId);
     }
 
     // Print all guest

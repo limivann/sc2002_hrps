@@ -4,7 +4,7 @@ public enum FileType {
     GUESTS("Guests"),
     ROOMS("Rooms"),
     RESERVATIONS("Reservations"),
-    MENU("Menu"),
+    MENU_ITEMS("MenuItems"),
     ORDERS("Orders"),
     INVOICES("Invoices");
 

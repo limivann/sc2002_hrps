@@ -1,39 +1,39 @@
 package src.view;
-import src.controller.*;
-import src.*;
-import src.model.enums.*;
-import java.util.Scanner;
+import javax.xml.namespace.QName;
 
+import src.controller.RoomManager;
+import src.controller.RoomServiceManager;
+import src.helper.Helper;
+import src.model.enums.OrderStatus;
 public class RoomServiceView extends MainView{
 
     RoomServiceManager roomServiceManager= new RoomServiceManager();
 
     @Override
     public void printMenu() {
-        System.out.println("*** Room Service App ***");
+        System.out.println("=== Room Service View ===");
         System.out.println("Please enter an option (1-3)");
-        System.out.println("1.) Customize Menu");
-        System.out.println("2.) Create an Order");
-        System.out.println("3.) Exit");
+        System.out.println("(1) Customize Menu");
+        System.out.println("(2) Create an Order");
+        System.out.println("(3) Exit Room Service View");
     }
 
     @Override
     public void viewapp() {
-        Scanner sc = new Scanner(System.in);
         int option = 99;
         do{
             printMenu();
-            option = sc.nextInt();
-            sc.nextLine();
+            option = Helper.readInt();
             switch(option){
                 case 1:
                     customizeMenu();
                     break;
                 case 2:
-                    createOrder();
+                    if (!createOrder()) {
+                        System.out.println("Create order unsuccessful");
+                    }
                     break;
                 case 3:
-                    System.out.println("Exited");
                     break;
                 default:
                     System.out.println("Invalid Option");
@@ -46,61 +46,62 @@ public class RoomServiceView extends MainView{
     private void printMenu_createOrder() {
         System.out.println("***** ORDER MENU *****");
         System.out.println("Please enter an option (1-6)");
-        System.out.println("1) Print menu");
-        System.out.println("2) Add menu items");
-        System.out.println("3) Remove menu items");
-        System.out.println("4) Print order");
-        System.out.println("5) Enter remarks");
-        System.out.println("6) Checkout");
+        System.out.println("(1) Print menu");
+        System.out.println("(2) Add menu items");
+        System.out.println("(3) Remove menu items");
+        System.out.println("(4) Print order");
+        System.out.println("(5) Enter remarks");
+        System.out.println("(6) Checkout");
     }
 
-    private void createOrder(){
-        Scanner sc = new Scanner(System.in);
+    private boolean createOrder() {
+        System.out.println("Please enter your room id in this format floor-room (Eg: 01-05):");
+        String roomId = Helper.sc.nextLine();
+        if (!RoomManager.validateRoomId(roomId)) {
+            return false;
+        }
+        String orderId = RoomServiceManager.createOrder(roomId);
         String itemName;
-        System.out.println("Enter date: ");
-        String date = sc.nextLine();
-        System.out.println("Enter time: ");
-        String time = sc.nextLine();
-        roomServiceManager.createOrder(date, time);
-        int option = 99;
+        int option = -1;
         do{
             printMenu_createOrder();
-            System.out.println("Enter option");
-            option = sc.nextInt();
-            sc.nextLine();
+            System.out.println("Enter option: ");
+            option = Helper.readInt();
             switch (option){
                 case 1:
-                    roomServiceManager.printMenu();
+                    RoomServiceManager.printMenu();
                     break;
                 case 2:
                     System.out.println("Enter item to be added:\r");
-                    itemName = sc.nextLine();
-                    addOrderItem(itemName);
+                    itemName = Helper.sc.nextLine();
+                    addOrderItem(itemName, orderId);
                     break;
                 case 3:
                     System.out.println("Enter item to be removed:\r");
-                    itemName = sc.nextLine();
-                    removeOrderItem(itemName);
+                    itemName = Helper.sc.nextLine();
+                    removeOrderItem(itemName, orderId);
                     break;
                 case 4:
-                    roomServiceManager.printOrder();
+                    RoomServiceManager.printOrder(orderId);
                     break;
                 case 5:
                     System.out.println("Enter remarks:\r");
-                    roomServiceManager.setRemarks(sc.nextLine());
+                    String remarks = Helper.sc.nextLine();
+                    RoomServiceManager.setRemarks(remarks, orderId);
                     break;
                 case 6:
-                    confirmOrder();
+                    confirmOrder(orderId);
                     break;
                 default:
                     System.out.println("Invalid option");
                     break;
             }
         } while (option != 6);
+        return true;
     }
 
-    private void addOrderItem(String name){
-        if (roomServiceManager.addOrderItem(name)){
+    private void addOrderItem(String name, String orderId){
+        if (RoomServiceManager.addOrderItem(name, orderId)){
             System.out.printf("\"%s\" added to order SUCCESSFULLY\n", name);
         }
         else{
@@ -108,8 +109,8 @@ public class RoomServiceView extends MainView{
         };
     }
 
-    private void removeOrderItem(String name){
-        if (roomServiceManager.removeOrderItem(name)){
+    private void removeOrderItem(String name, String orderId){
+        if (RoomServiceManager.removeOrderItem(name, orderId)){
             System.out.printf("\"%s\" removed from order SUCCESSFULLY\n", name);
         }
         else{
@@ -117,11 +118,11 @@ public class RoomServiceView extends MainView{
         };
     }
 
-    private void confirmOrder() {
+    private void confirmOrder(String orderId) {
         System.out.println("RECEIPT:");
-        roomServiceManager.printOrder();
+        RoomServiceManager.printOrder(orderId);
         System.out.println("Order Sent!!!\nThank you for ordering!!! :):):)");
-        roomServiceManager.updateStatus(OrderStatus.CONFIRMED);
+        RoomServiceManager.updateStatus(OrderStatus.CONFIRMED, orderId);
     }
 
     /* Customize Menu */
@@ -129,46 +130,43 @@ public class RoomServiceView extends MainView{
     private void printMenu_customizeMenu() {
         System.out.println("***** CUSTOMIZE MENU *****");
         System.out.println("Please enter an option (1-5)");
-        System.out.println("1) Add menu items");
-        System.out.println("2) Remove menu items");
-        System.out.println("3) Update menu items");
-        System.out.println("4) Print menu items");
-        System.out.println("5) Exit");
+        System.out.println("(1) Add menu items");
+        System.out.println("(2) Remove menu items");
+        System.out.println("(3) Update menu items");
+        System.out.println("(4) Print menu items");
+        System.out.println("(5) Exit");
     }
 
     private void customizeMenu() {
-        Scanner sc = new Scanner(System.in);
-        int option = 99;
-        String name, description;
-        double price;
+        int option = -1;
+        String name = "";
+        String description = "";
+        double price = 0;
         do{
             printMenu_customizeMenu();
-            option = sc.nextInt();
-            sc.nextLine();
+            option = Helper.readInt();
             switch(option){
                 case 1:
                     System.out.println("Enter name of item to be added:\r");
-                    name = sc.nextLine();
+                    name = Helper.sc.nextLine();
                     System.out.printf("Enter description of %s:\n\r", name);
-                    description = sc.nextLine();
+                    description = Helper.sc.nextLine();
                     System.out.printf("Enter price of %s:\n\r", name);
-                    price = sc.nextDouble();
-                    sc.nextLine();
+                    price = Helper.readDouble();
                     addMenuItem(name, description, price);
                     break;
                 case 2:
                     System.out.println("Enter name of item to be removed:\r");
-                    name = sc.nextLine();
+                    name = Helper.sc.nextLine();
                     removeMenuItem(name);
                     break;
                 case 3:
                     System.out.println("Enter name of item to be updated:\r");
-                    name = sc.nextLine();
+                    name = Helper.sc.nextLine();
                     System.out.printf("Enter description of %s:\n\r", name);
-                    description = sc.nextLine();
+                    description = Helper.sc.nextLine();
                     System.out.printf("Enter price of %s:\n\r", name);
-                    price = sc.nextDouble();
-                    sc.nextLine();
+                    price = Helper.readDouble();
                     updateMenuItem(name, description, price);
                     break;
                 case 4:
@@ -185,12 +183,12 @@ public class RoomServiceView extends MainView{
     }
 
     private void printMenuItems(){
-        roomServiceManager.printMenu();
+        RoomServiceManager.printMenu();
     }
 
     private void addMenuItem(String name, String description, double price){
 
-        if (roomServiceManager.addMenuItem(name, description, price)){
+        if (RoomServiceManager.addMenuItem(name, description, price)){
             System.out.printf("\"%s\" added to menu SUCCESSFULLY\n", name);
         }
         else{
@@ -199,7 +197,7 @@ public class RoomServiceView extends MainView{
     }
 
     private void removeMenuItem(String name){
-        if (roomServiceManager.removeMenuItem(name)){
+        if (RoomServiceManager.removeMenuItem(name)){
             System.out.printf("\"%s\" removed from menu SUCCESSFULLY\n", name);
         }
         else{
@@ -209,7 +207,7 @@ public class RoomServiceView extends MainView{
 
     private void updateMenuItem(String name, String description, double price){
 
-        if (roomServiceManager.updateMenuItem(name, description, price)){
+        if (RoomServiceManager.updateMenuItem(name, description, price)){
             System.out.printf("%s updated in menu SUCCESSFULLY\n", name);
         }
         else{

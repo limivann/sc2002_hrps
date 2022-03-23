@@ -304,7 +304,6 @@ public class RoomManager{
             }
         }
         Database.saveFileIntoDatabase(FileType.ROOMS);
-        printAllRooms();
     }
     
     public static Room createRoom(RoomType roomType, String roomId, int floorNumber, int roomNumber, RoomStatus roomStatus,
@@ -318,6 +317,15 @@ public class RoomManager{
     
     public static double calculateRoomPrice(RoomType roomType, boolean isWifiEnabled) {
         return PromotionManager.getRoomPrice(roomType, isWifiEnabled);
+    }
+
+    public static boolean validateRoomId(String roomId){
+        if (Database.ROOMS.containsKey(roomId)) {
+            return true;            
+        }else{
+            // TODO: Throw Exception
+            return false;
+        }
     }
 
     public static void main(String[] args) {

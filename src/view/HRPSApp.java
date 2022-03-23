@@ -14,6 +14,7 @@ public class HRPSApp {
         RoomServiceView roomServiceView = new RoomServiceView();
         HandleCheckInOutView handleCheckInOutView = new HandleCheckInOutView();
         ManagePaymentView managePaymentView = new ManagePaymentView();
+        DatabaseView databaseView = new DatabaseView();
 
         // TODO: Initialize Database
         Database database = new Database();
@@ -44,13 +45,16 @@ public class HRPSApp {
                     managePaymentView.viewapp();
                     break;
                 case 7:
+                    databaseView.viewapp();
+                    break;
+                case 8:
                     break;
                 default:
                     // TODO: Throw Exception
                     System.out.println("Invalid input. Please try again.");
                     break;
             }
-        } while (opt != 7);
+        } while (opt != 8);
         Database.saveAllFiles();
         System.out.println("Program closing ... Thank you for using HRPS!");
     }
@@ -63,6 +67,7 @@ public class HRPSApp {
         System.out.println("(4) Manage Room Service (Customize Menu/ Create New Order)");
         System.out.println("(5) Manage check in / check out");
         System.out.println("(6) Manage payment settings (prices, discount rates, taxes)");
-        System.out.println("(7) Quit");
+        System.out.println("(7) Manage Database");
+        System.out.println("(8) Close Program");
     }
 }
