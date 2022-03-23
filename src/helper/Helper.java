@@ -2,6 +2,7 @@ package src.helper;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Helper {
@@ -34,5 +35,24 @@ public class Helper {
         System.out.println(String.format("Are you sure you want to %s? (yes/no)", message));
         String userInput = sc.nextLine();
         return userInput.equals("yes");
+    }
+
+    public static <K, V> int generateUniqueId(HashMap<K, V> database) {
+        HashMap<K, V> toIterate = Helper.copyHashMap(database);
+        String currentMax = "";
+        Iterator it = toIterate.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            Object keyObject = pair.getKey();
+            if (keyObject instanceof String) {
+                String currentKey = (String) keyObject;
+                if (currentKey.compareTo(currentMax) > 0) {
+                    currentMax = currentKey;
+                }
+            }
+            it.remove(); // avoids a ConcurrentModificationException
+        }
+        String maxId = currentMax.substring(1);
+        return Integer.parseInt(maxId) + 1;
     }
 }

@@ -106,9 +106,9 @@ public class Guest implements Serializable {
     }
     
     public void printGuestDetails() {
+        System.out.printf("Guest ID: %s\n", getGuestId());
         System.out.println("----------------");
         System.out.printf("Name: %s\n", getName());
-        System.out.printf("Guest ID: %s\n", getCreditCard());
         System.out.printf("Credit Card No: %s\n", getCreditCard());
         System.out.printf("Address: %s\n", getAddress());
         System.out.println("Gender: " + getGender().genderAsStr);
