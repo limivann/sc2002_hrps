@@ -1,4 +1,5 @@
 package src.controller;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import java.util.Map;
@@ -9,7 +10,6 @@ import java.util.Iterator;
 import src.database.Database;
 import src.database.FileType;
 import src.helper.Helper;
-import src.model.PromotionDetails;
 import src.model.Room;
 import src.model.enums.*;
 public class RoomManager{
@@ -18,27 +18,28 @@ public class RoomManager{
     public RoomManager() {
         PromotionManager promotionManager = new PromotionManager();
     }
-    public void create(RoomType type, int floor, int room, double price, boolean wifi, boolean smoking) {
-        String id = floor+"-"+room;
-        if (!RoomList.containsKey(id)){
-            Room newRoom = new Room(type, floor, room, RoomStatus.VACANT, price, wifi, smoking);
-            RoomList.put(id, newRoom);
-            System.out.println("Room created successfully.");
-        }else{
-            System.out.println("Room ID already exists.");
+    
+    public static boolean updateRoomPrice(RoomType roomType, double newPrice) {
+        HashMap<String, Room> toIterate = Helper.copyHashMap(Database.ROOMS);
+        Iterator it = toIterate.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            Object currentValue = pair.getValue();
+            if (!(currentValue instanceof Room)) {
+                return false;
+            }
+            Room currentRoom = (Room) currentValue;
+            if (currentRoom.getType() == roomType) {
+                double newRoomPrice = calculateRoomPrice(roomType, currentRoom.getIsWifiEnabled());
+                if (!currentRoom.setPrice(newRoomPrice)) {
+                    return false;
+                }
+                Database.ROOMS.put(currentRoom.getRoomId(), currentRoom);
+            }
+            it.remove(); // avoids a ConcurrentModificationException
         }
-    }
-
-    public void updatePrice(int floor, int room, double price){
-        String id = floor+"-"+room;
-        if (RoomList.containsKey(id)){
-            Room target = searchRoom(floor, room);
-            target.setPrice(price);
-            System.out.println("Price updated successfully.");
-        }else{
-            System.out.println("Room id doesn't exists.");
-        }
-        
+        Database.saveFileIntoDatabase(FileType.ROOMS);
+        return true;
     }
 
     public static boolean updateRoomStatus(int floorNumber, int roomNumber, RoomStatus roomStatus) {
@@ -56,67 +57,147 @@ public class RoomManager{
         }
     }
 
-    public void remove(int floor, int room) {
-        String id = floor+"-"+room;
-        if (RoomList.containsKey(id)){
-            RoomList.remove(id);
-            System.out.println("Room removed successfully.");
-        }else{
-            System.out.println("Room doesn't exists.");
-        }
-        
-    }
-
     public static Room searchRoom(int floor, int room){
         String roomId = String.format("%02d-%02d", floor, room);
         return Database.ROOMS.get(roomId);
     }
     
-    public static void printRoom(int floor, int room){
+    public static void printRoom(int floor, int room) {
         String roomId = String.format("%02d-%02d", floor, room);
-        if (Database.ROOMS.containsKey(roomId)){
+        if (Database.ROOMS.containsKey(roomId)) {
             Room target = searchRoom(floor, room);
-            target.printRoomDetails();            
-        }else{
+            target.printRoomDetails();
+        } else {
             System.out.println("Room doesn't exists.");
         }
     }
     
-    public void printStatus(){
-        System.out.println("Vacant: ");
+    public static void printRoomStatus() {
+        ArrayList<Room> vacantRooms = new ArrayList<Room>();
+        ArrayList<Room> occupiedRooms = new ArrayList<Room>();
+        ArrayList<Room> reservedRooms = new ArrayList<Room>();
+        ArrayList<Room> underMaintenanceRooms = new ArrayList<Room>();
+
+        vacantRooms = getRoomsByStatus(RoomStatus.VACANT);
+        occupiedRooms = getRoomsByStatus(RoomStatus.OCCUPIED);
+        reservedRooms = getRoomsByStatus(RoomStatus.RESERVED);
+        underMaintenanceRooms = getRoomsByStatus(RoomStatus.UNDER_MAINTENANCE);
+
+        System.out.println(String.format("%-9s:", "Vacant"));
         System.out.printf("\t Rooms: ");
-        for (Room x : RoomList.values()) {
-            if (x.getRoomStatus() == RoomStatus.VACANT){
-                System.out.printf("0%d-0%d, ", x.getFloorNumber(), x.getRoomNumber());
-            }
-            System.out.println();
+        for (Room r : vacantRooms) {
+            System.out.printf("%s, ", r.getRoomId());
         }
-        System.out.println("Occupied: ");
+        System.out.println();
+
+        System.out.println(String.format("%-9s:", "Occupied"));
         System.out.printf("\t Rooms: ");
-        for (Room x : RoomList.values()) {
-            if (x.getRoomStatus() == RoomStatus.OCCUPIED){
-                System.out.printf("0%d-0%d, ", x.getFloorNumber(), x.getRoomNumber());
-            }
-            System.out.println();
+        for (Room r : occupiedRooms) {
+            System.out.printf("%s, ", r.getRoomId());
         }
-        System.out.println("Reserved: ");
+        System.out.println();
+
+        System.out.println(String.format("%-9s:", "Reserved"));
         System.out.printf("\t Rooms: ");
-        for (Room x : RoomList.values()) {
-            if (x.getRoomStatus() == RoomStatus.RESERVED){
-                System.out.printf("0%d-0%d, ", x.getFloorNumber(), x.getRoomNumber());
-            }
-            System.out.println();
+        for (Room r : reservedRooms) {
+            System.out.printf("%s, ", r.getRoomId());
         }
-        System.out.println("Under maintenance: ");
+        System.out.println();
+
+        System.out.println(String.format("%-9s:", "Under Maintenance"));
         System.out.printf("\t Rooms: ");
-        for (Room x : RoomList.values()) {
-            if (x.getRoomStatus() == RoomStatus.UNDER_MAINTENANCE){
-                System.out.printf("0%d-0%d, ", x.getFloorNumber(), x.getRoomNumber());
-            }
-            System.out.println();
+        for (Room r : underMaintenanceRooms) {
+            System.out.printf("%s, ", r.getRoomId());
         }
+        System.out.println();
     }
 
+    public static ArrayList<Room> getRoomsByStatus(RoomStatus roomStatus) {
+        ArrayList<Room> roomsByStatus = new ArrayList<Room>();
+        HashMap<String, Room> toIterate = Helper.copyHashMap(Database.ROOMS);
+        Iterator it = toIterate.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            Object currentValue = pair.getValue();
+            if (!(currentValue instanceof Room)) {
+                // pass
+            } else {
+                Room currentRoom = (Room) currentValue;
+                if (currentRoom.getRoomStatus() == roomStatus) {
+                    roomsByStatus.add(currentRoom);
+                }
+            }
+            it.remove(); // avoids a ConcurrentModificationException
+        }
+        return roomsByStatus;
+    }
+    
+    public static ArrayList<Room> getRoomsByRoomTypeAndStatus(RoomType roomType, RoomStatus roomStatus) {
+        ArrayList<Room> roomsByRoomType = new ArrayList<Room>();
+        HashMap<String, Room> toIterate = Helper.copyHashMap(Database.ROOMS);
+        Iterator it = toIterate.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            Object currentValue = pair.getValue();
+            if (!(currentValue instanceof Room)) {
+                // pass
+            } else {
+                Room currentRoom = (Room) currentValue;
+                if (currentRoom.getType() == roomType && currentRoom.getRoomStatus() == roomStatus) {
+                    roomsByRoomType.add(currentRoom);
+                }
+            }
+            it.remove(); // avoids a ConcurrentModificationException
+        }
+        return roomsByRoomType;
+    }
+
+    public static void printOccupancyRate(RoomStatus roomStatus) {
+        // TODO: Make this reusable on other room statuses
+        ArrayList<Room> vacantSingleRooms = new ArrayList<Room>();
+        ArrayList<Room> vacantDoubleRooms = new ArrayList<Room>();
+        ArrayList<Room> vacantDeluxeRooms = new ArrayList<Room>();
+        ArrayList<Room> vacantVipSuites = new ArrayList<Room>();
+
+        vacantSingleRooms = getRoomsByRoomTypeAndStatus(RoomType.SINGLE, RoomStatus.VACANT);
+        vacantDoubleRooms = getRoomsByRoomTypeAndStatus(RoomType.DOUBLE, RoomStatus.VACANT);
+        vacantDeluxeRooms = getRoomsByRoomTypeAndStatus(RoomType.DELUXE, RoomStatus.VACANT);
+        vacantVipSuites = getRoomsByRoomTypeAndStatus(RoomType.VIP_SUITE, RoomStatus.VACANT);
+
+        // Print rooms
+        System.out.println(
+                String.format("Single: Number: %d out of %d", vacantSingleRooms.size(), Database.numOfSingleRooms));
+        System.out.print("\t Rooms: ");
+        for (Room r : vacantSingleRooms) {
+            System.out.printf("%s, ", r.getRoomId());
+        }
+        System.out.println();
+
+        System.out.println(
+                String.format("Double: Number: %d out of %d", vacantDoubleRooms.size(), Database.numOfDoubleRooms));
+        System.out.print("\t Rooms: ");
+        for (Room r : vacantDoubleRooms) {
+            System.out.printf("%s, ", r.getRoomId());
+        }
+        System.out.println();
+
+        System.out.println(
+                String.format("Deluxe: Number: %d out of %d", vacantDeluxeRooms.size(), Database.numOfDeluxeRooms));
+        System.out.print("\t Rooms: ");
+        for (Room r : vacantDeluxeRooms) {
+            System.out.printf("%s, ", r.getRoomId());
+        }
+        System.out.println();
+
+        System.out.println(
+                String.format("Vip Suites: Number: %d out of %d", vacantVipSuites.size(), Database.numOfVipSuites));
+        System.out.print("\t Rooms: ");
+        for (Room r : vacantVipSuites) {
+            System.out.printf("%s, ", r.getRoomId());
+        }
+        System.out.println();
+    }
+    
     public void printOccupancyRate() {
         int[][] list = new int[4][2];
         String[] list2 = new String[4];
@@ -184,6 +265,7 @@ public class RoomManager{
         int totalNumOfRooms = numOfSingleRooms + numOfDoubleRooms + numOfDeluxeRooms + numOfVipSuites;
         if (totalNumOfRooms != 48) {
             // TODO: Throw error
+            System.out.println("Room count is not 48");
             return;
         }
 

@@ -1,6 +1,7 @@
 package src.controller;
 
 import src.model.PromotionDetails;
+import src.model.Room;
 import src.model.enums.RoomType;
 
 public class PromotionManager {
@@ -59,15 +60,28 @@ public class PromotionManager {
     }
 
     public static boolean editRoomPrice(RoomType roomType, double newRoomPrice) {
+        // TODO: Change all room price not just the promotion details
         switch (roomType) {
             case SINGLE:
-                return PromotionDetails.setSingleRoomPrice(newRoomPrice);
+                if (PromotionDetails.setSingleRoomPrice(newRoomPrice)) {
+                    return RoomManager.updateRoomPrice(RoomType.SINGLE, newRoomPrice);
+                }
+                break;
             case DOUBLE:
-                return PromotionDetails.setDoubleRoomPrice(newRoomPrice);
+                if (PromotionDetails.setDoubleRoomPrice(newRoomPrice)) {
+                    return RoomManager.updateRoomPrice(RoomType.DOUBLE, newRoomPrice);
+                }
+                break;
             case DELUXE:
-                return PromotionDetails.setDeluxeRoomPrice(newRoomPrice);
+                if (PromotionDetails.setDeluxeRoomPrice(newRoomPrice)) {
+                    return RoomManager.updateRoomPrice(RoomType.DELUXE, newRoomPrice);
+                }
+                break;
             case VIP_SUITE:
-                return PromotionDetails.setVipSuitePrice(newRoomPrice);
+                if (PromotionDetails.setVipSuitePrice(newRoomPrice)) {
+                    return RoomManager.updateRoomPrice(RoomType.VIP_SUITE, newRoomPrice);
+                }
+                break;
         }
         // Cant find
         return false;

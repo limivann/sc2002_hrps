@@ -26,7 +26,7 @@ public class Database {
     public static int numOfDoubleRooms = 10;
     public static int numOfDeluxeRooms = 10;
     public static int numOfVipSuites = 8;
-
+    
     public static int numOfFloors = 4;
     public static int numOfRoomPerFloor = 12;
     
