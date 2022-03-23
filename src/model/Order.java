@@ -1,7 +1,5 @@
 package src.model;
 
-import java.util.HashMap;
-
 import src.model.enums.OrderStatus;
 
 import java.io.Serializable;
@@ -12,20 +10,20 @@ public class Order implements Serializable {
     private static final long serialVersionUID = 5L;
 
     private String orderId;
-    private String date;
-    private String time;
-    private static double totalBill;
+    private String dateTime;
+    private double totalBill;
     private ArrayList<MenuItem> currentOrders;
     private String remarks;
     private OrderStatus status;
+    private String roomId;
 
-    public Order(String orderId, String date, String time) {
+    public Order(String orderId, String dateTime, String roomId) {
         this.orderId = orderId;
-        this.date = date;
-        this.time = time;
-        totalBill = 0;
+        this.dateTime = dateTime;
+        this.totalBill = 0;
         this.remarks = "No Remarks";
         this.currentOrders = new ArrayList<MenuItem>();
+        setRoomId(roomId);
     }
     
     // GETTERS
@@ -33,13 +31,20 @@ public class Order implements Serializable {
         return this.orderId;
     }
 
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
     public void addOrderItem(MenuItem menuItem){
         currentOrders.add(menuItem);
         totalBill += menuItem.getPrice();
     }
 
-    public boolean removeOrderItem(String name){
-        MenuItem toBeRemoved = findOrderItem(name);
+    public boolean removeOrderItem(MenuItem toBeRemoved){
         if (toBeRemoved != null){
             currentOrders.remove(toBeRemoved);
             totalBill -= toBeRemoved.getPrice();
@@ -49,23 +54,35 @@ public class Order implements Serializable {
     }
 
     public void printOrder(){
-
-        System.out.printf("Order Id: %s    Date: %s    Time: %s\n", orderId, date, time);
-        System.out.println("\t-Order-\t");
+        System.out.printf("Order Id: %s  Room: %s  Date/Time: %s\n", getOrderId(), getRoomId() ,dateTime);
+        System.out.println("\t\t-Order-\t\t");
         for (int i = 0; i < currentOrders.size(); i++){
             MenuItem menuItem = currentOrders.get(i);
             System.out.printf("Item: %s    Price: $%.2f\n", menuItem.getName(), menuItem.getPrice());
         }
         System.out.println("Remarks: " + this.remarks);
-        System.out.printf("Total bill: $%.2f\n", totalBill);
+        System.out.printf("Total bill: $%.2f\n", this.totalBill);
     }
 
-    public void setRemarks(String remarks){
+    public boolean setRemarks(String remarks) {
         this.remarks = remarks;
+        return true;
+    }
+    
+    public boolean setTotalBill(double totalBill) {
+        if (totalBill < 0) {
+            return false;
+        }
+        this.totalBill = totalBill;
+        return true;
     }
 
-    public void updateStatus(OrderStatus currentStatus){
+    public void setStatus(OrderStatus currentStatus) {
         status = currentStatus;
+    }
+    
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
     }
 
     public MenuItem findOrderItem(String name){

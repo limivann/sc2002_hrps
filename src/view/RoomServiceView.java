@@ -1,10 +1,10 @@
 package src.view;
+import javax.xml.namespace.QName;
+
+import src.controller.RoomManager;
 import src.controller.RoomServiceManager;
 import src.helper.Helper;
-import src.model.Room;
 import src.model.enums.OrderStatus;
-import java.util.Scanner;
-
 public class RoomServiceView extends MainView{
 
     RoomServiceManager roomServiceManager= new RoomServiceManager();
@@ -29,10 +29,11 @@ public class RoomServiceView extends MainView{
                     customizeMenu();
                     break;
                 case 2:
-                    createOrder();
+                    if (!createOrder()) {
+                        System.out.println("Create order unsuccessful");
+                    }
                     break;
                 case 3:
-                    System.out.println("Exited");
                     break;
                 default:
                     System.out.println("Invalid Option");
@@ -45,60 +46,62 @@ public class RoomServiceView extends MainView{
     private void printMenu_createOrder() {
         System.out.println("***** ORDER MENU *****");
         System.out.println("Please enter an option (1-6)");
-        System.out.println("1) Print menu");
-        System.out.println("2) Add menu items");
-        System.out.println("3) Remove menu items");
-        System.out.println("4) Print order");
-        System.out.println("5) Enter remarks");
-        System.out.println("6) Checkout");
+        System.out.println("(1) Print menu");
+        System.out.println("(2) Add menu items");
+        System.out.println("(3) Remove menu items");
+        System.out.println("(4) Print order");
+        System.out.println("(5) Enter remarks");
+        System.out.println("(6) Checkout");
     }
 
-    private void createOrder(){
+    private boolean createOrder() {
+        System.out.println("Please enter your room id in this format floor-room (Eg: 01-05):");
+        String roomId = Helper.sc.nextLine();
+        if (!RoomManager.validateRoomId(roomId)) {
+            return false;
+        }
+        String orderId = RoomServiceManager.createOrder(roomId);
         String itemName;
-        System.out.println("Enter date: ");
-        String date = Helper.sc.nextLine();
-        System.out.println("Enter time: ");
-        String time = Helper.sc.nextLine();
-        roomServiceManager.createOrder(date, time);
-        int option = 99;
+        int option = -1;
         do{
             printMenu_createOrder();
-            System.out.println("Enter option");
+            System.out.println("Enter option: ");
             option = Helper.readInt();
             switch (option){
                 case 1:
-                    roomServiceManager.printMenu();
+                    RoomServiceManager.printMenu();
                     break;
                 case 2:
                     System.out.println("Enter item to be added:\r");
                     itemName = Helper.sc.nextLine();
-                    addOrderItem(itemName);
+                    addOrderItem(itemName, orderId);
                     break;
                 case 3:
                     System.out.println("Enter item to be removed:\r");
                     itemName = Helper.sc.nextLine();
-                    removeOrderItem(itemName);
+                    removeOrderItem(itemName, orderId);
                     break;
                 case 4:
-                    roomServiceManager.printOrder();
+                    RoomServiceManager.printOrder(orderId);
                     break;
                 case 5:
                     System.out.println("Enter remarks:\r");
                     String remarks = Helper.sc.nextLine();
-                    roomServiceManager.setRemarks(remarks);
+                    RoomServiceManager.setRemarks(remarks, orderId);
                     break;
                 case 6:
-                    confirmOrder();
+                    confirmOrder(orderId);
                     break;
                 default:
                     System.out.println("Invalid option");
                     break;
             }
         } while (option != 6);
+        return true;
     }
 
-    private void addOrderItem(String name){
-        if (roomServiceManager.addOrderItem(name)){
+    private void addOrderItem(String name, String orderId){
+        if (RoomServiceManager.addOrderItem(name, orderId)){
             System.out.printf("\"%s\" added to order SUCCESSFULLY\n", name);
         }
         else{
@@ -106,8 +109,8 @@ public class RoomServiceView extends MainView{
         };
     }
 
-    private void removeOrderItem(String name){
-        if (roomServiceManager.removeOrderItem(name)){
+    private void removeOrderItem(String name, String orderId){
+        if (RoomServiceManager.removeOrderItem(name, orderId)){
             System.out.printf("\"%s\" removed from order SUCCESSFULLY\n", name);
         }
         else{
@@ -115,11 +118,11 @@ public class RoomServiceView extends MainView{
         };
     }
 
-    private void confirmOrder() {
+    private void confirmOrder(String orderId) {
         System.out.println("RECEIPT:");
-        roomServiceManager.printOrder();
+        RoomServiceManager.printOrder(orderId);
         System.out.println("Order Sent!!!\nThank you for ordering!!! :):):)");
-        roomServiceManager.updateStatus(OrderStatus.CONFIRMED);
+        RoomServiceManager.updateStatus(OrderStatus.CONFIRMED, orderId);
     }
 
     /* Customize Menu */
@@ -127,11 +130,11 @@ public class RoomServiceView extends MainView{
     private void printMenu_customizeMenu() {
         System.out.println("***** CUSTOMIZE MENU *****");
         System.out.println("Please enter an option (1-5)");
-        System.out.println("1) Add menu items");
-        System.out.println("2) Remove menu items");
-        System.out.println("3) Update menu items");
-        System.out.println("4) Print menu items");
-        System.out.println("5) Exit");
+        System.out.println("(1) Add menu items");
+        System.out.println("(2) Remove menu items");
+        System.out.println("(3) Update menu items");
+        System.out.println("(4) Print menu items");
+        System.out.println("(5) Exit");
     }
 
     private void customizeMenu() {
@@ -180,7 +183,7 @@ public class RoomServiceView extends MainView{
     }
 
     private void printMenuItems(){
-        roomServiceManager.printMenu();
+        RoomServiceManager.printMenu();
     }
 
     private void addMenuItem(String name, String description, double price){
