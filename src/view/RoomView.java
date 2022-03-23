@@ -109,9 +109,9 @@ public class RoomView extends MainView{
     }
 
     public void printRoomByStatus(){
-        a.printStatus();
+        RoomManager.printRoomStatus();
     }
     public void printRoomByOccupancyRate(){
-        a.printOccupancyRate();
+        RoomManager.printOccupancyRate(RoomStatus.VACANT);
     }
 }

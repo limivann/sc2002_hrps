@@ -130,45 +130,47 @@ public class Room implements Serializable {
 		return guestId;
 	}
 
+	public int getFloorNumber() {
+		return floorNumber;
+	}
+
+	public int getRoomNumber() {
+		return roomNumber;
+	}
+
+	public RoomType getType() {
+		return type;
+	}
+	
+	public boolean getIsWifiEnabled() {
+		return isWifiEnabled;
+	}
+
+	public boolean getIsSmokingAllowed() {
+		return isSmokingAllowed;
+	}
+	
 	// METHODS
 	public void printRoomStatus() {
-		System.out.println(getRoomStatus().roomStatusAsStr);
+		System.out.println(String.format("Room status: %s", getRoomStatus().roomStatusAsStr));
 	}
 
 	public void printRoomtype(){
-		switch(type){
-			case SINGLE:
-			System.out.println("Type: Single Room");
-			break;
-			case DOUBLE:
-			System.out.println("Type: Double Room");
-			break;
-			case DELUXE:
-			System.out.println("Type: Deluxe Room");
-			case VIP_SUITE:
-			System.out.println("Type: VIP Suite");
-		}
+		System.out.println(String.format("Room type: %s", getType().roomTypeAsStr));
 	}
 
 	public void printRoomDetails(){
 		System.out.println("----------------");
-        System.out.printf("Room number: %s\n", roomId);
-		System.out.printf("Room status: %s\n", roomStatus);
+        System.out.printf("Room number: %s\n", getRoomId());
+		printRoomStatus();
+		printRoomtype();
 		if (roomStatus == RoomStatus.OCCUPIED || roomStatus == RoomStatus.RESERVED) {
-			System.out.printf("Guest Name: %s\n", guestName);
+			System.out.printf("Guest Name: %s\n", getGuestName());
 		}
-		System.out.printf("Room price: %s\n", price);
-		System.out.printf("Wifi Enabled: %s\n", isWifiEnabled);
-		System.out.printf("Smoking Allowed: %s\n", isSmokingAllowed);
+		System.out.printf("Room price: %s\n", getPrice());
+		System.out.printf("Wifi Enabled: %s\n", getIsWifiEnabled());
+		System.out.printf("Smoking Allowed: %s\n", getIsSmokingAllowed());
         System.out.println("----------------");
 	}
-	public int getFloorNumber() {
-		return floorNumber;
-	}
-	public int getRoomNumber() {
-		return roomNumber;
-	}
-	public RoomType getType() {
-		return type;
-	}
+	
 }
