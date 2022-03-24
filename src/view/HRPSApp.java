@@ -1,5 +1,7 @@
 package src.view;
 import java.util.Scanner;
+
+import src.database.Database;
 import src.helper.Helper;
 import src.view.*;
 public class HRPSApp {
@@ -9,15 +11,20 @@ public class HRPSApp {
         GuestView guestView = new GuestView();
         RoomView roomView = new RoomView();
         ReservationView reservationView = new ReservationView();
-        MenuView menuView = new MenuView();
-        OrderView orderView = new OrderView();
+        RoomServiceView roomServiceView = new RoomServiceView();
         HandleCheckInOutView handleCheckInOutView = new HandleCheckInOutView();
+        ManagePaymentView managePaymentView = new ManagePaymentView();
+        DatabaseView databaseView = new DatabaseView();
+
+        // TODO: Initialize Database
+        Database database = new Database();
+        // Initialize room
 
         System.out.println("Welcome to Hotel Reservation and Payment System");
         int opt = -1;
         do{
             printMainMenu();
-            opt = helper.sc.nextInt();
+            opt = Helper.readInt();
             switch (opt) {
                 case 1:
                     guestView.viewapp();
@@ -29,22 +36,26 @@ public class HRPSApp {
                     reservationView.viewapp();
                     break;
                 case 4:
-                    menuView.viewapp();
+                    roomServiceView.viewapp();
                     break;
                 case 5:
-                    orderView.viewapp();
-                    break;
-                case 6:
                     handleCheckInOutView.viewapp();
                     break;
+                case 6:
+                    managePaymentView.viewapp();
+                    break;
                 case 7:
+                    databaseView.viewapp();
+                    break;
+                case 8:
                     break;
                 default:
                     // TODO: Throw Exception
                     System.out.println("Invalid input. Please try again.");
                     break;
             }
-        } while (opt != 7);
+        } while (opt != 8);
+        Database.saveAllFiles();
         System.out.println("Program closing ... Thank you for using HRPS!");
     }
     
@@ -53,9 +64,10 @@ public class HRPSApp {
         System.out.println("(1) Manage Guests");
         System.out.println("(2) Manage Rooms");
         System.out.println("(3) Manage Reservations");
-        System.out.println("(4) Manage Room Service Menu");
-        System.out.println("(5) Manage Room Service Orders");
-        System.out.println("(6) Manage check in / check out");
-        System.out.println("(7) Quit");
+        System.out.println("(4) Manage Room Service (Customize Menu/ Create New Order)");
+        System.out.println("(5) Manage check in / check out");
+        System.out.println("(6) Manage payment settings (prices, discount rates, taxes)");
+        System.out.println("(7) Manage Database");
+        System.out.println("(8) Close Program");
     }
 }

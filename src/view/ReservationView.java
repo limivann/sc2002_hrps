@@ -2,6 +2,9 @@ package src.view;
 
 import src.controller.ReservationManager;
 import src.helper.Helper;
+import src.controller.RoomManager;
+import src.controller.GuestManager;
+
 public class ReservationView extends MainView{
     @Override
     public void viewapp(){
@@ -35,16 +38,13 @@ public class ReservationView extends MainView{
                     numberOfPax = Helper.sc.nextInt();
                     if(choice==2){
                         System.out.println("Enter Check In Date");
-                        checkedInDate = Helper.sc.nextLine();
-                        //validate date
+                        checkedInDate = Helper.setDate();
                         System.out.println("Enter Check Out Date");
-                        checkedOutDate = Helper.sc.nextLine();
-                        //validate date
+                        checkedOutDate = Helper.setDate();
                         manager.create(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax);
                     }
                     System.out.println("Enter Check Out Date");
-                    checkedOutDate = Helper.sc.nextLine();
-                    //validate date
+                    checkedOutDate = Helper.setDate();
                     checkedInDate = null;
                     manager.create(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax);
                     break;
@@ -105,15 +105,11 @@ public class ReservationView extends MainView{
                 opt = Helper.sc.nextInt();
                 switch(opt){
                     case 1:
-                        System.out.println("Enter Date: (yyyy-MM-DD HH-mm");
-                        Helper.sc.nextLine();
-                        Date = Helper.sc.nextLine();
+                        Date = Helper.setDate();
                         manager.updateCheckedInDate(reservationId, Date);
                         break;
                     case 2:
-                        System.out.println("Enter Date: (yyyy-MM-DD HH-mm");
-                        Helper.sc.nextLine();
-                        Date = Helper.sc.nextLine();
+                        Date = Helper.setDate();
                         manager.updateCheckedOutDate(reservationId, Date);
                         break;
                     case 3:

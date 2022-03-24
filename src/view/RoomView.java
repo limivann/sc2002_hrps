@@ -1,142 +1,119 @@
 package src.view;
-import java.util.Scanner;
+
 import src.model.Room;
 import src.controller.RoomManager;
+import src.helper.Helper;
+
+import java.util.InputMismatchException;
 
 import src.model.enums.*;
 
 public class RoomView extends MainView{
-    private RoomManager a = new RoomManager();   
-    public void printMenu(){
-        System.out.println("\n1. Create room");
-        System.out.println("2. Print room");
-        System.out.println("3. Update room");
-        System.out.println("4. Print room status");
-        System.out.println("5. Remove room");
-        System.out.println("6. Exit");
+    private RoomManager a = new RoomManager();
+
+    public RoomView() {
+        
+    }
+
+    @Override
+    public void printMenu() {
+        System.out.println("Please select an option (1-5)");
+        System.out.println("1. Update room status");
+        System.out.println("2. Search room");
+        System.out.println("3. Print rooms by status");
+        System.out.println("4. Print rooms by occupancy rate");
+        System.out.println("5. Exit");
     }
 
     @Override
     public void viewapp() {
-        Scanner sc = new Scanner(System.in);
         int opt = -1;
-        do{
-            printMenu();
-            opt = sc.nextInt();
-            switch (opt){
-                case 1:
-                    createRoom();
-                    break;
-                case 2:
-                    printRoom();
-                    break;
-                case 3:
-                    updateRoom();
-                    break;
-                case 4:
-                    printRoomStatus();
-                    break;
-                case 5:
-                    removeRoom();
-                    break;
-                case 6:
-                    break;
-                default:
-                    // TODO: Handle exception
-                    System.out.println("Invalid choice. Please try again.");
-                    break;
-                
+        do {
+            try {
+                printMenu();
+                opt = Helper.readInt();
+                switch (opt) {
+                    case 1:
+                        if (promptUpdateRoomStatus()) {
+                            System.out.println("Status updated successfully.");
+                        }else{
+                            System.out.println("Unsuccessful status update");
+                        }
+                        break;
+                    case 2:
+                        promptSearchRoom(true);
+                        break;
+                    case 3:
+                        printRoomByStatus();
+                        break;
+                    case 4:
+                        printRoomByOccupancyRate();
+                        break;
+                    case 5:
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                        break;
+
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Wrong data type! ");
+                System.out.println("________________\n");
             }
-        }while (opt != 6);
+        } while (opt != 5);
     }
-    public void createRoom(){
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Enter the floor number: ");
-        int floor = sc.nextInt();
-        System.out.println("Enter the room number: ");
-        int room = sc.nextInt();
-        System.out.println("Enter the price: ");
-        double price = sc.nextDouble();
-        System.out.println("Is this room wifi-enabled?");
-        boolean wifi = sc.nextBoolean();
-        System.out.println("Is smoking allowed in this room?");
-        boolean smoking = sc.nextBoolean();
-
-        System.out.println("Enter choice of room type: ");
-        System.out.println("1 for Single room");
-        System.out.println("2 for Double room");
-        System.out.println("3 for Deluxe room");
-        System.out.println("4 for VIP suite");
-        int opt = sc.nextInt();
-        
-        switch (opt){
-            case 1:
-            a.create(RoomType.SINGLE, floor, room,  price, wifi, smoking);
-            break;
-            case 2:
-            a.create(RoomType.DOUBLE, floor, room,  price, wifi, smoking);
-            break;
-            case 3:
-            a.create(RoomType.DELUXE, floor, room,  price, wifi, smoking);
-            break;
-            case 4:
-            a.create(RoomType.VIP_SUITE, floor, room,  price, wifi, smoking);
-            break;
-        }     
-    }
-    public void printRoom(){
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Enter the floor: ");
-        int floor = sc.nextInt();
-        System.out.println("Enter the room: ");
-        int room = sc.nextInt();
-        a.printRoom(floor, room);
-    }
-    public void updateRoom(){
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Which room do you want to update?");
-        System.out.println("Enter floor:");
-        int floor = sc.nextInt();
-        System.out.println("Enter room:");
-        int room = sc.nextInt();
-
-        System.out.println("What do you wish to update?");
-        System.out.println("1 for status");
-        System.out.println("2 for price");
-        int opt = sc.nextInt();
-        if (opt == 1){
-            System.out.println("Which is the new status?");
-            System.out.println("1 for vacant");
-            System.out.println("2 for occupied");
-            System.out.println("3 for reserved");
-            System.out.println("4 for under maintenance");
-            int status = sc.nextInt();
-            a.updateStatus(floor, room, status);
-        }else if (opt == 2){
-            System.out.println("Enter the new price?");
-            double price = sc.nextDouble();
-            a.updatePrice(floor, room, price);
+    
+    public void promptSearchRoom(boolean printResults) {
+        System.out.println("Enter the floor number");
+        int floor = Helper.readInt();
+        System.out.println("Enter the room number");
+        int room = Helper.readInt();
+        if (printResults) {
+            RoomManager.printRoom(floor, room);
         }
     }
-    public void removeRoom(){
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Enter floor:");
-        int floor = sc.nextInt();
-        System.out.println("Enter room:");
-        int room = sc.nextInt();
-        a.remove(floor, room);
+    
+    public boolean promptUpdateRoomStatus() {
+        System.out.println("Enter the floor number");
+        int floor = Helper.readInt();
+        System.out.println("Enter the room number");
+        int room = Helper.readInt();
+        printRoomStatusMenu();
+        int opt = Helper.readInt();
+        RoomStatus newStatus = RoomStatus.VACANT;
+        int guestId = -1;
+        switch (opt) {
+            case 1:
+                newStatus = RoomStatus.VACANT;
+                break;
+            case 2:
+                newStatus = RoomStatus.OCCUPIED;
+                System.out.println("Please enter the guest's id");
+                guestId = Helper.readInt();
+                break;
+            case 3:
+                newStatus = RoomStatus.RESERVED;
+                System.out.println("Please enter the guest's id");
+                break;
+            case 4:
+                newStatus = RoomStatus.UNDER_MAINTENANCE;
+                break;
+        }
+        return RoomManager.updateRoomStatus(floor, room, newStatus);
     }
-    public void printRoomStatus(){
-        Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter floor:");
-        int floor = sc.nextInt();
-        System.out.println("Enter room:");
-        int room = sc.nextInt();
-        a.printStatus(floor, room);
+    private void printRoomStatusMenu() {
+        System.out.println("Which is the new status? (1-4)");
+        System.out.println("(1) Vacant");
+        System.out.println("(2) Occupied");
+        System.out.println("(3) Reserved");
+        System.out.println("(4) Under maintenance");
+    }
+
+    public void printRoomByStatus(){
+        RoomManager.printRoomStatus();
+    }
+    public void printRoomByOccupancyRate(){
+        RoomManager.printOccupancyRate(RoomStatus.VACANT);
     }
 }

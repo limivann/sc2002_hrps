@@ -2,13 +2,15 @@ package src.controller;
 
 import java.util.HashMap;
 import src.model.Reservation;
+import src.model.Invoice;
 
 public class ReservationManager {
     HashMap<String, Reservation> ReservationList = new HashMap<String, Reservation>();
-
+    
     public void create(String checkedInDate, String checkedOutDate, String guestId, String roomId, int numberOfPax){
         Reservation new_reservation = new Reservation(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax);
         ReservationList.put(new_reservation.getReservationId(), new_reservation);
+        Invoice new_invoice = new Invoice(new_reservation);
     }
     public void remove(String reservationId){
         if(validate(reservationId)){

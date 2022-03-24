@@ -9,10 +9,11 @@ public class HandleCheckInOutView extends MainView {
     }
     @Override
     public void printMenu() {
+        System.out.println("=== Handle Check In / Check Out View === ");
         System.out.println("Please select an option (1-3)");
-        System.out.println("1. Check In ");
-        System.out.println("2. Check Out");
-        System.out.println("3. Exit");
+        System.out.println("1. Check In Room");
+        System.out.println("2. Check Out Room");
+        System.out.println("3. Exit Handle Check In / Check Out View");
     }
 
     @Override
@@ -39,6 +40,7 @@ public class HandleCheckInOutView extends MainView {
     }
     
     public void checkin() {
+        System.out.println("--- Check In Room---");
         System.out.println("Please enter reservation id: ");
         String reservationId = Helper.sc.nextLine();
         // TODO: Call ReservationManager to handle check in
@@ -46,6 +48,7 @@ public class HandleCheckInOutView extends MainView {
     }
 
     public void checkout() {
+        System.out.println("--- Check Out Room---");
         System.out.println("Please enter room id: ");
         String roomId = Helper.sc.nextLine();
         System.out.println(String.format("Check out complete for room id: %s", roomId));
@@ -59,7 +62,7 @@ public class HandleCheckInOutView extends MainView {
     }
     
     public int promptPayment() {
-        System.out.println("Please select a payment method");
+        System.out.println("Please select a payment method (1-2)");
         System.out.println("(1) Cash");
         System.out.println("(2) Credit Card");
         int opt = Helper.sc.nextInt();
@@ -78,5 +81,6 @@ public class HandleCheckInOutView extends MainView {
     
     public void printInvoice(String roomId) {
         // Print Invoice
+        
     }
 }
