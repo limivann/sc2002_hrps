@@ -1,11 +1,14 @@
 package src.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import src.controller.PaymentManager;
 
-public class Invoice {
+public class Invoice implements Serializable {
+    private static final long serialVersionUID = 6L;
+
     private String guestId;
     private String roomId;
     private String reservationId;

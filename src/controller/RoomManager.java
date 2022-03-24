@@ -65,6 +65,15 @@ public class RoomManager{
     public static Room searchRoom(String roomId) {
         return Database.ROOMS.get(roomId);
     }
+
+    public static void printRoom(String roomId) {
+        if (Database.ROOMS.containsKey(roomId)) {
+            Room target = searchRoom(roomId);
+            target.printRoomDetails();
+        } else {
+            System.out.println("Room doesn't exists.");
+        }
+    }
     
     public static void printRoom(int floor, int room) {
         String roomId = String.format("%02d-%02d", floor, room);
@@ -335,12 +344,21 @@ public class RoomManager{
     public static boolean checkRoomVacancy(String roomId) {
         if (validateRoomId(roomId)) {
             return Database.ROOMS.get(roomId).getRoomStatus() == RoomStatus.VACANT;
-        }   
+        }
         return false;
     }
 
+    public static boolean validateNumOfPax(String roomId, int numOfPax) {
+        if (numOfPax <= 0) {
+            return false;
+        }
+        if (validateRoomId(roomId)) {
+            Room room = searchRoom(roomId);
+            return numOfPax <= room.getType().maxCapacity;
+        }
+        return false;
+    }
     
-
     public static void main(String[] args) {
         initializeAllRooms();
     }

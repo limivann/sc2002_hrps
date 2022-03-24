@@ -68,42 +68,44 @@ public class Helper {
         return Integer.parseInt(maxId) + 1;
     }
 
-    public static String setDate(){
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-DD HH:mm");
-        String date;
-        System.out.println("Please enter the date in this format: 'yyyy-MM-DD HH:mm'");
-        date = sc.nextLine();
-        try{
-            LocalDateTime Date = LocalDateTime.parse(date);
-            date = Date.format(format);
-            if(validateDate(date))
+    public static String setDate(boolean now){
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        if (now) {
+            return getTimeNow();  
+        }
+        System.out.println("Please enter the date in this format: 'yyyy-MM-dd HH:mm'");
+        String date = sc.nextLine();
+        try {
+            LocalDateTime Date = LocalDateTime.parse(date, format);
+            date = format.format(Date);
+            if(validateDate(date, format))
                 return date;
             else{
                 System.out.println("Invalid Date");
-                return null;
             }
         }
-        catch(DateTimeParseException e){
+        catch (DateTimeParseException e) {
             System.out.println("Invalid Date format");
-            return null;
         }
+        return "";
     } 
-    public static LocalDateTime getDate(String date){
-        return LocalDateTime.parse(date);
+    public static LocalDateTime getDate(String date, DateTimeFormatter format){
+        return LocalDateTime.parse(date, format);
     }
     public static String getTimeNow(){
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-DD HH:mm");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime date = LocalDateTime.now();
         return date.format(format);
     }
-    public static boolean validateDate(String date){
-        LocalDateTime Date = getDate(date);
+
+    public static boolean validateDate(String date, DateTimeFormatter format) {
+        LocalDateTime Date = getDate(date, format);
         LocalDateTime now = LocalDateTime.now();
     
         return (Date.compareTo(now)>=0?true:false);
     }
-    public static boolean LocalDateTimediff(String date){
-        LocalDateTime from = getDate(date);
+    public static boolean LocalDateTimediff(String date, DateTimeFormatter format){
+        LocalDateTime from = getDate(date, format);
         LocalDateTime to = LocalDateTime.now();
         LocalDateTime fromTemp = LocalDateTime.from(from);
             
@@ -118,12 +120,20 @@ public class Helper {
         else
             return false;
     }
-    public static void checkReservationStatus(){
-        for (Reservation reservation : Database.RESERVATIONS.values()){
+
+    public static void checkReservationStatus() {
+        for (Reservation reservation : Database.RESERVATIONS.values()) {
             String date = reservation.getCheckedInDate();
-            if(!LocalDateTimediff(date)){
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            if (!LocalDateTimediff(date, format)) {
                 ReservationManager.updateIsExpired(reservation.getReservationId(), false);
             }
         }
+    }
+    
+    public static void main(String[] args) {
+        Helper helper = new Helper();
+        setDate(false);
+      
     }
 }

@@ -1,8 +1,14 @@
 package src.model;
 import src.model.enums.ReservationStatus;
+
+import java.io.Serializable;
+
 import src.helper.Helper;
 
-public class Reservation {
+public class Reservation implements Serializable {
+
+    private static final long serialVersionUID = 3L;
+    
     private String checkedInDate;
     private String checkedOutDate;
     private String reservationDate;
@@ -33,38 +39,48 @@ public class Reservation {
     public String getCheckedInDate() {
         return checkedInDate;
     }
+
     public boolean setCheckedInDate(String checkedInDate) {
         this.checkedInDate = checkedInDate;
         return true;
     }
+
     public String getCheckedOutDate() {
         return checkedOutDate;
     }
+
     public boolean setCheckedOutDate(String checkedOutDate) {
         this.checkedOutDate = checkedOutDate;
         return true;
     }
+
     public String getGuestId() {
         return guestId;
     }
+
     public boolean setGuestId(String guestId) {
         this.guestId = guestId;
         return true;
     }
+
     public String getRoomId() {
         return roomId;
     }
+
     public boolean setRoomId(String roomId) {
         this.roomId = roomId;
         return true;
     }
+    
     public int getNumberOfPax() {
         return numberOfPax;
     }
+
     public boolean setNumberOfPax(int numberOfPax) {
         this.numberOfPax = numberOfPax;
         return true;
     }
+    
     public String getReservationDate() {
         return reservationDate;
     }
@@ -72,38 +88,32 @@ public class Reservation {
     public ReservationStatus getReservationStatus() {
         return reservationStatus;
     }
-    public boolean setReservationStatus(int reservationStatus) {
-        switch(reservationStatus){
-            case 1:
-                this.reservationStatus = ReservationStatus.CONFIRMED;
-                return true;
-            case 2:
-                this.reservationStatus = ReservationStatus.IN_WAITLIST;
-                return true;
-            case 3:
-                this.reservationStatus = ReservationStatus.CHECKED_IN;
-                return true;
-            case 4:
-                this.reservationStatus = ReservationStatus.EXPIRED;
-                return true;
-            case 5:
-                this.reservationStatus = ReservationStatus.CHECKED_OUT;
-                return true;
-            case 6:
-                this.reservationStatus = ReservationStatus.CANCELLED;
-                return true;
-            default:
-                System.out.println("Invalid option");
-                return false;
-        }
+
+    public boolean setReservationStatus(ReservationStatus reservationStatus) {
+        this.reservationStatus = reservationStatus;
+        return true;
     }
-    public boolean getIsExpired(){
+
+    public boolean getIsExpired() {
         return isExpired;
     }
-    public void setIsExpired(boolean isExpired){
+    
+    public boolean setIsExpired(boolean isExpired){
         this.isExpired = isExpired;
+        return true;
     }
+
     public String getReservationId() {
         return reservationId;
+    }
+    
+    @Override
+    public String toString() {
+        String res = String.format(
+                "Reservation Id: %s Guest Id: %s NumOfPax: %d Check In: %s Check Out: %s Status: %s Is Expired: %b",
+                getReservationId(), getGuestId(), getNumberOfPax(), getCheckedInDate(), getCheckedOutDate(),
+                getReservationStatus().reservationStatusAsStr, getIsExpired()
+            );
+        return res;
     }
 }

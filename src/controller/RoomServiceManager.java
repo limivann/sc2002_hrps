@@ -23,9 +23,9 @@ public class RoomServiceManager {
     public static String createOrder(String roomId) {
         int oid = Helper.generateUniqueId(Database.ORDERS);
         String orderId = String.format("O%04d", oid);
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
-        LocalDateTime now = LocalDateTime.now();  
-        Order newOrder = new Order(orderId , dtf.format(now), roomId);
+        // DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+        // LocalDateTime now = LocalDateTime.now();  
+        Order newOrder = new Order(orderId , Helper.getTimeNow(), roomId);
         Database.ORDERS.put(orderId, newOrder);
         return orderId;
     }
