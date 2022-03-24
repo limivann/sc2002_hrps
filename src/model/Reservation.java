@@ -1,8 +1,6 @@
 package src.model;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import src.model.enums.ReservationStatus;
+import src.helper.Helper;
 
 public class Reservation {
     private String checkedInDate;
@@ -14,88 +12,89 @@ public class Reservation {
     private boolean isExpired;
     private ReservationStatus reservationStatus;
     private String reservationId;
-    private static int Id = 1;
 
-    public Reservation(String checkedInDate, String checkedOutDate, String guestId, String roomId, int numberOfPax){
-        LocalDateTime date = LocalDateTime.now();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-DD HH:mm");
-        String formattedDate = date.format(format);
-        this.reservationDate = formattedDate;
-        this.checkedInDate = checkedInDate;
+    public Reservation(String checkedInDate, String checkedOutDate, String guestId, String roomId, int numberOfPax, String reservationId){
+        this.reservationDate = Helper.getTimeNow();
+        if(checkedInDate==null){
+            this.checkedInDate = this.reservationDate;
+        }
+        else{
+            this.checkedInDate = checkedInDate;
+        }
         this.checkedOutDate = checkedOutDate;
         this.guestId = guestId;
         this.roomId = roomId;
         this.numberOfPax = numberOfPax;
         this.isExpired = false;
         this.reservationStatus = ReservationStatus.CONFIRMED;
-        this.reservationId = "Re" + Id;
-        Id++;
+        this.reservationId = reservationId;
     }
 
     public String getCheckedInDate() {
         return checkedInDate;
     }
-    public void setCheckedInDate(String checkedInDate) {
+    public boolean setCheckedInDate(String checkedInDate) {
         this.checkedInDate = checkedInDate;
+        return true;
     }
     public String getCheckedOutDate() {
         return checkedOutDate;
     }
-    public void setCheckedOutDate(String checkedOutDate) {
+    public boolean setCheckedOutDate(String checkedOutDate) {
         this.checkedOutDate = checkedOutDate;
+        return true;
     }
     public String getGuestId() {
         return guestId;
     }
-    public void setGuestId(String guestId) {
+    public boolean setGuestId(String guestId) {
         this.guestId = guestId;
+        return true;
     }
     public String getRoomId() {
         return roomId;
     }
-    public void setRoomId(String roomId) {
+    public boolean setRoomId(String roomId) {
         this.roomId = roomId;
+        return true;
     }
     public int getNumberOfPax() {
         return numberOfPax;
     }
-    public void setNumberOfPax(int numberOfPax) {
+    public boolean setNumberOfPax(int numberOfPax) {
         this.numberOfPax = numberOfPax;
+        return true;
     }
     public String getReservationDate() {
         return reservationDate;
     }
-    public void setReservationDate(){
-        LocalDateTime date = LocalDateTime.now();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-DD HH:mm");
-        String formattedDate = date.format(format);
-        this.reservationDate = formattedDate;
-    }
+ 
     public ReservationStatus getReservationStatus() {
         return reservationStatus;
     }
-    public void setReservationStatus(int reservationStatus) {
+    public boolean setReservationStatus(int reservationStatus) {
         switch(reservationStatus){
             case 1:
                 this.reservationStatus = ReservationStatus.CONFIRMED;
-                break;
+                return true;
             case 2:
                 this.reservationStatus = ReservationStatus.IN_WAITLIST;
-                break;
+                return true;
             case 3:
                 this.reservationStatus = ReservationStatus.CHECKED_IN;
-                break;
+                return true;
             case 4:
                 this.reservationStatus = ReservationStatus.EXPIRED;
-                break;
+                return true;
             case 5:
                 this.reservationStatus = ReservationStatus.CHECKED_OUT;
-                break;
+                return true;
             case 6:
                 this.reservationStatus = ReservationStatus.CANCELLED;
-                break;
+                return true;
             default:
                 System.out.println("Invalid option");
+                return false;
         }
     }
     public boolean getIsExpired(){

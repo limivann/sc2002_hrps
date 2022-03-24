@@ -2,18 +2,26 @@ package src.view;
 
 import src.controller.ReservationManager;
 import src.helper.Helper;
+import src.controller.RoomManager;
+import src.controller.GuestManager;
+
 public class ReservationView extends MainView{
     @Override
     public void viewapp(){
         int opt = -1;
         String reservationId;
-        ReservationManager manager = new ReservationManager();
         printMenu();
         System.out.println("Enter option:");
         opt = Helper.sc.nextInt();
         do{
             switch (opt){
                 case 1:
+                    System.out.println("1: Walk-In");
+                    System.out.println("2: Reserve");
+                    int choice = Helper.sc.nextInt();
+                    if(choice!=1 && choice!=2){
+                        System.out.println("Invalid option");
+                    }
                     String checkedInDate;
                     String checkedOutDate;
                     String guestId;
@@ -21,24 +29,28 @@ public class ReservationView extends MainView{
                     int numberOfPax;
                     System.out.println("Enter Room Id");
                     roomId = Helper.sc.nextLine();
-                    //validate roomId
+                    RoomManager.validateRoomId(roomId);
                     System.out.println("Enter Guest Id");
                     guestId = Helper.sc.nextLine();
-                    //validate guestId
-                    System.out.println("Enter Check In Date");
-                    checkedInDate = Helper.sc.nextLine();
-                    //validate date
-                    System.out.println("Enter Check Out Date");
-                    checkedOutDate = Helper.sc.nextLine();
-                    //validate date
+                    GuestManager.validateGuestId(guestId);
                     System.out.println("Enter number of pax");
                     numberOfPax = Helper.sc.nextInt();
-                    manager.create(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax);
+                    if(choice==2){
+                        System.out.println("Enter Check In Date");
+                        checkedInDate = Helper.setDate();
+                        System.out.println("Enter Check Out Date");
+                        checkedOutDate = Helper.setDate();
+                        ReservationManager.create(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax);
+                    }
+                    System.out.println("Enter Check Out Date");
+                    checkedOutDate = Helper.setDate();
+                    checkedInDate = null;
+                    ReservationManager.create(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax);
                     break;
                 case 2:
                     System.out.println("Enter Reservation Id");
                     reservationId = Helper.sc.nextLine();
-                    manager.print(reservationId);
+                    ReservationManager.print(reservationId);
                     break;
                 case 3:
                     System.out.println("Enter Reservation Id");
@@ -48,7 +60,7 @@ public class ReservationView extends MainView{
                 case 4:
                     System.out.println("Enter Reservation Id");
                     reservationId = Helper.sc.nextLine();
-                    manager.remove(reservationId);
+                    ReservationManager.remove(reservationId);
                     break;
                 case 5:
                     break;
@@ -71,8 +83,7 @@ public class ReservationView extends MainView{
     }
 
     public void updateReservation(String reservationId){
-        ReservationManager manager = new ReservationManager();
-        if(manager.validate(reservationId)){
+        if(ReservationManager.validate(reservationId)){
             int opt = -1;
             String Date;
             String guestId;
@@ -92,44 +103,38 @@ public class ReservationView extends MainView{
                 opt = Helper.sc.nextInt();
                 switch(opt){
                     case 1:
-                        System.out.println("Enter Date: (yyyy-MM-DD HH-mm");
-                        Helper.sc.nextLine();
-                        Date = Helper.sc.nextLine();
-                        manager.updateCheckedInDate(reservationId, Date);
+                        Date = Helper.setDate();
+                        ReservationManager.updateCheckedInDate(reservationId, Date);
                         break;
                     case 2:
-                        System.out.println("Enter Date: (yyyy-MM-DD HH-mm");
-                        Helper.sc.nextLine();
-                        Date = Helper.sc.nextLine();
-                        manager.updateCheckedOutDate(reservationId, Date);
+                        Date = Helper.setDate();
+                        ReservationManager.updateCheckedOutDate(reservationId, Date);
                         break;
                     case 3:
                         System.out.println("Enter guest Id");
-                        Helper.sc.nextLine();
                         guestId = Helper.sc.nextLine();
-                        //validate guestId
-                        manager.updateGuestId(reservationId, guestId);
+                        GuestManager.validateGuestId(guestId);
+                        ReservationManager.updateGuestId(reservationId, guestId);
                         break;
                     case 4:
                         System.out.println("Enter room Id");
-                        Helper.sc.nextLine();
                         roomId = Helper.sc.nextLine();
-                        //validate roomId
-                        manager.updateRoomId(reservationId, roomId);
+                        RoomManager.validateRoomId(roomId);
+                        ReservationManager.updateRoomId(reservationId, roomId);
                         break;
                     case 5:
                         System.out.println("Enter number of pax");
                         numberOfPax = Helper.sc.nextInt();
-                        manager.updateNumberOfPax(reservationId, numberOfPax);
+                        ReservationManager.updateNumberOfPax(reservationId, numberOfPax);
                         break;
                     case 6:
                         System.out.println("1: Expired\n2: Not Expired\n3: Return");
                         isExpired = Helper.sc.nextInt();
                         if(isExpired==1){
-                            manager.updateIsExpired(reservationId, true);
+                            ReservationManager.updateIsExpired(reservationId, true);
                         }
                         else if(isExpired==2) {
-                            manager.updateIsExpired(reservationId, false);
+                            ReservationManager.updateIsExpired(reservationId, false);
                         }
                         else if(isExpired==3){
                             return;
@@ -147,7 +152,7 @@ public class ReservationView extends MainView{
                         System.out.println("7: Return");
                         reservationStatus = Helper.sc.nextInt();
                         if(reservationStatus==7) return;
-                        manager.updateReservationStatus(reservationId, reservationStatus);
+                        ReservationManager.updateReservationStatus(reservationId, reservationStatus);
                         break;
                     case 8:
                         break;
