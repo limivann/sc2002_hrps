@@ -2,22 +2,24 @@ package src.controller;
 
 import java.util.HashMap;
 import src.model.Reservation;
-import src.model.Invoice;
+import src.database.Database;
+import src.helper.Helper;
 
 public class ReservationManager {
-    HashMap<String, Reservation> ReservationList = new HashMap<String, Reservation>();
-    
-    public void create(String checkedInDate, String checkedOutDate, String guestId, String roomId, int numberOfPax){
-        Reservation new_reservation = new Reservation(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax);
+    static HashMap<String, Reservation> ReservationList = new HashMap<String, Reservation>();
+
+    public static void create(String checkedInDate, String checkedOutDate, String guestId, String roomId, int numberOfPax){
+        int rid = Helper.generateUniqueId(Database.RESERVATIONS);
+        String reservationId = String.format("R%04d", rid);
+        Reservation new_reservation = new Reservation(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax, reservationId);
         ReservationList.put(new_reservation.getReservationId(), new_reservation);
-        Invoice new_invoice = new Invoice(new_reservation);
     }
-    public void remove(String reservationId){
+    public static void remove(String reservationId){
         if(validate(reservationId)){
             ReservationList.remove(reservationId);
         }
     }
-    public boolean validate(String reservationId){
+    public static boolean validate(String reservationId){
         if(ReservationList.containsKey(reservationId)){
             return true;
         }
@@ -26,13 +28,13 @@ public class ReservationManager {
             return false;
         }
     }
-    private Reservation search(String reservationId){
+    private static Reservation search(String reservationId){
         if(validate(reservationId)){
             return ReservationList.get(reservationId);
         }
         else return null;
     }
-    public void print(String reservationId){
+    public static void print(String reservationId){
         if(validate(reservationId)){
             Reservation reservation = ReservationList.get(reservationId);
             System.out.println("----------------");
@@ -43,28 +45,29 @@ public class ReservationManager {
             System.out.println(String.format("checkedOutDate:\t%s", reservation.getCheckedOutDate()));
             System.out.println(String.format("reservationOutDate:\t%s", reservation.getReservationDate()));
             System.out.println(String.format("numberOfPax:\t%d", reservation.getNumberOfPax()));
+            System.out.println(String.format("reservationStatus:\t%s", reservation.getReservationStatus()));
             System.out.println("----------------");
         }
     }
-    public void updateCheckedInDate(String reservationId, String date){
+    public static void updateCheckedInDate(String reservationId, String date){
         search(reservationId).setCheckedInDate(date);
     }
-    public void updateCheckedOutDate(String reservationId, String date){
+    public static void updateCheckedOutDate(String reservationId, String date){
         search(reservationId).setCheckedOutDate(date);
     }
-    public void updateGuestId(String reservationId, String guestId){
+    public static void updateGuestId(String reservationId, String guestId){
         search(reservationId).setGuestId(guestId);
     }
-    public void updateRoomId(String reservationId, String roomId){
+    public static void updateRoomId(String reservationId, String roomId){
         search(reservationId).setRoomId(roomId);
     }
-    public void updateNumberOfPax(String reservationId, int num){
+    public static void updateNumberOfPax(String reservationId, int num){
         search(reservationId).setNumberOfPax(num);
     }
-    public void updateIsExpired(String reservationId, boolean val){
+    public static void updateIsExpired(String reservationId, boolean val){
         search(reservationId).setIsExpired(val);
     }
-    public void updateReservationStatus(String reservationId, int status){
+    public static void updateReservationStatus(String reservationId, int status){
         search(reservationId).setReservationStatus(status);
     }
    

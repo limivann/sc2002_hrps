@@ -9,6 +9,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
+import src.controller.ReservationManager;
+import src.database.Database;
+import src.model.Reservation;
+
 public class Helper {
     public static Scanner sc;
 
@@ -98,7 +102,7 @@ public class Helper {
     
         return (Date.compareTo(now)>=0?true:false);
     }
-    public boolean LocalDateTimediff(String date){
+    public static boolean LocalDateTimediff(String date){
         LocalDateTime from = getDate(date);
         LocalDateTime to = LocalDateTime.now();
         LocalDateTime fromTemp = LocalDateTime.from(from);
@@ -113,5 +117,13 @@ public class Helper {
             return true;
         else
             return false;
+    }
+    public static void checkReservationStatus(){
+        for (Reservation reservation : Database.RESERVATIONS.values()){
+            String date = reservation.getCheckedInDate();
+            if(!LocalDateTimediff(date)){
+                ReservationManager.updateIsExpired(reservation.getReservationId(), false);
+            }
+        }
     }
 }

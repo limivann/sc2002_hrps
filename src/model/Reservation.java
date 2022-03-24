@@ -1,8 +1,6 @@
 package src.model;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import src.model.enums.ReservationStatus;
-import src.helper.*;
+import src.helper.Helper;
 
 public class Reservation {
     private String checkedInDate;
@@ -15,7 +13,7 @@ public class Reservation {
     private ReservationStatus reservationStatus;
     private String reservationId;
 
-    public Reservation(String checkedInDate, String checkedOutDate, String guestId, String roomId, int numberOfPax){
+    public Reservation(String checkedInDate, String checkedOutDate, String guestId, String roomId, int numberOfPax, String reservationId){
         this.reservationDate = Helper.getTimeNow();
         if(checkedInDate==null){
             this.checkedInDate = this.reservationDate;
@@ -29,7 +27,7 @@ public class Reservation {
         this.numberOfPax = numberOfPax;
         this.isExpired = false;
         this.reservationStatus = ReservationStatus.CONFIRMED;
-        this.reservationId = Id;
+        this.reservationId = reservationId;
     }
 
     public String getCheckedInDate() {
