@@ -1,16 +1,27 @@
 package src.controller;
 
 import src.model.Reservation;
+import src.model.Room;
+
+import javax.xml.crypto.Data;
+
+import src.database.Database;
 import src.model.Invoice;
+import src.model.Order;
 public class PaymentManager {
     public PaymentManager() {
         // 
     }
 
-    public static double calculateSubTotal(Reservation reservationDetails) {
-        // TODO: Search for room 
-        // double subTotal = reservationDetails.getSubTotal();
-        return 100;
+    public static double calculateSubTotal(String roomId) {
+        Room room = RoomManager.searchRoom(roomId);
+        double roomPrice = room.getPrice();
+        Order order = RoomServiceManager.searchOrderByRoom(roomId);
+        if (order == null) {
+            return -1;
+        }
+        double orderPrice = order.getTotalBill();
+        return roomPrice + orderPrice;
     }
 
     public static double calculateTotal(double subTotal, double discountRate, double taxRate) {

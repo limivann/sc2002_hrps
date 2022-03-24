@@ -57,8 +57,12 @@ public class RoomManager{
         }
     }
 
-    public static Room searchRoom(int floor, int room){
+    public static Room searchRoom(int floor, int room) {
         String roomId = String.format("%02d-%02d", floor, room);
+        return Database.ROOMS.get(roomId);
+    }
+
+    public static Room searchRoom(String roomId) {
         return Database.ROOMS.get(roomId);
     }
     

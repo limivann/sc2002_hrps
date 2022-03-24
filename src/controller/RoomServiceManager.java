@@ -15,8 +15,6 @@ import javax.xml.crypto.Data;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;    
 public class RoomServiceManager {
-    private HashMap<String,Order> order;
-
     public RoomServiceManager() {
         
     }
@@ -95,6 +93,15 @@ public class RoomServiceManager {
         }
     }
 
+    public static Order searchOrderByRoom(String roomId) {
+        for (Order o : Database.ORDERS.values()) {
+            if (o.getRoomId().equals(roomId)){
+                return o;
+            }
+        }
+        return null;
+    }
+        
     /* Customize Menu methods */
     public static boolean addMenuItem(String name, String description, double price) {
         String formattedName = name.toUpperCase();

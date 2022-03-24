@@ -6,7 +6,9 @@ import java.time.format.DateTimeFormatter;
 import src.controller.PaymentManager;
 
 public class Invoice {
-    private Reservation reservationDetails;
+    private String guestId;
+    private String roomId;
+    private String reservationId;
     private double subTotal;
     private double taxRate;
     private double discountRate;
@@ -16,42 +18,64 @@ public class Invoice {
     public Invoice(Reservation reservationDetails) {
         // reservation will retrieve details for reservation id, guest id, room id
         // calculate sub total by searching orders
-        this.reservationDetails = reservationDetails;
+        setGuestId(reservationDetails.getGuestId());
+        setRoomId(reservationDetails.getRoomId());
+        setReservationId(reservationDetails.getReservationId());
         setDateOfPayment();
         setTaxRate(0.2);
         setDiscountRate();
-        setSubTotal(reservationDetails);
+        setSubTotal(reservationDetails.getRoomId());
         setTotal();
     }
 
-    private void setDateOfPayment() {
+    private boolean setDateOfPayment() {
         LocalDateTime date = LocalDateTime.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-DD HH:mm");
         String formattedDate = date.format(format);
         this.dateOfPayment = formattedDate;
+        return true;
     }
     
-    private void setTaxRate(double taxRate) {
+    private boolean setTaxRate(double taxRate) {
         if (taxRate < 0) {
-            // TODO: Throw error
+            return false;
         }
         this.taxRate = taxRate;
+        return true;
     }
     
-    private void setDiscountRate() {
+    private boolean setDiscountRate() {
         PromotionDetails promotionDetails = new PromotionDetails();
         this.discountRate = PromotionDetails.getDiscountRate();
+        return true;
     }
 
-    private void setSubTotal(Reservation reservationDetails) {
-        double caculatedSubTotal = PaymentManager.calculateSubTotal(reservationDetails);
+    private boolean setSubTotal(String roomId) {
+        double caculatedSubTotal = PaymentManager.calculateSubTotal(roomId);
         this.subTotal = caculatedSubTotal;
+        return true;
     }
 
-    private void setTotal() {
+    private boolean setTotal() {
         // TODO: Calculate total
         double calculateTotal = PaymentManager.calculateTotal(this.subTotal, this.discountRate, this.taxRate);
         this.total = calculateTotal;
+        return true;
+    }
+
+    public boolean setGuestId(String guestId) {
+        this.guestId = guestId;
+        return true;
+    }
+
+    public boolean setRoomId(String roomId) {
+        this.roomId = roomId;
+        return true;
+    }
+
+    public boolean setReservationId(String reservationId) {
+        this.reservationId = reservationId;
+        return true;
     }
 
     public double getTotal() {
@@ -66,15 +90,23 @@ public class Invoice {
         return discountRate;
     }
 
-    public Reservation getReservationDetails() {
-        return reservationDetails;
-    }
-
     public double getSubTotal() {
         return subTotal;
     }
     
     public double getTaxRate() {
         return taxRate;
+    }
+
+    public String getGuestId() {
+        return guestId;
+    }
+
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public String getReservationId() {
+        return reservationId;
     }
 }   

@@ -43,6 +43,10 @@ public class Order implements Serializable {
         return dateTime;
     }
 
+    public double getTotalBill() {
+        return totalBill;
+    }
+
     public void addOrderItem(MenuItem menuItem){
         currentOrders.add(menuItem);
         totalBill += menuItem.getPrice();
