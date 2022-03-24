@@ -32,7 +32,7 @@ public class RoomServiceManager {
         return orderId;
     }
 
-    public static boolean addOrderItem(String name, String orderId) {
+    public static boolean addOrderItem(String name, String orderId, int amount) {
         if (orderId.equals("")) {
             return false;
         }
@@ -44,11 +44,11 @@ public class RoomServiceManager {
         }
         MenuItem menuItemToAdd = Database.MENU_ITEMS.get(menuIdOfOrder);
         Order currentOrder = Database.ORDERS.get(orderId);
-        currentOrder.addOrderItem(menuItemToAdd);
+        currentOrder.addOrderItem(menuItemToAdd, amount);
         return true;
     }
 
-    public static boolean removeOrderItem(String name, String orderId) {
+    public static boolean removeOrderItem(String name, String orderId, int amount) {
         if (orderId.equals("")) {
             return false;
         }
@@ -60,7 +60,7 @@ public class RoomServiceManager {
         }
         MenuItem menuItemToDelete = Database.MENU_ITEMS.get(menuIdOfOrder);
         Order currentOrder = Database.ORDERS.get(orderId);
-        return currentOrder.removeOrderItem(menuItemToDelete);
+        return currentOrder.removeOrderItem(menuItemToDelete, amount);
     }
 
     public static void printOrder(String orderId){

@@ -57,7 +57,7 @@ public class RoomServiceAdminView extends MainView{
         double price = 0;
         do{
             printMenu_customizeMenu();
-            option = Helper.readInt();
+            option = Helper.readInt(1, 5);
             switch(option){
                 case 1:
                     System.out.println("Enter name of item to be added:\r");
@@ -114,7 +114,7 @@ public class RoomServiceAdminView extends MainView{
             System.out.printf("\"%s\" removed from menu SUCCESSFULLY\n", name);
         }
         else{
-            System.out.printf("Removal from menu FAILED (\"%s\" NOT FOUND in menu)\n", name);
+            System.out.printf("Removal from menu FAILED (\"%s\" NOT FOUND in order\\ removal quantity > current quantity)\n", name);
         }
     }
 
@@ -132,7 +132,7 @@ public class RoomServiceAdminView extends MainView{
         int opt = -1;
         do{
             printManageOrdersMenu();
-            opt = Helper.readInt();
+            opt = Helper.readInt(1, 3);
             switch (opt) {
                 case 1:
                     if (updateOrderStatus()) {

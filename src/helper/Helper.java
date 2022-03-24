@@ -1,6 +1,7 @@
 package src.helper;
 
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -13,17 +14,53 @@ public class Helper {
     }
 
     public static int readInt() {
-        int userInput = -1;
-        userInput = sc.nextInt();
-        sc.nextLine(); // Consume newline left-over
-        return userInput;
+        while (true){
+            try{
+                int userInput = -1;
+                userInput = sc.nextInt();
+                sc.nextLine(); // Consume newline left-over
+                return userInput;
+            } catch(InputMismatchException e){
+                sc.nextLine();
+                System.out.println("Invalid Input, Enter an integer!");
+            }
+        }
+        
+    }
+
+    public static int readInt(int min, int max){
+        while (true){
+            try{
+                int userInput = -1;
+                userInput = sc.nextInt();
+                sc.nextLine(); // Consume newline left-over
+                if (userInput < min || userInput > max){
+                    throw new OutOfRange();
+                }
+                else{
+                    return userInput;
+                }
+            } catch(InputMismatchException e){
+                sc.nextLine();
+                System.out.println("Invalid Input, Enter an integer!");
+            } catch(OutOfRange e){
+                System.out.println("Input is out of allowed range");
+            }
+        }
     }
 
     public static double readDouble() {
-        double userInput = -1;
-        userInput = sc.nextDouble();
-        sc.nextLine(); // Consume newline left-over
-        return userInput;
+        while(true){
+            try{
+                double userInput = -1;
+                userInput = sc.nextDouble();
+                sc.nextLine(); // Consume newline left-over
+                return userInput;
+            } catch(InputMismatchException e){
+                sc.nextLine();
+                System.out.println("Invalid Input, Enter an double!!");
+            }
+        }
     }
 
     public static <K, V> HashMap<K, V> copyHashMap(HashMap<K, V> original)
