@@ -13,7 +13,7 @@ public class AdminView extends MainView{
         System.out.println("(1) Manage Guest");
         System.out.println("(2) Manage Room");
         System.out.println("(3) Manage Reservation");
-        System.out.println("(4) Manage RoomService (Customize Menu)");
+        System.out.println("(4) Manage RoomService");
         System.out.println("(5) Manage Promotion Details");
         System.out.println("(6) Manage Database");
         System.out.println("(7) Exit Admin View");   

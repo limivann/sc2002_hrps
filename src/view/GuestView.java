@@ -231,7 +231,7 @@ public class GuestView extends MainView{
     public void promptSearchGuest() {
         System.out.println("Enter the guest id you want to search (GXXXX): ");
         String guestId = Helper.sc.nextLine();
-        if (GuestManager.searchGuest(guestId) == null) {
+        if (GuestManager.searchGuestById(guestId) == null) {
             // TODO: Exception
             System.out.println("Guest not found!");
         };

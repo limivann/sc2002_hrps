@@ -118,13 +118,6 @@ public class GuestManager {
     }
 
     // Search Guest
-    public static ArrayList<Guest> searchGuest(String guestId) {
-        ArrayList<Guest> searchList = searchGuestById(guestId);
-        for (Guest guest : searchList) {
-            guest.printGuestDetails();
-        }
-        return searchList;
-    }
 
     public static ArrayList<Guest> searchGuestById(String guestId) {
         ArrayList<Guest> searchList = new ArrayList<Guest>();   

@@ -1,25 +1,31 @@
 package src.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.xml.crypto.Data;
 
+import src.model.Guest;
 import src.model.Reservation;
 import src.model.enums.ReservationStatus;
+import src.model.enums.RoomStatus;
 import src.database.Database;
 import src.database.FileType;
 import src.helper.Helper;
 
 public class ReservationManager {
     public static void create(String checkedInDate, String checkedOutDate, String guestId, String roomId,
-            int numberOfPax) {
+            int numberOfPax, ReservationStatus reservationStatus) {
         int rid = Helper.generateUniqueId(Database.RESERVATIONS);
         String reservationId = String.format("R%04d", rid);
         Reservation newReservation = new Reservation(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax,
-                reservationId);
+                reservationId, reservationStatus);
         System.out.println("Reservation created. Reservation ID: " + reservationId);
         Database.RESERVATIONS.put(reservationId, newReservation);
         Database.saveFileIntoDatabase(FileType.RESERVATIONS);
+
+        // Edit rooms status to reserved
+        RoomManager.updateRoomStatus(roomId, RoomStatus.RESERVED);
     }
 
     public static boolean remove(String reservationId) {
@@ -54,18 +60,20 @@ public class ReservationManager {
             return "";
     }
     
-    public static void print(String reservationId){
+    public static void printReservationDetails(String reservationId){
         if(validateReservationId(reservationId)){
             Reservation reservation = Database.RESERVATIONS.get(reservationId);
             System.out.println("----------------");
-            System.out.println(String.format("reservationId:\t%s", reservation.getReservationId()));
-            System.out.println(String.format("guestId:\t%s", reservation.getGuestId()));
-            System.out.println(String.format("roomId:\t%s", reservation.getRoomId()));
-            System.out.println(String.format("checkedInDate:\t%s", reservation.getCheckedInDate()));
-            System.out.println(String.format("checkedOutDate:\t%s", reservation.getCheckedOutDate()));
-            System.out.println(String.format("reservationOutDate:\t%s", reservation.getReservationDate()));
-            System.out.println(String.format("numberOfPax:\t%d", reservation.getNumberOfPax()));
-            System.out.println(String.format("reservationStatus:\t%s", reservation.getReservationStatus()));
+            System.out.println(String.format("Reservation Id:\t%s", reservation.getReservationId()));
+            ArrayList<Guest> guests = GuestManager.searchGuestById(reservation.getGuestId());
+            String guestName = guests.size() > 0 ? guests.get(0).getName() : "Guest not found";
+            System.out.println(String.format("Guest Name:\t%s", guestName));
+            System.out.println(String.format("Room Id:\t%s", reservation.getRoomId()));
+            System.out.println(String.format("Checked In Date:\t%s", reservation.getCheckedInDate()));
+            System.out.println(String.format("Checked Out Date:\t%s", reservation.getCheckedOutDate()));
+            System.out.println(String.format("Reservation Out Date:\t%s", reservation.getReservationDate()));
+            System.out.println(String.format("Number Of Pax:\t%d", reservation.getNumberOfPax()));
+            System.out.println(String.format("Reservation Status:\t%s", reservation.getReservationStatus()));
             System.out.println("----------------");
         }
     }
@@ -85,8 +93,9 @@ public class ReservationManager {
         Database.saveFileIntoDatabase(FileType.RESERVATIONS);
     }
     
-    public static void updateRoomId(String reservationId, String roomId) {
+    public static void updateRoomId(String reservationId, String roomId, ReservationStatus reservationStatus) {
         search(reservationId).setRoomId(roomId);
+        search(reservationId).setReservationStatus(reservationStatus);
         Database.saveFileIntoDatabase(FileType.RESERVATIONS);
     }
     

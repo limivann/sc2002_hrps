@@ -42,6 +42,20 @@ public class RoomManager{
         return true;
     }
 
+    public static boolean updateRoomStatus(String roomId, RoomStatus roomStatus) {
+        if (Database.ROOMS.containsKey(roomId)){
+            Room targetRoom = Database.ROOMS.get(roomId);
+            targetRoom.setRoomStatus(roomStatus);
+            Database.ROOMS.put(roomId, targetRoom);   
+            Database.saveFileIntoDatabase(FileType.ROOMS);
+            return true;        
+        } else {
+            // TODO: Throw exception
+            System.out.println("Room id doesn't exists. ");
+            return false;
+        }
+    }
+
     public static boolean updateRoomStatus(int floorNumber, int roomNumber, RoomStatus roomStatus) {
         String roomId = String.format("%02d-%02d", floorNumber, roomNumber);
         if (Database.ROOMS.containsKey(roomId)){

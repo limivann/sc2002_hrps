@@ -19,7 +19,7 @@ public class Reservation implements Serializable {
     private ReservationStatus reservationStatus;
     private String reservationId;
 
-    public Reservation(String checkedInDate, String checkedOutDate, String guestId, String roomId, int numberOfPax, String reservationId){
+    public Reservation(String checkedInDate, String checkedOutDate, String guestId, String roomId, int numberOfPax, String reservationId, ReservationStatus reservationStatus){
         this.reservationDate = Helper.getTimeNow();
         if(checkedInDate==null){
             this.checkedInDate = this.reservationDate;
@@ -32,7 +32,7 @@ public class Reservation implements Serializable {
         this.roomId = roomId;
         this.numberOfPax = numberOfPax;
         this.isExpired = false;
-        this.reservationStatus = ReservationStatus.CONFIRMED;
+        this.reservationStatus = reservationStatus;
         this.reservationId = reservationId;
     }
 
