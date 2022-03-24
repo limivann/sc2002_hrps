@@ -319,14 +319,23 @@ public class RoomManager{
         return PromotionManager.getRoomPrice(roomType, isWifiEnabled);
     }
 
-    public static boolean validateRoomId(String roomId){
+    public static boolean validateRoomId(String roomId) {
         if (Database.ROOMS.containsKey(roomId)) {
-            return true;            
-        }else{
+            return true;
+        } else {
             // TODO: Throw Exception
             return false;
         }
     }
+    
+    public static boolean checkRoomVacancy(String roomId) {
+        if (validateRoomId(roomId)) {
+            return Database.ROOMS.get(roomId).getRoomStatus() == RoomStatus.VACANT;
+        }   
+        return false;
+    }
+
+    
 
     public static void main(String[] args) {
         initializeAllRooms();
