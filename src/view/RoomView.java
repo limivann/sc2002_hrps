@@ -82,6 +82,7 @@ public class RoomView extends MainView{
         int opt = Helper.readInt();
         RoomStatus newStatus = RoomStatus.VACANT;
         int guestId = -1;
+        // TODO: Fix bug
         switch (opt) {
             case 1:
                 newStatus = RoomStatus.VACANT;

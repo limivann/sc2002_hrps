@@ -40,6 +40,7 @@ public class HandleCheckInOutView extends MainView {
     }
     
     public void checkin() {
+        Helper.checkReservationStatus();
         System.out.println("--- Check In Room---");
         System.out.println("Please enter reservation id: ");
         String reservationId = Helper.sc.nextLine();

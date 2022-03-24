@@ -15,8 +15,6 @@ import javax.xml.crypto.Data;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;    
 public class RoomServiceManager {
-    private HashMap<String,Order> order;
-
     public RoomServiceManager() {
         
     }
@@ -25,14 +23,14 @@ public class RoomServiceManager {
     public static String createOrder(String roomId) {
         int oid = Helper.generateUniqueId(Database.ORDERS);
         String orderId = String.format("O%04d", oid);
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
-        LocalDateTime now = LocalDateTime.now();  
-        Order newOrder = new Order(orderId , dtf.format(now), roomId);
+        // DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+        // LocalDateTime now = LocalDateTime.now();  
+        Order newOrder = new Order(orderId , Helper.getTimeNow(), roomId);
         Database.ORDERS.put(orderId, newOrder);
         return orderId;
     }
 
-    public static boolean addOrderItem(String name, String orderId) {
+    public static boolean addOrderItem(String name, String orderId, int amount) {
         if (orderId.equals("")) {
             return false;
         }
@@ -44,11 +42,11 @@ public class RoomServiceManager {
         }
         MenuItem menuItemToAdd = Database.MENU_ITEMS.get(menuIdOfOrder);
         Order currentOrder = Database.ORDERS.get(orderId);
-        currentOrder.addOrderItem(menuItemToAdd);
+        currentOrder.addOrderItem(menuItemToAdd, amount);
         return true;
     }
 
-    public static boolean removeOrderItem(String name, String orderId) {
+    public static boolean removeOrderItem(String name, String orderId, int amount) {
         if (orderId.equals("")) {
             return false;
         }
@@ -60,7 +58,7 @@ public class RoomServiceManager {
         }
         MenuItem menuItemToDelete = Database.MENU_ITEMS.get(menuIdOfOrder);
         Order currentOrder = Database.ORDERS.get(orderId);
-        return currentOrder.removeOrderItem(menuItemToDelete);
+        return currentOrder.removeOrderItem(menuItemToDelete, amount);
     }
 
     public static void printOrder(String orderId){
@@ -95,6 +93,15 @@ public class RoomServiceManager {
         }
     }
 
+    public static Order searchOrderByRoom(String roomId) {
+        for (Order o : Database.ORDERS.values()) {
+            if (o.getRoomId().equals(roomId)){
+                return o;
+            }
+        }
+        return null;
+    }
+        
     /* Customize Menu methods */
     public static boolean addMenuItem(String name, String description, double price) {
         String formattedName = name.toUpperCase();

@@ -1,11 +1,9 @@
 package src.controller;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Scanner;
 
 import javax.imageio.plugins.tiff.GeoTIFFTagSet;
 import javax.xml.crypto.Data;
@@ -120,13 +118,6 @@ public class GuestManager {
     }
 
     // Search Guest
-    public static ArrayList<Guest> searchGuest(String guestId) {
-        ArrayList<Guest> searchList = searchGuestById(guestId);
-        for (Guest guest : searchList) {
-            guest.printGuestDetails();
-        }
-        return searchList;
-    }
 
     public static ArrayList<Guest> searchGuestById(String guestId) {
         ArrayList<Guest> searchList = new ArrayList<Guest>();   
@@ -141,7 +132,6 @@ public class GuestManager {
         ArrayList<Guest> removeList = GuestManager.searchGuestById(guestId);
         for (Guest guest : removeList) {
             guest.printGuestDetails();
-            String userInput = "";
             if (Helper.promptConfirmation("remove this guest")) {
                 Database.GUESTS.remove(guestId);
             } else {
@@ -170,7 +160,7 @@ public class GuestManager {
             return false;
         }
     }
-    
+
     public static void main(String[] args) {
         GuestManager gm = new GuestManager();
         GuestManager.printAllGuests();

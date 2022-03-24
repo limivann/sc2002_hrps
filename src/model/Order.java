@@ -3,7 +3,8 @@ package src.model;
 import src.model.enums.OrderStatus;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Order implements Serializable {
     
@@ -12,7 +13,7 @@ public class Order implements Serializable {
     private String orderId;
     private String dateTime;
     private double totalBill;
-    private ArrayList<MenuItem> currentOrders;
+    private HashMap<MenuItem, Integer> currentOrders;
     private String remarks;
     private OrderStatus status;
     private String roomId;
@@ -22,7 +23,7 @@ public class Order implements Serializable {
         this.dateTime = dateTime;
         this.totalBill = 0;
         this.remarks = "No Remarks";
-        this.currentOrders = new ArrayList<MenuItem>();
+        this.currentOrders = new HashMap<MenuItem, Integer>();
         setRoomId(roomId);
     }
     
@@ -43,26 +44,47 @@ public class Order implements Serializable {
         return dateTime;
     }
 
-    public void addOrderItem(MenuItem menuItem){
-        currentOrders.add(menuItem);
-        totalBill += menuItem.getPrice();
+    public double getTotalBill() {
+        return totalBill;
     }
 
-    public boolean removeOrderItem(MenuItem toBeRemoved){
-        if (toBeRemoved != null){
-            currentOrders.remove(toBeRemoved);
-            totalBill -= toBeRemoved.getPrice();
+    public void addOrderItem(MenuItem menuItem, int amount){
+        if (currentOrders.containsKey(menuItem)){
+            int currAmount = currentOrders.get(menuItem);
+            currentOrders.put(menuItem, currAmount + amount);
+        }
+        else{
+            currentOrders.put(menuItem, amount);
+        }
+        totalBill += (menuItem.getPrice() * amount);
+    }
+
+    public boolean removeOrderItem(MenuItem toBeRemoved, int amount){
+
+        int currAmount = currentOrders.get(toBeRemoved);
+        if (amount <= currAmount){
+            if (amount == currAmount){
+                currentOrders.remove(toBeRemoved);
+            }
+            else{
+                currentOrders.put(toBeRemoved, currAmount - amount);
+            }
+            totalBill -= (toBeRemoved.getPrice() * amount);
             return true;
         }
-        return false;
+        else {
+            System.out.println("");
+            return false;
+        }
     }
 
     public void printOrder(){
         System.out.printf("Order Id: %s  Room: %s  Date/Time: %s\n", getOrderId(), getRoomId() ,dateTime);
         System.out.println("\t\t-Order-\t\t");
-        for (int i = 0; i < currentOrders.size(); i++){
-            MenuItem menuItem = currentOrders.get(i);
-            System.out.printf("Item: %s    Price: $%.2f\n", menuItem.getName(), menuItem.getPrice());
+        for (Map.Entry<MenuItem, Integer> entry : currentOrders.entrySet()) {
+            MenuItem key = entry.getKey();
+            Integer value = entry.getValue();
+            System.out.printf("Item: %s  x%d  Price: $%.2f\n", key.getName(), value, value * key.getPrice());
         }
         System.out.println("Remarks: " + this.remarks);
         System.out.printf("Total bill: $%.2f\n", this.totalBill);
@@ -90,10 +112,9 @@ public class Order implements Serializable {
     }
 
     public MenuItem findOrderItem(String name) {
-        for (int i = 0; i < currentOrders.size(); i++) {
-            MenuItem searchedItem = currentOrders.get(i);
-            if (searchedItem.getName().equalsIgnoreCase(name)) {
-                return searchedItem;
+        for (MenuItem menuItem : currentOrders.keySet()) {
+            if (menuItem.getName().equalsIgnoreCase(name)){
+                return menuItem;
             }
         }
         return null;

@@ -50,6 +50,12 @@ public class Database {
         if (!readSerializedObject(FileType.MENU_ITEMS)) {
             System.out.println("Read into Menu Items failed!");
         }
+        if (!readSerializedObject(FileType.RESERVATIONS)) {
+            System.out.println("Read into Reservation failed!");
+        }
+        if (!readSerializedObject(FileType.INVOICES)) {
+            System.out.println("Read into Invoice failed!");
+        }
         System.out.println("Database init");
     }
     
@@ -62,6 +68,8 @@ public class Database {
         saveFileIntoDatabase(FileType.ROOMS);
         saveFileIntoDatabase(FileType.ORDERS);
         saveFileIntoDatabase(FileType.MENU_ITEMS);
+        saveFileIntoDatabase(FileType.RESERVATIONS);
+        saveFileIntoDatabase(FileType.INVOICES);
     }
 
     public static boolean readSerializedObject(FileType fileType) {
@@ -84,8 +92,11 @@ public class Database {
                 ORDERS = (HashMap<String, Order>) object;
             } else if (fileType == FileType.MENU_ITEMS) {
                 MENU_ITEMS = (HashMap<String, MenuItem>) object;
+            } else if (fileType == FileType.RESERVATIONS) {
+                RESERVATIONS = (HashMap<String, Reservation>) object;
+            } else if (fileType == FileType.INVOICES) {
+                INVOICES = (HashMap<String, Invoice>) object;
             }
-
             objectInputStream.close();
             fileInputStream.close();
         } catch (EOFException err) {
@@ -98,6 +109,10 @@ public class Database {
                 ORDERS = new HashMap<String, Order>();
             } else if (fileType == FileType.MENU_ITEMS) {
                 MENU_ITEMS = new HashMap<String, MenuItem>();
+            } else if (fileType == FileType.RESERVATIONS) {
+                RESERVATIONS = new HashMap<String, Reservation>();
+            } else if (fileType == FileType.INVOICES) {
+                INVOICES = new HashMap<String, Invoice>();
             }
         } catch (IOException err) {
             err.printStackTrace();
@@ -126,6 +141,10 @@ public class Database {
                 objectOutputStream.writeObject(ORDERS);
             } else if (fileType == FileType.MENU_ITEMS) {
                 objectOutputStream.writeObject(MENU_ITEMS);
+            } else if (fileType == FileType.RESERVATIONS) {
+                objectOutputStream.writeObject(RESERVATIONS);
+            } else if (fileType == FileType.INVOICES) {
+                objectOutputStream.writeObject(INVOICES);
             }
             objectOutputStream.close();
             fileOutputStream.close();
@@ -151,10 +170,16 @@ public class Database {
         
         MENU_ITEMS = new HashMap<String, MenuItem>();
         writeSerializedObject(FileType.MENU_ITEMS);
+
+        RESERVATIONS = new HashMap<String, Reservation>();
+        writeSerializedObject(FileType.RESERVATIONS);
+
+        INVOICES = new HashMap<String, Invoice>();
+        writeSerializedObject(FileType.INVOICES);
         return true;
     }
 
-    public static boolean initalizeDummyGuests() {
+    public static boolean initializeDummyGuests() {
         if (GUESTS.size() != 0) {
             System.out.println("The database already has guests. Reset database first to initialize guests");
             return false;

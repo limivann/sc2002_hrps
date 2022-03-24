@@ -56,7 +56,7 @@ public class DatabaseView extends MainView {
     }
     
     public boolean initializeGuest() {
-        return Database.initalizeDummyGuests();
+        return Database.initializeDummyGuests();
     }
 
     public boolean initializeMenu() {
