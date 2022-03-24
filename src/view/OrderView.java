@@ -20,7 +20,7 @@ public class OrderView extends MainView{
         int option = 99;
         do{
             printMenu();
-            option = Helper.readInt();
+            option = Helper.readInt(1, 2);
             switch(option){
                 case 1:
                     if (!createOrder()) {
@@ -56,11 +56,12 @@ public class OrderView extends MainView{
         }
         String orderId = RoomServiceManager.createOrder(roomId);
         String itemName;
+        int itemAmount;
         int option = -1;
         do{
             printMenu_createOrder();
             System.out.println("Enter option: ");
-            option = Helper.readInt();
+            option = Helper.readInt(1, 6);
             switch (option){
                 case 1:
                     RoomServiceManager.printMenu();
@@ -68,12 +69,16 @@ public class OrderView extends MainView{
                 case 2:
                     System.out.println("Enter item to be added:\r");
                     itemName = Helper.sc.nextLine();
-                    addOrderItem(itemName, orderId);
+                    System.out.println("Enter amount to be added:\r");
+                    itemAmount = Helper.sc.nextInt();
+                    addOrderItem(itemName, orderId, itemAmount);
                     break;
                 case 3:
                     System.out.println("Enter item to be removed:\r");
                     itemName = Helper.sc.nextLine();
-                    removeOrderItem(itemName, orderId);
+                    System.out.println("Enter amount to be removed:\r");
+                    itemAmount = Helper.sc.nextInt();
+                    removeOrderItem(itemName, orderId, itemAmount);
                     break;
                 case 4:
                     RoomServiceManager.printOrder(orderId);
@@ -94,8 +99,8 @@ public class OrderView extends MainView{
         return true;
     }
 
-    private void addOrderItem(String name, String orderId){
-        if (RoomServiceManager.addOrderItem(name, orderId)){
+    private void addOrderItem(String name, String orderId, int amount){
+        if (RoomServiceManager.addOrderItem(name, orderId, amount)){
             System.out.printf("\"%s\" added to order SUCCESSFULLY\n", name);
         }
         else{
@@ -103,12 +108,12 @@ public class OrderView extends MainView{
         };
     }
 
-    private void removeOrderItem(String name, String orderId){
-        if (RoomServiceManager.removeOrderItem(name, orderId)){
+    private void removeOrderItem(String name, String orderId, int amount){
+        if (RoomServiceManager.removeOrderItem(name, orderId, amount)){
             System.out.printf("\"%s\" removed from order SUCCESSFULLY\n", name);
         }
         else{
-            System.out.printf("Removal from order FAILED (\"%s\" NOT FOUND in order)\n", name);
+            System.out.printf("Removal from order FAILED (\"%s\" NOT FOUND in order\\ removal quantity > current quantity)\n", name);
         };
     }
 
