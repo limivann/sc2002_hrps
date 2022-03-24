@@ -179,7 +179,7 @@ public class Database {
         return true;
     }
 
-    public static boolean initalizeDummyGuests() {
+    public static boolean initializeDummyGuests() {
         if (GUESTS.size() != 0) {
             System.out.println("The database already has guests. Reset database first to initialize guests");
             return false;

@@ -4,7 +4,7 @@ public enum RoomStatus {
     VACANT("Vacant"),
     OCCUPIED("Occupied"),
     RESERVED("Reserved"),
-    UNDER_MAINTENANCE("Under maintainance");
+    UNDER_MAINTENANCE("Under maintenance");
 
     public final String roomStatusAsStr;
     
