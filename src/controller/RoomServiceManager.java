@@ -73,9 +73,26 @@ public class RoomServiceManager {
         currentOrder.setRemarks(remarks);
     }
 
-    public static void updateStatus(OrderStatus currentStatus, String orderId){
+    public static boolean updateStatus(OrderStatus newOrderStatus, String orderId) {
+        if (!validateOrderId(orderId)) {
+            // TODO: Exception
+            System.out.println("Order id not found");
+            return false;
+        }
         Order currentOrder = Database.ORDERS.get(orderId);
-        currentOrder.setStatus(currentStatus);
+        currentOrder.setStatus(newOrderStatus);
+        Database.saveFileIntoDatabase(FileType.ORDERS);
+        return true;
+    }
+    
+    public static boolean validateOrderId(String orderId) {
+        return Database.ORDERS.containsKey(orderId);
+    }
+
+    public static void printAllOrders() {
+        for (Order order : Database.ORDERS.values()) {
+            System.out.println(order);
+        }
     }
 
     /* Customize Menu methods */

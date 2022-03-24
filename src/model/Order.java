@@ -39,6 +39,10 @@ public class Order implements Serializable {
         return status;
     }
 
+    public String getDateTime() {
+        return dateTime;
+    }
+
     public void addOrderItem(MenuItem menuItem){
         currentOrders.add(menuItem);
         totalBill += menuItem.getPrice();
@@ -85,14 +89,21 @@ public class Order implements Serializable {
         this.roomId = roomId;
     }
 
-    public MenuItem findOrderItem(String name){
-        for (int i = 0; i < currentOrders.size(); i++){
+    public MenuItem findOrderItem(String name) {
+        for (int i = 0; i < currentOrders.size(); i++) {
             MenuItem searchedItem = currentOrders.get(i);
-            if (searchedItem.getName().equalsIgnoreCase(name)){
+            if (searchedItem.getName().equalsIgnoreCase(name)) {
                 return searchedItem;
             }
         }
         return null;
+    }
+    
+    @Override
+    public String toString() {
+        String res = String.format("Order Id: %s\t Date/Time: %s\t Room Id: %s\t Order Status: %s", getOrderId(),
+                getDateTime(), getRoomId(), getStatus().orderStatusAsStr);
+        return res;
     }
 
     

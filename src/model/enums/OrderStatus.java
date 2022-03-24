@@ -1,8 +1,13 @@
 package src.model.enums;
 
 public enum OrderStatus {
-    NONE,
-    CONFIRMED,
-    PREPARING,
-    DELIVERED;
+    CONFIRMED("Confirmed"),
+    PREPARING("Preparing"),
+    DELIVERED("Delivered");
+
+    public final String orderStatusAsStr;
+
+    private OrderStatus(String orderStatusAsStr) {
+        this.orderStatusAsStr = orderStatusAsStr;
+    }
 }
