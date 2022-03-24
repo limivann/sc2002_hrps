@@ -328,13 +328,11 @@ public class RoomManager{
         }
     }
     
-    public static boolean validateRoomId(String roomId, RoomStatus roomStatus) {
-        if (Database.ROOMS.containsKey(roomId)) {
-            return Database.ROOMS.get(roomId).getRoomStatus() == roomStatus;
-        } else {
-            // TODO: Throw Exception
-            return false;
-        }
+    public static boolean checkRoomVacancy(String roomId) {
+        if (validateRoomId(roomId)) {
+            return Database.ROOMS.get(roomId).getRoomStatus() == RoomStatus.VACANT;
+        }   
+        return false;
     }
 
     
