@@ -161,6 +161,16 @@ public class GuestManager {
             it.remove(); // avoids a ConcurrentModificationException
         }
     }
+
+    public static boolean validateGuestId(String guestId) {
+        if (Database.GUESTS.containsKey(guestId)) {
+            return true;
+        } else {
+            // TODO: Throw Exception
+            return false;
+        }
+    }
+    
     public static void main(String[] args) {
         GuestManager gm = new GuestManager();
         GuestManager.printAllGuests();
