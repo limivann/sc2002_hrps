@@ -14,6 +14,12 @@ public class ReservationView extends MainView{
         do{
             switch (opt){
                 case 1:
+                    System.out.println("1: Walk-In");
+                    System.out.println("2: Reserve");
+                    int choice = Helper.sc.nextInt();
+                    if(choice!=1 && choice!=2){
+                        System.out.println("Invalid option");
+                    }
                     String checkedInDate;
                     String checkedOutDate;
                     String guestId;
@@ -25,16 +31,22 @@ public class ReservationView extends MainView{
                     System.out.println("Enter Guest Id");
                     guestId = Helper.sc.nextLine();
                     //validate guestId
-                    System.out.println("Enter Check In Date");
-                    checkedInDate = Helper.sc.nextLine();
-                    //validate date
+                    System.out.println("Enter number of pax");
+                    numberOfPax = Helper.sc.nextInt();
+                    if(choice==2){
+                        System.out.println("Enter Check In Date");
+                        checkedInDate = Helper.sc.nextLine();
+                        //validate date
+                        System.out.println("Enter Check Out Date");
+                        checkedOutDate = Helper.sc.nextLine();
+                        //validate date
+                        manager.create(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax);
+                    }
                     System.out.println("Enter Check Out Date");
                     checkedOutDate = Helper.sc.nextLine();
                     //validate date
-                    System.out.println("Enter number of pax");
-                    numberOfPax = Helper.sc.nextInt();
+                    checkedInDate = null;
                     manager.create(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax);
-                    
                     break;
                 case 2:
                     System.out.println("Enter Reservation Id");
