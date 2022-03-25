@@ -8,7 +8,6 @@ import javax.swing.plaf.synth.SynthSplitPaneUI;
 import src.helper.Helper;
 import src.controller.GuestManager;
 import src.database.Database;
-import src.model.Guest;
 import src.model.Identity;
 import src.model.enums.Gender;
 import src.model.enums.IdentityType;
