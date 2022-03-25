@@ -7,6 +7,7 @@ import javax.xml.crypto.Data;
 
 import src.model.Guest;
 import src.model.Reservation;
+import src.model.Room;
 import src.model.enums.ReservationStatus;
 import src.model.enums.RoomStatus;
 import src.database.Database;
@@ -46,7 +47,7 @@ public class ReservationManager {
         }
     }
     
-    private static Reservation search(String reservationId) {
+    public static Reservation search(String reservationId) {
         if (validateReservationId(reservationId)) {
             return Database.RESERVATIONS.get(reservationId);
         } else
@@ -110,19 +111,26 @@ public class ReservationManager {
     }
     
     public static void updateReservationStatus(String reservationId, int status) {
+        System.out.println("here" +  status);
         switch (status) {
             case 1:
                 search(reservationId).setReservationStatus(ReservationStatus.CONFIRMED);
+                break;
             case 2:
                 search(reservationId).setReservationStatus(ReservationStatus.IN_WAITLIST);
+                break;
             case 3:
                 search(reservationId).setReservationStatus(ReservationStatus.CHECKED_IN);
+                break;
             case 4:
                 search(reservationId).setReservationStatus(ReservationStatus.EXPIRED);
+                break;
             case 5:
                 search(reservationId).setReservationStatus(ReservationStatus.CHECKED_OUT);
+                break;
             case 6:
                 search(reservationId).setReservationStatus(ReservationStatus.CANCELLED);
+                break;
         }
         Database.saveFileIntoDatabase(FileType.RESERVATIONS);
     }
@@ -132,7 +140,33 @@ public class ReservationManager {
             System.out.println(reservation);
         }
     }
-   
+
+    public static boolean checkInReservation(String reservationId) {
+        if (!validateReservationId(reservationId)) {
+            return false;
+        }
+        ReservationStatus reservationStatus = search(reservationId).getReservationStatus();
+        if (reservationStatus == ReservationStatus.CHECKED_IN) {
+            System.out.println("You have already checked in");
+            return false;
+        }
+        updateReservationStatus(reservationId, 3);
+        return true;
+    }
+
+    public static boolean checkOutReservation(String reservationId) {
+        if (!validateReservationId(reservationId)) {
+            return false;
+        }
+        ReservationStatus reservationStatus = search(reservationId).getReservationStatus();
+        if (reservationStatus == ReservationStatus.CHECKED_IN) {
+            System.out.println("You have already checked out");
+            return false;
+        }
+        updateReservationStatus(reservationId, 5);
+        PaymentManager.handlePayment(reservationId);
+        return true;
+    }
 }
 
   

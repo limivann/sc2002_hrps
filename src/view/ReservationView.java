@@ -27,7 +27,7 @@ public class ReservationView extends MainView {
         String reservationId;
         do {
             printMenu();
-            opt = Helper.readInt();
+            opt = Helper.readInt(1,6);
             switch (opt){
                 case 1:
                     if (createReservation()) {
@@ -37,17 +37,17 @@ public class ReservationView extends MainView {
                     }
                     break;
                 case 2:
-                    System.out.println("Enter Reservation Id");
+                    System.out.println("Enter Reservation Id (RXXXX)");
                     reservationId = Helper.sc.nextLine();
                     ReservationManager.printReservationDetails(reservationId);
                     break;
                 case 3:
-                    System.out.println("Enter Reservation Id");
+                    System.out.println("Enter Reservation Id (RXXXX)");
                     reservationId = Helper.sc.nextLine();
                     updateReservation(reservationId);
                     break;
                 case 4:
-                    System.out.println("Enter Reservation Id");
+                    System.out.println("Enter Reservation Id (RXXXX)");
                     reservationId = Helper.sc.nextLine();
                     if (ReservationManager.remove(reservationId)) {
                         System.out.println("Remove reservation successful");
@@ -238,7 +238,7 @@ public class ReservationView extends MainView {
                         break;
                     case 6:
                         printExpiredMenu();
-                        isExpired = Helper.readInt();
+                        isExpired = Helper.readInt(1,3);
                         switch (isExpired) {
                             case 1:
                                 ReservationManager.updateIsExpired(reservationId, true);
@@ -256,12 +256,13 @@ public class ReservationView extends MainView {
                         }
                     case 7:
                         printReservationStatusMenu();
-                        reservationStatus = Helper.readInt();
+                        reservationStatus = Helper.readInt(1, 6);
                         if (reservationStatus >= 1 && reservationStatus <= 6) {
                             ReservationManager.updateReservationStatus(reservationId, reservationStatus);
                             isUpdateSuccessful = true;
+                        } else {
+                            System.out.println("Invalid option. Please try again");
                         }
-                        System.out.println("Invalid option. Please try again");
                         break;
                     case 8:
 

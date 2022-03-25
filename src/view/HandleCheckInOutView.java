@@ -1,6 +1,10 @@
 package src.view;
 
 import java.lang.Thread;
+
+import javax.naming.spi.ResolveResult;
+
+import src.controller.ReservationManager;
 import src.helper.Helper;
 
 public class HandleCheckInOutView extends MainView {
@@ -17,11 +21,11 @@ public class HandleCheckInOutView extends MainView {
     }
 
     @Override
-    public void viewapp() {
+    public void viewapp() {  
         int opt = -1;
         do{
             printMenu();
-            opt = Helper.sc.nextInt();
+            opt = Helper.readInt(1,3);
             switch (opt) {
                 case 1:
                     checkin();
@@ -42,24 +46,31 @@ public class HandleCheckInOutView extends MainView {
     public void checkin() {
         Helper.checkReservationStatus();
         System.out.println("--- Check In Room---");
-        System.out.println("Please enter reservation id: ");
+        System.out.println("Please enter reservation id (RXXXX)");
         String reservationId = Helper.sc.nextLine();
-        // TODO: Call ReservationManager to handle check in
+        if (!ReservationManager.validateReservationId(reservationId)) {
+            return;
+        }
+        ReservationManager.checkInReservation(reservationId);
         System.out.println(String.format("Check in complete for reservation id: %s", reservationId));
     }
 
     public void checkout() {
         System.out.println("--- Check Out Room---");
-        System.out.println("Please enter room id: ");
-        String roomId = Helper.sc.nextLine();
-        System.out.println(String.format("Check out complete for room id: %s", roomId));
-        int paymentOpt = promptPayment();
-        try{
-            handlePayment(paymentOpt, roomId);
-            printInvoice(roomId); 
-        } catch (InterruptedException err) {
-            System.out.println("Error: " + err.getMessage());
+        System.out.println("Please enter reservation id (RXXXX)");
+        String reservationId = Helper.sc.nextLine();
+        if (!ReservationManager.validateReservationId(reservationId)) {
+            return;
         }
+        ReservationManager.checkOutReservation(reservationId);
+        System.out.println(String.format("Check out complete for reservation id: %s", reservationId));
+        // int paymentOpt = promptPayment();
+        // try{
+        //     handlePayment(paymentOpt, roomId);
+        //     printInvoice(roomId); 
+        // } catch (InterruptedException err) {
+        //     System.out.println("Error: " + err.getMessage());
+        // }
     }
     
     public int promptPayment() {

@@ -110,8 +110,8 @@ public class Reservation implements Serializable {
     @Override
     public String toString() {
         String res = String.format(
-                "Reservation Id: %s Guest Id: %s NumOfPax: %d Check In: %s Check Out: %s Status: %s Is Expired: %b",
-                getReservationId(), getGuestId(), getNumberOfPax(), getCheckedInDate(), getCheckedOutDate(),
+                "Reservation Id: %s Guest Id: %s Room Id: %s NumOfPax: %d Check In: %s Check Out: %s Status: %s Is Expired: %b",
+                getReservationId(), getGuestId(), getRoomId(), getNumberOfPax(), getCheckedInDate(), getCheckedOutDate(),
                 getReservationStatus().reservationStatusAsStr, getIsExpired()
             );
         return res;

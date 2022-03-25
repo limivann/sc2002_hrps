@@ -22,7 +22,7 @@ public class RoomServiceAdminView extends MainView{
         int option = 99;
         do {
             printMenu();
-            option = Helper.readInt();
+            option = Helper.readInt(1,3);
             switch (option) {
                 case 1:
                     customizeMenu();
@@ -133,7 +133,7 @@ public class RoomServiceAdminView extends MainView{
         int opt = -1;
         do{
             printManageOrdersMenu();
-            opt = Helper.readInt(1, 3);
+            opt = Helper.readInt(1, 4);
             switch (opt) {
                 case 1:
                     if (!createOrder()) {
@@ -150,10 +150,12 @@ public class RoomServiceAdminView extends MainView{
                 case 3:
                     RoomServiceManager.printAllOrders();
                     break;
+                case 4:
+                    break;
                 default:
                     System.out.println("Invalid input");
             }
-        } while (opt != 3);
+        } while (opt != 4);
         
     }
 
@@ -171,7 +173,7 @@ public class RoomServiceAdminView extends MainView{
         System.out.println("Please enter the order id you want to update (OXXXX): ");
         String orderIdToUpdate = Helper.sc.nextLine();
         printOrderStatusMenu();
-        int orderStatusOption = Helper.readInt();
+        int orderStatusOption = Helper.readInt(1,3);
         switch (orderStatusOption) {
             case 1:
                 return RoomServiceManager.updateStatus(OrderStatus.CONFIRMED, orderIdToUpdate);
@@ -220,7 +222,7 @@ public class RoomServiceAdminView extends MainView{
                     System.out.println("Enter item to be added:\r");
                     itemName = Helper.sc.nextLine();
                     System.out.println("Enter amount to be added:\r");
-                    itemAmount = Helper.sc.nextInt();
+                    itemAmount = Helper.readInt();
                     addOrderItem(itemName, orderId, itemAmount);
                     break;
                 case 3:

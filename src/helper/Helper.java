@@ -141,21 +141,30 @@ public class Helper {
     
         return (Date.compareTo(now)>=0?true:false);
     }
-    public static boolean LocalDateTimediff(String date, DateTimeFormatter format){
+
+    public static boolean LocalDateTimediff(String date, DateTimeFormatter format) {
         LocalDateTime from = getDate(date, format);
         LocalDateTime to = LocalDateTime.now();
         LocalDateTime fromTemp = LocalDateTime.from(from);
-            
+
         long hours = fromTemp.until(to, ChronoUnit.HOURS);
         fromTemp = fromTemp.plusHours(hours);
-    
+
         long minutes = fromTemp.until(to, ChronoUnit.MINUTES);
         fromTemp = fromTemp.plusMinutes(minutes);
-    
-        if(hours>1)
+
+        if (hours > 1)
             return true;
         else
             return false;
+    }
+    
+    public static long calculateDayDiff(String checkInDate, String checkOutDate) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime from = getDate(checkInDate, format);
+        LocalDateTime to = getDate(checkInDate, format);
+        long daysBetween = ChronoUnit.DAYS.between(from, to);
+        return daysBetween + 1;
     }
 
     public static void checkReservationStatus() {
@@ -167,10 +176,9 @@ public class Helper {
             }
         }
     }
-    
+
     public static void main(String[] args) {
         Helper helper = new Helper();
-        setDate(false);
-      
+        System.out.println(calculateDayDiff("2022-03-25 16:12", "2022-03-25 22:12"));
     }
 }
