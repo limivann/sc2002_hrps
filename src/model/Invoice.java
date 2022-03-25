@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import src.controller.PaymentManager;
+import src.helper.Helper;
 
 public class Invoice implements Serializable {
     private static final long serialVersionUID = 6L;
@@ -17,25 +18,29 @@ public class Invoice implements Serializable {
     private double discountRate;
     private String dateOfPayment;
     private double total;
+    private String invoiceId;
 
-    public Invoice(Reservation reservationDetails) {
+    public Invoice(String invoiceId, String guestId, String roomId, String reservationId, String dateOfPayment,
+            double taxRate, double discountRate, double subTotal, double total) {
         // reservation will retrieve details for reservation id, guest id, room id
         // calculate sub total by searching orders
-        setGuestId(reservationDetails.getGuestId());
-        setRoomId(reservationDetails.getRoomId());
-        setReservationId(reservationDetails.getReservationId());
-        setDateOfPayment();
-        setTaxRate(0.2);
-        setDiscountRate();
-        setSubTotal(reservationDetails.getRoomId());
-        setTotal();
+        setGuestId(guestId);
+        setRoomId(roomId);
+        setReservationId(reservationId);
+        setDateOfPayment(dateOfPayment);
+        setTaxRate(taxRate);
+        setDiscountRate(discountRate);
+        setSubTotal(subTotal);
+        setTotal(total);
+    }
+    
+    public boolean setInvoiceId(String invoiceId) {
+        this.invoiceId = invoiceId;
+        return true;
     }
 
-    private boolean setDateOfPayment() {
-        LocalDateTime date = LocalDateTime.now();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-DD HH:mm");
-        String formattedDate = date.format(format);
-        this.dateOfPayment = formattedDate;
+    private boolean setDateOfPayment(String dateOfPayment) {
+        this.dateOfPayment = dateOfPayment;
         return true;
     }
     
@@ -47,22 +52,18 @@ public class Invoice implements Serializable {
         return true;
     }
     
-    private boolean setDiscountRate() {
-        PromotionDetails promotionDetails = new PromotionDetails();
-        this.discountRate = PromotionDetails.getDiscountRate();
+    private boolean setDiscountRate(double discountRate) {
+        this.discountRate = discountRate;
         return true;
     }
 
-    private boolean setSubTotal(String roomId) {
-        double caculatedSubTotal = PaymentManager.calculateSubTotal(roomId);
-        this.subTotal = caculatedSubTotal;
+    private boolean setSubTotal(double subTotal) {
+        this.subTotal = subTotal;
         return true;
     }
 
-    private boolean setTotal() {
-        // TODO: Calculate total
-        double calculateTotal = PaymentManager.calculateTotal(this.subTotal, this.discountRate, this.taxRate);
-        this.total = calculateTotal;
+    private boolean setTotal(double total) {
+        this.total = total;
         return true;
     }
 
@@ -111,5 +112,14 @@ public class Invoice implements Serializable {
 
     public String getReservationId() {
         return reservationId;
+    }
+
+    public String getInvoiceId() {
+        return invoiceId;
+    }
+    
+    @Override
+    public String toString() {
+        return "r";
     }
 }   

@@ -41,7 +41,7 @@ public class RoomManager{
         Database.saveFileIntoDatabase(FileType.ROOMS);
         return true;
     }
-
+    
     public static boolean updateRoomStatus(String roomId, RoomStatus roomStatus) {
         if (Database.ROOMS.containsKey(roomId)){
             Room targetRoom = Database.ROOMS.get(roomId);
