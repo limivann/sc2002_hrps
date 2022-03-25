@@ -16,7 +16,6 @@ public class RoomManager{
     HashMap<String, Room> RoomList = new HashMap<String, Room>();
 
     public RoomManager() {
-        PromotionManager promotionManager = new PromotionManager();
     }
     
     public static boolean updateRoomPrice(RoomType roomType, double newPrice) {
@@ -41,7 +40,7 @@ public class RoomManager{
         Database.saveFileIntoDatabase(FileType.ROOMS);
         return true;
     }
-    
+
     public static boolean updateRoomStatus(String roomId, RoomStatus roomStatus) {
         if (Database.ROOMS.containsKey(roomId)){
             Room targetRoom = Database.ROOMS.get(roomId);

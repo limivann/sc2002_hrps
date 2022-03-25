@@ -4,10 +4,12 @@ import src.model.Reservation;
 import src.model.Room;
 import src.model.enums.RoomStatus;
 
+import javax.naming.spi.ResolveResult;
 import javax.print.DocFlavor.STRING;
 import javax.xml.crypto.Data;
 
 import src.database.Database;
+import src.helper.Helper;
 import src.model.Invoice;
 import src.model.Order;
 public class PaymentManager {
@@ -52,8 +54,22 @@ public class PaymentManager {
     }
 
     public static Invoice generateInvoice(String reservationId) {
-        String guestId = ReservationManager.search(reservationId).getGuestId();
-        return null;
+        Reservation reservation = ReservationManager.search(reservationId);
+        String guestId = reservation.getGuestId();
+        String roomId = reservation.getRoomId();
+        double taxRate = PromotionManager.getTaxRate();
+        double discountRate = PromotionManager.getDiscountRate();
+
+        double subTotal = calculateSubTotal(roomId);
+        double total = calculateTotal(subTotal, discountRate, taxRate);
+        int iid = Helper.generateUniqueId(Database.INVOICES);
+        String invoiceId = String.format("I%04d", iid);
+        String dateOfPayment = Helper.getTimeNow();
+        Invoice invoice = new Invoice(invoiceId, guestId, roomId, reservationId, dateOfPayment, taxRate, discountRate, subTotal,
+                total);
+
+        Database.INVOICES.put(invoiceId, invoice);
+        return invoice;
     }
 
     public static void main(String[] args) {

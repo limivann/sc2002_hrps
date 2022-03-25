@@ -24,6 +24,7 @@ public class Invoice implements Serializable {
             double taxRate, double discountRate, double subTotal, double total) {
         // reservation will retrieve details for reservation id, guest id, room id
         // calculate sub total by searching orders
+        setInvoiceId(invoiceId);
         setGuestId(guestId);
         setRoomId(roomId);
         setReservationId(reservationId);

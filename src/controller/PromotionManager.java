@@ -1,84 +1,65 @@
 package src.controller;
 
+import src.database.Database;
+import src.database.FileType;
 import src.model.PromotionDetails;
 import src.model.Room;
 import src.model.enums.RoomType;
 
 public class PromotionManager {
     public PromotionManager() {
-        PromotionDetails promotionDetails = new PromotionDetails();
+
     }
     
     public static double getRoomPrice(RoomType roomType, boolean isWifiEnabled) {
         switch (roomType) {
             case SINGLE:
-                return PromotionDetails.getSingleRoomPrice() * (isWifiEnabled ? PromotionDetails.getWifiEnabledMultiplier() : 1);
+                return Database.PRICES.getSingleRoomPrice() * (isWifiEnabled ? Database.PRICES.getWifiEnabledMultiplier() : 1);
             case DOUBLE:
-                return PromotionDetails.getDoubleRoomPrice() * (isWifiEnabled ? PromotionDetails.getWifiEnabledMultiplier() : 1);
+                return Database.PRICES.getDoubleRoomPrice() * (isWifiEnabled ? Database.PRICES.getWifiEnabledMultiplier() : 1);
             case DELUXE:
-                return PromotionDetails.getDeluxeRoomPrice() * (isWifiEnabled ? PromotionDetails.getWifiEnabledMultiplier() : 1);
+                return Database.PRICES.getDeluxeRoomPrice() * (isWifiEnabled ? Database.PRICES.getWifiEnabledMultiplier() : 1);
             case VIP_SUITE:
-                return PromotionDetails.getVipSuitePrice() * (isWifiEnabled ? PromotionDetails.getWifiEnabledMultiplier() : 1);
+                return Database.PRICES.getVipSuitePrice() * (isWifiEnabled ? Database.PRICES.getWifiEnabledMultiplier() : 1);
         }
         // Cant find
+        
         return -1;
     }
 
-    public static double getRoomTaxRate(RoomType roomType) {
-        switch (roomType) {
-            case SINGLE:
-                return PromotionDetails.getSingleRoomTax();
-            case DOUBLE:
-                return PromotionDetails.getDoubleRoomTax();
-            case DELUXE:
-                return PromotionDetails.getDeluxeRoomTax();
-            case VIP_SUITE:
-                return PromotionDetails.getVipSuiteTax();
-        }
-        // Cant find
-        return -1;
+    public static double getTaxRate() {
+        return Database.PRICES.getTaxRate();
     }
 
     public static double getDiscountRate() {
-        return PromotionDetails.getDiscountRate();
+        return Database.PRICES.getDiscountRate();
     }
     
     // EDITORS
-    public static boolean editTaxRate(RoomType roomType, double newTaxRate) {
-        switch (roomType) {
-            case SINGLE:
-                return PromotionDetails.setSingleRoomTax(newTaxRate);
-            case DOUBLE:
-                return PromotionDetails.setDoubleRoomTax(newTaxRate);
-            case DELUXE:
-                return PromotionDetails.setDeluxeRoomTax(newTaxRate);
-            case VIP_SUITE:
-                return PromotionDetails.setVipSuiteTax(newTaxRate);
-        }
-        // Cant find
-        return false;
+    public static boolean editTaxRate(double newTaxRate) {
+        return Database.PRICES.setTaxRate(newTaxRate);
     }
 
     public static boolean editRoomPrice(RoomType roomType, double newRoomPrice) {
         // TODO: Change all room price not just the promotion details
         switch (roomType) {
             case SINGLE:
-                if (PromotionDetails.setSingleRoomPrice(newRoomPrice)) {
+                if (Database.PRICES.setSingleRoomPrice(newRoomPrice)) {
                     return RoomManager.updateRoomPrice(RoomType.SINGLE, newRoomPrice);
                 }
                 break;
             case DOUBLE:
-                if (PromotionDetails.setDoubleRoomPrice(newRoomPrice)) {
+                if (Database.PRICES.setDoubleRoomPrice(newRoomPrice)) {
                     return RoomManager.updateRoomPrice(RoomType.DOUBLE, newRoomPrice);
                 }
                 break;
             case DELUXE:
-                if (PromotionDetails.setDeluxeRoomPrice(newRoomPrice)) {
+                if (Database.PRICES.setDeluxeRoomPrice(newRoomPrice)) {
                     return RoomManager.updateRoomPrice(RoomType.DELUXE, newRoomPrice);
                 }
                 break;
             case VIP_SUITE:
-                if (PromotionDetails.setVipSuitePrice(newRoomPrice)) {
+                if (Database.PRICES.setVipSuitePrice(newRoomPrice)) {
                     return RoomManager.updateRoomPrice(RoomType.VIP_SUITE, newRoomPrice);
                 }
                 break;
@@ -89,7 +70,12 @@ public class PromotionManager {
 
 
     public static boolean editDiscountRate(double newDiscountRate) {
-        return PromotionDetails.setDiscountRate(newDiscountRate);
+        return Database.PRICES.setDiscountRate(newDiscountRate);
     }
 
+    public static boolean initializePromotionDetails() {
+        PromotionDetails promotionDetails = new PromotionDetails(0.05, 0.17, 200, 360, 400, 1000, 1.2);
+        Database.PRICES = promotionDetails;
+        return true;
+    }
 }
