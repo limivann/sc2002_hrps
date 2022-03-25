@@ -4,6 +4,7 @@ import java.lang.Thread;
 
 import javax.naming.spi.ResolveResult;
 
+import src.controller.PaymentManager;
 import src.controller.ReservationManager;
 import src.helper.Helper;
 
@@ -62,8 +63,12 @@ public class HandleCheckInOutView extends MainView {
         if (!ReservationManager.validateReservationId(reservationId)) {
             return;
         }
-        ReservationManager.checkOutReservation(reservationId);
-        System.out.println(String.format("Check out complete for reservation id: %s", reservationId));
+        if (ReservationManager.checkOutReservation(reservationId)) {
+            System.out.println(String.format("Check out complete for reservation id: %s", reservationId));
+        } else {
+            return;
+        }
+        PaymentManager.handlePayment(reservationId);
         // int paymentOpt = promptPayment();
         // try{
         //     handlePayment(paymentOpt, roomId);

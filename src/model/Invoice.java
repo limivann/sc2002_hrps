@@ -121,6 +121,8 @@ public class Invoice implements Serializable {
     
     @Override
     public String toString() {
-        return "r";
+        String res = String.format("Invoice Id: %s, Guest Id: %s, Reservation Id: %s, Total: %f", getInvoiceId(), getGuestId(),
+                getReservationId(), getTotal());
+        return res;
     }
 }   
