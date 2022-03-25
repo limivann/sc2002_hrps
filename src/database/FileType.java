@@ -6,7 +6,8 @@ public enum FileType {
     RESERVATIONS("Reservations"),
     MENU_ITEMS("MenuItems"),
     ORDERS("Orders"),
-    INVOICES("Invoices");
+    INVOICES("Invoices"),
+    PRICES("Prices");
 
     public final String fileName;
 

@@ -4,10 +4,13 @@ import src.model.Reservation;
 import src.model.Room;
 import src.model.enums.RoomStatus;
 
+import javax.naming.spi.ResolveResult;
 import javax.print.DocFlavor.STRING;
 import javax.xml.crypto.Data;
 
 import src.database.Database;
+import src.database.FileType;
+import src.helper.Helper;
 import src.model.Invoice;
 import src.model.Order;
 public class PaymentManager {
@@ -30,16 +33,15 @@ public class PaymentManager {
         return subTotal * (1 + taxRate) * (1 - discountRate);
     }
 
-    public static void printInvoice(Invoice inovice) {
-        // String receipt = "";
-        // receipt += String.format("Guest ID: %s\n", "G0001");
-        // receipt += String.format("receiptervation ID: %s\n", "R0001");
-        // receipt += String.format("Room ID: %s\n", "01-02");
-        // receipt += String.format("Sub-total: %,.2f\n", testInvoice.getSubTotal());
-        // receipt += String.format("Tax Rate: %,.2f\n", testInvoice.getTaxRate());
-        // receipt += String.format("Discount Rate: %,.2f\n", testInvoice.getDiscountRate());
-        // receipt += String.format("Total: %,.2f\n", testInvoice.getTotal());
-        // System.out.println(receipt);
+    public static void printInvoice(Invoice invoice) {
+        System.out.println(
+                String.format("Invoice Id: %s\t Date: %s", invoice.getInvoiceId(), invoice.getDateOfPayment()));
+        String guestName = GuestManager.searchGuestById(invoice.getGuestId()).get(0).getName();
+        System.out.println(String.format("Name: %s\n\nReservation Id: %s", guestName, invoice.getReservationId()));
+        System.out.println(String.format("SubTotal %.2f", invoice.getSubTotal()));
+        System.out.println(String.format("Tax Rate %.0f%%", invoice.getTaxRate() * 100));
+        System.out.println(String.format("Discount Rate: %.0f%%", invoice.getDiscountRate() * 100));
+        System.out.println(String.format("Total: %.2f", invoice.getTotal()));
     }
 
     public static void handlePayment(String reservationId) {
@@ -49,16 +51,30 @@ public class PaymentManager {
 
         // payment
         Invoice invoice = generateInvoice(reservationId);
+        printInvoice(invoice);
     }
 
     public static Invoice generateInvoice(String reservationId) {
-        String guestId = ReservationManager.search(reservationId).getGuestId();
-        return null;
+        Reservation reservation = ReservationManager.search(reservationId);
+        String guestId = reservation.getGuestId();
+        String roomId = reservation.getRoomId();
+        double taxRate = PromotionManager.getTaxRate();
+        double discountRate = PromotionManager.getDiscountRate();
+
+        double subTotal = calculateSubTotal(roomId);
+        double total = calculateTotal(subTotal, discountRate, taxRate);
+        int iid = Helper.generateUniqueId(Database.INVOICES);
+        String invoiceId = String.format("I%04d", iid);
+        String dateOfPayment = Helper.getTimeNow();
+        Invoice invoice = new Invoice(invoiceId, guestId, roomId, reservationId, dateOfPayment, taxRate, discountRate, subTotal,
+                total);
+
+        Database.INVOICES.put(invoiceId, invoice);
+        Database.saveFileIntoDatabase(FileType.INVOICES);
+        return invoice;
     }
 
     public static void main(String[] args) {
 
     }
 }
-
-// public Invoice(String guestId, String roomId, String reservationId, String dateOfPayment, double taxRate, double discountRate, double subTotal, double total) {

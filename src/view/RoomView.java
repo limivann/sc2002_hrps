@@ -18,11 +18,11 @@ public class RoomView extends MainView{
     @Override
     public void printMenu() {
         System.out.println("Please select an option (1-5)");
-        System.out.println("1. Update room status");
-        System.out.println("2. Search room");
-        System.out.println("3. Print rooms by status");
-        System.out.println("4. Print rooms by occupancy rate");
-        System.out.println("5. Exit");
+        System.out.println("(1) Update room status");
+        System.out.println("(2) Search room");
+        System.out.println("(3) Print rooms by status");
+        System.out.println("(4) Print rooms by occupancy rate");
+        System.out.println("(5) Exit");
     }
 
     @Override

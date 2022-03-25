@@ -159,12 +159,11 @@ public class ReservationManager {
             return false;
         }
         ReservationStatus reservationStatus = search(reservationId).getReservationStatus();
-        if (reservationStatus == ReservationStatus.CHECKED_IN) {
+        if (reservationStatus == ReservationStatus.CHECKED_OUT) {
             System.out.println("You have already checked out");
             return false;
         }
         updateReservationStatus(reservationId, 5);
-        PaymentManager.handlePayment(reservationId);
         return true;
     }
 }

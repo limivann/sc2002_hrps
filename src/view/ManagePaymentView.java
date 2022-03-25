@@ -84,49 +84,30 @@ public class ManagePaymentView extends MainView {
     }
 
     public boolean promptEditTaxRate() {
-        int opt = -1;
-        printEditRoomTaxRateMenu();
-        opt = Helper.readInt();
         double newTaxRate = -1;
-        switch (opt) {
-            case 1:
-                printOldTaxRate(RoomType.SINGLE);
-                newTaxRate = promptNewTaxRate(RoomType.SINGLE);
-                return PromotionManager.editTaxRate(RoomType.SINGLE, newTaxRate);
-            case 2:
-                printOldTaxRate(RoomType.DOUBLE);
-                newTaxRate = promptNewTaxRate(RoomType.DOUBLE);
-                return PromotionManager.editTaxRate(RoomType.DOUBLE, newTaxRate);
-            case 3:
-                printOldTaxRate(RoomType.DELUXE);
-                newTaxRate = promptNewTaxRate(RoomType.DELUXE);
-                return PromotionManager.editTaxRate(RoomType.DELUXE, newTaxRate);
-            case 4:
-                printOldTaxRate(RoomType.VIP_SUITE);
-                newTaxRate = promptNewTaxRate(RoomType.VIP_SUITE);
-                return PromotionManager.editTaxRate(RoomType.VIP_SUITE, newTaxRate);
-        }
-        return false;
+        System.out.println("Please enter a new discount rate");
+        newTaxRate = Helper.readDouble();
+        return PromotionManager.editTaxRate(newTaxRate);
     }
 
     public boolean promptEditDiscountRate() {
         double newDiscountRate = -1;
         System.out.println("Please enter a new discount rate");
-        newDiscountRate = Helper.sc.nextDouble();
+        newDiscountRate = Helper.readDouble();
         return PromotionManager.editDiscountRate(newDiscountRate);
     }
 
     public double promptNewPrice(RoomType roomType) {
         System.out.println("Please enter a new price for " + roomType.roomTypeAsStr);
         double newPrice = -1;
-        newPrice = Helper.sc.nextDouble();
+        newPrice = Helper.readDouble();
         return newPrice;
     }
 
     public double promptNewTaxRate(RoomType roomType) {
         System.out.println("Please enter a new tax rate for " + roomType.roomTypeAsStr);
         double newTaxRate = -1;
-        newTaxRate = Helper.sc.nextDouble();
+        newTaxRate = Helper.readDouble();
         return newTaxRate;
     }
     
@@ -138,9 +119,8 @@ public class ManagePaymentView extends MainView {
                 PromotionManager.getRoomPrice(roomType, false)));
     }
     
-    public void printOldTaxRate(RoomType roomType) {
-        System.out.println(String.format("The old tax rate of %s is %.2f", roomType.roomTypeAsStr,
-                PromotionManager.getRoomTaxRate(roomType)));
+    public void printOldTaxRate() {
+        System.out.println(String.format("The old tax rate is %.2f", PromotionManager.getTaxRate()));
     }
 
     public void printOldDiscountRate() {

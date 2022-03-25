@@ -10,6 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import src.controller.GuestManager;
+import src.controller.PromotionManager;
 import src.controller.RoomManager;
 import src.controller.RoomServiceManager;
 import src.model.*;
@@ -26,6 +27,9 @@ public class Database {
     public static HashMap<String, Invoice> INVOICES = new HashMap<String, Invoice>();
     public static HashMap<String, Order> ORDERS = new HashMap<String, Order>();
     public static HashMap<String, MenuItem> MENU_ITEMS = new HashMap<String, MenuItem>();
+    
+    // Prices
+    public static PromotionDetails PRICES;
 
     // Number of rooms for each room type
     public static int numOfSingleRooms = 20;
@@ -56,6 +60,9 @@ public class Database {
         if (!readSerializedObject(FileType.INVOICES)) {
             System.out.println("Read into Invoice failed!");
         }
+        if (!readSerializedObject(FileType.PRICES)) {
+            System.out.println("Read into Prices failed!");
+        }
         System.out.println("Database init");
     }
     
@@ -70,6 +77,7 @@ public class Database {
         saveFileIntoDatabase(FileType.MENU_ITEMS);
         saveFileIntoDatabase(FileType.RESERVATIONS);
         saveFileIntoDatabase(FileType.INVOICES);
+        saveFileIntoDatabase(FileType.PRICES);
     }
 
     public static boolean readSerializedObject(FileType fileType) {
@@ -79,7 +87,8 @@ public class Database {
             FileInputStream fileInputStream = new FileInputStream(filePath);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             Object object = objectInputStream.readObject();
-            if (!(object instanceof HashMap)) {
+            if (!(object instanceof HashMap) && !(object instanceof PromotionDetails)) {
+                System.out.println(fileType.fileName);
                 objectInputStream.close();
                 return false;
             }
@@ -96,6 +105,8 @@ public class Database {
                 RESERVATIONS = (HashMap<String, Reservation>) object;
             } else if (fileType == FileType.INVOICES) {
                 INVOICES = (HashMap<String, Invoice>) object;
+            } else if (fileType == FileType.PRICES) {
+                PRICES = (PromotionDetails) object;
             }
             objectInputStream.close();
             fileInputStream.close();
@@ -113,6 +124,8 @@ public class Database {
                 RESERVATIONS = new HashMap<String, Reservation>();
             } else if (fileType == FileType.INVOICES) {
                 INVOICES = new HashMap<String, Invoice>();
+            } else if (fileType == FileType.PRICES) {
+                PRICES = new PromotionDetails();
             }
         } catch (IOException err) {
             err.printStackTrace();
@@ -145,6 +158,8 @@ public class Database {
                 objectOutputStream.writeObject(RESERVATIONS);
             } else if (fileType == FileType.INVOICES) {
                 objectOutputStream.writeObject(INVOICES);
+            } else if (fileType == FileType.PRICES) {
+                objectOutputStream.writeObject(PRICES);
             }
             objectOutputStream.close();
             fileOutputStream.close();
@@ -161,6 +176,9 @@ public class Database {
         GUESTS = new HashMap<String, Guest>();
         writeSerializedObject(FileType.GUESTS);
         
+        Database.initializePromotionDetails();
+        writeSerializedObject(FileType.PRICES);
+
         ROOMS = new HashMap<String, Room>();
         Database.initializeRooms();
         writeSerializedObject(FileType.ROOMS);
@@ -230,6 +248,11 @@ public class Database {
 
     private static boolean initializeRooms() {
         RoomManager.initializeAllRooms();
+        return true;
+    }
+
+    private static boolean initializePromotionDetails() {
+        PromotionManager.initializePromotionDetails();
         return true;
     }
 
