@@ -111,7 +111,6 @@ public class ReservationManager {
     }
     
     public static void updateReservationStatus(String reservationId, int status) {
-        System.out.println("here" +  status);
         switch (status) {
             case 1:
                 search(reservationId).setReservationStatus(ReservationStatus.CONFIRMED);
