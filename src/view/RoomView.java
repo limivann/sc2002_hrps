@@ -11,11 +11,17 @@ import src.model.enums.*;
 public class RoomView extends MainView{
     private RoomManager a = new RoomManager();
 
+    /**
+     * the default constructor for the room view
+     */
     public RoomView() {
         
     }
 
     @Override
+    /**
+     * View Menu for the Room
+     */
     public void printMenu() {
         System.out.println("Please select an option (1-5)");
         System.out.println("(1) Update room status");
@@ -26,6 +32,9 @@ public class RoomView extends MainView{
     }
 
     @Override
+    /**
+     * View Application for the room
+     */
     public void viewapp() {
         int opt = -1;
         do {
@@ -36,7 +45,7 @@ public class RoomView extends MainView{
                     case 1:
                         if (promptUpdateRoomStatus()) {
                             System.out.println("Status updated successfully.");
-                        }else{
+                        } else {
                             System.out.println("Unsuccessful status update");
                         }
                         break;
@@ -63,6 +72,11 @@ public class RoomView extends MainView{
         } while (opt != 5);
     }
     
+    /**
+     * Prompt function to search room
+     * @param printResults whether to print out the results or not
+     * @see RoomManager to check for the printing room method
+     */
     public void promptSearchRoom(boolean printResults) {
         System.out.println("Enter the floor number");
         int floor = Helper.readInt();
@@ -73,6 +87,11 @@ public class RoomView extends MainView{
         }
     }
     
+    /**
+     * Prompt function to update room status
+     * @return true if update successfully
+     * @see RoomManager for update function
+     */
     public boolean promptUpdateRoomStatus() {
         System.out.println("Enter the floor number");
         int floor = Helper.readInt();
@@ -103,6 +122,9 @@ public class RoomView extends MainView{
         return RoomManager.updateRoomStatus(floor, room, newStatus);
     }
 
+    /**
+     * View Menu for update room status
+     */
     private void printRoomStatusMenu() {
         System.out.println("Which is the new status? (1-4)");
         System.out.println("(1) Vacant");
@@ -111,9 +133,18 @@ public class RoomView extends MainView{
         System.out.println("(4) Under maintenance");
     }
 
-    public void printRoomByStatus(){
+    /**
+     * Prompt function for printing room by status 
+     * @see RoomManager for printing function
+     */
+    public void printRoomByStatus() {
         RoomManager.printRoomStatus();
     }
+    
+    /**
+     * Prompt function for printing room by occupancy rate
+     * @see RoomManager for printing function
+     */
     public void printRoomByOccupancyRate(){
         RoomManager.printOccupancyRate(RoomStatus.VACANT);
     }
