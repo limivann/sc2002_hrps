@@ -69,13 +69,6 @@ public class HandleCheckInOutView extends MainView {
             return;
         }
         PaymentManager.handlePayment(reservationId);
-        // int paymentOpt = promptPayment();
-        // try{
-        //     handlePayment(paymentOpt, roomId);
-        //     printInvoice(roomId); 
-        // } catch (InterruptedException err) {
-        //     System.out.println("Error: " + err.getMessage());
-        // }
     }
     
     public int promptPayment() {

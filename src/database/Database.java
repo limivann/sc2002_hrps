@@ -17,30 +17,82 @@ import src.model.*;
 import src.model.enums.Gender;
 import src.model.enums.IdentityType;
 
+/**
+ * Database model to read and write serialized data into .dat files.
+ * @author Ivan, Max
+ * @version 1.0
+ * @since 2022-03-28
+ */
+
 public class Database {
+    /**
+     * The folder name to contain .dat files.
+     */
     private static final String folder = "data";
 
-    // Hashmaps for data access
+    /**
+     * HashMap to contain {@link Guest} objects.
+     */
     public static HashMap<String, Guest> GUESTS = new HashMap<String, Guest>();
+    /**
+     * HashMap to contain {@link Room} objects.
+     */
     public static HashMap<String, Room> ROOMS = new HashMap<String, Room>();
+    /**
+     * HashMap to contain {@link Reservation} objects.
+     */
     public static HashMap<String, Reservation> RESERVATIONS = new HashMap<String, Reservation>();
+    /**
+     * HashMap to contain {@link Invoice} objects.
+     */
     public static HashMap<String, Invoice> INVOICES = new HashMap<String, Invoice>();
+    /**
+     * HashMap to contain {@link Order} objects.
+     */
     public static HashMap<String, Order> ORDERS = new HashMap<String, Order>();
+    /**
+     * HashMap to contain {@link MenuItem} objects.
+     */
     public static HashMap<String, MenuItem> MENU_ITEMS = new HashMap<String, MenuItem>();
     
-    // Prices
+    /**
+     * {@link PromotionDetails} object to contain prices, discount rate and tax rate of the hotel.
+     */
     public static PromotionDetails PRICES;
 
-    // Number of rooms for each room type
+    /**
+     * Number of single rooms in the hotel. 
+     */
     public static int numOfSingleRooms = 20;
+    
+    /**
+     * Number of double rooms in the hotel. 
+     */
     public static int numOfDoubleRooms = 10;
+
+    /**
+     * Number of deluxe rooms in the hotel. 
+     */
     public static int numOfDeluxeRooms = 10;
+
+    /**
+     * Number of vip suites rooms in the hotel. 
+     */
     public static int numOfVipSuites = 8;
     
+    /**
+     * Number of floors in the hotel. 
+     */
     public static int numOfFloors = 4;
+
+    /**
+     * Number of room per floor in the hotel. 
+     */
     public static int numOfRoomPerFloor = 12;
     
-    
+    /**
+     * Constructor that reads all the data from the data file during initialization of program.
+     */
     public Database() {
         if (!readSerializedObject(FileType.GUESTS)) {
             System.out.println("Read into Guests failed!");
@@ -66,10 +118,18 @@ public class Database {
         System.out.println("Database init");
     }
     
+    /**
+     * A method to save a particular {@link FileType} into database.
+     * @param fileType file type to be saved.
+     * @see FileType for the different type of filetypes.
+     */
     public static void saveFileIntoDatabase(FileType fileType) {
         writeSerializedObject(fileType);
     }
 
+    /**
+     * A method to save all files into database.
+     */
     public static void saveAllFiles() {
         saveFileIntoDatabase(FileType.GUESTS);
         saveFileIntoDatabase(FileType.ROOMS);
@@ -80,6 +140,11 @@ public class Database {
         saveFileIntoDatabase(FileType.PRICES);
     }
 
+    /**
+     * A method to read serialized object from a particular {@link FileType}.
+     * @param fileType file type to be read.
+     * @return true if read from file is successful.
+     */
     public static boolean readSerializedObject(FileType fileType) {
         String fileExtension = ".dat";
         String filePath = "./src/database/" + folder + "/" + fileType.fileName + fileExtension;
@@ -139,7 +204,11 @@ public class Database {
         }
         return true;
     }
-    
+    /**
+     * A method to write serialized object to file.
+     * @param fileType file type to write into.
+     * @return true if write to file is successful.
+     */
     public static boolean writeSerializedObject(FileType fileType) {
         String fileExtension = ".dat";
         String filePath = "./src/database/" + folder + "/" + fileType.fileName + fileExtension;
@@ -170,7 +239,10 @@ public class Database {
         }
     }
 
-
+    /**
+     * A method to clear out all the data in database.
+     * @return true if data is cleared successfully.
+     */
     public static boolean clearDatabase() {
         // Initialize empty data
         GUESTS = new HashMap<String, Guest>();
@@ -196,7 +268,10 @@ public class Database {
         writeSerializedObject(FileType.INVOICES);
         return true;
     }
-
+    /**
+     * A method to initialize {@link Guest} dummy data when the database is empty.
+     * @return true if initialized successfully.
+     */
     public static boolean initializeDummyGuests() {
         if (GUESTS.size() != 0) {
             System.out.println("The database already has guests. Reset database first to initialize guests");
@@ -221,7 +296,10 @@ public class Database {
         GuestManager.createGuest("Fang", "Li", "73232733", "SCSE", Gender.FEMALE, identity6, "Chinese", "96252552");
         return true;
     }
-    
+    /**
+     * A method to initialize {@link MenuItem} dummy data when the database is empty.
+     * @return true is initialied successfully.
+     */
     public static boolean initializeDummyMenu() {
         if (MENU_ITEMS.size() != 0) {
             System.out.println("The database already has some menu items. Reset database first to initialize menu items");
@@ -245,19 +323,22 @@ public class Database {
                 28);
         return true;
     }
-
+    /**
+     * Method to initialize {@link Room} when the database is empty.
+     * @return true if initialized successfully.
+     * @see RoomManager RoomManager - Contains details of initialize rooms.
+     */
     private static boolean initializeRooms() {
         RoomManager.initializeAllRooms();
         return true;
     }
-
+    /**
+     * Method to initialize {@link PromotionDetails} when the database is empty.
+     * @return true if initialized successfully
+     * @see PromotionManager PromotionManager - Contains details of initialize promotion details
+     */
     private static boolean initializePromotionDetails() {
         PromotionManager.initializePromotionDetails();
         return true;
-    }
-
-    public static void main(String[] args) {
-        Database.clearDatabase();
-
     }
 }

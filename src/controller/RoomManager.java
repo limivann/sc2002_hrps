@@ -12,12 +12,22 @@ import src.database.FileType;
 import src.helper.Helper;
 import src.model.Room;
 import src.model.enums.*;
-public class RoomManager{
+
+public class RoomManager {
     HashMap<String, Room> RoomList = new HashMap<String, Room>();
 
+    /**
+     * Default constructor of the Room Manager
+     */
     public RoomManager() {
     }
-    
+
+    /**
+     * Method to update the Room price
+     * @param roomType new room type of the room
+     * @param newPrice new price of the room
+     * @return true if successful
+     */
     public static boolean updateRoomPrice(RoomType roomType, double newPrice) {
         HashMap<String, Room> toIterate = Helper.copyHashMap(Database.ROOMS);
         Iterator it = toIterate.entrySet().iterator();
@@ -41,13 +51,19 @@ public class RoomManager{
         return true;
     }
 
+    /**
+     * Method to update the Room status by id
+     * @param roomId room id of the room
+     * @param roomStatus room status of the room
+     * @return true if successful
+     */
     public static boolean updateRoomStatus(String roomId, RoomStatus roomStatus) {
-        if (Database.ROOMS.containsKey(roomId)){
+        if (Database.ROOMS.containsKey(roomId)) {
             Room targetRoom = Database.ROOMS.get(roomId);
             targetRoom.setRoomStatus(roomStatus);
-            Database.ROOMS.put(roomId, targetRoom);   
+            Database.ROOMS.put(roomId, targetRoom);
             Database.saveFileIntoDatabase(FileType.ROOMS);
-            return true;        
+            return true;
         } else {
             // TODO: Throw exception
             System.out.println("Room id doesn't exists. ");
@@ -55,14 +71,21 @@ public class RoomManager{
         }
     }
 
+    /**
+     * Method to update the Room status by floor and room number
+     * @param floorNumber floor number of the room
+     * @param roomNumber room number of the room
+     * @param roomStatus room status of the room
+     * @return true if successful
+     */
     public static boolean updateRoomStatus(int floorNumber, int roomNumber, RoomStatus roomStatus) {
         String roomId = String.format("%02d-%02d", floorNumber, roomNumber);
-        if (Database.ROOMS.containsKey(roomId)){
+        if (Database.ROOMS.containsKey(roomId)) {
             Room targetRoom = Database.ROOMS.get(roomId);
             targetRoom.setRoomStatus(roomStatus);
-            Database.ROOMS.put(roomId, targetRoom);   
+            Database.ROOMS.put(roomId, targetRoom);
             Database.saveFileIntoDatabase(FileType.ROOMS);
-            return true;        
+            return true;
         } else {
             // TODO: Throw exception
             System.out.println("Room id doesn't exists. ");
@@ -70,15 +93,30 @@ public class RoomManager{
         }
     }
 
+    /**
+     * Method to search a room by floor and room number of the room
+     * @param floor floor number of the room
+     * @param room room number of the room
+     * @return the room object correspond to the room id
+     */
     public static Room searchRoom(int floor, int room) {
         String roomId = String.format("%02d-%02d", floor, room);
         return Database.ROOMS.get(roomId);
     }
 
+    /**
+     * Method to search a room by room id
+     * @param roomId room id of the room
+     * @return the room object correspond to the room id
+     */
     public static Room searchRoom(String roomId) {
         return Database.ROOMS.get(roomId);
     }
 
+    /**
+     * Print out the room correspond to the room id
+     * @param roomId room id of the room
+     */
     public static void printRoom(String roomId) {
         if (Database.ROOMS.containsKey(roomId)) {
             Room target = searchRoom(roomId);
@@ -87,7 +125,12 @@ public class RoomManager{
             System.out.println("Room doesn't exists.");
         }
     }
-    
+
+    /**
+     * Print out the room correspond to the floor and room number
+     * @param floor the floor number of the room
+     * @param room the room number of the room
+     */
     public static void printRoom(int floor, int room) {
         String roomId = String.format("%02d-%02d", floor, room);
         if (Database.ROOMS.containsKey(roomId)) {
@@ -97,7 +140,10 @@ public class RoomManager{
             System.out.println("Room doesn't exists.");
         }
     }
-    
+
+    /**
+     * Print out the room status
+     */
     public static void printRoomStatus() {
         ArrayList<Room> vacantRooms = new ArrayList<Room>();
         ArrayList<Room> occupiedRooms = new ArrayList<Room>();
@@ -138,6 +184,11 @@ public class RoomManager{
         System.out.println();
     }
 
+    /**
+     * Get all the room that currently is in one room status
+     * @param roomStatus the room status that you want to search
+     * @return an ArrayList that has all Room object under the input roomStatus
+     */
     public static ArrayList<Room> getRoomsByStatus(RoomStatus roomStatus) {
         ArrayList<Room> roomsByStatus = new ArrayList<Room>();
         HashMap<String, Room> toIterate = Helper.copyHashMap(Database.ROOMS);
@@ -157,7 +208,13 @@ public class RoomManager{
         }
         return roomsByStatus;
     }
-    
+
+    /**
+     * Get the room by room type and by room status
+     * @param roomType the type of room want to search
+     * @param roomStatus the status of room that want to search
+     * @return the ArrayList that has the input room type and status
+     */
     public static ArrayList<Room> getRoomsByRoomTypeAndStatus(RoomType roomType, RoomStatus roomStatus) {
         ArrayList<Room> roomsByRoomType = new ArrayList<Room>();
         HashMap<String, Room> toIterate = Helper.copyHashMap(Database.ROOMS);
@@ -178,6 +235,10 @@ public class RoomManager{
         return roomsByRoomType;
     }
 
+    /**
+     * Print out the room by status
+     * @param roomStatus room status that want to print
+     */
     public static void printOccupancyRate(RoomStatus roomStatus) {
         // TODO: Make this reusable on other room statuses
         ArrayList<Room> vacantSingleRooms = new ArrayList<Room>();
@@ -223,47 +284,11 @@ public class RoomManager{
         }
         System.out.println();
     }
-    
-    public void printOccupancyRate() {
-        int[][] list = new int[4][2];
-        String[] list2 = new String[4];
-        String[] list3 = { "Single", "Double", "Deluxe", "Vip suite" };
 
-        for (Room x : RoomList.values()) {
-            if (x.getType() == RoomType.SINGLE)
-                list[0][1]++;
-            if (x.getRoomStatus() == RoomStatus.VACANT) {
-                list[0][0]++;
-                list2[0] += x.getRoomNumberString() + ", ";
-            }
-
-            if (x.getType() == RoomType.DOUBLE)
-                list[1][1]++;
-            if (x.getRoomStatus() == RoomStatus.VACANT) {
-                list[1][0]++;
-                list2[1] += x.getRoomNumberString() + ", ";
-            }
-
-            if (x.getType() == RoomType.DELUXE)
-                list[2][1]++;
-            if (x.getRoomStatus() == RoomStatus.VACANT) {
-                list[2][0]++;
-                list2[2] += x.getRoomNumberString() + ", ";
-            }
-
-            if (x.getType() == RoomType.VIP_SUITE)
-                list[3][1]++;
-            if (x.getRoomStatus() == RoomStatus.VACANT) {
-                list[3][0]++;
-                list2[3] += x.getRoomNumberString() + ", ";
-            }
-        }
-        for (int i = 0; i < 4; i++) {
-            System.out.printf("%s: Number: %d out of %d\n", list3[i], list[i][0], list[i][1]);
-            System.out.printf("Rooms: %s\n", list2[i]);
-        }
-    }
-
+    /**
+     * Print out all the room details
+     * @see Room#toString() to see the toString method
+     */
     public static void printAllRooms() {
         HashMap<String, Room> toIterate = Helper.copyHashMap(Database.ROOMS);
         Iterator it = toIterate.entrySet().iterator();
@@ -273,7 +298,10 @@ public class RoomManager{
             it.remove(); // avoids a ConcurrentModificationException
         }
     }
-    
+
+    /**
+     * Initializer for all the room in the hotel
+     */
     public static void initializeAllRooms() {
         // One floor 12 rooms, 4 floors in total
 
@@ -331,8 +359,22 @@ public class RoomManager{
         }
         Database.saveFileIntoDatabase(FileType.ROOMS);
     }
-    
-    public static Room createRoom(RoomType roomType, String roomId, int floorNumber, int roomNumber, RoomStatus roomStatus,
+
+    /**
+     * constructor of the room
+     * @param roomType Type of the room
+     * @param roomId the room Id for the room
+     * @param floorNumber Floor number of the room
+     * @param roomNumber Room number of the room
+     * @param roomStatus Status of the room
+     * @param isWifiEnabled whether the wifi is enabled in the room
+     * @param isSmokingAllowed whether the smoking is allowed in the room
+     * @see RoomType For the different room type
+     * @see RoomStatus For the different status of the room
+     * @return the new Room object
+     */
+    public static Room createRoom(RoomType roomType, String roomId, int floorNumber, int roomNumber,
+            RoomStatus roomStatus,
             boolean isWifiEnabled, boolean isSmokingAllowed) {
 
         double roomPrice = calculateRoomPrice(roomType, isWifiEnabled);
@@ -340,11 +382,23 @@ public class RoomManager{
                 roomPrice);
         return newRoom;
     }
-    
+
+    /**
+     * Calculate the price of the room
+     * @param roomType Type of the room
+     * @param isWifiEnabled whether the wifi is enabled or not
+     * @return the price of the room
+     * @see PromotionManager for the formula for price
+     */
     public static double calculateRoomPrice(RoomType roomType, boolean isWifiEnabled) {
         return PromotionManager.getRoomPrice(roomType, isWifiEnabled);
     }
 
+    /**
+     * Validate the hotel has this room id or not
+     * @param roomId room id of the room you want to check
+     * @return true if contains this room
+     */
     public static boolean validateRoomId(String roomId) {
         if (Database.ROOMS.containsKey(roomId)) {
             return true;
@@ -353,7 +407,12 @@ public class RoomManager{
             return false;
         }
     }
-    
+
+    /**
+     * Check if the room has vacancy
+     * @param roomId room id of the room you want to check
+     * @return true if this room has vacancy
+     */
     public static boolean checkRoomVacancy(String roomId) {
         if (validateRoomId(roomId)) {
             return Database.ROOMS.get(roomId).getRoomStatus() == RoomStatus.VACANT;
@@ -361,6 +420,12 @@ public class RoomManager{
         return false;
     }
 
+    /**
+     * Validate the number of pax exceeds the maximum capacity of the room or not
+     * @param roomId room id of the room you want to check
+     * @param numOfPax the number of pax of the room
+     * @return true if the maximum capacity does not exceed the room
+     */
     public static boolean validateNumOfPax(String roomId, int numOfPax) {
         if (numOfPax <= 0) {
             return false;
@@ -370,9 +435,5 @@ public class RoomManager{
             return numOfPax <= room.getType().maxCapacity;
         }
         return false;
-    }
-    
-    public static void main(String[] args) {
-        initializeAllRooms();
     }
 }

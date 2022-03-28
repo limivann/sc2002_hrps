@@ -15,11 +15,28 @@ import src.model.Guest;
 import src.model.Identity;
 import src.model.enums.Gender;
 
+// for javadocs
+import src.view.GuestView;
+
 public class GuestManager {
+    /**
+     * Default constructor of the GuestManager
+     */
     public GuestManager() {
 
     }
     
+    /**
+     * Constructor for the guest in the GuestManager
+     * @param firstName the first name of the guest
+     * @param lastName the last name of the guest
+     * @param creditCardNumber the credit card number of the guest
+     * @param address the address of the guest
+     * @param gender the gender of the guest
+     * @param identity the identity of the guest
+     * @param nationality the nationality of the guest
+     * @param contactNo the contact number of the guest
+     */
     public static void createGuest(String firstName, String lastName, String creditCardNumber, String address,
             Gender gender, Identity identity, String nationality, String contactNo) {
         String name = firstName + " " + lastName;
@@ -34,6 +51,13 @@ public class GuestManager {
 
     // All update guest helpers
     // For updating one value only
+    /**
+     * The function to update the detail of the guest and save the file into database
+     * @param guestId the guest id of the guest
+     * @param attributeCode the attribute code for the detail that user choose to update
+     * @param newValue the new detail value for the guest
+     * @see GuestView#printUpdateGuestMenu() for the menu of the attribute code
+     */
     public static void updateGuest(String guestId, int attributeCode, String newValue) {
         ArrayList<Guest> updateList = searchGuestById(guestId);
         for (Guest guest : updateList) {
@@ -63,6 +87,14 @@ public class GuestManager {
     }
 
     // For updating more than one value (first name, last name)
+    /**
+     * Overloading method of updateGuest that update the first name and last name of the guest
+     * @param guestId the guest id of the guest
+     * @param attributeCode the attribute code for the detail that user choose to update
+     * @param newValue1 the new value for the first name
+     * @param newValue2 the new value for the last name
+     * @see GuestView#printUpdateGuestMenu() for the menu of the attribute code
+     */
     public static void updateGuest(String guestId, int attributeCode, String newValue1, String newValue2) {
         ArrayList<Guest> updateList = searchGuestById(guestId);
         for (Guest guest : updateList) {
@@ -83,6 +115,13 @@ public class GuestManager {
         Database.saveFileIntoDatabase(FileType.GUESTS);
     }
     
+    /**
+     * Overloading method of updateGuest that update the gender of the guest
+     * @param guestId the guest id of the guest
+     * @param attributeCode the attribute code for the detail that user choose to update
+     * @param gender the new gender of the guest
+     * @see GuestView#printUpdateGuestMenu() for the menu of the attribute code
+     */
     public static void updateGuest(String guestId, int attributeCode, Gender gender) {
         ArrayList<Guest> updateList = searchGuestById(guestId);
         for (Guest guest : updateList) {
@@ -100,6 +139,13 @@ public class GuestManager {
         Database.saveFileIntoDatabase(FileType.GUESTS);
     }
     
+    /**
+     * Overloading method of updateGuest that update the identity of the guest
+     * @param guestId the guest id of the guest
+     * @param attributeCode the attribute code for the detail that user choose to update
+     * @param identity the new identity for the guest
+     * @see GuestView#printUpdateGuestMenu() for the menu of the attribute code
+     */
     public static void updateGuest(String guestId, int attributeCode, Identity identity) {
         ArrayList<Guest> updateList = searchGuestById(guestId);
         for (Guest guest : updateList) {
@@ -118,7 +164,11 @@ public class GuestManager {
     }
 
     // Search Guest
-
+    /**
+     * Search method to search a Guest by guest id
+     * @param guestId the guest id that want to search
+     * @return the guest that correspond to the guest id store in an ArrayList
+     */
     public static ArrayList<Guest> searchGuestById(String guestId) {
         ArrayList<Guest> searchList = new ArrayList<Guest>();   
         if (Database.GUESTS.containsKey(guestId)) {
@@ -127,7 +177,12 @@ public class GuestManager {
         }
         return searchList;
     }
-
+    
+    /**
+     * Function to remove guest from the database
+     * @param guestId the guest id of the guest that the user want to remove
+     * @return true if remove successfully else return false
+     */
     public static boolean removeGuest(String guestId) {
         ArrayList<Guest> removeList = GuestManager.searchGuestById(guestId);
         for (Guest guest : removeList) {
@@ -142,6 +197,10 @@ public class GuestManager {
         return true;
     }
     
+    /**
+     * Function to print all guest in the database that show the guest id and the Guest
+     * @see Guest#toString()
+     */
     public static void printAllGuests() {
         HashMap<String, Guest> toIterate = Helper.copyHashMap(Database.GUESTS);
         Iterator it = toIterate.entrySet().iterator();
@@ -159,11 +218,5 @@ public class GuestManager {
             // TODO: Throw Exception
             return false;
         }
-    }
-
-    public static void main(String[] args) {
-        GuestManager gm = new GuestManager();
-        GuestManager.printAllGuests();
-        
     }
 }

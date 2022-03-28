@@ -14,12 +14,18 @@ import src.model.enums.IdentityType;
 public class GuestView extends MainView{
     GuestManager g;
 
+    /**
+     * Default constructor of the Guest view
+     */
     public GuestView() {
         super();
         g = new GuestManager();
     }
 
     @Override
+    /**
+     * View Menu of the guest
+     */
     public void printMenu() {
         System.out.println("=== Guest View ===");
         System.out.println("Enter your choice");
@@ -32,6 +38,9 @@ public class GuestView extends MainView{
     }
 
     @Override
+    /**
+     * Application of the Guest View
+     */
     public void viewapp() {
         int opt;
         do {
@@ -73,6 +82,11 @@ public class GuestView extends MainView{
         } while (opt != 6);
     }
     // Create Guest
+    /**
+     * The function that receives input and create a guest through Guest Manager
+     * @return true if successfully create a Guest
+     * @see GuestManager
+     */
     public boolean promptCreateGuest() {
         System.out.println("Please enter guest's first name: ");
         String firstName = Helper.sc.nextLine();
@@ -94,22 +108,33 @@ public class GuestView extends MainView{
         String nationality = Helper.sc.nextLine();
         System.out.println("Please enter guest's contact number");
         String contactNo = Helper.sc.nextLine();
-        GuestManager.createGuest(firstName, lastName, creditCardNumber, address, gender, identity, nationality, contactNo);
+        GuestManager.createGuest(firstName, lastName, creditCardNumber, address, gender, identity, nationality,
+                contactNo);
         return true;
     }
     
+    /**
+     * View Menu for Gender
+     */
     public void printGenderMenu() {
         System.out.println("Please enter the guest's gender (1-2)");
         System.out.println("(1) Male");
         System.out.println("(2) Female");
     }
 
+    /**
+     * View Menu for Identity
+     */
     public void printIdentityMenu() {
         System.out.println("Please enter the identity type (1-2)");
         System.out.println("(1) Driving License");
         System.out.println("(2) Passport");
     }
 
+    /**
+     * Function that generate the input for the gender for the guest
+     * @return the gender type that is chosen if choice is valid
+     */
     public Gender promptGender() {
         printGenderMenu();
         int choice = Helper.readInt();
@@ -128,6 +153,10 @@ public class GuestView extends MainView{
         return null;
     };
 
+    /**
+     * Function that generate the input for the identity for the guest
+     * @return the identity type that is chosen if choice is valid
+     */
     public Identity promptIdentity() {
         printIdentityMenu();
         int choice = Helper.readInt();
@@ -156,6 +185,10 @@ public class GuestView extends MainView{
     }
     
     // Update Guest
+    /**
+     * Prompt to update Guest
+     * @return true if update successfully
+     */
     public boolean promptUpdateGuest() {
         System.out.println("Enter the guest that you want to update (GXXXX): ");
         String guestId = Helper.sc.nextLine();
@@ -215,6 +248,9 @@ public class GuestView extends MainView{
         return false;
     }
 
+    /**
+     * View Menu for update
+     */
     public void printUpdateGuestMenu() {
         System.out.println("Please choose the information that you want to update (1-7)");
         System.out.println("(1) Name");
@@ -227,6 +263,9 @@ public class GuestView extends MainView{
     }
 
     // Search Guest
+    /**
+     * Prompt function to search a guest
+     */
     public void promptSearchGuest() {
         System.out.println("Enter the guest id you want to search (GXXXX): ");
         String guestId = Helper.sc.nextLine();
@@ -237,6 +276,11 @@ public class GuestView extends MainView{
     }
 
     // Remove guest
+    /**
+     * Prompt function to remove a guest
+     * @return true if remove successfully
+     * @see GuestManager For the remove function detail
+     */
     public boolean promptRemoveGuest() {
         System.out.println("Enter the guest id you want to remove (GXXXX): ");
         String guestId = Helper.sc.nextLine();
@@ -249,6 +293,10 @@ public class GuestView extends MainView{
     }
 
     // Print all guest
+    /**
+     * Prompt function to print all guest
+     * @see GuestManager For the printing detail
+     */
     public void printGuests() {
         GuestManager.printAllGuests();
     }
