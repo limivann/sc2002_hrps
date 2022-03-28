@@ -24,7 +24,7 @@ public class Reservation implements Serializable {
      * @param checkedOutDate the date which the guest checked out
      * @param guestId Id of the guest
      * @param roomId Id of the room
-     * @param numeberOfPax number of people staying in one room
+     * @param numberOfPax number of people staying in one room
      * @param reservationId Id of the reservation
      * @param reservationStatus status of the reservation
      * @see ReservationStatus ReservationStatus - Different status of reservation
