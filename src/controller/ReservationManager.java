@@ -15,6 +15,16 @@ import src.database.FileType;
 import src.helper.Helper;
 
 public class ReservationManager {
+    /**
+     * A method that creates reservation
+     * @param checkedInDate the date which the guest checked in
+     * @param checkedOutDate the date which the guest checked out
+     * @param guestId Id of the guest
+     * @param roomId Id of the room
+     * @param numberOfPax number of people staying in one room
+     * @param reservationStatus status of the reservation
+     * @see ReservationStatus ReservationStatus - Different status of reservation
+     */
     public static void create(String checkedInDate, String checkedOutDate, String guestId, String roomId,
             int numberOfPax, ReservationStatus reservationStatus) {
         int rid = Helper.generateUniqueId(Database.RESERVATIONS);
@@ -28,7 +38,11 @@ public class ReservationManager {
         // Edit rooms status to reserved
         RoomManager.updateRoomStatus(roomId, RoomStatus.RESERVED);
     }
-
+    /**
+     * A method that removes reservation from database
+     * @param reservationId Id of the reservation
+     * @return true is removes successfully. Otherwise, false
+     */
     public static boolean remove(String reservationId) {
         if (validateReservationId(reservationId)) {
             Database.RESERVATIONS.remove(reservationId);
@@ -37,7 +51,11 @@ public class ReservationManager {
         }
         return false;
     }
-
+    /**
+     * A method that validates reservation by reservation id
+     * @param reservationId Id of the reservation
+     * @return true is reservation is found in database. Otherwise, false
+     */
     public static boolean validateReservationId(String reservationId) {
         if (Database.RESERVATIONS.containsKey(reservationId)) {
             return true;
@@ -46,21 +64,34 @@ public class ReservationManager {
             return false;
         }
     }
-    
+    /**
+     * A method that returns reservation by reservation id
+     * @param reservationId Id of the reservation
+     * @return Reservation if successfully found in database
+     * @see Reservation Reservation - Details of Reservation
+     */
     public static Reservation search(String reservationId) {
         if (validateReservationId(reservationId)) {
             return Database.RESERVATIONS.get(reservationId);
         } else
             return null;
     }
-
+    /**
+     * A method that returns room id by reservation id from database
+     * @param reservationId Id of the reservation
+     * @return room Id of the reservation
+     */
     public static String getRoomIdFromReservationId(String reservationId) {
         if (validateReservationId(reservationId)) {
             return Database.RESERVATIONS.get(reservationId).getRoomId();
         } else
             return "";
     }
-    
+    /**
+     * A method that prints out the details of a specified reservation 
+     * @param reservationId Id of the reservation
+     * @see Reservation Reservation - Details of Reservation
+     */
     public static void printReservationDetails(String reservationId){
         if(validateReservationId(reservationId)){
             Reservation reservation = Database.RESERVATIONS.get(reservationId);
@@ -78,38 +109,69 @@ public class ReservationManager {
             System.out.println("----------------");
         }
     }
-
+    /**
+     * A method that updates checked in date of reservation 
+     * @param reservationId Id of the reservtion
+     * @param date the date which the guest checked in
+     */
     public static void updateCheckedInDate(String reservationId, String date) {
         search(reservationId).setCheckedInDate(date);
         Database.saveFileIntoDatabase(FileType.RESERVATIONS);
     }
-    
+    /**
+     * A method that updates checked out date of reservation
+     * @param reservationId Id of the reservation
+     * @param date the date which the guest checked out
+     */
     public static void updateCheckedOutDate(String reservationId, String date) {
         search(reservationId).setCheckedOutDate(date);
         Database.saveFileIntoDatabase(FileType.RESERVATIONS);
     }
-    
+    /**
+     * A method that updates guest id of reservation
+     * @param reservationId Id of the reservation
+     * @param guestId Id of the guest 
+     */
     public static void updateGuestId(String reservationId, String guestId) {
         search(reservationId).setGuestId(guestId);
         Database.saveFileIntoDatabase(FileType.RESERVATIONS);
     }
-    
+    /**
+     * A method that updates the status of reservation
+     * @param reservationId Id of the reservation
+     * @param roomId Id of the room 
+     * @param reservationStatus status of reservation
+     * @see ReservationStatus ReservationStatus - Different status of reservation
+     */
     public static void updateRoomId(String reservationId, String roomId, ReservationStatus reservationStatus) {
         search(reservationId).setRoomId(roomId);
         search(reservationId).setReservationStatus(reservationStatus);
         Database.saveFileIntoDatabase(FileType.RESERVATIONS);
     }
-    
+    /**
+     * A method that updates the number of pax of reservation
+     * @param reservationId Id of the reservation
+     * @param num number of people staying in one room
+     */
     public static void updateNumberOfPax(String reservationId, int num) {
         search(reservationId).setNumberOfPax(num);
         Database.saveFileIntoDatabase(FileType.RESERVATIONS);
     }
-    
+    /**
+     * A method that updates the expire status of reservation
+     * @param reservationId Id of the reservation
+     * @param val true if the reservation is expired. Otherwise, false
+     */
     public static void updateIsExpired(String reservationId, boolean val) {
         search(reservationId).setIsExpired(val);
         Database.saveFileIntoDatabase(FileType.RESERVATIONS);
     }
-    
+    /**
+     * A method that updates the status of reservation
+     * @param reservationId Id of the reservation
+     * @param status status of the reservation
+     * @see ReservationStatus ReservationStatus - Different status of reservation
+     */
     public static void updateReservationStatus(String reservationId, int status) {
         System.out.println("here" +  status);
         switch (status) {
@@ -134,13 +196,19 @@ public class ReservationManager {
         }
         Database.saveFileIntoDatabase(FileType.RESERVATIONS);
     }
-
+    /**
+     * A method that prints out all the reservations in database
+     */
     public static void printAllReservations() {
         for (Reservation reservation : Database.RESERVATIONS.values()) {
             System.out.println(reservation);
         }
     }
-
+    /**
+     * A method that checks in reservation
+     * @param reservationId - Id of the reservation
+     * @return true checks in successfully. Otherwise, false
+     */
     public static boolean checkInReservation(String reservationId) {
         if (!validateReservationId(reservationId)) {
             return false;
@@ -153,7 +221,11 @@ public class ReservationManager {
         updateReservationStatus(reservationId, 3);
         return true;
     }
-
+    /**
+     * A method that checks out reservation
+     * @param reservationId Id of the reservation
+     * @return true is checks out successfully. Otherwise, false
+     */
     public static boolean checkOutReservation(String reservationId) {
         if (!validateReservationId(reservationId)) {
             return false;
