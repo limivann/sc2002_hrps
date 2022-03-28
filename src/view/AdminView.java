@@ -3,23 +3,32 @@ package src.view;
 import src.helper.Helper;
 
 public class AdminView extends MainView{
+    /**
+     * Default constructor
+     */
     public AdminView() {
         super();
     }
     @Override
+    /**
+     * Admin view menu
+     */
     public void printMenu() {
         System.out.println("=== Admin View ===");
         System.out.println("Enter your choice (1-7)");
         System.out.println("(1) Manage Guest");
         System.out.println("(2) Manage Room");
         System.out.println("(3) Manage Reservation");
-        System.out.println("(4) Manage RoomService");
+        System.out.println("(4) Manage RoomService (Customize Menu)");
         System.out.println("(5) Manage Promotion Details");
         System.out.println("(6) Manage Database");
         System.out.println("(7) Exit Admin View");   
     }
 
     @Override
+    /**
+     * Admin View Application Menu
+     */
     public void viewapp() {
         // init views
         GuestView guestView = new GuestView();

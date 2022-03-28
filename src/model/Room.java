@@ -1,11 +1,8 @@
 package src.model;
 
-// import java.util.ArrayList;
 import src.model.enums.RoomType;
 
 import java.io.Serializable;
-
-import src.database.Database;
 import src.model.enums.RoomStatus;
 
 public class Room implements Serializable {
@@ -26,17 +23,17 @@ public class Room implements Serializable {
 
 	// For initializing room
 	/**
-	 * Constructor for the room
-	 * @param type Type of the room
-	 * @param roomId Room Id of the room
-	 * @param floorNumber Floor number of the room
-	 * @param roomNumber Room number of the room
-	 * @param roomStatus Status of the room
-	 * @param isWifiEnabled whether the wifi is enabled in the room
-	 * @param isSmokingAllowed whether the smoking is allowed in the room
-	 * @param price Price of the room
-	 * @see RoomType For the different room type
-	 * @see RoomStatus For the different status of the room
+	 * The constructor for the room
+	 * @param type the type of the room
+	 * @param roomId id of the room
+	 * @param floorNumber floor number of the room
+	 * @param roomNumber room number of the room
+	 * @param roomStatus status of the room
+	 * @param isWifiEnabled whether is wifi enabled
+	 * @param isSmokingAllowed whether smoking is allowed
+	 * @param price the price of the room
+	 * @see RoomStatus for different status of the room
+	 * @see RoomType for different type of the room
 	 */
 	public Room(RoomType type, String roomId, int floorNumber, int roomNumber, RoomStatus roomStatus, boolean isWifiEnabled,
 			boolean isSmokingAllowed, double price) {
@@ -50,9 +47,34 @@ public class Room implements Serializable {
 		setPrice(price);
 	}	
 	
+	/**
+	 * Constructor for the room
+	 * @param type Type of the room
+	 * @param floorNumber Floor number of the room
+	 * @param roomNumber Room number of the room
+	 * @param roomStatus Status of the room
+	 * @param price Price of the room
+	 * @param isWifiEnabled whether the wifi is enabled in the room
+	 * @param isSmokingAllowed whether the smoking is allowed in the room
+	 * @see RoomType For the different room type
+	 * @see RoomStatus For the different status of the room
+	 */
+	public Room(RoomType type, int floorNumber, int roomNumber, RoomStatus roomStatus, double price,
+			boolean isWifiEnabled, boolean isSmokingAllowed) {
+		this.type = type;
+		this.floorNumber = floorNumber;
+		this.roomNumber = roomNumber;
+		this.roomNumberString = "0" + floorNumber + "-" + "0" + roomNumber;
+		this.roomStatus = roomStatus;
+		this.price = price;
+		this.isWifiEnabled = isWifiEnabled;
+		this.isSmokingAllowed = isSmokingAllowed;
+		// this.orders = new ArrayList<OrderItem>();
+	}
+	
 	// SETTERS
 	/**
-	 * 
+	 * Setter
 	 * @param price price of the room
 	 * @return true if input is valid
 	 */
@@ -65,7 +87,7 @@ public class Room implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Setter
 	 * @param roomStatus the status of the room
 	 * @return true if successfully set the room status
 	 */
@@ -75,7 +97,7 @@ public class Room implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Setter
 	 * @param guestName name of the guest in the room
 	 * @return true if successfully set
 	 */
@@ -85,7 +107,7 @@ public class Room implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Setter
 	 * @param floorNumber the floor number of the room
 	 * @return true if successfully set
 	 */
@@ -96,7 +118,7 @@ public class Room implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Setter
 	 * @param roomNumber the room number of the room
 	 * @return true if successfully set
 	 */
@@ -106,7 +128,7 @@ public class Room implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Setter
 	 * @param roomId the id of the room
 	 * @return true if successfully set
 	 */
@@ -116,7 +138,7 @@ public class Room implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Setter
 	 * @param type the type of the room
 	 * @return true if successfully set
 	 */
@@ -126,7 +148,7 @@ public class Room implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Setter
 	 * @param isWifiEnabled is wifi enabled in the room or not
 	 * @return true if successfully set
 	 */
@@ -136,7 +158,7 @@ public class Room implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Setter
 	 * @param isSmokingAllowed is smoking allowed in the room or not
 	 * @return true if successfully set
 	 */
@@ -146,7 +168,7 @@ public class Room implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Setter
 	 * @param guestId the guest id of the guest in the room
 	 * @return true if successfully set
 	 */
@@ -157,7 +179,7 @@ public class Room implements Serializable {
 
 	// GETTERS
 	/**
-	 * 
+	 * Getter
 	 * @return the room number
 	 */
 	public String getRoomNumberString() {
@@ -165,7 +187,7 @@ public class Room implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Getter
 	 * @return the room status of the room
 	 */
 	public RoomStatus getRoomStatus() {
@@ -173,7 +195,7 @@ public class Room implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Getter
 	 * @return the price of the room
 	 */
 	public double getPrice() {
@@ -181,7 +203,7 @@ public class Room implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Getter
 	 * @return the guest name in the room
 	 */
 	public String getGuestName() {
@@ -189,7 +211,7 @@ public class Room implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Getter
 	 * @return the room id of the room
 	 */
 	public String getRoomId() {
@@ -197,7 +219,7 @@ public class Room implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Getter
 	 * @return the guest id in the room
 	 */
 	public String getGuestId() {
@@ -205,7 +227,7 @@ public class Room implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Getter
 	 * @return the floor number of the room
 	 */
 	public int getFloorNumber() {
@@ -213,7 +235,7 @@ public class Room implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Getter
 	 * @return the room number of the room
 	 */
 	public int getRoomNumber() {
@@ -221,7 +243,7 @@ public class Room implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Getter
 	 * @return the type of the room
 	 */
 	public RoomType getType() {
@@ -229,7 +251,7 @@ public class Room implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * Getter
 	 * @return whether wifi is enabled or not
 	 */
 	public boolean getIsWifiEnabled() {
@@ -237,7 +259,7 @@ public class Room implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Getter
 	 * @return whether smoking is allowed or not
 	 */
 	public boolean getIsSmokingAllowed() {
@@ -245,6 +267,7 @@ public class Room implements Serializable {
 	}
 	
 	// METHODS
+
 	/**
 	 * print out the room status of the room
 	 */
@@ -255,7 +278,7 @@ public class Room implements Serializable {
 	/**
 	 * print out the room type of the room
 	 */
-	public void printRoomtype() {
+	public void printRoomtype(){
 		System.out.println(String.format("Room type: %s", getType().roomTypeAsStr));
 	}
 
