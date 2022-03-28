@@ -37,10 +37,13 @@ public class Database {
     public static int numOfDeluxeRooms = 10;
     public static int numOfVipSuites = 8;
     
+    //Number of floors and rooms per floor
     public static int numOfFloors = 4;
     public static int numOfRoomPerFloor = 12;
     
-    
+    /**
+     * Read all the data in the databases during initialization of program
+     */
     public Database() {
         if (!readSerializedObject(FileType.GUESTS)) {
             System.out.println("Read into Guests failed!");
@@ -65,7 +68,10 @@ public class Database {
         }
         System.out.println("Database init");
     }
-    
+    /**
+     * 
+     * @param fileType
+     */
     public static void saveFileIntoDatabase(FileType fileType) {
         writeSerializedObject(fileType);
     }
@@ -139,7 +145,12 @@ public class Database {
         }
         return true;
     }
-    
+    /**
+     * 
+     * @param fileType
+     * @return
+     * @throws
+     */
     public static boolean writeSerializedObject(FileType fileType) {
         String fileExtension = ".dat";
         String filePath = "./src/database/" + folder + "/" + fileType.fileName + fileExtension;
@@ -170,7 +181,10 @@ public class Database {
         }
     }
 
-
+    /**
+     * Clear out all the data in databases
+     * @return true if data is cleared successfully
+     */
     public static boolean clearDatabase() {
         // Initialize empty data
         GUESTS = new HashMap<String, Guest>();
@@ -196,7 +210,10 @@ public class Database {
         writeSerializedObject(FileType.INVOICES);
         return true;
     }
-
+    /**
+     * Initialize dummy data in Guests when the database is empty
+     * @return true if initialized successfully. Otherwise, false
+     */
     public static boolean initializeDummyGuests() {
         if (GUESTS.size() != 0) {
             System.out.println("The database already has guests. Reset database first to initialize guests");
@@ -221,7 +238,10 @@ public class Database {
         GuestManager.createGuest("Fang", "Li", "73232733", "SCSE", Gender.FEMALE, identity6, "Chinese", "96252552");
         return true;
     }
-    
+    /**
+     * Initialize dummy data in Menu when the database is empty
+     * @return true is initialied successfully. Otherwise, false
+     */
     public static boolean initializeDummyMenu() {
         if (MENU_ITEMS.size() != 0) {
             System.out.println("The database already has some menu items. Reset database first to initialize menu items");
@@ -245,12 +265,20 @@ public class Database {
                 28);
         return true;
     }
-
+    /**
+     * Initialize Room
+     * @return true if initialized successfully
+     * @see RoomManager RoomManager - Contains details of initialize rooms
+     */
     private static boolean initializeRooms() {
         RoomManager.initializeAllRooms();
         return true;
     }
-
+    /**
+     * Initialize Promotion Details
+     * @return true if initialized successfully
+     * @see PromotionManager PromotionManager - Contains details of initialize promotion details
+     */
     private static boolean initializePromotionDetails() {
         PromotionManager.initializePromotionDetails();
         return true;

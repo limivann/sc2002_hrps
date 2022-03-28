@@ -78,7 +78,7 @@ public class Invoice implements Serializable {
     /**
      * A method that updates the discount rate 
      * @param discountRate discount rate of the invoice
-     * @return
+     * @return true if updates successfully
      */
     private boolean setDiscountRate(double discountRate) {
         this.discountRate = discountRate;
@@ -87,7 +87,7 @@ public class Invoice implements Serializable {
     /**
      * A method that updates the subtotal
      * @param subTotal Total amount without tax rate and discount rate
-     * @return
+     * @return true if updates successfully
      */
     private boolean setSubTotal(double subTotal) {
         this.subTotal = subTotal;
@@ -96,14 +96,14 @@ public class Invoice implements Serializable {
     /**
      * A method that updates the total
      * @param total Total amount with tax rate and discount rate
-     * @return
+     * @return true if updates successfully
      */
     private boolean setTotal(double total) {
         this.total = total;
         return true;
     }
     /**
-     * A method that updates guestId
+     * A method that updates the guest Id
      * @param guestId Id of the guest
      * @return true if updates successfully
      */
@@ -112,7 +112,7 @@ public class Invoice implements Serializable {
         return true;
     }
     /**
-     * A method that updates roomId
+     * A method that updates the room Id
      * @param roomId Id of the room
      * @return true if updates successfully
      */
@@ -121,7 +121,7 @@ public class Invoice implements Serializable {
         return true;
     }
     /**
-     * A method that updates reservationId
+     * A method that updates the reservation Id
      * @param reservationId Id of the reservation
      * @return true if updates successfully
      */
@@ -152,7 +152,7 @@ public class Invoice implements Serializable {
     }
     /**
      * A method that returns subtotal
-     * @return total amount without tax rate and discout rate
+     * @return total amount without tax rate and discount rate
      */
     public double getSubTotal() {
         return subTotal;
@@ -165,28 +165,28 @@ public class Invoice implements Serializable {
         return taxRate;
     }
     /**
-     * A method that returns the guestId
+     * A method that returns the guest Id
      * @return Id of the guest
      */
     public String getGuestId() {
         return guestId;
     }
     /**
-     * A method that returns roomId
+     * A method that returns the room Id
      * @return Id of the room
      */
     public String getRoomId() {
         return roomId;
     }
     /**
-     * A method that returns reservationId
+     * A method that returns the reservation Id
      * @return Id of the reservation
      */
     public String getReservationId() {
         return reservationId;
     }
     /**
-     * A method that returns invoiceId
+     * A method that returns the invoice Id
      * @return Id of the invoice
      */
     public String getInvoiceId() {

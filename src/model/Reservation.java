@@ -27,7 +27,7 @@ public class Reservation implements Serializable {
      * @param numeberOfPax number of people staying in one room
      * @param reservationId Id of the reservation
      * @param reservationStatus status of the reservation
-     * @see ReservationStatus Reservation Status - For the different status of reservation
+     * @see ReservationStatus ReservationStatus - Different status of reservation
      */
     public Reservation(String checkedInDate, String checkedOutDate, String guestId, String roomId, int numberOfPax, String reservationId, ReservationStatus reservationStatus){
         this.reservationDate = Helper.getTimeNow();
@@ -135,7 +135,7 @@ public class Reservation implements Serializable {
     /**
      * A method that returns reservation status
      * @return status of the reservation
-     * @see ReservationStatus - For the different status of reservation
+     * @see ReservationStatus ReservationStatus - Different status of reservation
      */
     public ReservationStatus getReservationStatus() {
         return reservationStatus;
@@ -144,7 +144,7 @@ public class Reservation implements Serializable {
      * A method that updates reservation status
      * @param reservationStatus status of the reservation
      * @return true if updates successfully
-     * @see ReservationStatus - For the different status of reservation
+     * @see ReservationStatus ReservationStatus - Different status of reservation
      */
     public boolean setReservationStatus(ReservationStatus reservationStatus) {
         this.reservationStatus = reservationStatus;
