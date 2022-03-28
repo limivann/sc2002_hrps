@@ -211,11 +211,11 @@ public class Guest implements Serializable {
         System.out.printf("Contact No: %s\n", getContact());
         System.out.println("----------------");
     }
-
-    @Override
     /**
      * Override toString method to show the simplified details of the guest
+     * @return a string of guest details
      */
+    @Override
     public String toString() {
         return String.format("Guest Name: %s, Contact No: %s", getName(), getContact());
     }
