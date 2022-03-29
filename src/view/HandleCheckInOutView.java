@@ -16,9 +16,9 @@ public class HandleCheckInOutView extends MainView {
     public void printMenu() {
         System.out.println("=== Handle Check In / Check Out View === ");
         System.out.println("Please select an option (1-3)");
-        System.out.println("1. Check In Room");
-        System.out.println("2. Check Out Room");
-        System.out.println("3. Exit Handle Check In / Check Out View");
+        System.out.println("(1) Check In Room");
+        System.out.println("(2) Check Out Room");
+        System.out.println("(3) Exit Handle Check In / Check Out View");
     }
 
     @Override
@@ -68,7 +68,10 @@ public class HandleCheckInOutView extends MainView {
         } else {
             return;
         }
+        String paymentOptStr = promptPayment() == 1 ? "Cash" : "Credit Card";
+        System.out.println("You have chosen to pay by " + paymentOptStr);
         PaymentManager.handlePayment(reservationId);
+
     }
     
     public int promptPayment() {
@@ -77,20 +80,5 @@ public class HandleCheckInOutView extends MainView {
         System.out.println("(2) Credit Card");
         int opt = Helper.sc.nextInt();
         return opt;
-    }
-
-    public void handlePayment(int paymentOpt, String roomId) throws InterruptedException {
-        // assume payment is successful all the time
-        String paymentOptStr = paymentOpt == 1 ? "Cash" : "Credit Card";
-        System.out.println("You have chosen to pay by " + paymentOptStr);
-        // TODO: Call PaymentManager to calculate the total payment
-        System.out.println("Total amount to pay: $" + 1000);
-        Thread.sleep(3000); 
-        System.out.println("Payment sucessful!");
-    }
-    
-    public void printInvoice(String roomId) {
-        // Print Invoice
-        
     }
 }

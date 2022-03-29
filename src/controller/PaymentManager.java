@@ -22,10 +22,10 @@ public class PaymentManager {
         Room room = RoomManager.searchRoom(roomId);
         double roomPrice = room.getPrice();
         Order order = RoomServiceManager.searchOrderByRoom(roomId);
-        if (order == null) {
-            return -1;
+        double orderPrice = 0;
+        if (order != null) {
+            orderPrice = order.getTotalBill();
         }
-        double orderPrice = order.getTotalBill();
         return roomPrice + orderPrice;
     }
 
@@ -45,13 +45,9 @@ public class PaymentManager {
     }
 
     public static void handlePayment(String reservationId) {
-        String roomId = ReservationManager.getRoomIdFromReservationId(reservationId);
-        // Set room status
-        RoomManager.updateRoomStatus(roomId, RoomStatus.VACANT);
-
-        // payment
         Invoice invoice = generateInvoice(reservationId);
         printInvoice(invoice);
+        System.out.println("Payment successful! See you again. :)");
     }
 
     public static Invoice generateInvoice(String reservationId) {
