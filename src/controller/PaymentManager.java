@@ -13,11 +13,21 @@ import src.database.FileType;
 import src.helper.Helper;
 import src.model.Invoice;
 import src.model.Order;
+/**
+ * The Class that handles payment.
+ * @author Lim Kang Wei
+ * @version 1.0
+ * @since 2020-03-29
+ */
 public class PaymentManager {
     public PaymentManager() {
         // 
     }
-
+    /**
+     * A method that sums the room price and order price 
+     * @param roomId id of the room
+     * @return subtotal of the reservation corresponding to the room id
+     */
     public static double calculateSubTotal(String roomId) {
         Room room = RoomManager.searchRoom(roomId);
         double roomPrice = room.getPrice();
@@ -28,11 +38,21 @@ public class PaymentManager {
         double orderPrice = order.getTotalBill();
         return roomPrice + orderPrice;
     }
-
+    /**
+     * A method that sums the subtotal and the discount rate and tax rate
+     * @param subTotal subtotal of the reservation 
+     * @param discountRate discount rate of the hotel
+     * @param taxRate tax rate of the hotel
+     * @return total of the reservation
+     */
     public static double calculateTotal(double subTotal, double discountRate, double taxRate) {
         return subTotal * (1 + taxRate) * (1 - discountRate);
     }
-
+    /**
+     * A method that print out the invoice
+     * @param invoice invoice of the reservation
+     * @see Invoice Invoice - Details of the reservation and order
+     */
     public static void printInvoice(Invoice invoice) {
         System.out.println(
                 String.format("Invoice Id: %s\t Date: %s", invoice.getInvoiceId(), invoice.getDateOfPayment()));
@@ -43,7 +63,11 @@ public class PaymentManager {
         System.out.println(String.format("Discount Rate: %.0f%%", invoice.getDiscountRate() * 100));
         System.out.println(String.format("Total: %.2f", invoice.getTotal()));
     }
-
+    /**
+     * A method that handles payment and make the room vacant
+     * @param reservationId id of the reservation
+     * @see Reservation - Details of a reservation
+     */
     public static void handlePayment(String reservationId) {
         String roomId = ReservationManager.getRoomIdFromReservationId(reservationId);
         // Set room status
@@ -53,7 +77,11 @@ public class PaymentManager {
         Invoice invoice = generateInvoice(reservationId);
         printInvoice(invoice);
     }
-
+    /**
+     * A method that generates invoice by using getter methods from model classes
+     * @param reservationId id of the reservation
+     * @return the invoice object
+     */
     public static Invoice generateInvoice(String reservationId) {
         Reservation reservation = ReservationManager.search(reservationId);
         String guestId = reservation.getGuestId();
