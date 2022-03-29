@@ -45,7 +45,17 @@ public class ReservationManager {
      */
     public static boolean remove(String reservationId) {
         if (validateReservationId(reservationId)) {
+            System.out.println("HERE");
             Database.RESERVATIONS.remove(reservationId);
+            // shift waitlist up
+            ArrayList<Reservation> candidates = getWaitlistedReservation(getRoomIdFromReservationId(reservationId));
+            if (candidates.size() > 0) {
+                Reservation target = candidates.get(0);
+                target.setReservationStatus(ReservationStatus.CONFIRMED);
+                // Set room status
+            } else {
+                RoomManager.updateRoomStatus(getRoomIdFromReservationId(reservationId), RoomStatus.VACANT);
+            }
             Database.saveFileIntoDatabase(FileType.RESERVATIONS);
             return true;
         }
@@ -144,6 +154,15 @@ public class ReservationManager {
      * @see ReservationStatus ReservationStatus - Different status of reservation
      */
     public static void updateRoomId(String reservationId, String roomId, ReservationStatus reservationStatus) {
+        // shift waitlist up
+        ArrayList<Reservation> candidates = getWaitlistedReservation(roomId);
+        if (candidates.size() > 0) {
+            Reservation target = candidates.get(0);
+            target.setReservationStatus(ReservationStatus.CONFIRMED);
+            // Set room status
+        } else {
+            RoomManager.updateRoomStatus(roomId, RoomStatus.VACANT);
+        }
         search(reservationId).setRoomId(roomId);
         search(reservationId).setReservationStatus(reservationStatus);
         Database.saveFileIntoDatabase(FileType.RESERVATIONS);
@@ -235,7 +254,29 @@ public class ReservationManager {
             return false;
         }
         updateReservationStatus(reservationId, 5);
+
+        // shift waitlist up
+        ArrayList<Reservation> candidates = getWaitlistedReservation(getRoomIdFromReservationId(reservationId));
+        if (candidates.size() > 0) {
+            Reservation target = candidates.get(0);
+            target.setReservationStatus(ReservationStatus.CONFIRMED);
+            // Set room status
+        } else {
+            RoomManager.updateRoomStatus(getRoomIdFromReservationId(reservationId), RoomStatus.VACANT);
+        }
         return true;
+    }
+    
+
+    public static ArrayList<Reservation> getWaitlistedReservation(String roomId) {
+        ArrayList<Reservation> candidates = new ArrayList<Reservation>();
+        for (Reservation reservation : Database.RESERVATIONS.values()) {
+            if (reservation.getReservationStatus() == ReservationStatus.IN_WAITLIST
+                    && reservation.getRoomId().equals(roomId)) {
+                candidates.add(reservation);
+            }
+        }
+        return candidates;
     }
 }
 
