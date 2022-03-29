@@ -100,6 +100,10 @@ public class ReservationView extends MainView {
         boolean inWaitlist = false;
         System.out.println("Enter Room Id (eg: 01-05)");
         roomId = Helper.sc.nextLine();
+        if (!RoomManager.validateRoomId(roomId)) {
+            System.out.println("Room does not exist");
+            return false;
+        }
         if (!RoomManager.checkRoomVacancy(roomId)) {
             System.out.println("Room is not Vacant! Guest will be moved to waitlist");
             inWaitlist = true;
