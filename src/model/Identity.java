@@ -4,9 +4,23 @@ import java.io.Serializable;
 
 import src.model.enums.IdentityType;
 
+/**
+ * The Class for identity details of the guest
+ * @author Zhang Kaichen
+ * @version 1.0
+ * @since 2022-03-30
+ */
 public class Identity implements Serializable {
     
+    /**
+     * The Type of the identity
+     * Driving license or Passport
+     */
     private IdentityType type;
+
+    /**
+     * The number of the identity
+     */
     private String identityNo;
     /**
      * Constructor of the identity
@@ -17,20 +31,25 @@ public class Identity implements Serializable {
         setType(type);
         setIdentityNo(identityNo);
     }
+    
     /**
      * Setter
-     * @param type Type ofthe identity
+     * @param type Type of the identity
+     * @return {@code true} if set successfully
      */
-    public void setType(IdentityType type) {
+    public boolean setType(IdentityType type) {
         this.type = type;
+        return true;
     }
 
     /**
      * Setter
-     * @param identityNo no of the identity
+     * @param identityNo No. of the identity
+     * @return {@code true} if set successfully
      */
-    public void setIdentityNo(String identityNo) {
+    public boolean setIdentityNo(String identityNo) {
         this.identityNo = identityNo;
+        return true;
     }
     
     /**

@@ -48,8 +48,8 @@ public class ReservationManager {
      * A method that removes reservation from database.
      * @param reservationId Id of the reservation
      * @return {@code true} is removes successfully. Otherwise, {@code false}. <p>
-     * see {@RoomManager} for more room management details. <p>
-     * see {@Database} for more details about database.
+     * see {@link RoomManager} for more room management details. <p>
+     * see {@link Database} for more details about database.
      */
     public static boolean remove(String reservationId) {
         if (validateReservationId(reservationId)) {

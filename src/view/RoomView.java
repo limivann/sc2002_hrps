@@ -1,6 +1,5 @@
 package src.view;
 
-import src.model.Room;
 import src.controller.RoomManager;
 import src.helper.Helper;
 
@@ -8,8 +7,16 @@ import java.util.InputMismatchException;
 
 import src.model.enums.*;
 
-public class RoomView extends MainView{
-    private RoomManager a = new RoomManager();
+// for javadocs
+import src.model.Room;
+
+/**
+ * The Class that shows the view of {@link Room}.
+ * @author Lim Kang Wei
+ * @version 1.0
+ * @since 2022-03-30
+ */
+public class RoomView extends MainView{;
 
     /**
      * the default constructor for the room view
@@ -73,9 +80,9 @@ public class RoomView extends MainView{
     }
     
     /**
-     * Prompt function to search room
-     * @param printResults whether to print out the results or not
-     * @see RoomManager to check for the printing room method
+     * Prompt function to search room <p>
+     * see {@link RoomManager} to check for the printing room method <p>
+     * @param printResults whether to print out the results or not 
      */
     public void promptSearchRoom(boolean printResults) {
         System.out.println("Enter the floor number");
@@ -88,9 +95,9 @@ public class RoomView extends MainView{
     }
     
     /**
-     * Prompt function to update room status
-     * @return true if update successfully
-     * @see RoomManager for update function
+     * Prompt function to update room status <p>
+     * see {@link RoomManager} for update function <p>
+     * @return {@code true} if update successfully. Otherwise, {@code false}
      */
     public boolean promptUpdateRoomStatus() {
         System.out.println("Enter the floor number");
@@ -134,16 +141,16 @@ public class RoomView extends MainView{
     }
 
     /**
-     * Prompt function for printing room by status 
-     * @see RoomManager for printing function
+     * Prompt function for printing room by status  <p>
+     * see {@link RoomManager} for printing function
      */
     public void printRoomByStatus() {
         RoomManager.printRoomStatus();
     }
     
     /**
-     * Prompt function for printing room by occupancy rate
-     * @see RoomManager for printing function
+     * Prompt function for printing room by occupancy rate <p>
+     * see {@link RoomManager} for printing function
      */
     public void printRoomByOccupancyRate(){
         RoomManager.printOccupancyRate(RoomStatus.VACANT);

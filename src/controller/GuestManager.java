@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import javax.imageio.plugins.tiff.GeoTIFFTagSet;
-import javax.xml.crypto.Data;
-
 import src.database.Database;
 import src.database.FileType;
 import src.helper.Helper;
@@ -17,6 +13,11 @@ import src.model.enums.Gender;
 
 // for javadocs
 import src.view.GuestView;
+/**
+ * @author Zhang Kaichen
+ * @version 1.0
+ * @since 2022-03-30
+ */
 
 public class GuestManager {
     /**
@@ -27,7 +28,7 @@ public class GuestManager {
     }
     
     /**
-     * Constructor for the guest in the GuestManager
+     * Constructor for the guest in the GuestManager <p>
      * @param firstName the first name of the guest
      * @param lastName the last name of the guest
      * @param creditCardNumber the credit card number of the guest
@@ -52,11 +53,11 @@ public class GuestManager {
     // All update guest helpers
     // For updating one value only
     /**
-     * The function to update the detail of the guest and save the file into database
+     * The function to update the detail of the guest and save the file into database <p>
+     * see {@link GuestView#printUpdateGuestMenu()} for the menu of the attribute code <p>
      * @param guestId the guest id of the guest
      * @param attributeCode the attribute code for the detail that user choose to update
      * @param newValue the new detail value for the guest
-     * @see GuestView#printUpdateGuestMenu() for the menu of the attribute code
      */
     public static void updateGuest(String guestId, int attributeCode, String newValue) {
         ArrayList<Guest> updateList = searchGuestById(guestId);
@@ -88,12 +89,12 @@ public class GuestManager {
 
     // For updating more than one value (first name, last name)
     /**
-     * Overloading method of updateGuest that update the first name and last name of the guest
+     * Overloading method of updateGuest that update the first name and last name of the guest <p>
+     * see {@link GuestView#printUpdateGuestMenu()} for the menu of the attribute code <p>
      * @param guestId the guest id of the guest
      * @param attributeCode the attribute code for the detail that user choose to update
      * @param newValue1 the new value for the first name
      * @param newValue2 the new value for the last name
-     * @see GuestView#printUpdateGuestMenu() for the menu of the attribute code
      */
     public static void updateGuest(String guestId, int attributeCode, String newValue1, String newValue2) {
         ArrayList<Guest> updateList = searchGuestById(guestId);
@@ -116,11 +117,11 @@ public class GuestManager {
     }
     
     /**
-     * Overloading method of updateGuest that update the gender of the guest
+     * Overloading method of updateGuest that update the gender of the guest <p>
+     * see {@link GuestView#printUpdateGuestMenu()} for the menu of the attribute code <p>
      * @param guestId the guest id of the guest
      * @param attributeCode the attribute code for the detail that user choose to update
      * @param gender the new gender of the guest
-     * @see GuestView#printUpdateGuestMenu() for the menu of the attribute code
      */
     public static void updateGuest(String guestId, int attributeCode, Gender gender) {
         ArrayList<Guest> updateList = searchGuestById(guestId);
@@ -140,11 +141,11 @@ public class GuestManager {
     }
     
     /**
-     * Overloading method of updateGuest that update the identity of the guest
+     * Overloading method of updateGuest that update the identity of the guest <p>
+     * see {@link GuestView#printUpdateGuestMenu()} for the menu of the attribute code <p>
      * @param guestId the guest id of the guest
      * @param attributeCode the attribute code for the detail that user choose to update
      * @param identity the new identity for the guest
-     * @see GuestView#printUpdateGuestMenu() for the menu of the attribute code
      */
     public static void updateGuest(String guestId, int attributeCode, Identity identity) {
         ArrayList<Guest> updateList = searchGuestById(guestId);
@@ -165,7 +166,7 @@ public class GuestManager {
 
     // Search Guest
     /**
-     * Search method to search a Guest by guest id
+     * Search method to search a Guest by guest id <p>
      * @param guestId the guest id that want to search
      * @return the guest that correspond to the guest id store in an ArrayList
      */
@@ -179,9 +180,9 @@ public class GuestManager {
     }
     
     /**
-     * Function to remove guest from the database
+     * Function to remove guest from the database <p>
      * @param guestId the guest id of the guest that the user want to remove
-     * @return true if remove successfully else return false
+     * @return {@code true} if remove successfully. Otherwise, {@code false}
      */
     public static boolean removeGuest(String guestId) {
         ArrayList<Guest> removeList = GuestManager.searchGuestById(guestId);
@@ -198,8 +199,8 @@ public class GuestManager {
     }
     
     /**
-     * Function to print all guest in the database that show the guest id and the Guest
-     * @see Guest#toString()
+     * Function to print all guest in the database that show the guest id and the Guest <p>
+     * see {@link Guest#toString()}
      */
     public static void printAllGuests() {
         HashMap<String, Guest> toIterate = Helper.copyHashMap(Database.GUESTS);
@@ -211,6 +212,11 @@ public class GuestManager {
         }
     }
 
+    /**
+     * validate if the database has this guest according to guest id <p>
+     * @param guestId the guest of the guest that you want to validate
+     * @return {@code true} if guest id exist. Otherwise, {@code false}
+     */
     public static boolean validateGuestId(String guestId) {
         if (Database.GUESTS.containsKey(guestId)) {
             return true;

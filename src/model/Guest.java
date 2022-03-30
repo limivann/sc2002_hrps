@@ -4,19 +4,67 @@ import java.io.Serializable;
 import src.model.enums.Gender;
 import src.helper.Helper;
 
+
+/**
+ * The Class that handles Guest model
+ * @author Zhang Kaichen
+ * @version 1.0
+ * @since 30-03-2022
+ */
 public class Guest implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The name of the Guest
+     */
     private String name;
+
+    /**
+     * The first name of the Guest
+     */
     private String firstName;
+
+    /**
+     * The last name of the Guest
+     */
     private String lastName;
+
+    /**
+     * The credit card number of the Guest
+     */
     private String creditCard;
+
+    /**
+     * The address of the guest
+     */
     private String address;
+
+    /**
+     * The Gender of the guest
+     * {@link Gender}
+     */
     private Gender gender;
+
+    /**
+     * The identity of the Guest
+     * {@link Identity}
+     */
     private Identity identity;
+
+    /**
+     * The nationality of the Guest
+     */
     private String nationality;
+    /**
+     * Contact number of the Guest
+     */
     private String contact;
+
+    /**
+     * Automate generated id for the guest
+     * {@link Helper} to see how the guest id is generated
+     */
     private String guestId;
     
     // Payment paymentDetails;
@@ -34,8 +82,8 @@ public class Guest implements Serializable {
      * @param nationality nationality of the guest
      * @param contact contact no of the guest
      * @param guestId autogenerate guest id
-     * @see Helper for the generation of guest id
-     * @see Identity for the detail of identification
+     * see {@link Helper} for the generation of guest id
+     * see {@link Identity} for the detail of identification
      */
     public Guest(String name, String firstName, String lastName, String creditCard, String address, Gender gender,
             Identity identity, String nationality, String contact, String guestId) {
@@ -55,7 +103,7 @@ public class Guest implements Serializable {
     /**
      * Setter
      * @param name name of the guest
-     * @return true if set successfully
+     * @return {@code true} if set successfully
      */
     public boolean setName(String name) {
         this.name = name;
@@ -64,7 +112,7 @@ public class Guest implements Serializable {
     /**
      * Setter
      * @param firstName first name of the guest
-     * @return true if set successfully
+     * @return {@code true} if set successfully
      */
     public boolean setFirstName(String firstName) {
         this.firstName = firstName;
@@ -73,7 +121,7 @@ public class Guest implements Serializable {
     /**
      * Setter
      * @param lastName last name of the guest
-     * @return true if set successfully
+     * @return {@code true} if set successfully
      */
     public boolean setLastName(String lastName) {
         this.lastName = lastName;
@@ -83,7 +131,7 @@ public class Guest implements Serializable {
     /**
      * Setter
      * @param creditCard credit card of the guest
-     * @return true if set successfully
+     * @return {@code true} if set successfully
      */
     public boolean setCreditCard(String creditCard) {
         this.creditCard = creditCard;
@@ -93,7 +141,7 @@ public class Guest implements Serializable {
     /**
      * Setter
      * @param address mailing address of the guest
-     * @return true if set successfully
+     * @return {@code true} if set successfully
      */
     public boolean setAddress(String address) {
         this.address = address;
@@ -102,7 +150,7 @@ public class Guest implements Serializable {
     /**
      * Setter
      * @param gender gender of the guest
-     * @return true if set successfully
+     * @return {@code true} if set successfully
      */
     public boolean setGender(Gender gender) {
         this.gender = gender;
@@ -112,8 +160,8 @@ public class Guest implements Serializable {
     /**
      * Setter
      * @param identity identity of the guest
-     * @return true if set successfully
-     * @see Identity for the detail of identification
+     * @return {@code true} if set successfully
+     * see {@link Identity} for the detail of identification
      */
     public boolean setIdentity(Identity identity) {
         this.identity = identity;
@@ -122,7 +170,7 @@ public class Guest implements Serializable {
     /**
      * Setter
      * @param nationality nationality of the guest
-     * @return true if set successfully
+     * @return {@code true} if set successfully
      */
     public boolean setNationality(String nationality) {
         this.nationality = nationality;
@@ -131,7 +179,7 @@ public class Guest implements Serializable {
     /**
      * Setter
      * @param contact contact number of the guest
-     * @return true if set successfully
+     * @return {@code true} if set successfully
      */
     public boolean setContact(String contact) {
         this.contact = contact;
@@ -140,7 +188,7 @@ public class Guest implements Serializable {
     /**
      * Setter
      * @param guestId guest id of the guest
-     * @return true if set successfully
+     * @return {@code true} if set successfully
      */
     public boolean setGuestId(String guestId) {
         this.guestId = guestId;
