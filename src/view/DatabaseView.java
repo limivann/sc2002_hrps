@@ -10,13 +10,13 @@ import src.helper.Helper;
  */
 public class DatabaseView extends MainView {
     /**
-     * Default constructor of Database
+     * Default constructor of Database.
      */
     public DatabaseView() {
         super();
     }
     /**
-     * View Menu for Database
+     * View Menu for Database.
      */
     @Override
     public void printMenu() {
@@ -28,7 +28,7 @@ public class DatabaseView extends MainView {
         System.out.println("(4) Exit Manage Database View");
     }
     /**
-     * View Application for Database
+     * View Application for Database.
      */
     @Override
     public void viewapp() {
@@ -66,25 +66,25 @@ public class DatabaseView extends MainView {
         } while (opt != 4);
     }
     /**
-     * A method that initialize dummy data for Guest
-     * @return true if initialized successfully
-     * @see {@link Database}  
+     * A method that initialize dummy data for Guest.
+     * @return true if initialized successfully <p>
+     * see {@link Database} for more initialization details.
      */
     public boolean initializeGuest() {
         return Database.initializeDummyGuests();
     }
     /**
-     * A method that initialize dummy data for Menu
-     * @return true if initialized successfully
-     * @see Database 
+     * A method that initialize dummy data for Menu.
+     * @return true if initialized successfully <p>
+     * see {@link Database} for more initialization details. 
      */
     public boolean initializeMenu() {
         return Database.initializeDummyMenu();
     }
     /**
-     * A method that reset the database
-     * @return true if reset successfully
-     * @see Database 
+     * A method that reset the database.
+     * @return true if reset successfully <p>
+     * see {@link Database} for more details.
      */
     public boolean resetDatabase() {
         if (Helper.promptConfirmation("reset the database")) {

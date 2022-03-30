@@ -54,8 +54,8 @@ public class HandleCheckInOutView extends MainView {
         
     }
     /**
-     * Check In reservation
-     * @see ReservationManager ReservationManger - Details of Reservation Manager
+     * View for Check In reservation
+     * see {@link ReservationManager} for more reservation management details.
      */
     public void checkin() {
         Helper.checkReservationStatus();
@@ -69,8 +69,8 @@ public class HandleCheckInOutView extends MainView {
         System.out.println(String.format("Check in complete for reservation id: %s", reservationId));
     }
     /**
-     * Check Out reservation
-     * @see ReservationManager ReservationManger - Details of Reservation Manager
+     * View for Check Out reservation
+     * see {@link ReservationManager} for more reservation management details. 
      */
     public void checkout() {
         System.out.println("--- Check Out Room---");
