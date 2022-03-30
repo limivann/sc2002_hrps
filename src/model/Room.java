@@ -6,8 +6,9 @@ import java.io.Serializable;
 import src.model.enums.RoomStatus;
 
 /**
+ * The Class that handles Room model
  * @author Zhang Kaichen
- * @version 1.0.0
+ * @version 1.0
  * @since 2022-03-30
  */
 public class Room implements Serializable {
@@ -130,7 +131,7 @@ public class Room implements Serializable {
 	/**
 	 * Setter
 	 * @param price price of the room
-	 * @return true if input is valid
+	 * @return {@code true} if input is valid
 	 */
 	public boolean setPrice(double price) {
 		if (price <= 0) {
@@ -143,7 +144,7 @@ public class Room implements Serializable {
 	/**
 	 * Setter
 	 * @param roomStatus the status of the room
-	 * @return true if successfully set the room status
+	 * @return {@code true} if successfully set
 	 */
 	public boolean setRoomStatus(RoomStatus roomStatus) {
 		this.roomStatus = roomStatus;
@@ -153,7 +154,7 @@ public class Room implements Serializable {
 	/**
 	 * Setter
 	 * @param guestName name of the guest in the room
-	 * @return true if successfully set
+	 * @return {@code true} if successfully set
 	 */
 	public boolean setGuestName(String guestName) {
 		this.guestName = guestName;
@@ -163,7 +164,7 @@ public class Room implements Serializable {
 	/**
 	 * Setter
 	 * @param floorNumber the floor number of the room
-	 * @return true if successfully set
+	 * @return {@code true} if successfully set
 	 */
 	public boolean setFloorNumber(int floorNumber) {
 		// input is handled at controller
@@ -174,7 +175,7 @@ public class Room implements Serializable {
 	/**
 	 * Setter
 	 * @param roomNumber the room number of the room
-	 * @return true if successfully set
+	 * @return {@code true} if successfully set
 	 */
 	public boolean setRoomNumber(int roomNumber) {
 		this.roomNumber = roomNumber;
@@ -184,7 +185,7 @@ public class Room implements Serializable {
 	/**
 	 * Setter
 	 * @param roomId the id of the room
-	 * @return true if successfully set
+	 * @return {@code true} if successfully set
 	 */
 	public boolean setRoomId(String roomId) {
 		this.roomId = roomId;
@@ -194,7 +195,7 @@ public class Room implements Serializable {
 	/**
 	 * Setter
 	 * @param type the type of the room
-	 * @return true if successfully set
+	 * @return {@code true} if successfully set
 	 */
 	public boolean setType(RoomType type) {
 		this.type = type;
@@ -204,7 +205,7 @@ public class Room implements Serializable {
 	/**
 	 * Setter
 	 * @param isWifiEnabled is wifi enabled in the room or not
-	 * @return true if successfully set
+	 * @return {@code true} if successfully set
 	 */
 	public boolean setWifiEnabled(boolean isWifiEnabled) {
 		this.isWifiEnabled = isWifiEnabled;
@@ -214,7 +215,7 @@ public class Room implements Serializable {
 	/**
 	 * Setter
 	 * @param isSmokingAllowed is smoking allowed in the room or not
-	 * @return true if successfully set
+	 * @return {@code true} if successfully set
 	 */
 	public boolean setSmokingAllowed(boolean isSmokingAllowed) {
 		this.isSmokingAllowed = isSmokingAllowed;
@@ -224,7 +225,7 @@ public class Room implements Serializable {
 	/**
 	 * Setter
 	 * @param guestId the guest id of the guest in the room
-	 * @return true if successfully set
+	 * @return {@code true} if successfully set
 	 */
 	public boolean setGuestId(String guestId) {
 		this.guestId = guestId;

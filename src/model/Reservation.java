@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 import src.helper.Helper;
 /**
- * The Class that handles Reservation model
+ * The Class that handles Reservation model.
  * @author Max 
  * @version 1.0
  * @since 2022-3-28

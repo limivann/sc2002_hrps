@@ -1,22 +1,18 @@
 package src.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import java.util.Map;
-
-import javax.xml.crypto.Data;
-
 import java.util.Iterator;
 import src.database.Database;
 import src.database.FileType;
 import src.helper.Helper;
-import src.model.Reservation;
 import src.model.Room;
 import src.model.enums.*;
 
 /**
- * @author Aaron Lim Kang Wei & Zhang Kaichen
- * @version 1.0.0
+ * The Class that manages {@link Room}.
+ * @author Lim Kang Wei, Zhang Kaichen, Ivan
+ * @version 1.0
  * @since 30-03-2022
  */
 public class RoomManager {
@@ -32,10 +28,10 @@ public class RoomManager {
     }
 
     /**
-     * Method to update the Room price
+     * Method to update the Room price <p>
      * @param roomType new room type of the room
      * @param newPrice new price of the room
-     * @return true if successful
+     * @return {@code true} if successful. Otherwise, {@code false}
      */
     public static boolean updateRoomPrice(RoomType roomType, double newPrice) {
         HashMap<String, Room> toIterate = Helper.copyHashMap(Database.ROOMS);
@@ -61,10 +57,10 @@ public class RoomManager {
     }
 
     /**
-     * Method to update the Room status by id
+     * Method to update the Room status by id <p>
      * @param roomId room id of the room
      * @param roomStatus room status of the room
-     * @return true if successful
+     * @return {@code true} if successful. Otherwise, {@code false}
      */
     public static boolean updateRoomStatus(String roomId, RoomStatus roomStatus) {
         if (Database.ROOMS.containsKey(roomId)) {
@@ -81,11 +77,11 @@ public class RoomManager {
     }
 
     /**
-     * Method to update the Room status by floor and room number
+     * Method to update the Room status by floor and room number <p>
      * @param floorNumber floor number of the room
      * @param roomNumber room number of the room
      * @param roomStatus room status of the room
-     * @return true if successful
+     * @return {@code true} if successful. Otherwise, {@code false}
      */
     public static boolean updateRoomStatus(int floorNumber, int roomNumber, RoomStatus roomStatus) {
         String roomId = String.format("%02d-%02d", floorNumber, roomNumber);
@@ -103,7 +99,7 @@ public class RoomManager {
     }
 
     /**
-     * Method to search a room by floor and room number of the room
+     * Method to search a room by floor and room number of the room <p>
      * @param floor floor number of the room
      * @param room room number of the room
      * @return the room object correspond to the room id
@@ -114,7 +110,7 @@ public class RoomManager {
     }
 
     /**
-     * Method to search a room by room id
+     * Method to search a room by room id <p>
      * @param roomId room id of the room
      * @return the room object correspond to the room id
      */
@@ -123,7 +119,7 @@ public class RoomManager {
     }
 
     /**
-     * Print out the room correspond to the room id
+     * Print out the room correspond to the room id <p>
      * @param roomId room id of the room
      */
     public static void printRoom(String roomId) {
@@ -136,7 +132,7 @@ public class RoomManager {
     }
 
     /**
-     * Print out the room correspond to the floor and room number
+     * Print out the room correspond to the floor and room number <p>
      * @param floor the floor number of the room
      * @param room the room number of the room
      */
@@ -194,7 +190,7 @@ public class RoomManager {
     }
 
     /**
-     * Get all the room that currently is in one room status
+     * Get all the room that currently is in one room status <p>
      * @param roomStatus the room status that you want to search
      * @return an ArrayList that has all Room object under the input roomStatus
      */
@@ -219,7 +215,7 @@ public class RoomManager {
     }
 
     /**
-     * Get the room by room type and by room status
+     * Get the room by room type and by room status <p>
      * @param roomType the type of room want to search
      * @param roomStatus the status of room that want to search
      * @return the ArrayList that has the input room type and status
@@ -245,7 +241,7 @@ public class RoomManager {
     }
 
     /**
-     * Print out the room by status
+     * Print out the room by status <p>
      * @param roomStatus room status that want to print
      */
     public static void printOccupancyRate(RoomStatus roomStatus) {
@@ -295,7 +291,7 @@ public class RoomManager {
     }
 
     /**
-     * Print out all the room details
+     * Print out all the room details <p>
      * see {@link Room#toString()} to see the toString method
      */
     public static void printAllRooms() {
@@ -370,7 +366,9 @@ public class RoomManager {
     }
 
     /**
-     * constructor of the room
+     * constructor of the room <p>
+     * see {@link RoomType} For the different room type <p>
+     * see {@link RoomStatus} For the different status of the room <p>
      * @param roomType Type of the room
      * @param roomId the room Id for the room
      * @param floorNumber Floor number of the room
@@ -378,8 +376,6 @@ public class RoomManager {
      * @param roomStatus Status of the room
      * @param isWifiEnabled whether the wifi is enabled in the room
      * @param isSmokingAllowed whether the smoking is allowed in the room
-     * see {@link RoomType} For the different room type
-     * see {@link RoomStatus} For the different status of the room
      * @return the new Room object
      */
     public static Room createRoom(RoomType roomType, String roomId, int floorNumber, int roomNumber,
@@ -394,10 +390,10 @@ public class RoomManager {
 
     /**
      * Calculate the price of the room
+     * see {@link PromotionManager} for the formula for price
      * @param roomType Type of the room
      * @param isWifiEnabled whether the wifi is enabled or not
      * @return the price of the room
-     * see {@link PromotionManager} for the formula for price
      */
     public static double calculateRoomPrice(RoomType roomType, boolean isWifiEnabled) {
         return PromotionManager.getRoomPrice(roomType, isWifiEnabled);
@@ -406,7 +402,7 @@ public class RoomManager {
     /**
      * Validate the hotel has this room id or not
      * @param roomId room id of the room you want to check
-     * @return true if contains this room
+     * @return {@code true} if contains this room. Otherwise, {@code false}
      */
     public static boolean validateRoomId(String roomId) {
         if (Database.ROOMS.containsKey(roomId)) {
@@ -420,7 +416,7 @@ public class RoomManager {
     /**
      * Check if the room has vacancy
      * @param roomId room id of the room you want to check
-     * @return true if this room has vacancy
+     * @return {@code true} if this room has vacancy. Otherwise, {@code false}
      */
     public static boolean checkRoomVacancy(String roomId) {
         if (validateRoomId(roomId)) {
@@ -433,7 +429,7 @@ public class RoomManager {
      * Validate the number of pax exceeds the maximum capacity of the room or not
      * @param roomId room id of the room you want to check
      * @param numOfPax the number of pax of the room
-     * @return true if the maximum capacity does not exceed the room
+     * @return {@code true} if the maximum capacity does not exceed the room. Otherwise, {@code false}
      */
     public static boolean validateNumOfPax(String roomId, int numOfPax) {
         if (numOfPax <= 0) {

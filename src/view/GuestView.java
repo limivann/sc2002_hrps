@@ -6,9 +6,12 @@ import src.model.Identity;
 import src.model.enums.Gender;
 import src.model.enums.IdentityType;
 
+// for javadocs
+import src.model.Guest;
 /**
+* The Class that shows the view of {@link Guest}.
  * @author Zhang Kaichen
- * @version 1.0.0
+ * @version 1.0
  * @since 2022-03-30
  */
 public class GuestView extends MainView{
@@ -86,9 +89,9 @@ public class GuestView extends MainView{
     }
     // Create Guest
     /**
-     * The function that receives input and create a guest through Guest Manager
-     * @return true if successfully create a Guest
+     * The function that receives input and create a guest through Guest Manager <p>
      * see {@link GuestManager}
+     * @return {@code true} if successfully create a Guest. Otherwise, {@code false}
      */
     public boolean promptCreateGuest() {
         System.out.println("Please enter guest's first name: ");
@@ -135,7 +138,7 @@ public class GuestView extends MainView{
     }
 
     /**
-     * Function that generate the input for the gender for the guest
+     * Function that generate the input for the gender for the guest <p>
      * @return the gender type that is chosen if choice is valid
      */
     public Gender promptGender() {
@@ -157,7 +160,7 @@ public class GuestView extends MainView{
     };
 
     /**
-     * Function that generate the input for the identity for the guest
+     * Function that generate the input for the identity for the guest <p>
      * @return the identity type that is chosen if choice is valid
      */
     public Identity promptIdentity() {
@@ -189,8 +192,8 @@ public class GuestView extends MainView{
     
     // Update Guest
     /**
-     * Prompt to update Guest
-     * @return true if update successfully
+     * Prompt to update Guest <p>
+     * @return {@code true} if update successfully. Otherwise, {@code false}
      */
     public boolean promptUpdateGuest() {
         System.out.println("Enter the guest that you want to update (GXXXX): ");
@@ -280,9 +283,9 @@ public class GuestView extends MainView{
 
     // Remove guest
     /**
-     * Prompt function to remove a guest
-     * @return true if remove successfully
-     * see {@link RoomManager} For the remove function detail
+     * Prompt function to remove a guest <p>
+     * see {@link GuestManager} For the remove function detail <p>
+     * @return {@code true} if remove successfully, Otherwise, {@code false} 
      */
     public boolean promptRemoveGuest() {
         System.out.println("Enter the guest id you want to remove (GXXXX): ");
@@ -297,8 +300,8 @@ public class GuestView extends MainView{
 
     // Print all guest
     /**
-     * Prompt function to print all guest
-     * see {@link RoomManager} For the printing detail
+     * Prompt function to print all guest <p>
+     * see {@link GuestManager} For the printing detail
      */
     public void printGuests() {
         GuestManager.printAllGuests();

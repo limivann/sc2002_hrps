@@ -6,8 +6,9 @@ import src.helper.Helper;
 
 
 /**
+ * The Class that handles Guest model
  * @author Zhang Kaichen
- * @version 1.0.0
+ * @version 1.0
  * @since 30-03-2022
  */
 public class Guest implements Serializable {
@@ -102,7 +103,7 @@ public class Guest implements Serializable {
     /**
      * Setter
      * @param name name of the guest
-     * @return true if set successfully
+     * @return {@code true} if set successfully
      */
     public boolean setName(String name) {
         this.name = name;
@@ -111,7 +112,7 @@ public class Guest implements Serializable {
     /**
      * Setter
      * @param firstName first name of the guest
-     * @return true if set successfully
+     * @return {@code true} if set successfully
      */
     public boolean setFirstName(String firstName) {
         this.firstName = firstName;
@@ -120,7 +121,7 @@ public class Guest implements Serializable {
     /**
      * Setter
      * @param lastName last name of the guest
-     * @return true if set successfully
+     * @return {@code true} if set successfully
      */
     public boolean setLastName(String lastName) {
         this.lastName = lastName;
@@ -130,7 +131,7 @@ public class Guest implements Serializable {
     /**
      * Setter
      * @param creditCard credit card of the guest
-     * @return true if set successfully
+     * @return {@code true} if set successfully
      */
     public boolean setCreditCard(String creditCard) {
         this.creditCard = creditCard;
@@ -140,7 +141,7 @@ public class Guest implements Serializable {
     /**
      * Setter
      * @param address mailing address of the guest
-     * @return true if set successfully
+     * @return {@code true} if set successfully
      */
     public boolean setAddress(String address) {
         this.address = address;
@@ -149,7 +150,7 @@ public class Guest implements Serializable {
     /**
      * Setter
      * @param gender gender of the guest
-     * @return true if set successfully
+     * @return {@code true} if set successfully
      */
     public boolean setGender(Gender gender) {
         this.gender = gender;
@@ -159,7 +160,7 @@ public class Guest implements Serializable {
     /**
      * Setter
      * @param identity identity of the guest
-     * @return true if set successfully
+     * @return {@code true} if set successfully
      * see {@link Identity} for the detail of identification
      */
     public boolean setIdentity(Identity identity) {
@@ -169,7 +170,7 @@ public class Guest implements Serializable {
     /**
      * Setter
      * @param nationality nationality of the guest
-     * @return true if set successfully
+     * @return {@code true} if set successfully
      */
     public boolean setNationality(String nationality) {
         this.nationality = nationality;
@@ -178,7 +179,7 @@ public class Guest implements Serializable {
     /**
      * Setter
      * @param contact contact number of the guest
-     * @return true if set successfully
+     * @return {@code true} if set successfully
      */
     public boolean setContact(String contact) {
         this.contact = contact;
@@ -187,7 +188,7 @@ public class Guest implements Serializable {
     /**
      * Setter
      * @param guestId guest id of the guest
-     * @return true if set successfully
+     * @return {@code true} if set successfully
      */
     public boolean setGuestId(String guestId) {
         this.guestId = guestId;
