@@ -4,20 +4,53 @@ import src.model.enums.ReservationStatus;
 import java.io.Serializable;
 
 import src.helper.Helper;
-
+/**
+ * The Class that handles Reservation model
+ * @author Max 
+ * @version 1.0
+ * @since 2022-3-28
+ */
 public class Reservation implements Serializable {
 
     private static final long serialVersionUID = 3L;
-
+    /**
+     * The date which the guest checked in
+     */
     private String checkedInDate;
+    /**
+     * The date which the guest checked out
+     */
     private String checkedOutDate;
+    /**
+     * The date which the reservation is made
+     */
     private String reservationDate;
+    /**
+     * Id of the guest
+     */
     private String guestId;
+    /**
+     * Id of the room
+     */
     private String roomId;
+    /**
+     * Number of people staying in one room
+     */
     private int numberOfPax;
+    /**
+     *  A boolean value indicates whether the reservation is expired or not
+     */
     private boolean isExpired;
+    /**
+     * status of the reservation <p>
+     * @see {@link ReservationStatus} 
+     */
     private ReservationStatus reservationStatus;
+    /**
+     * Id of the reservation
+     */
     private String reservationId;
+    
     /**
      * Constructor of Reservation
      * @param checkedInDate the date which the guest checked in
@@ -27,7 +60,7 @@ public class Reservation implements Serializable {
      * @param numeberOfPax number of people staying in one room
      * @param reservationId Id of the reservation
      * @param reservationStatus status of the reservation
-     * @see ReservationStatus ReservationStatus - Different status of reservation
+     * @see {@link ReservationStatus} 
      */
     public Reservation(String checkedInDate, String checkedOutDate, String guestId, String roomId, int numberOfPax, String reservationId, ReservationStatus reservationStatus){
         this.reservationDate = Helper.getTimeNow();
@@ -135,7 +168,7 @@ public class Reservation implements Serializable {
     /**
      * A method that returns reservation status
      * @return status of the reservation
-     * @see ReservationStatus ReservationStatus - Different status of reservation
+     * @see {@link ReservationStatus} 
      */
     public ReservationStatus getReservationStatus() {
         return reservationStatus;
@@ -144,7 +177,7 @@ public class Reservation implements Serializable {
      * A method that updates reservation status
      * @param reservationStatus status of the reservation
      * @return true if updates successfully
-     * @see ReservationStatus ReservationStatus - Different status of reservation
+     * @see {@link ReservationStatus} 
      */
     public boolean setReservationStatus(ReservationStatus reservationStatus) {
         this.reservationStatus = reservationStatus;
@@ -159,7 +192,7 @@ public class Reservation implements Serializable {
     }
     /**
      * A method that updates the expire status of reservation
-     * @param isExpired A boolean value indicates whether the reservation is expired or not.
+     * @param isExpired A boolean value indicates whether the reservation is expired or not
      * @return true if updates successfully
      */
     public boolean setIsExpired(boolean isExpired){

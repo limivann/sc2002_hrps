@@ -8,7 +8,12 @@ import src.controller.RoomManager;
 import javax.xml.crypto.Data;
 
 import src.controller.GuestManager;
-
+/**
+ * The Class that shows the view of Reservation
+ * @author Max 
+ * @version 1.0
+ * @since 2022-3-28
+ */
 public class ReservationView extends MainView {
     /**
      * View Menu for the Reservation

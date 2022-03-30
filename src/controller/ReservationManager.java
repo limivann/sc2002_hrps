@@ -14,6 +14,12 @@ import src.database.Database;
 import src.database.FileType;
 import src.helper.Helper;
 
+/**
+ * The Class that manages Reservation
+ * @author Max 
+ * @version 1.0
+ * @since 2022-3-28
+ */
 public class ReservationManager {
     /**
      * A method that creates reservation
