@@ -143,7 +143,7 @@ public class Database {
     /**
      * A method to read serialized object from a particular {@link FileType}.
      * @param fileType file type to be read.
-     * @return {@code true} if read from file is successful.
+     * @return {@code true} if read from file is successful. Otherwise, {@code false}.
      */
     public static boolean readSerializedObject(FileType fileType) {
         String fileExtension = ".dat";
@@ -207,7 +207,7 @@ public class Database {
     /**
      * A method to write serialized object to file.
      * @param fileType file type to write into.
-     * @return {@code true} if write to file is successful.
+     * @return {@code true} if write to file is successful. Otherwise, {@code false}.
      */
     public static boolean writeSerializedObject(FileType fileType) {
         String fileExtension = ".dat";
@@ -323,19 +323,20 @@ public class Database {
                 28);
         return true;
     }
+    
     /**
-     * Method to initialize {@link Room} when the database is empty.
+     * Method to initialize {@link Room} when the database is empty. <p>
+     * see {@link RoomManager} of details of room initalization.
      * @return {@code true} if initialized successfully.
-     * @see RoomManager RoomManager - Contains details of initialize rooms.
      */
     private static boolean initializeRooms() {
         RoomManager.initializeAllRooms();
         return true;
     }
     /**
-     * Method to initialize {@link PromotionDetails} when the database is empty.
+     * Method to initialize {@link PromotionDetails} when the database is empty. <p>
+     * see {@link PromotionManager} of details of promotion details initalization.
      * @return {@code true} if initialized successfully
-     * @see PromotionManager PromotionManager - Contains details of initialize promotion details
      */
     private static boolean initializePromotionDetails() {
         PromotionManager.initializePromotionDetails();
