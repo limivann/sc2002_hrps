@@ -77,7 +77,7 @@ public class Invoice implements Serializable {
     /**
      * A method that updates the invoice id.
      * @param invoiceId Id of the invoice
-     * @return true if updates successfully.
+     * @return {@code true} if updates successfully.
      */
     public boolean setInvoiceId(String invoiceId) {
         this.invoiceId = invoiceId;
@@ -86,7 +86,7 @@ public class Invoice implements Serializable {
     /**
      * A method that updates the date of payment.
      * @param dateOfPayment Date which the payment is made
-     * @return true if updates successfully
+     * @return {@code true} if updates successfully
      */
     private boolean setDateOfPayment(String dateOfPayment) {
         this.dateOfPayment = dateOfPayment;
@@ -95,7 +95,7 @@ public class Invoice implements Serializable {
     /**
      * A method that updates the tax rate.
      * @param taxRate Tax rate of the invoice
-     * @return true if updates successfully
+     * @return {@code true} if updates successfully
      */
     private boolean setTaxRate(double taxRate) {
         if (taxRate < 0) {
@@ -107,7 +107,7 @@ public class Invoice implements Serializable {
     /**
      * A method that updates the discount rate. 
      * @param discountRate Discount rate of the invoice
-     * @return true if updates successfully
+     * @return {@code true} if updates successfully
      */
     private boolean setDiscountRate(double discountRate) {
         this.discountRate = discountRate;
@@ -116,7 +116,7 @@ public class Invoice implements Serializable {
     /**
      * A method that updates the subtotal.
      * @param subTotal Total amount without tax rate and discount rate
-     * @return true if updates successfully
+     * @return {@code true} if updates successfully
      */
     private boolean setSubTotal(double subTotal) {
         this.subTotal = subTotal;
@@ -125,7 +125,7 @@ public class Invoice implements Serializable {
     /**
      * A method that updates the total.
      * @param total Total amount with tax rate and discount rate
-     * @return true if updates successfully
+     * @return {@code true} if updates successfully
      */
     private boolean setTotal(double total) {
         this.total = total;
@@ -134,7 +134,7 @@ public class Invoice implements Serializable {
     /**
      * A method that updates the guest Id.
      * @param guestId Id of the guest
-     * @return true if updates successfully
+     * @return {@code true} if updates successfully
      */
     public boolean setGuestId(String guestId) {
         this.guestId = guestId;
@@ -143,7 +143,7 @@ public class Invoice implements Serializable {
     /**
      * A method that updates the room Id.
      * @param roomId Id of the room
-     * @return true if updates successfully
+     * @return {@code true} if updates successfully
      */
     public boolean setRoomId(String roomId) {
         this.roomId = roomId;
@@ -152,7 +152,7 @@ public class Invoice implements Serializable {
     /**
      * A method that updates the reservation Id.
      * @param reservationId Id of the reservation
-     * @return true if updates successfully
+     * @return {@code true} if updates successfully
      */
     public boolean setReservationId(String reservationId) {
         this.reservationId = reservationId;

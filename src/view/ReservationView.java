@@ -1,13 +1,13 @@
 package src.view;
 
 import src.controller.ReservationManager;
+import src.controller.GuestManager;
 import src.helper.Helper;
 import src.model.enums.ReservationStatus;
 import src.controller.RoomManager;
 
-import javax.xml.crypto.Data;
-
-import src.controller.GuestManager;
+// for javadocs
+import src.model.Reservation;
 /**
  * The Class that shows the view of {@link Reservation}.
  * @author Max 
@@ -79,7 +79,7 @@ public class ReservationView extends MainView {
     /**
      * View Menu for creating reservation. <p>
      * {@link ReservationManager} for more reservation management details. <p>
-     * @return true if reservation is created successfully. Otherwise, false.
+     * @return {@code true} if reservation is created successfully. Otherwise, {@code false}.
      */
     public boolean createReservation() {
         System.out.println("--- Create Reservation ---");

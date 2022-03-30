@@ -47,7 +47,7 @@ public class ReservationManager {
     /**
      * A method that removes reservation from database.
      * @param reservationId Id of the reservation
-     * @return true is removes successfully. Otherwise, false. <p>
+     * @return {@code true} is removes successfully. Otherwise, {@code false}. <p>
      * see {@RoomManager} for more room management details. <p>
      * see {@Database} for more details about database.
      */
@@ -72,7 +72,7 @@ public class ReservationManager {
     /**
      * A method that validates reservation by reservation Id.
      * @param reservationId Id of the reservation
-     * @return true if reservation is found in database. Otherwise, false.
+     * @return {@code true} if reservation is found in database. Otherwise, {@code false}.
      */
     public static boolean validateReservationId(String reservationId) {
         if (Database.RESERVATIONS.containsKey(reservationId)) {
@@ -233,7 +233,7 @@ public class ReservationManager {
     /**
      * A method that checks in reservation.
      * @param reservationId - Id of the reservation
-     * @return true checks in successfully. Otherwise, false.
+     * @return {@code true} checks in successfully. Otherwise, {@code false}.
      */
     public static boolean checkInReservation(String reservationId) {
         if (!validateReservationId(reservationId)) {
@@ -250,7 +250,7 @@ public class ReservationManager {
     /**
      * A method that checks out reservation.
      * @param reservationId Id of the reservation
-     * @return true is checks out successfully. Otherwise, false.
+     * @return {@code true} is checks out successfully. Otherwise, {@code false}.
      */
     public static boolean checkOutReservation(String reservationId) {
         if (!validateReservationId(reservationId)) {

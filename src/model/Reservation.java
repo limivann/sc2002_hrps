@@ -90,7 +90,7 @@ public class Reservation implements Serializable {
     /**
      * A method that updates the checked in date
      * @param checkedInDate the date which the guest checked in
-     * @return true if updates successfully
+     * @return {@code true} if updates successfully
      */
     public boolean setCheckedInDate(String checkedInDate) {
         this.checkedInDate = checkedInDate;
@@ -106,7 +106,7 @@ public class Reservation implements Serializable {
     /**
      * A method that updates the checked out date
      * @param checkedOutDate the date which the guest checked out
-     * @return true if updates successfully
+     * @return {@code true} if updates successfully
      */
     public boolean setCheckedOutDate(String checkedOutDate) {
         this.checkedOutDate = checkedOutDate;
@@ -122,7 +122,7 @@ public class Reservation implements Serializable {
     /**
      * A method that updates guestId
      * @param guestId Id of the guest
-     * @return true if updates successfully
+     * @return {@code true} if updates successfully
      */
     public boolean setGuestId(String guestId) {
         this.guestId = guestId;
@@ -138,7 +138,7 @@ public class Reservation implements Serializable {
     /**
      * A method that updates the roomId
      * @param roomId Id of the room
-     * @return true if updates successfully
+     * @return {@code true} if updates successfully
      */
     public boolean setRoomId(String roomId) {
         this.roomId = roomId;
@@ -154,7 +154,7 @@ public class Reservation implements Serializable {
     /**
      * A method that updates the numberOfPax
      * @param numberOfPax number of people staying in one room
-     * @return true if updates successfully
+     * @return {@code true} if updates successfully
      */
     public boolean setNumberOfPax(int numberOfPax) {
         this.numberOfPax = numberOfPax;
@@ -178,7 +178,7 @@ public class Reservation implements Serializable {
     /**
      * A method that updates reservation status
      * @param reservationStatus status of the reservation
-     * @return true if updates successfully
+     * @return {@code true} if updates successfully
      * {@link ReservationStatus} 
      */
     public boolean setReservationStatus(ReservationStatus reservationStatus) {
@@ -187,7 +187,7 @@ public class Reservation implements Serializable {
     }
     /**
      * A method that checks whether the reservation is expired or not
-     * @return true if the reservation is expired. Otherwise, false
+     * @return {@code true} if the reservation is expired. Otherwise, {@code false}
      */
     public boolean getIsExpired() {
         return isExpired;
@@ -195,7 +195,7 @@ public class Reservation implements Serializable {
     /**
      * A method that updates the expire status of reservation
      * @param isExpired A boolean value indicates whether the reservation is expired or not
-     * @return true if updates successfully
+     * @return {@code true} if updates successfully
      */
     public boolean setIsExpired(boolean isExpired){
         this.isExpired = isExpired;

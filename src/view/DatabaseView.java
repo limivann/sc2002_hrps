@@ -67,7 +67,7 @@ public class DatabaseView extends MainView {
     }
     /**
      * A method that initialize dummy data for Guest.
-     * @return true if initialized successfully <p>
+     * @return {@code true} if initialized successfully. Otherwise, {@code false} <p>
      * see {@link Database} for more initialization details.
      */
     public boolean initializeGuest() {
@@ -75,7 +75,7 @@ public class DatabaseView extends MainView {
     }
     /**
      * A method that initialize dummy data for Menu.
-     * @return true if initialized successfully <p>
+     * @return {@code true} if initialized successfully. Otherwise, {@code false} <p>
      * see {@link Database} for more initialization details. 
      */
     public boolean initializeMenu() {
@@ -83,7 +83,7 @@ public class DatabaseView extends MainView {
     }
     /**
      * A method that reset the database.
-     * @return true if reset successfully <p>
+     * @return {@code true} if reset successfully. Otherwise, {@code false} <p>
      * see {@link Database} for more details.
      */
     public boolean resetDatabase() {
