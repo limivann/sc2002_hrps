@@ -4,9 +4,22 @@ import java.io.Serializable;
 
 import src.model.enums.IdentityType;
 
+/**
+ * @author Zhang Kaichen
+ * @version 1.0.0
+ * @since 2022-03-30
+ */
 public class Identity implements Serializable {
     
+    /**
+     * The Type of the identity
+     * Driving license or Passport
+     */
     private IdentityType type;
+
+    /**
+     * The number of the identity
+     */
     private String identityNo;
     /**
      * Constructor of the identity

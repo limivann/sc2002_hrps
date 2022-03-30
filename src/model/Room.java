@@ -5,19 +5,73 @@ import src.model.enums.RoomType;
 import java.io.Serializable;
 import src.model.enums.RoomStatus;
 
+/**
+ * @author Zhang Kaichen
+ * @version 1.0.0
+ * @since 2022-03-30
+ */
 public class Room implements Serializable {
+	/**
+	 * serial id for the room
+	 */
 	private static final long serialVersionUID = 2L;
 
+
+	/**
+	 * The type of the room
+	 * {@link RoomType}
+	 */
 	private RoomType type;
+
+	/**
+	 * Floor number of the room
+	 */
 	private int floorNumber;
+
+	/**
+	 * Room number of the room
+	 */
 	private int roomNumber;
+
+	/**
+	 * The room Number in String format
+	 */
 	private String roomNumberString;
+
+	/**
+	 * The Status of the room
+	 * {@link RoomStatus}
+	 */
 	private RoomStatus roomStatus;
+
+	/**
+	 * price for the room
+	 */
 	private double price;
+
+	/**
+	 * whether the wifi is enabled or not
+	 */
 	private boolean isWifiEnabled;
+
+	/**
+	 * whether the smoking is allowed
+	 */
 	private boolean isSmokingAllowed;
+
+	/**
+	 * The guest name in the room
+	 */
 	private String guestName;
+
+	/**
+	 * The id of the room
+	 */
 	private String roomId;
+
+	/**
+	 * The id of the guest live in the room
+	 */
 	private String guestId;
 	// private ArrayList<OrderItem> orders;
 
@@ -32,8 +86,8 @@ public class Room implements Serializable {
 	 * @param isWifiEnabled whether is wifi enabled
 	 * @param isSmokingAllowed whether smoking is allowed
 	 * @param price the price of the room
-	 * @see RoomStatus for different status of the room
-	 * @see RoomType for different type of the room
+	 * see {@link RoomStatus} for different status of the room
+	 * see {@link RoomType} for different type of the room
 	 */
 	public Room(RoomType type, String roomId, int floorNumber, int roomNumber, RoomStatus roomStatus, boolean isWifiEnabled,
 			boolean isSmokingAllowed, double price) {
@@ -56,8 +110,8 @@ public class Room implements Serializable {
 	 * @param price Price of the room
 	 * @param isWifiEnabled whether the wifi is enabled in the room
 	 * @param isSmokingAllowed whether the smoking is allowed in the room
-	 * @see RoomType For the different room type
-	 * @see RoomStatus For the different status of the room
+	 * see {@link RoomStatus} for different status of the room
+	 * see {@link RoomType} for different type of the room
 	 */
 	public Room(RoomType type, int floorNumber, int roomNumber, RoomStatus roomStatus, double price,
 			boolean isWifiEnabled, boolean isSmokingAllowed) {

@@ -4,19 +4,66 @@ import java.io.Serializable;
 import src.model.enums.Gender;
 import src.helper.Helper;
 
+
+/**
+ * @author Zhang Kaichen
+ * @version 1.0.0
+ * @since 30-03-2022
+ */
 public class Guest implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The name of the Guest
+     */
     private String name;
+
+    /**
+     * The first name of the Guest
+     */
     private String firstName;
+
+    /**
+     * The last name of the Guest
+     */
     private String lastName;
+
+    /**
+     * The credit card number of the Guest
+     */
     private String creditCard;
+
+    /**
+     * The address of the guest
+     */
     private String address;
+
+    /**
+     * The Gender of the guest
+     * {@link Gender}
+     */
     private Gender gender;
+
+    /**
+     * The identity of the Guest
+     * {@link Identity}
+     */
     private Identity identity;
+
+    /**
+     * The nationality of the Guest
+     */
     private String nationality;
+    /**
+     * Contact number of the Guest
+     */
     private String contact;
+
+    /**
+     * Automate generated id for the guest
+     * {@link Helper} to see how the guest id is generated
+     */
     private String guestId;
     
     // Payment paymentDetails;
@@ -34,8 +81,8 @@ public class Guest implements Serializable {
      * @param nationality nationality of the guest
      * @param contact contact no of the guest
      * @param guestId autogenerate guest id
-     * @see Helper for the generation of guest id
-     * @see Identity for the detail of identification
+     * see {@link Helper} for the generation of guest id
+     * see {@link Identity} for the detail of identification
      */
     public Guest(String name, String firstName, String lastName, String creditCard, String address, Gender gender,
             Identity identity, String nationality, String contact, String guestId) {
@@ -113,7 +160,7 @@ public class Guest implements Serializable {
      * Setter
      * @param identity identity of the guest
      * @return true if set successfully
-     * @see Identity for the detail of identification
+     * see {@link Identity} for the detail of identification
      */
     public boolean setIdentity(Identity identity) {
         this.identity = identity;

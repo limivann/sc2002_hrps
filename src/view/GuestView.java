@@ -1,17 +1,20 @@
 package src.view;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import javax.swing.plaf.synth.SynthSplitPaneUI;
-
 import src.helper.Helper;
 import src.controller.GuestManager;
-import src.database.Database;
 import src.model.Identity;
 import src.model.enums.Gender;
 import src.model.enums.IdentityType;
+
+/**
+ * @author Zhang Kaichen
+ * @version 1.0.0
+ * @since 2022-03-30
+ */
 public class GuestView extends MainView{
+    /**
+     * The GuestManager object created to call the method from GuestManager
+     */
     GuestManager g;
 
     /**
@@ -85,7 +88,7 @@ public class GuestView extends MainView{
     /**
      * The function that receives input and create a guest through Guest Manager
      * @return true if successfully create a Guest
-     * @see GuestManager
+     * see {@link GuestManager}
      */
     public boolean promptCreateGuest() {
         System.out.println("Please enter guest's first name: ");
@@ -279,7 +282,7 @@ public class GuestView extends MainView{
     /**
      * Prompt function to remove a guest
      * @return true if remove successfully
-     * @see GuestManager For the remove function detail
+     * see {@link RoomManager} For the remove function detail
      */
     public boolean promptRemoveGuest() {
         System.out.println("Enter the guest id you want to remove (GXXXX): ");
@@ -295,7 +298,7 @@ public class GuestView extends MainView{
     // Print all guest
     /**
      * Prompt function to print all guest
-     * @see GuestManager For the printing detail
+     * see {@link RoomManager} For the printing detail
      */
     public void printGuests() {
         GuestManager.printAllGuests();

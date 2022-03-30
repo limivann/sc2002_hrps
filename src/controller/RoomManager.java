@@ -14,7 +14,15 @@ import src.model.Reservation;
 import src.model.Room;
 import src.model.enums.*;
 
+/**
+ * @author Aaron Lim Kang Wei & Zhang Kaichen
+ * @version 1.0.0
+ * @since 30-03-2022
+ */
 public class RoomManager {
+    /**
+     * The HashMap to store all the room detail
+     */
     HashMap<String, Room> RoomList = new HashMap<String, Room>();
 
     /**
@@ -288,7 +296,7 @@ public class RoomManager {
 
     /**
      * Print out all the room details
-     * @see Room#toString() to see the toString method
+     * see {@link Room#toString()} to see the toString method
      */
     public static void printAllRooms() {
         HashMap<String, Room> toIterate = Helper.copyHashMap(Database.ROOMS);
@@ -370,8 +378,8 @@ public class RoomManager {
      * @param roomStatus Status of the room
      * @param isWifiEnabled whether the wifi is enabled in the room
      * @param isSmokingAllowed whether the smoking is allowed in the room
-     * @see RoomType For the different room type
-     * @see RoomStatus For the different status of the room
+     * see {@link RoomType} For the different room type
+     * see {@link RoomStatus} For the different status of the room
      * @return the new Room object
      */
     public static Room createRoom(RoomType roomType, String roomId, int floorNumber, int roomNumber,
@@ -389,7 +397,7 @@ public class RoomManager {
      * @param roomType Type of the room
      * @param isWifiEnabled whether the wifi is enabled or not
      * @return the price of the room
-     * @see PromotionManager for the formula for price
+     * see {@link PromotionManager} for the formula for price
      */
     public static double calculateRoomPrice(RoomType roomType, boolean isWifiEnabled) {
         return PromotionManager.getRoomPrice(roomType, isWifiEnabled);

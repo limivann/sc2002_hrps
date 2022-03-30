@@ -18,6 +18,12 @@ import src.model.enums.Gender;
 // for javadocs
 import src.view.GuestView;
 
+/**
+ * @author Zhang Kaichen
+ * @version 1.0.0
+ * @since 2022-03-30
+ */
+
 public class GuestManager {
     /**
      * Default constructor of the GuestManager
@@ -56,7 +62,7 @@ public class GuestManager {
      * @param guestId the guest id of the guest
      * @param attributeCode the attribute code for the detail that user choose to update
      * @param newValue the new detail value for the guest
-     * @see GuestView#printUpdateGuestMenu() for the menu of the attribute code
+     * see {@link GuestView#printUpdateGuestMenu()} for the menu of the attribute code
      */
     public static void updateGuest(String guestId, int attributeCode, String newValue) {
         ArrayList<Guest> updateList = searchGuestById(guestId);
@@ -93,7 +99,7 @@ public class GuestManager {
      * @param attributeCode the attribute code for the detail that user choose to update
      * @param newValue1 the new value for the first name
      * @param newValue2 the new value for the last name
-     * @see GuestView#printUpdateGuestMenu() for the menu of the attribute code
+     * see {@link GuestView#printUpdateGuestMenu()} for the menu of the attribute code
      */
     public static void updateGuest(String guestId, int attributeCode, String newValue1, String newValue2) {
         ArrayList<Guest> updateList = searchGuestById(guestId);
@@ -120,7 +126,7 @@ public class GuestManager {
      * @param guestId the guest id of the guest
      * @param attributeCode the attribute code for the detail that user choose to update
      * @param gender the new gender of the guest
-     * @see GuestView#printUpdateGuestMenu() for the menu of the attribute code
+     * see {@link GuestView#printUpdateGuestMenu()} for the menu of the attribute code
      */
     public static void updateGuest(String guestId, int attributeCode, Gender gender) {
         ArrayList<Guest> updateList = searchGuestById(guestId);
@@ -144,7 +150,7 @@ public class GuestManager {
      * @param guestId the guest id of the guest
      * @param attributeCode the attribute code for the detail that user choose to update
      * @param identity the new identity for the guest
-     * @see GuestView#printUpdateGuestMenu() for the menu of the attribute code
+     * see {@link GuestView#printUpdateGuestMenu()} for the menu of the attribute code
      */
     public static void updateGuest(String guestId, int attributeCode, Identity identity) {
         ArrayList<Guest> updateList = searchGuestById(guestId);
@@ -199,7 +205,7 @@ public class GuestManager {
     
     /**
      * Function to print all guest in the database that show the guest id and the Guest
-     * @see Guest#toString()
+     * see {@link Guest#toString()}
      */
     public static void printAllGuests() {
         HashMap<String, Guest> toIterate = Helper.copyHashMap(Database.GUESTS);
@@ -211,6 +217,11 @@ public class GuestManager {
         }
     }
 
+    /**
+     * validate if the database has this guest according to guest id
+     * @param guestId the guest of the guest that you want to validate
+     * @return true if exist false if not exist
+     */
     public static boolean validateGuestId(String guestId) {
         if (Database.GUESTS.containsKey(guestId)) {
             return true;

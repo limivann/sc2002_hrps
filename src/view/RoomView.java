@@ -1,6 +1,5 @@
 package src.view;
 
-import src.model.Room;
 import src.controller.RoomManager;
 import src.helper.Helper;
 
@@ -8,8 +7,13 @@ import java.util.InputMismatchException;
 
 import src.model.enums.*;
 
-public class RoomView extends MainView{
-    private RoomManager a = new RoomManager();
+
+/**
+ * @author Lim Kang Wei
+ * @version 1.0.0
+ * @since 2022-03-30
+ */
+public class RoomView extends MainView{;
 
     /**
      * the default constructor for the room view
@@ -75,7 +79,7 @@ public class RoomView extends MainView{
     /**
      * Prompt function to search room
      * @param printResults whether to print out the results or not
-     * @see RoomManager to check for the printing room method
+     * see {@link RoomManager} to check for the printing room method
      */
     public void promptSearchRoom(boolean printResults) {
         System.out.println("Enter the floor number");
@@ -90,7 +94,7 @@ public class RoomView extends MainView{
     /**
      * Prompt function to update room status
      * @return true if update successfully
-     * @see RoomManager for update function
+     * see {@link RoomManager} for update function
      */
     public boolean promptUpdateRoomStatus() {
         System.out.println("Enter the floor number");
@@ -135,7 +139,7 @@ public class RoomView extends MainView{
 
     /**
      * Prompt function for printing room by status 
-     * @see RoomManager for printing function
+     * see {@link RoomManager} for printing function
      */
     public void printRoomByStatus() {
         RoomManager.printRoomStatus();
@@ -143,7 +147,7 @@ public class RoomView extends MainView{
     
     /**
      * Prompt function for printing room by occupancy rate
-     * @see RoomManager for printing function
+     * see {@link RoomManager} for printing function
      */
     public void printRoomByOccupancyRate(){
         RoomManager.printOccupancyRate(RoomStatus.VACANT);
