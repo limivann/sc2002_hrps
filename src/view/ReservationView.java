@@ -8,10 +8,15 @@ import src.controller.RoomManager;
 import javax.xml.crypto.Data;
 
 import src.controller.GuestManager;
-
+/**
+ * The Class that shows the view of {@link Reservation}.
+ * @author Max 
+ * @version 1.0
+ * @since 2022-3-28
+ */
 public class ReservationView extends MainView {
     /**
-     * View Menu for the Reservation
+     * View Menu for the Reservation.
      */
     @Override
     public void printMenu() {
@@ -24,8 +29,8 @@ public class ReservationView extends MainView {
         System.out.println("(6) Exit");
     }
     /**
-     * View Application for the Reservation
-     * @see ReservationManager ReservationManager - Details of Reservation Manager
+     * View Application for the Reservation. <p>
+     * see {@link ReservationManager} for more reservation management details.
      */
     @Override
     public void viewapp(){
@@ -72,9 +77,9 @@ public class ReservationView extends MainView {
         }while( opt != 6);
     }
     /**
-     * View Menu for creating reservation
-     * @see ReservationManager ReservationManager - Details of Reservation Manager
-     * @return true if reservation is created successfully. Otherwise, false
+     * View Menu for creating reservation. <p>
+     * {@link ReservationManager} for more reservation management details. <p>
+     * @return true if reservation is created successfully. Otherwise, false.
      */
     public boolean createReservation() {
         System.out.println("--- Create Reservation ---");
@@ -152,7 +157,8 @@ public class ReservationView extends MainView {
         return true;
     }
     /**
-     * View Menu for Reservation Status
+     * View Menu for Reservation Status. <p>
+     * {@link ReservationStatus}
      */
     public void printReservationStatusMenu() {
         System.out.println("Enter new reservation status (1-6)");
@@ -164,7 +170,7 @@ public class ReservationView extends MainView {
         System.out.println("(6) Cancelled");
     }
     /**
-     * View Menu for Reservation Update
+     * View Menu for Reservation Update.
      */
     public void printUpdateReservationMenu() {
         System.out.println("--- Update Reservation ---");
@@ -179,7 +185,7 @@ public class ReservationView extends MainView {
         System.out.println("(8) Exit");
     }
     /**
-     * View Menu for Expire Status of Reservation
+     * View Menu for Expiration Status of Reservation.
      */
     public void printExpiredMenu() {
         System.out.println("Please select an option (1-3");
@@ -188,10 +194,10 @@ public class ReservationView extends MainView {
         System.out.println("(3) Back");
     }
     /**
-     * View Application for Reservation Update
-     * @param reservationId Id of the reservation
-     * @see ReservationManager ReservationManager - Details of Reservation Manager
-     * @see ReservationStatus ReservationStatus - Different status of reservation
+     * View Application for Reservation Update.
+     * @param reservationId Id of the reservation <p>
+     * see {@link ReservationStatus} for different types of Reservation Status. <p>
+     * see {@link ReservationManager} for more reservation management details.
      */
     public void updateReservation(String reservationId){
         if (ReservationManager.validateReservationId(reservationId)) {
@@ -290,7 +296,6 @@ public class ReservationView extends MainView {
                         }
                         break;
                     case 8:
-
                         break;
                     default:
                         System.out.println("Invalid option. Please try again");
