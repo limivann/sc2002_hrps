@@ -6,6 +6,9 @@ public class AdminView extends MainView{
     public AdminView() {
         super();
     }
+    /**
+     * View Menu for Admin
+     */
     @Override
     public void printMenu() {
         System.out.println("=== Admin View ===");
@@ -18,7 +21,9 @@ public class AdminView extends MainView{
         System.out.println("(6) Manage Database");
         System.out.println("(7) Exit Admin View");   
     }
-
+    /**
+     * View Application for Admin
+     */
     @Override
     public void viewapp() {
         // init views

@@ -11,7 +11,9 @@ import src.helper.Helper;
  * @since 2022-3-28
  */
 public class Reservation implements Serializable {
-
+    /**
+     * For Java Serializable
+     */
     private static final long serialVersionUID = 3L;
     /**
      * The date which the guest checked in
@@ -43,7 +45,7 @@ public class Reservation implements Serializable {
     private boolean isExpired;
     /**
      * status of the reservation <p>
-     * @see {@link ReservationStatus} 
+     * {@link ReservationStatus} 
      */
     private ReservationStatus reservationStatus;
     /**
@@ -60,7 +62,7 @@ public class Reservation implements Serializable {
      * @param numeberOfPax number of people staying in one room
      * @param reservationId Id of the reservation
      * @param reservationStatus status of the reservation
-     * @see {@link ReservationStatus} 
+     * {@link ReservationStatus} 
      */
     public Reservation(String checkedInDate, String checkedOutDate, String guestId, String roomId, int numberOfPax, String reservationId, ReservationStatus reservationStatus){
         this.reservationDate = Helper.getTimeNow();
@@ -168,7 +170,7 @@ public class Reservation implements Serializable {
     /**
      * A method that returns reservation status
      * @return status of the reservation
-     * @see {@link ReservationStatus} 
+     * {@link ReservationStatus} 
      */
     public ReservationStatus getReservationStatus() {
         return reservationStatus;
@@ -177,7 +179,7 @@ public class Reservation implements Serializable {
      * A method that updates reservation status
      * @param reservationStatus status of the reservation
      * @return true if updates successfully
-     * @see {@link ReservationStatus} 
+     * {@link ReservationStatus} 
      */
     public boolean setReservationStatus(ReservationStatus reservationStatus) {
         this.reservationStatus = reservationStatus;
