@@ -143,7 +143,7 @@ public class Database {
     /**
      * A method to read serialized object from a particular {@link FileType}.
      * @param fileType file type to be read.
-     * @return true if read from file is successful.
+     * @return {@code true} if read from file is successful.
      */
     public static boolean readSerializedObject(FileType fileType) {
         String fileExtension = ".dat";
@@ -207,7 +207,7 @@ public class Database {
     /**
      * A method to write serialized object to file.
      * @param fileType file type to write into.
-     * @return true if write to file is successful.
+     * @return {@code true} if write to file is successful.
      */
     public static boolean writeSerializedObject(FileType fileType) {
         String fileExtension = ".dat";
@@ -241,7 +241,7 @@ public class Database {
 
     /**
      * A method to clear out all the data in database.
-     * @return true if data is cleared successfully.
+     * @return {@code true} if data is cleared successfully.
      */
     public static boolean clearDatabase() {
         // Initialize empty data
@@ -270,7 +270,7 @@ public class Database {
     }
     /**
      * A method to initialize {@link Guest} dummy data when the database is empty.
-     * @return true if initialized successfully.
+     * @return {@code true} if initialized successfully.
      */
     public static boolean initializeDummyGuests() {
         if (GUESTS.size() != 0) {
@@ -298,7 +298,7 @@ public class Database {
     }
     /**
      * A method to initialize {@link MenuItem} dummy data when the database is empty.
-     * @return true is initialied successfully.
+     * @return {@code true} is initialied successfully.
      */
     public static boolean initializeDummyMenu() {
         if (MENU_ITEMS.size() != 0) {
@@ -325,7 +325,7 @@ public class Database {
     }
     /**
      * Method to initialize {@link Room} when the database is empty.
-     * @return true if initialized successfully.
+     * @return {@code true} if initialized successfully.
      * @see RoomManager RoomManager - Contains details of initialize rooms.
      */
     private static boolean initializeRooms() {
@@ -334,7 +334,7 @@ public class Database {
     }
     /**
      * Method to initialize {@link PromotionDetails} when the database is empty.
-     * @return true if initialized successfully
+     * @return {@code true} if initialized successfully
      * @see PromotionManager PromotionManager - Contains details of initialize promotion details
      */
     private static boolean initializePromotionDetails() {
