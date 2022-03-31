@@ -5,8 +5,15 @@ import src.controller.RoomServiceManager;
 import src.helper.Helper;
 import src.model.enums.OrderStatus;
 
+/**
+ * The order viewing system for the customer
+ * Only allows for order creation
+ */
 public class OrderView extends MainView{
 
+    /**
+     * Prints the options for the order view menu
+     */
     @Override
     public void printMenu() {
         System.out.println("=== Order View ===");
@@ -15,6 +22,9 @@ public class OrderView extends MainView{
         System.out.println("(2) Exit Order View");
     }
 
+    /**
+     * Application for the order view system
+     */
     @Override
     public void viewapp() {
         int option = 99;
@@ -37,6 +47,10 @@ public class OrderView extends MainView{
         
     }
     /* Create Order */
+
+    /**
+     * Prints the option for the create order menu
+     */
     private void printMenu_createOrder() {
         System.out.println("***** ORDER MENU *****");
         System.out.println("Please enter an option (1-6)");
@@ -48,6 +62,11 @@ public class OrderView extends MainView{
         System.out.println("(6) Checkout");
     }
 
+    /**
+     * Application for the create order system
+     * 
+     * @return returns true if order creation is successful/ returns false if order creation failed(Room Id does not exist in database)
+     */
     private boolean createOrder() {
         System.out.println("Please enter your room id in this format floor-room (Eg: 01-05):");
         String roomId = Helper.sc.nextLine();
@@ -99,6 +118,13 @@ public class OrderView extends MainView{
         return true;
     }
 
+    /**
+     * Adds menu item of the specified quantity to the customer's order
+     * 
+     * @param name Name of the menu item to be added
+     * @param orderId Id of the order
+     * @param amount Quantity of menu item to be added
+     */
     private void addOrderItem(String name, String orderId, int amount){
         if (RoomServiceManager.addOrderItem(name, orderId, amount)){
             System.out.printf("\"%s\" added to order SUCCESSFULLY\n", name);
@@ -108,6 +134,13 @@ public class OrderView extends MainView{
         };
     }
 
+    /**
+     * Removes menu item of the specified quantity from the customer's order
+     * 
+     * @param name Name of the menu item to be removed
+     * @param orderId Id of the order
+     * @param amount Quantity of menu item to be removed
+     */
     private void removeOrderItem(String name, String orderId, int amount){
         if (RoomServiceManager.removeOrderItem(name, orderId, amount)){
             System.out.printf("\"%s\" removed from order SUCCESSFULLY\n", name);
@@ -117,6 +150,11 @@ public class OrderView extends MainView{
         };
     }
 
+    /**
+     * Confirms the finished order and prints the receipt
+     * 
+     * @param orderId Id of order
+     */
     private void confirmOrder(String orderId) {
         System.out.println("RECEIPT:");
         RoomServiceManager.printOrder(orderId);

@@ -2,6 +2,9 @@ package src.view;
 
 import src.helper.Helper;
 
+/**
+ * Viewing interface for the hotel administrator
+ */
 public class AdminView extends MainView{
     public AdminView() {
         super();
