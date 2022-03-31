@@ -13,7 +13,7 @@ import src.model.enums.Gender;
 
 // for javadocs
 import src.view.GuestView;
-/**
+/** The Class that manages {@link Guest}.
  * @author Zhang Kaichen
  * @version 1.0
  * @since 2022-03-30

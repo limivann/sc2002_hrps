@@ -4,6 +4,9 @@ import src.helper.Helper;
 
 public class UserView extends MainView{
     /**
+     * @author Lim Kang Wei
+     * @version 1.0
+     * @since 2022-03-30
      * Default constructor
      */
     public UserView() {

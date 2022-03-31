@@ -5,11 +5,15 @@ import src.helper.Helper;
 import src.view.*;
 /**
  * The starting point of the application.
- * @author Lim Kang Wei
+ * @author Lim Kang Wei, Ivan, Max, Hill, Kaichen
  * @version 1.0
  * @since 2020-03-29
  */
 public class HotelApp {
+    /**
+     * Main function that is the starting point of the application.
+     * @param args Arguments passed to the app
+     */
     public static void main(String[] args) {
         // Intialize helpers and view apps
         AdminView adminView = new AdminView();

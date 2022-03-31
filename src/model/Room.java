@@ -19,8 +19,8 @@ public class Room implements Serializable {
 
 
 	/**
-	 * The type of the room
-	 * {@link RoomType}
+	 * The type of the room <p>
+	 * See {@link RoomType} for different types of room.
 	 */
 	private RoomType type;
 
@@ -40,8 +40,8 @@ public class Room implements Serializable {
 	private String roomNumberString;
 
 	/**
-	 * The Status of the room
-	 * {@link RoomStatus}
+	 * The Status of the room <p>
+	 * See {@link RoomStatus} for different status of the room.
 	 */
 	private RoomStatus roomStatus;
 
@@ -74,9 +74,7 @@ public class Room implements Serializable {
 	 * The id of the guest live in the room
 	 */
 	private String guestId;
-	// private ArrayList<OrderItem> orders;
 
-	// For initializing room
 	/**
 	 * The constructor for the room
 	 * @param type the type of the room

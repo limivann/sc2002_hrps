@@ -21,6 +21,12 @@ public class Helper {
         sc = new Scanner(System.in);
     }
 
+    /**
+     * Reads an integer value from terminal
+     * 
+     * Repeatedly tries to read an integer until an integer is actually being read. Keeps catching the exception "InputMismatchException" when invalid characters are entered
+     * @return returns the read integer entered in the terminal
+     */
     public static int readInt() {
         while (true){
             try{
@@ -36,6 +42,17 @@ public class Helper {
         
     }
 
+    /**
+     * R    eads an integer value from terminal that within the specified minimum and maximum arguments
+     * 
+     * Repeatedly tries to read an integer until an integer within the specified range is actually being read.
+     * Keeps catching the exception "InputMismatchException" when invalid characters are entered
+     * Keeps catching the exception "OutOfRange" when an integer entered is lesser than the minimum or greater than the maximum value specified as arguments
+     * 
+     * @param min minimum valid value that will be read and returned
+     * @param max maximum valid value that will be read and returned
+     * @return returns the read integer entered in the terminal
+     */
     public static int readInt(int min, int max){
         while (true){
             try{
@@ -57,6 +74,12 @@ public class Helper {
         }
     }
 
+    /**
+     * Reads a double value from terminal
+     * 
+     * Repeatedly tries to read a double until a double is actually being read. Keeps catching the exception "InputMismatchException" when invalid characters are entered
+     * @return returns the read double entered in the terminal
+     */
     public static double readDouble() {
         while(true){
             try{

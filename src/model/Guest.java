@@ -13,6 +13,9 @@ import src.helper.Helper;
  */
 public class Guest implements Serializable {
 
+    /**
+     * For Java Serializable
+     */
     private static final long serialVersionUID = 1L;
 
     /**

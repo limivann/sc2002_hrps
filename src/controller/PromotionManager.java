@@ -6,7 +6,7 @@ import src.model.PromotionDetails;
 import src.model.Room;
 import src.model.enums.RoomType;
 /**
- * The Class that interact with the rates of the hotel.
+ * The Class that manages the {@link PromotionDetails} of the hotel.
  * @author Lim Kang Wei
  * @version 1.0
  * @since 2020-03-29

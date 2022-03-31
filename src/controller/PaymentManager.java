@@ -14,7 +14,7 @@ import src.helper.Helper;
 import src.model.Invoice;
 import src.model.Order;
 /**
- * The Class that handles payment.
+ * The Class that handles payment details.
  * @author Lim Kang Wei
  * @version 1.0
  * @since 2020-03-29
