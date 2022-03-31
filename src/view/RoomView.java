@@ -81,7 +81,7 @@ public class RoomView extends MainView{;
     
     /**
      * Prompt function to search room <p>
-     * see {@link RoomManager} to check for the printing room method <p>
+     * See {@link RoomManager} to check for the printing room method <p>
      * @param printResults whether to print out the results or not 
      */
     public void promptSearchRoom(boolean printResults) {
@@ -96,7 +96,7 @@ public class RoomView extends MainView{;
     
     /**
      * Prompt function to update room status <p>
-     * see {@link RoomManager} for update function <p>
+     * See {@link RoomManager} for update function <p>
      * @return {@code true} if update successfully. Otherwise, {@code false}
      */
     public boolean promptUpdateRoomStatus() {
@@ -142,7 +142,7 @@ public class RoomView extends MainView{;
 
     /**
      * Prompt function for printing room by status  <p>
-     * see {@link RoomManager} for printing function
+     * See {@link RoomManager} for printing function
      */
     public void printRoomByStatus() {
         RoomManager.printRoomStatus();
@@ -150,7 +150,7 @@ public class RoomView extends MainView{;
     
     /**
      * Prompt function for printing room by occupancy rate <p>
-     * see {@link RoomManager} for printing function
+     * See {@link RoomManager} for printing function
      */
     public void printRoomByOccupancyRate(){
         RoomManager.printOccupancyRate(RoomStatus.VACANT);

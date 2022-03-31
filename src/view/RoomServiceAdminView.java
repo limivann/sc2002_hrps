@@ -5,8 +5,18 @@ import src.controller.RoomServiceManager;
 import src.helper.Helper;
 import src.model.enums.OrderStatus;
 
+/**
+ * The room service viewing system for the hotel administrator. 
+ * It allows the administrator to customize the menu or manage the orders
+ * @author Hill Seah
+ * @version 1.0
+ * @since 2022-03-31
+ */
 public class RoomServiceAdminView extends MainView{
 
+    /**
+     * Prints the menu for the room service administrative viewing system 
+     */
     @Override
     public void printMenu() {
         System.out.println("=== Room Service (Admin) View ===");
@@ -16,7 +26,9 @@ public class RoomServiceAdminView extends MainView{
         System.out.println("(3) Exit Room Service (Admin) View");
         
     }
-
+    /**
+     * Application for the room service administrative view system
+     */
     @Override
     public void viewapp() {
         int option = 99;
@@ -41,6 +53,9 @@ public class RoomServiceAdminView extends MainView{
     
     /* Customize Menu */
 
+    /**
+     * Prints the options for the customizing the menu
+     */
     private void printMenu_customizeMenu() {
         System.out.println("***** CUSTOMIZE MENU *****");
         System.out.println("Please enter an option (1-5)");
@@ -51,6 +66,9 @@ public class RoomServiceAdminView extends MainView{
         System.out.println("(5) Exit");
     }
 
+    /**
+     * Application for the customize menu system
+     */
     private void customizeMenu() {
         int option = -1;
         String name = "";
@@ -96,10 +114,21 @@ public class RoomServiceAdminView extends MainView{
         }while (option != 5);
     }
 
+    /**
+     * Prints the available menu items in the hotel menu
+     */
     private void printMenuItems(){
         RoomServiceManager.printMenu();
     }
 
+    /**
+     * Adds a new menu item, with details of its name, preparation description and price to the menu
+     * Prints addition success message/addition failure message
+     * 
+     * @param name Name of the menu item to be added
+     * @param description Description of the menu item to be added
+     * @param price Price of the menu item to be added
+     */
     private void addMenuItem(String name, String description, double price){
 
         if (RoomServiceManager.addMenuItem(name, description, price)){
@@ -110,6 +139,12 @@ public class RoomServiceAdminView extends MainView{
         }
     }
 
+    /**
+     * Removes menu item from the menu
+     * Prints removal success message/ removal failure message
+     * 
+     * @param name Name of the menu item to be removed
+     */
     private void removeMenuItem(String name){
         if (RoomServiceManager.removeMenuItem(name)){
             System.out.printf("\"%s\" removed from menu SUCCESSFULLY\n", name);
@@ -119,6 +154,14 @@ public class RoomServiceAdminView extends MainView{
         }
     }
 
+    /**
+     * Updates an existing menu item, with details of its name, preparation description and price to the menu
+     * Prints update success message/ update failure message
+     * 
+     * @param name Name of the menu item to be updated
+     * @param description Description of the updated menu item
+     * @param price Price of the updated menu item
+     */
     private void updateMenuItem(String name, String description, double price) {
 
         if (RoomServiceManager.updateMenuItem(name, description, price)) {
@@ -129,6 +172,10 @@ public class RoomServiceAdminView extends MainView{
     }
     
     // Manage orders
+
+    /**
+     * Application for the managing order system
+     */
     public void manageOrders() {
         int opt = -1;
         do{
@@ -159,7 +206,9 @@ public class RoomServiceAdminView extends MainView{
         
     }
 
-
+    /**
+     * Prints the options for the managing order menu
+     */
     public void printManageOrdersMenu() {
         System.out.println("***** MANAGE ORDERS *****");
         System.out.println("Please select an option (1-4)");
@@ -169,6 +218,11 @@ public class RoomServiceAdminView extends MainView{
         System.out.println("(4) Exit");
     }
 
+    /**
+     * Update the order status of a chosen order
+     * 
+     * @return {@code true} if order is successfully updated. Otherwise, {@code false} if order is failed to be updated (Order id does not exist in database)
+     */
     public boolean updateOrderStatus() {
         System.out.println("Please enter the order id you want to update (OXXXX): ");
         String orderIdToUpdate = Helper.sc.nextLine();
@@ -184,11 +238,14 @@ public class RoomServiceAdminView extends MainView{
             default:
                 break;
         }
-        // TODO: invalid input not 1-3
         return false;
     }
 
     /* Create Order */
+
+    /**
+     * Print the options for the create order menu.
+     */
     private void printMenu_createOrder() {
         System.out.println("***** ORDER MENU *****");
         System.out.println("Please enter an option (1-6)");
@@ -200,6 +257,11 @@ public class RoomServiceAdminView extends MainView{
         System.out.println("(6) Checkout");
     }
 
+    /**
+     * Application for create order system
+     * 
+     * @return {@code true} if order creation is successfull. Otherwise, {@code false} if order creation failed (Room Id of customer does not exist in database).
+     */
     private boolean createOrder() {
         System.out.println("Please enter your room id in this format floor-room (Eg: 01-05):");
         String roomId = Helper.sc.nextLine();
@@ -251,6 +313,13 @@ public class RoomServiceAdminView extends MainView{
         return true;
     }
 
+    /**
+     * Adds menu item of the specified quantity to the customer's order
+     * 
+     * @param name Name of the menu item to be added
+     * @param orderId Id of the order
+     * @param amount Quantity of menu item to be added
+     */
     private void addOrderItem(String name, String orderId, int amount){
         if (RoomServiceManager.addOrderItem(name, orderId, amount)){
             System.out.printf("\"%s\" added to order SUCCESSFULLY\n", name);
@@ -260,6 +329,13 @@ public class RoomServiceAdminView extends MainView{
         };
     }
 
+    /**
+     * Removes menu item of the specified quantity from the customer's order
+     * 
+     * @param name Name of the menu item to be removed
+     * @param orderId Id of the order
+     * @param amount Quantity of menu item to be removed
+     */
     private void removeOrderItem(String name, String orderId, int amount){
         if (RoomServiceManager.removeOrderItem(name, orderId, amount)){
             System.out.printf("\"%s\" removed from order SUCCESSFULLY\n", name);
@@ -269,6 +345,11 @@ public class RoomServiceAdminView extends MainView{
         };
     }
 
+    /**
+     * Confirms the finished order and prints the receipt
+     * 
+     * @param orderId Id of order
+     */
     private void confirmOrder(String orderId) {
         System.out.println("RECEIPT:");
         RoomServiceManager.printOrder(orderId);
@@ -276,6 +357,9 @@ public class RoomServiceAdminView extends MainView{
         RoomServiceManager.updateStatus(OrderStatus.CONFIRMED, orderId);
     }
     
+    /**
+     * Prints the options for the order status menu
+     */
     public void printOrderStatusMenu() {
         System.out.println("Please enter a new status (1-3)");
         System.out.println("(1) Confirmed");
