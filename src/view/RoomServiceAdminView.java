@@ -4,6 +4,7 @@ import src.controller.RoomManager;
 import src.controller.RoomServiceManager;
 import src.helper.Helper;
 import src.model.enums.OrderStatus;
+import src.model.enums.RoomStatus;
 
 /**
  * The room service viewing system for the hotel administrator. 
@@ -246,7 +247,7 @@ public class RoomServiceAdminView extends MainView{
     /**
      * Print the options for the create order menu.
      */
-    private void printMenu_createOrder() {
+    private void printCreateOrderMenu() {
         System.out.println("***** ORDER MENU *****");
         System.out.println("Please enter an option (1-6)");
         System.out.println("(1) Print menu");
@@ -260,12 +261,17 @@ public class RoomServiceAdminView extends MainView{
     /**
      * Application for create order system
      * 
-     * @return {@code true} if order creation is successfull. Otherwise, {@code false} if order creation failed (Room Id of customer does not exist in database).
+     * @return {@code true} if order creation is successfull. Otherwise, {@code false} if order creation failed (Room Id of customer does not exist in database) / room is not occupied.
      */
     private boolean createOrder() {
         System.out.println("Please enter your room id in this format floor-room (Eg: 01-05):");
         String roomId = Helper.sc.nextLine();
         if (!RoomManager.validateRoomId(roomId)) {
+            System.out.println("Room does not exist");
+            return false;
+        }
+        if (!RoomManager.checkRoomVacancy(roomId, RoomStatus.OCCUPIED)) {
+            System.out.println("Room is not occupied!");
             return false;
         }
         String orderId = RoomServiceManager.createOrder(roomId);
@@ -273,7 +279,7 @@ public class RoomServiceAdminView extends MainView{
         int itemAmount;
         int option = -1;
         do{
-            printMenu_createOrder();
+            printCreateOrderMenu();
             System.out.println("Enter option: ");
             option = Helper.readInt(1, 6);
             switch (option){
