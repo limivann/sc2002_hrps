@@ -58,9 +58,14 @@ public class GuestManager {
      * @param guestId the guest id of the guest
      * @param attributeCode the attribute code for the detail that user choose to update
      * @param newValue the new detail value for the guest
+     * @return {@code true} if updating of guest is successful. Otherwise, {@code false} if the guest id is not found.
      */
-    public static void updateGuest(String guestId, int attributeCode, String newValue) {
+    public static boolean updateGuest(String guestId, int attributeCode, String newValue) {
         ArrayList<Guest> updateList = searchGuestById(guestId);
+        if (updateList.size() == 0) {
+            // guest not found
+            return false;
+        }
         for (Guest guest : updateList) {
             Guest guestToUpdate = Database.GUESTS.get(guestId);;
             switch (attributeCode) {
@@ -85,6 +90,7 @@ public class GuestManager {
             }
         }
         Database.saveFileIntoDatabase(FileType.GUESTS);
+        return true;
     }
 
     // For updating more than one value (first name, last name)
@@ -95,9 +101,14 @@ public class GuestManager {
      * @param attributeCode the attribute code for the detail that user choose to update
      * @param newValue1 the new value for the first name
      * @param newValue2 the new value for the last name
+     * @return {@code true} if updating of guest is successful. Otherwise, {@code false} if the guest id is not found.
      */
-    public static void updateGuest(String guestId, int attributeCode, String newValue1, String newValue2) {
+    public static boolean updateGuest(String guestId, int attributeCode, String newValue1, String newValue2) {
         ArrayList<Guest> updateList = searchGuestById(guestId);
+        if (updateList.size() == 0) {
+            // guest not found
+            return false;
+        }
         for (Guest guest : updateList) {
             Guest guestToUpdate;
             switch (attributeCode) {
@@ -114,6 +125,7 @@ public class GuestManager {
             }
         }
         Database.saveFileIntoDatabase(FileType.GUESTS);
+        return true;
     }
     
     /**
@@ -122,9 +134,14 @@ public class GuestManager {
      * @param guestId the guest id of the guest
      * @param attributeCode the attribute code for the detail that user choose to update
      * @param gender the new gender of the guest
+     * @return {@code true} if updating of guest is successful. Otherwise, {@code false} if the guest id is not found.
      */
-    public static void updateGuest(String guestId, int attributeCode, Gender gender) {
+    public static boolean updateGuest(String guestId, int attributeCode, Gender gender) {
         ArrayList<Guest> updateList = searchGuestById(guestId);
+        if (updateList.size() == 0) {
+            // guest not found
+            return false;
+        }
         for (Guest guest : updateList) {
             Guest guestToUpdate;
             switch (attributeCode) {
@@ -138,6 +155,7 @@ public class GuestManager {
             }
         }
         Database.saveFileIntoDatabase(FileType.GUESTS);
+        return true;
     }
     
     /**
@@ -146,9 +164,14 @@ public class GuestManager {
      * @param guestId the guest id of the guest
      * @param attributeCode the attribute code for the detail that user choose to update
      * @param identity the new identity for the guest
+     * @return {@code true} if updating of guest is successful. Otherwise, {@code false} if the guest id is not found.
      */
-    public static void updateGuest(String guestId, int attributeCode, Identity identity) {
+    public static boolean updateGuest(String guestId, int attributeCode, Identity identity) {
         ArrayList<Guest> updateList = searchGuestById(guestId);
+        if (updateList.size() == 0) {
+            // guest not found
+            return false;
+        }
         for (Guest guest : updateList) {
             Guest guestToUpdate;
             switch (attributeCode) {
@@ -162,6 +185,7 @@ public class GuestManager {
             }
         }
         Database.saveFileIntoDatabase(FileType.GUESTS);
+        return true;
     }
 
     // Search Guest
@@ -171,7 +195,7 @@ public class GuestManager {
      * @return the guest that correspond to the guest id store in an ArrayList
      */
     public static ArrayList<Guest> searchGuestById(String guestId) {
-        ArrayList<Guest> searchList = new ArrayList<Guest>();   
+        ArrayList<Guest> searchList = new ArrayList<Guest>();
         if (Database.GUESTS.containsKey(guestId)) {
             Guest searchedGuest = Database.GUESTS.get(guestId);
             searchList.add(searchedGuest);
@@ -186,6 +210,10 @@ public class GuestManager {
      */
     public static boolean removeGuest(String guestId) {
         ArrayList<Guest> removeList = GuestManager.searchGuestById(guestId);
+        if (removeList.size() == 0) {
+            // not found
+            return false;
+        }
         for (Guest guest : removeList) {
             guest.printGuestDetails();
             if (Helper.promptConfirmation("remove this guest")) {
@@ -224,5 +252,21 @@ public class GuestManager {
             // TODO: Throw Exception
             return false;
         }
+    }
+
+    /**
+     * Function to print guest details given a particular guest id <p>
+     * @param guestId the guest of the guest that you want to print its details
+     * @return {@code true} if guest id exist. Otherwise, {@code false}
+     */
+    public static boolean printGuestDetails(String guestId) {
+        ArrayList<Guest> printList = searchGuestById(guestId);
+        if (printList.size() == 0) {
+            return false;
+        }
+        for (Guest guest : printList) {
+            guest.printGuestDetails();
+        }
+        return true;
     }
 }

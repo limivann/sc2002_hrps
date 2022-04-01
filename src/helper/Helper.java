@@ -149,9 +149,11 @@ public class Helper {
         }
         return "";
     } 
-    public static LocalDateTime getDate(String date, DateTimeFormatter format){
+
+    public static LocalDateTime getDate(String date, DateTimeFormatter format) {
         return LocalDateTime.parse(date, format);
     }
+    
     public static String getTimeNow(){
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime date = LocalDateTime.now();
@@ -162,7 +164,7 @@ public class Helper {
         LocalDateTime Date = getDate(date, format);
         LocalDateTime now = LocalDateTime.now();
     
-        return (Date.compareTo(now)>=0?true:false);
+        return (Date.compareTo(now) >= 0 ? true : false);
     }
 
     public static boolean LocalDateTimediff(String date, DateTimeFormatter format) {
@@ -182,11 +184,11 @@ public class Helper {
             return false;
     }
     
-    public static long calculateDayDiff(String checkInDate, String checkOutDate) {
+    public static long calculateDayDiff(String fromDate, String toDate) {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime from = getDate(checkInDate, format);
-        LocalDateTime to = getDate(checkInDate, format);
-        long daysBetween = ChronoUnit.DAYS.between(from, to);
+        LocalDateTime from = getDate(fromDate, format);
+        LocalDateTime to = getDate(toDate, format);
+        long daysBetween = from.until(to, ChronoUnit.DAYS);
         return daysBetween + 1;
     }
 
@@ -200,8 +202,15 @@ public class Helper {
         }
     }
 
+    public static boolean validateTwoDates(String fromDate, String toDate) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime from = getDate(fromDate, format);
+        LocalDateTime to = getDate(toDate, format);
+        return (to.compareTo(from) >= 0 ? true : false);
+    }
+
     public static void main(String[] args) {
         Helper helper = new Helper();
-        System.out.println(calculateDayDiff("2022-03-25 16:12", "2022-03-25 22:12"));
+        System.out.println(validateTwoDates("2022-03-25 16:12", "2022-03-25 12:12"));
     }
 }

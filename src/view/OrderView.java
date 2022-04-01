@@ -4,6 +4,7 @@ import src.controller.RoomManager;
 import src.controller.RoomServiceManager;
 import src.helper.Helper;
 import src.model.enums.OrderStatus;
+import src.model.enums.RoomStatus;
 
 /**
  * The order viewing system for the customer <p>
@@ -67,12 +68,17 @@ public class OrderView extends MainView{
     /**
      * Application for the create order system.
      * 
-     * @return {@code true} if order creation is successful. Otherwise, {@code false} if order creation failed(Room Id does not exist in database).
+     * @return {@code true} if order creation is successful. Otherwise, {@code false} if order creation failed(Room Id does not exist in database) / room is not occupied.
      */
     private boolean createOrder() {
         System.out.println("Please enter your room id in this format floor-room (Eg: 01-05):");
         String roomId = Helper.sc.nextLine();
         if (!RoomManager.validateRoomId(roomId)) {
+            System.out.println("Room does not exist");
+            return false;
+        }
+        if (!RoomManager.checkRoomVacancy(roomId, RoomStatus.OCCUPIED)) {
+            System.out.println("Room is not occupied!");
             return false;
         }
         String orderId = RoomServiceManager.createOrder(roomId);

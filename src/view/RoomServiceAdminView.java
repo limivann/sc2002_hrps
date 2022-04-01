@@ -363,7 +363,7 @@ public class RoomServiceAdminView extends MainView{
     public void printOrderStatusMenu() {
         System.out.println("Please enter a new status (1-3)");
         System.out.println("(1) Confirmed");
-        System.out.println("(2) Perparing");
+        System.out.println("(2) Preparing");
         System.out.println("(3) Delivered");
     }
     

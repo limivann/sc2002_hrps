@@ -81,7 +81,7 @@ public class RoomManager {
      * @param floorNumber floor number of the room
      * @param roomNumber room number of the room
      * @param roomStatus room status of the room
-     * @return {@code true} if successful. Otherwise, {@code false}
+     * @return {@code true} if successful. Otherwise, {@code false} if the room id not found.
      */
     public static boolean updateRoomStatus(int floorNumber, int roomNumber, RoomStatus roomStatus) {
         String roomId = String.format("%02d-%02d", floorNumber, roomNumber);
@@ -414,22 +414,24 @@ public class RoomManager {
     }
 
     /**
-     * Check if the room has vacancy
+     * Check if the room has vacancy <p>
+     * See {@link RoomStatus} for the different types of room status
      * @param roomId room id of the room you want to check
+     * @param roomStatus room status of the room to compare
      * @return {@code true} if this room has vacancy. Otherwise, {@code false}
      */
-    public static boolean checkRoomVacancy(String roomId) {
+    public static boolean checkRoomVacancy(String roomId, RoomStatus roomStatus) {
         if (validateRoomId(roomId)) {
-            return Database.ROOMS.get(roomId).getRoomStatus() == RoomStatus.VACANT;
+            return Database.ROOMS.get(roomId).getRoomStatus() == roomStatus;
         }
         return false;
     }
 
     /**
-     * Validate the number of pax exceeds the maximum capacity of the room or not
+     * Validate if the number of pax exceeds the maximum capacity of the room or not.
      * @param roomId room id of the room you want to check
      * @param numOfPax the number of pax of the room
-     * @return {@code true} if the maximum capacity does not exceed the room. Otherwise, {@code false}
+     * @return {@code true} if the number of pax does not exceed the room capacity. Otherwise, {@code false}
      */
     public static boolean validateNumOfPax(String roomId, int numOfPax) {
         if (numOfPax <= 0) {

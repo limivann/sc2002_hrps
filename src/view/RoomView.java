@@ -45,36 +45,30 @@ public class RoomView extends MainView{;
     public void viewapp() {
         int opt = -1;
         do {
-            try {
-                printMenu();
-                opt = Helper.readInt();
-                switch (opt) {
-                    case 1:
-                        if (promptUpdateRoomStatus()) {
-                            System.out.println("Status updated successfully.");
-                        } else {
-                            System.out.println("Unsuccessful status update");
-                        }
-                        break;
-                    case 2:
-                        promptSearchRoom(true);
-                        break;
-                    case 3:
-                        printRoomByStatus();
-                        break;
-                    case 4:
-                        printRoomByOccupancyRate();
-                        break;
-                    case 5:
-                        break;
-                    default:
-                        System.out.println("Invalid choice. Please try again.");
-                        break;
-
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Wrong data type! ");
-                System.out.println("________________\n");
+            printMenu();
+            opt = Helper.readInt(1,5);
+            switch (opt) {
+                case 1:
+                    if (promptUpdateRoomStatus()) {
+                        System.out.println("Status updated successfully.");
+                    } else {
+                        System.out.println("Unsuccessful status update");
+                    }
+                    break;
+                case 2:
+                    promptSearchRoom(true);
+                    break;
+                case 3:
+                    printRoomByStatus();
+                    break;
+                case 4:
+                    printRoomByOccupancyRate();
+                    break;
+                case 5:
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
             }
         } while (opt != 5);
     }
@@ -105,7 +99,7 @@ public class RoomView extends MainView{;
         System.out.println("Enter the room number");
         int room = Helper.readInt();
         printRoomStatusMenu();
-        int opt = Helper.readInt();
+        int opt = Helper.readInt(1,4);
         RoomStatus newStatus = RoomStatus.VACANT;
         int guestId = -1;
         // TODO: Fix bug
@@ -121,6 +115,7 @@ public class RoomView extends MainView{;
             case 3:
                 newStatus = RoomStatus.RESERVED;
                 System.out.println("Please enter the guest's id");
+                guestId = Helper.readInt();
                 break;
             case 4:
                 newStatus = RoomStatus.UNDER_MAINTENANCE;
