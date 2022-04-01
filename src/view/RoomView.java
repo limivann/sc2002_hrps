@@ -101,7 +101,7 @@ public class RoomView extends MainView{;
         printRoomStatusMenu();
         int opt = Helper.readInt(1,4);
         RoomStatus newStatus = RoomStatus.VACANT;
-        int guestId = -1;
+        String guestId = "-1";
         // TODO: Fix bug
         switch (opt) {
             case 1:
@@ -110,18 +110,18 @@ public class RoomView extends MainView{;
             case 2:
                 newStatus = RoomStatus.OCCUPIED;
                 System.out.println("Please enter the guest's id");
-                guestId = Helper.readInt();
+                guestId = Helper.sc.nextLine();
                 break;
             case 3:
                 newStatus = RoomStatus.RESERVED;
                 System.out.println("Please enter the guest's id");
-                guestId = Helper.readInt();
+                guestId = Helper.sc.nextLine();
                 break;
             case 4:
                 newStatus = RoomStatus.UNDER_MAINTENANCE;
                 break;
         }
-        return RoomManager.updateRoomStatus(floor, room, newStatus);
+        return RoomManager.updateRoomStatus(floor, room, newStatus, guestId);
     }
 
     /**

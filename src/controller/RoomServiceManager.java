@@ -6,6 +6,8 @@ import src.helper.Helper;
 import src.model.MenuItem;
 import src.model.Order;
 import src.model.enums.*;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -129,6 +131,22 @@ public class RoomServiceManager {
         Database.saveFileIntoDatabase(FileType.ORDERS);
         return true;
     }
+
+    /**
+     * Clears the entire order history of the room after the user has checked out
+     * @param roomId Id of the room
+     * @return {@code true} if removal of order is successful. Otherwise, {@code false} if room id not found.
+     */
+    public static boolean removeEntireOrderOfRoom(String roomId) {
+        if (!RoomManager.validateRoomId(roomId)) {
+            return false;
+        }
+        ArrayList<Order> orderToClear = searchOrderByRoom(roomId);
+        for (Order order : orderToClear) {
+            Database.ORDERS.remove(order.getOrderId());    
+        }
+        return true;
+    }
     
     /**
      * Checks if order Id is in the database for validation
@@ -153,15 +171,16 @@ public class RoomServiceManager {
      * Searches the orders made by customer residing in room of the specified room Id
      * 
      * @param roomId Room Id of the customer's room
-     * @return {@link Order} object if there is an order made. Otherwise {@code null} if no order made.
+     * @return ArrayList of {@link Order} object of all the orders made by that room.
      */
-    public static Order searchOrderByRoom(String roomId) {
+    public static ArrayList<Order> searchOrderByRoom(String roomId) {
+        ArrayList<Order> orders = new ArrayList<Order>();
         for (Order o : Database.ORDERS.values()) {
             if (o.getRoomId().equals(roomId)){
-                return o;
+                orders.add(o);
             }
         }
-        return null;
+        return orders;
     }
         
     /* Customize Menu methods */

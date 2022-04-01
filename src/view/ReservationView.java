@@ -141,7 +141,6 @@ public class ReservationView extends MainView {
                 System.out.println("Check out date cannot be earlier than check in date!");
                 return false;
             }
-            System.out.println(Helper.calculateDayDiff(checkedInDate, checkedOutDate));
             if (inWaitlist) {
                 ReservationManager.create(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax, ReservationStatus.IN_WAITLIST, RoomStatus.RESERVED);
             } else {

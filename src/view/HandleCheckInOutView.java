@@ -6,6 +6,8 @@ import javax.naming.spi.ResolveResult;
 
 import src.controller.PaymentManager;
 import src.controller.ReservationManager;
+import src.controller.RoomManager;
+import src.controller.RoomServiceManager;
 import src.helper.Helper;
 /**
  * The Class checks in and checks out a reservation.
@@ -88,6 +90,8 @@ public class HandleCheckInOutView extends MainView {
         System.out.println("You have chosen to pay by " + paymentOptStr);
         PaymentManager.handlePayment(reservationId);
 
+        //  remove all order details of that room
+        RoomServiceManager.removeEntireOrderOfRoom(ReservationManager.getRoomIdFromReservationId(reservationId));
     }
     /**
      * Prompt Payment option 

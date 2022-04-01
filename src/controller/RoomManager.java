@@ -9,6 +9,7 @@ import src.helper.Helper;
 import src.model.Room;
 import src.model.enums.*;
 
+import src.model.Guest;
 /**
  * The Class that manages {@link Room}.
  * @author Lim Kang Wei, Zhang Kaichen, Ivan
@@ -81,13 +82,32 @@ public class RoomManager {
      * @param floorNumber floor number of the room
      * @param roomNumber room number of the room
      * @param roomStatus room status of the room
+     * @param guestId Id of the guest to be added/removed from the room
      * @return {@code true} if successful. Otherwise, {@code false} if the room id not found.
      */
-    public static boolean updateRoomStatus(int floorNumber, int roomNumber, RoomStatus roomStatus) {
+    public static boolean updateRoomStatus(int floorNumber, int roomNumber, RoomStatus roomStatus, String guestId) {
+        ArrayList<Guest> guestList;
+        Guest guest = null;
+        if (guestId != "-1"){
+            guestList = GuestManager.searchGuestById(guestId);
+            if (guestList.size() == 0) {
+                System.out.println("Guest not found!");
+                return false;
+            }
+            guest = guestList.get(0);
+        }
         String roomId = String.format("%02d-%02d", floorNumber, roomNumber);
         if (Database.ROOMS.containsKey(roomId)) {
             Room targetRoom = Database.ROOMS.get(roomId);
             targetRoom.setRoomStatus(roomStatus);
+            // set guest details
+            if (guest != null) {
+                targetRoom.setGuestId(guest.getGuestId());
+                targetRoom.setGuestName(guest.getName());
+            } else {
+                targetRoom.setGuestId("");
+                targetRoom.setGuestName("");
+            }
             Database.ROOMS.put(roomId, targetRoom);
             Database.saveFileIntoDatabase(FileType.ROOMS);
             return true;

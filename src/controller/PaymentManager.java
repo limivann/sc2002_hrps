@@ -4,6 +4,8 @@ import src.model.Reservation;
 import src.model.Room;
 import src.model.enums.RoomStatus;
 
+import java.util.ArrayList;
+
 import javax.naming.spi.ResolveResult;
 import javax.print.DocFlavor.STRING;
 import javax.xml.crypto.Data;
@@ -31,10 +33,10 @@ public class PaymentManager {
     public static double calculateSubTotal(String roomId) {
         Room room = RoomManager.searchRoom(roomId);
         double roomPrice = room.getPrice();
-        Order order = RoomServiceManager.searchOrderByRoom(roomId);
+        ArrayList<Order> orders = RoomServiceManager.searchOrderByRoom(roomId);
         double orderPrice = 0;
-        if (order != null) {
-            orderPrice = order.getTotalBill();
+        for (Order order : orders) {
+            orderPrice += order.getTotalBill();
         }
         return roomPrice + orderPrice;
     }
