@@ -4,6 +4,7 @@ import src.controller.ReservationManager;
 import src.controller.GuestManager;
 import src.helper.Helper;
 import src.model.enums.ReservationStatus;
+import src.model.enums.RoomStatus;
 import src.controller.RoomManager;
 
 // for javadocs
@@ -87,13 +88,9 @@ public class ReservationView extends MainView {
         System.out.println("(1) Walk-In");
         System.out.println("(2) Reserve");
         System.out.println("(3) Exit");
-        int choice = Helper.readInt();
+        int choice = Helper.readInt(1, 3);
         if (choice == 3) {
             System.out.println("Exited");
-            return false;
-        }
-        if (choice != 1 && choice != 2) {
-            System.out.println("Invalid option");
             return false;
         }
 
@@ -109,7 +106,7 @@ public class ReservationView extends MainView {
             System.out.println("Room does not exist");
             return false;
         }
-        if (!RoomManager.checkRoomVacancy(roomId)) {
+        if (!RoomManager.checkRoomVacancy(roomId, RoomStatus.VACANT)) {
             System.out.println("Room is not Vacant! Guest will be moved to waitlist");
             inWaitlist = true;
         }
@@ -136,22 +133,33 @@ public class ReservationView extends MainView {
             }
             System.out.println("Enter Check Out Date");
             checkedOutDate = Helper.setDate(false);
-            if (checkedOutDate.equals("")){
+            if (checkedOutDate.equals("")) {
                 return false;
             }
+            // check if check out date is later than check in date
+            if (!Helper.validateTwoDates(checkedInDate, checkedOutDate)) {
+                System.out.println("Check out date cannot be earlier than check in date!");
+                return false;
+            }
+            System.out.println(Helper.calculateDayDiff(checkedInDate, checkedOutDate));
             if (inWaitlist) {
-                ReservationManager.create(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax, ReservationStatus.IN_WAITLIST);
+                ReservationManager.create(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax, ReservationStatus.IN_WAITLIST, RoomStatus.RESERVED);
             } else {
-                ReservationManager.create(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax, ReservationStatus.CONFIRMED);
+                ReservationManager.create(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax, ReservationStatus.CONFIRMED, RoomStatus.RESERVED);
             }
         } else {
             System.out.println("Enter Check Out Date");
-            checkedOutDate = Helper.setDate(false);
             checkedInDate = Helper.setDate(true);
+            checkedOutDate = Helper.setDate(false);
             if (checkedInDate.equals("") || checkedOutDate.equals("")) {
                 return false;
             }
-            ReservationManager.create(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax, ReservationStatus.CHECKED_IN);
+            // check if check out date is later than check in date
+            if (!Helper.validateTwoDates(checkedInDate, checkedOutDate)) {
+                System.out.println("Check out date cannot be earlier than check in date!");
+                return false;
+            }
+            ReservationManager.create(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax, ReservationStatus.CHECKED_IN, RoomStatus.OCCUPIED);
         }
 
         return true;
@@ -245,8 +253,12 @@ public class ReservationView extends MainView {
                     case 4:
                         System.out.println("Enter room Id");
                         roomId = Helper.sc.nextLine();
-                        if (!RoomManager.checkRoomVacancy(roomId)) {
-                            System.out.println("Room is not Vacant! Guest will be move to waitlist");
+                        if (!RoomManager.checkRoomVacancy(roomId, RoomStatus.VACANT)) {
+                            if (RoomManager.validateRoomId(roomId)) {
+                                System.out.println("Room is not Vacant! Guest will be move to waitlist");
+                            } else {
+                                System.out.println("Room id not found.");
+                            }
                             ReservationManager.updateRoomId(reservationId, roomId, ReservationStatus.IN_WAITLIST);
                             isUpdateSuccessful = true;
                             break;

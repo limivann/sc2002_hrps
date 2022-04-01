@@ -165,27 +165,23 @@ public class GuestView extends MainView{
      */
     public Identity promptIdentity() {
         printIdentityMenu();
-        int choice = Helper.readInt();
-        if (choice != 1 && choice != 2) {
-            return null;
-        } else {
-            Identity identity;
-            String identityNo;
-            switch (choice) {
-                case 1:
-                    System.out.println(
-                            "Enter the guest's " + IdentityType.DRIVING_LICENSE.identityTypeAsStr + " number: ");
-                    identityNo = Helper.sc.nextLine();
-                    identity = new Identity(IdentityType.DRIVING_LICENSE, identityNo);
-                    return identity;
-                case 2:
-                    System.out.println("Enter the guest's " + IdentityType.PASSPORT.identityTypeAsStr + " number: ");
-                    identityNo = Helper.sc.nextLine();
-                    identity = new Identity(IdentityType.PASSPORT, identityNo);
-                    return identity;
-                default:
-                    break;
-            }
+        int choice = Helper.readInt(1, 2);
+        Identity identity;
+        String identityNo;
+        switch (choice) {
+            case 1:
+                System.out.println(
+                        "Enter the guest's " + IdentityType.DRIVING_LICENSE.identityTypeAsStr + " number: ");
+                identityNo = Helper.sc.nextLine();
+                identity = new Identity(IdentityType.DRIVING_LICENSE, identityNo);
+                return identity;
+            case 2:
+                System.out.println("Enter the guest's " + IdentityType.PASSPORT.identityTypeAsStr + " number: ");
+                identityNo = Helper.sc.nextLine();
+                identity = new Identity(IdentityType.PASSPORT, identityNo);
+                return identity;
+            default:
+                break;
         }
         return null;
     }
@@ -198,14 +194,14 @@ public class GuestView extends MainView{
     public boolean promptUpdateGuest() {
         System.out.println("Enter the guest that you want to update (GXXXX): ");
         String guestId = Helper.sc.nextLine();
-        if (GuestManager.searchGuestById(guestId) == null) {
+        if (GuestManager.searchGuestById(guestId).size() == 0) {
             // TODO: Exception
             System.out.println("Guest not found!");
             return false;
         }
         printUpdateGuestMenu();
         int opt = -1;
-        opt = Helper.readInt();
+        opt = Helper.readInt(1, 7);
         switch (opt) {
             case 1:
                 System.out.println("Please enter the guest's new first name:");
@@ -275,7 +271,7 @@ public class GuestView extends MainView{
     public void promptSearchGuest() {
         System.out.println("Enter the guest id you want to search (GXXXX): ");
         String guestId = Helper.sc.nextLine();
-        if (GuestManager.searchGuestById(guestId) == null) {
+        if (!GuestManager.printGuestDetails(guestId)) {
             // TODO: Exception
             System.out.println("Guest not found!");
         };
@@ -290,12 +286,11 @@ public class GuestView extends MainView{
     public boolean promptRemoveGuest() {
         System.out.println("Enter the guest id you want to remove (GXXXX): ");
         String guestId = Helper.sc.nextLine();
-        if (GuestManager.searchGuestById(guestId) == null) {
-            // TODO: Exception
+        if (!GuestManager.removeGuest(guestId)) {
             System.out.println("Guest not found!");
             return false;
         }
-        return GuestManager.removeGuest(guestId);
+        return true;
     }
 
     // Print all guest

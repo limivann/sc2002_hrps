@@ -36,7 +36,7 @@ public class UserView extends MainView{
         int opt = -1;
         do{
             printMenu();
-            opt = Helper.readInt();
+            opt = Helper.readInt(1, 4);
             switch (opt) {
                 case 1:
                     handleCheckInOutView.viewapp();
@@ -50,7 +50,6 @@ public class UserView extends MainView{
                 case 4:
                     break;
                 default:
-                    // TODO: Throw Exception
                     System.out.println("Invalid input. Please try again.");
                     break;
             }
