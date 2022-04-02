@@ -161,7 +161,7 @@ public class GuestView extends MainView{
 
     /**
      * Function that generate the input for the identity for the guest <p>
-     * @return the identity type that is chosen if choice is valid
+     * @return {@link Identity} object that is chosen if choice is valid. Otherwise, {@code null}.
      */
     public Identity promptIdentity() {
         printIdentityMenu();
@@ -269,12 +269,28 @@ public class GuestView extends MainView{
      * Prompt function to search a guest
      */
     public void promptSearchGuest() {
-        System.out.println("Enter the guest id you want to search (GXXXX): ");
-        String guestId = Helper.sc.nextLine();
-        if (!GuestManager.printGuestDetails(guestId)) {
-            // TODO: Exception
-            System.out.println("Guest not found!");
-        };
+        System.out.println("Please enter an option on how to search the guests (1-2)");
+        System.out.println("(1) Search by guest id");
+        System.out.println("(2) Search by keyword (name)");
+        int opt = Helper.readInt(1, 2);
+        switch (opt) {
+            case 1:
+                System.out.println("Enter the guest id you want to search (GXXXX): ");
+                String guestId = Helper.sc.nextLine();
+                if (!GuestManager.printGuestDetails(guestId, true)) {
+                    System.out.println("Guest not found!");
+                }
+                break;
+            case 2:
+                System.out.println("Please enter a keyword for the guest to search: ");
+                String keyword = Helper.sc.nextLine();
+                if (!GuestManager.printGuestDetails(keyword, false)) {
+                    System.out.println("Guest not found!");
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     // Remove guest
@@ -299,7 +315,16 @@ public class GuestView extends MainView{
      * see {@link GuestManager} For the printing detail
      */
     public void printGuests() {
-        GuestManager.printAllGuests();
+        System.out.println("Please select an option of printing the guest (1-2)");
+        System.out.println("(1) Print in order of Guest ID");
+        System.out.println("(2) Print in order of Guest name");
+        int opt = Helper.readInt(1, 2);
+        switch (opt) {
+            case 1:
+                GuestManager.printAllGuests(true);
+            case 2:
+                GuestManager.printAllGuests(false);
+        }
     }
 
 }

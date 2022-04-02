@@ -107,8 +107,13 @@ public class ReservationView extends MainView {
             return false;
         }
         if (!RoomManager.checkRoomVacancy(roomId, RoomStatus.VACANT)) {
-            System.out.println("Room is not Vacant! Guest will be moved to waitlist");
-            inWaitlist = true;
+            if (choice == 1) {
+                System.out.println("Unable to walk in an occupied room");
+                return false;
+            } else {
+                System.out.println("Room is not Vacant! Guest will be moved to waitlist");
+                inWaitlist = true;
+            }
         }
         RoomManager.printRoom(roomId);
         System.out.println("Enter Guest Id (GXXXX)");
@@ -160,7 +165,7 @@ public class ReservationView extends MainView {
             }
             ReservationManager.create(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax, ReservationStatus.CHECKED_IN, RoomStatus.OCCUPIED);
         }
-
+        Helper.pressAnyKeyToContinue();
         return true;
     }
     /**
@@ -255,11 +260,11 @@ public class ReservationView extends MainView {
                         if (!RoomManager.checkRoomVacancy(roomId, RoomStatus.VACANT)) {
                             if (RoomManager.validateRoomId(roomId)) {
                                 System.out.println("Room is not Vacant! Guest will be move to waitlist");
+                                ReservationManager.updateRoomId(reservationId, roomId, ReservationStatus.IN_WAITLIST);
+                                isUpdateSuccessful = true;
                             } else {
                                 System.out.println("Room id not found.");
                             }
-                            ReservationManager.updateRoomId(reservationId, roomId, ReservationStatus.IN_WAITLIST);
-                            isUpdateSuccessful = true;
                             break;
                         } else {
                             ReservationManager.updateRoomId(reservationId, roomId, ReservationStatus.CONFIRMED);
@@ -299,12 +304,8 @@ public class ReservationView extends MainView {
                     case 7:
                         printReservationStatusMenu();
                         reservationStatus = Helper.readInt(1, 6);
-                        if (reservationStatus >= 1 && reservationStatus <= 6) {
-                            ReservationManager.updateReservationStatus(reservationId, reservationStatus);
-                            isUpdateSuccessful = true;
-                        } else {
-                            System.out.println("Invalid option. Please try again");
-                        }
+                        ReservationManager.updateReservationStatus(reservationId, reservationStatus);
+                        isUpdateSuccessful = true;
                         break;
                     case 8:
                         break;

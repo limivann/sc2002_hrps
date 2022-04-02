@@ -39,12 +39,14 @@ public class ReservationManager {
         String reservationId = String.format("R%04d", rid);
         Reservation newReservation = new Reservation(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax,
                 reservationId, reservationStatus);
-        System.out.println("Reservation created. Reservation ID: " + reservationId);
         Database.RESERVATIONS.put(reservationId, newReservation);
         Database.saveFileIntoDatabase(FileType.RESERVATIONS);
-
+        
         // Edit rooms status to reserved
         RoomManager.updateRoomStatus(roomId, roomStatus);
+        RoomManager.updateRoomGuestDetails(roomId, guestId);
+        System.out.println("Reservation created. Reservation details: ");
+        printReservationDetails(reservationId);
     }
     /**
      * A method that removes reservation from database. <p>
@@ -55,7 +57,6 @@ public class ReservationManager {
      */
     public static boolean remove(String reservationId) {
         if (validateReservationId(reservationId)) {
-            System.out.println("HERE");
             Database.RESERVATIONS.remove(reservationId);
             // shift waitlist up
             ArrayList<Reservation> candidates = getWaitlistedReservation(getRoomIdFromReservationId(reservationId));
@@ -116,16 +117,16 @@ public class ReservationManager {
         if(validateReservationId(reservationId)){
             Reservation reservation = Database.RESERVATIONS.get(reservationId);
             System.out.println("----------------");
-            System.out.println(String.format("Reservation Id:\t%s", reservation.getReservationId()));
+            System.out.println(String.format("%-30s: %s", "Reservation Id", reservation.getReservationId()));
             ArrayList<Guest> guests = GuestManager.searchGuestById(reservation.getGuestId());
             String guestName = guests.size() > 0 ? guests.get(0).getName() : "Guest not found";
-            System.out.println(String.format("Guest Name:\t%s", guestName));
-            System.out.println(String.format("Room Id:\t%s", reservation.getRoomId()));
-            System.out.println(String.format("Checked In Date:\t%s", reservation.getCheckedInDate()));
-            System.out.println(String.format("Checked Out Date:\t%s", reservation.getCheckedOutDate()));
-            System.out.println(String.format("Reservation Out Date:\t%s", reservation.getReservationDate()));
-            System.out.println(String.format("Number Of Pax:\t%d", reservation.getNumberOfPax()));
-            System.out.println(String.format("Reservation Status:\t%s", reservation.getReservationStatus()));
+            System.out.println(String.format("%-30s: %s","Guest Name" ,guestName));
+            System.out.println(String.format("%-30s: %s", "Room Id", reservation.getRoomId()));
+            System.out.println(String.format("%-30s: %s","Checked In Date",reservation.getCheckedInDate()));
+            System.out.println(String.format("%-30s: %s", "Checked out Date",reservation.getCheckedOutDate()));
+            System.out.println(String.format("%-30s: %s", "Reservation Created Date",reservation.getReservationDate()));
+            System.out.println(String.format("%-30s: %s", "Number of Pax",String.valueOf(reservation.getNumberOfPax())));
+            System.out.println(String.format("%-30s: %s", "Reservation Status",reservation.getReservationStatus()));
             System.out.println("----------------");
         }
     }
@@ -255,21 +256,64 @@ public class ReservationManager {
         }
         switch (status) {
             case 1:
+                if (search(reservationId).getReservationStatus() == ReservationStatus.CONFIRMED) {
+                    return true;
+                }
+                if (search(reservationId).getReservationStatus() == ReservationStatus.CHECKED_OUT
+                        || search(reservationId).getReservationStatus() == ReservationStatus.EXPIRED
+                        || search(reservationId).getReservationStatus() == ReservationStatus.CANCELLED) {
+                    System.out.println("Unable to confirm an already checked out/expired/cancelled reservation");
+                    return false;
+                }
                 search(reservationId).setReservationStatus(ReservationStatus.CONFIRMED);
                 break;
             case 2:
+                if (search(reservationId).getReservationStatus() == ReservationStatus.IN_WAITLIST) {
+                    return true;
+                }
+                if (search(reservationId).getReservationStatus() == ReservationStatus.CHECKED_OUT
+                        || search(reservationId).getReservationStatus() == ReservationStatus.EXPIRED
+                        || search(reservationId).getReservationStatus() == ReservationStatus.CANCELLED) {
+                    System.out.println("Unable to confirm an already checked out/expired/cancelled reservation");
+                    return false;
+                }
                 search(reservationId).setReservationStatus(ReservationStatus.IN_WAITLIST);
                 break;
             case 3:
-                search(reservationId).setReservationStatus(ReservationStatus.CHECKED_IN);
+                if (search(reservationId).getReservationStatus() == ReservationStatus.CHECKED_IN) {
+                    return true;
+                }
+                if (search(reservationId).getReservationStatus() == ReservationStatus.CHECKED_OUT
+                        || search(reservationId).getReservationStatus() == ReservationStatus.EXPIRED
+                        || search(reservationId).getReservationStatus() == ReservationStatus.CANCELLED) {
+                    System.out.println("Unable to check in an already checked out/expired/cancelled reservation");
+                    return false;
+                }
+                checkInReservation(reservationId);
                 break;
             case 4:
+                if (search(reservationId).getReservationStatus() == ReservationStatus.EXPIRED) {
+                    return true;
+                }
+                if (search(reservationId).getReservationStatus() == ReservationStatus.CHECKED_OUT) {
+                    System.out.println("Please check out before changing the status to expired");
+                    return false;
+                }
                 search(reservationId).setReservationStatus(ReservationStatus.EXPIRED);
                 break;
             case 5:
-                search(reservationId).setReservationStatus(ReservationStatus.CHECKED_OUT);
+                if (search(reservationId).getReservationStatus() == ReservationStatus.CHECKED_OUT) {
+                    return true;
+                }
+                //  check out procedure
+                checkOutReservation(reservationId);
+                PaymentManager.handlePayment(reservationId);
+                RoomServiceManager.removeEntireOrderOfRoom(getRoomIdFromReservationId(reservationId));
                 break;
             case 6:
+                if (search(reservationId).getReservationStatus() == ReservationStatus.CANCELLED) {
+                    return true;
+                }
                 search(reservationId).setReservationStatus(ReservationStatus.CANCELLED);
                 break;
         }

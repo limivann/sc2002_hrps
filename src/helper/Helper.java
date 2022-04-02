@@ -1,5 +1,6 @@
 package src.helper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map;
@@ -12,6 +13,7 @@ import java.time.temporal.ChronoUnit;
 
 import src.controller.ReservationManager;
 import src.database.Database;
+import src.model.Guest;
 import src.model.Reservation;
 
 public class Helper {
@@ -207,6 +209,14 @@ public class Helper {
         LocalDateTime from = getDate(fromDate, format);
         LocalDateTime to = getDate(toDate, format);
         return (to.compareTo(from) >= 0 ? true : false);
+    }
+
+    public static void pressAnyKeyToContinue() {
+        System.out.println("Press Enter key to continue...");
+        try {
+            System.in.read();
+        } catch (Exception e) {
+        }
     }
 
     public static void main(String[] args) {
