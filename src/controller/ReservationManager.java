@@ -289,7 +289,7 @@ public class ReservationManager {
                     System.out.println("Unable to check in an already checked out/expired/cancelled reservation");
                     return false;
                 }
-                checkInReservation(reservationId);
+                search(reservationId).setReservationStatus(ReservationStatus.CHECKED_IN);
                 break;
             case 4:
                 if (search(reservationId).getReservationStatus() == ReservationStatus.EXPIRED) {
@@ -306,7 +306,17 @@ public class ReservationManager {
                     return true;
                 }
                 //  check out procedure
-                checkOutReservation(reservationId);
+                search(reservationId).setReservationStatus(ReservationStatus.CHECKED_OUT);
+                // shift waitlist up
+                ArrayList<Reservation> candidates = getWaitlistedReservation(getRoomIdFromReservationId(reservationId));
+                if (candidates.size() > 0) {
+                    Reservation target = candidates.get(0);
+                    target.setReservationStatus(ReservationStatus.CONFIRMED);
+                    RoomManager.updateRoomStatus(getRoomIdFromReservationId(reservationId), RoomStatus.RESERVED);
+                    // Set room status
+                } else {
+                    RoomManager.updateRoomStatus(getRoomIdFromReservationId(reservationId), RoomStatus.VACANT);
+                }
                 PaymentManager.handlePayment(reservationId);
                 RoomServiceManager.removeEntireOrderOfRoom(getRoomIdFromReservationId(reservationId));
                 break;
