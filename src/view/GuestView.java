@@ -322,8 +322,12 @@ public class GuestView extends MainView{
         switch (opt) {
             case 1:
                 GuestManager.printAllGuests(true);
+                break;
             case 2:
                 GuestManager.printAllGuests(false);
+                break;
+            default:
+                break;
         }
     }
 
