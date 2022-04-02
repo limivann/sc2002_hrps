@@ -1,6 +1,7 @@
 package src.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -202,6 +203,17 @@ public class GuestManager {
         }
         return searchList;
     }
+
+    public static ArrayList<Guest> searchGuestByKeywords(String keyword) {
+        ArrayList<Guest> searchList = new ArrayList<Guest>();
+        for (Guest guest : Database.GUESTS.values()) {
+            String currentGuestName = guest.getName().toLowerCase();
+            if (currentGuestName.contains(keyword.toLowerCase())) {
+                searchList.add(guest);
+            }
+        }
+        return searchList;
+    }
     
     /**
      * Function to remove guest from the database <p>
@@ -230,14 +242,27 @@ public class GuestManager {
      * Function to print all guest in the database that show the guest id and the Guest <p>
      * see {@link Guest#toString()}
      */
-    public static void printAllGuests() {
-        HashMap<String, Guest> toIterate = Helper.copyHashMap(Database.GUESTS);
-        Iterator it = toIterate.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            System.out.println(pair.getKey() + " = " + pair.getValue());
-            it.remove(); // avoids a ConcurrentModificationException
+    public static void printAllGuests(boolean byId) {
+        if (byId) {
+            for (Guest guest : Database.GUESTS.values()) {
+                System.out.println(guest.getGuestId() + " = " + guest);
+            }
+            return;
+        } else {
+            //  print by name
+            ArrayList<Guest> sortedList = new ArrayList<Guest>();
+            //  copy
+            for (Guest guest : Database.GUESTS.values()) {
+                sortedList.add(guest);
+            }
+            Collections.sort(sortedList);
+
+            // print
+            for (Guest guest : sortedList) {
+                System.out.println(guest.getGuestId() + " = " + guest);
+            }
         }
+        
     }
 
     /**
@@ -259,8 +284,14 @@ public class GuestManager {
      * @param guestId the guest of the guest that you want to print its details
      * @return {@code true} if guest id exist. Otherwise, {@code false}
      */
-    public static boolean printGuestDetails(String guestId) {
-        ArrayList<Guest> printList = searchGuestById(guestId);
+    public static boolean printGuestDetails(String keyword, boolean byId) {
+        ArrayList<Guest> printList = new ArrayList<Guest>();
+        if (byId) {
+            printList = searchGuestById(keyword);
+        } else {
+            // search by keywords
+            printList = searchGuestByKeywords(keyword);
+        }
         if (printList.size() == 0) {
             return false;
         }

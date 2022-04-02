@@ -463,4 +463,16 @@ public class RoomManager {
         }
         return false;
     }
+
+    public static boolean updateRoomGuestDetails(String roomId, String guestId) {
+        ArrayList<Guest> guestToUpdateList = GuestManager.searchGuestById(guestId);
+        if (guestToUpdateList.size() == 0) {
+            System.out.println("Guest not found");
+            return false;
+        }
+        Room roomToUpdate = searchRoom(roomId);
+        roomToUpdate.setGuestId(guestId);
+        roomToUpdate.setGuestName(guestToUpdateList.get(0).getName());
+        return true;
+    }
 }

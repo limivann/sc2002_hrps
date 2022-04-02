@@ -11,7 +11,7 @@ import src.helper.Helper;
  * @version 1.0
  * @since 30-03-2022
  */
-public class Guest implements Serializable {
+public class Guest implements Serializable, Comparable<Guest> {
 
     /**
      * For Java Serializable
@@ -250,8 +250,12 @@ public class Guest implements Serializable {
      * Getter
      * @return the guest id of the guest
      */
-    public String getGuestId(){
+    public String getGuestId() {
         return guestId;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
     
     /**
@@ -276,5 +280,14 @@ public class Guest implements Serializable {
     @Override
     public String toString() {
         return String.format("Guest Name: %s, Contact No: %s", getName(), getContact());
+    } 
+
+    @Override
+    public int compareTo(Guest o) {
+        // TODO Auto-generated method stub
+        if (this == o) {
+            return 0;
+        }
+        return this.getName().compareTo(o.getName());
     }
 }
