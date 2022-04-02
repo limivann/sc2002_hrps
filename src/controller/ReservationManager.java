@@ -367,6 +367,7 @@ public class ReservationManager {
         if (candidates.size() > 0) {
             Reservation target = candidates.get(0);
             target.setReservationStatus(ReservationStatus.CONFIRMED);
+            RoomManager.updateRoomStatus(getRoomIdFromReservationId(reservationId), RoomStatus.RESERVED);
             // Set room status
         } else {
             RoomManager.updateRoomStatus(getRoomIdFromReservationId(reservationId), RoomStatus.VACANT);

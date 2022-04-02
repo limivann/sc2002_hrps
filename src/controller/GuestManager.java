@@ -1,5 +1,6 @@
 package src.controller;
 
+import java.nio.channels.Pipe;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -243,24 +244,30 @@ public class GuestManager {
      * see {@link Guest#toString()}
      */
     public static void printAllGuests(boolean byId) {
+        ArrayList<Guest> sortedList = new ArrayList<Guest>();
+        //  copy
+        for (Guest guest : Database.GUESTS.values()) {
+            sortedList.add(guest);
+        }
         if (byId) {
-            for (Guest guest : Database.GUESTS.values()) {
-                System.out.println(guest.getGuestId() + " = " + guest);
+            for (int index = 1; index < sortedList.size(); index++) {
+                Guest currentGuest = sortedList.get(index);
+                int gid = Integer.parseInt(currentGuest.getGuestId().substring(1));
+                int position = index;
+                while (position > 0 && gid < Integer.parseInt(sortedList.get(position-1).getGuestId().substring(1))) {
+                    sortedList.set(position, sortedList.get(position - 1));
+                    position--;
+                }
+                sortedList.set(position, currentGuest);
             }
-            return;
+            
         } else {
             //  print by name
-            ArrayList<Guest> sortedList = new ArrayList<Guest>();
-            //  copy
-            for (Guest guest : Database.GUESTS.values()) {
-                sortedList.add(guest);
-            }
             Collections.sort(sortedList);
-
-            // print
-            for (Guest guest : sortedList) {
-                System.out.println(guest.getGuestId() + " = " + guest);
-            }
+        }
+        // print
+        for (Guest guest : sortedList) {
+            System.out.println(guest.getGuestId() + " = " + guest);
         }
         
     }
