@@ -20,12 +20,13 @@ public class DatabaseView extends MainView {
      */
     @Override
     public void printMenu() {
-        System.out.println("=== Manage Database View ===");
+        Helper.clearScreen();
+        printBreadCrumbs("Admin View > Database View");
         System.out.println("Please select an option (1-4)");
         System.out.println("(1) Initialize guests");
         System.out.println("(2) Initialize menu");
         System.out.println("(3) Reset database");
-        System.out.println("(4) Exit Manage Database View");
+        System.out.println("(4) Exit Database View");
     }
     /**
      * View Application for Database.
@@ -35,7 +36,7 @@ public class DatabaseView extends MainView {
         int opt = -1;
         do {
             printMenu();
-            opt = Helper.readInt();
+            opt = Helper.readInt(1, 4);
             switch (opt) {
                 case 1:
                     // Init guests

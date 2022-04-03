@@ -20,13 +20,14 @@ public class AdminView extends MainView{
      * Admin view menu
      */
     public void printMenu() {
-        System.out.println("=== Admin View ===");
-        System.out.println("Enter your choice (1-7)");
+        Helper.clearScreen();
+        printBreadCrumbs("Admin View");
+        System.out.println("What would you like to do ?");
         System.out.println("(1) Manage Guest");
         System.out.println("(2) Manage Room");
         System.out.println("(3) Manage Reservation");
         System.out.println("(4) Manage RoomService (Customize Menu)");
-        System.out.println("(5) Manage Promotion Details");
+        System.out.println("(5) Manage Payment");
         System.out.println("(6) Manage Database");
         System.out.println("(7) Exit Admin View");   
     }
@@ -49,7 +50,7 @@ public class AdminView extends MainView{
         int opt = -1;
         do{
             printMenu();
-            opt = Helper.readInt();
+            opt = Helper.readInt(1, 7);
             switch (opt) {
                 case 1:
                     guestView.viewapp();

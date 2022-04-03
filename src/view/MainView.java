@@ -1,7 +1,5 @@
 package src.view;
 
-import java.util.Scanner;
-
 import src.helper.Helper;
 public abstract class MainView {
     public abstract void printMenu();
@@ -11,5 +9,12 @@ public abstract class MainView {
 
     public MainView() {
         helper = new Helper();
+    }
+
+    protected void printBreadCrumbs(String breadcrumb) {
+        String spaces = String.format("%" + (71 - breadcrumb.length()) + "s", "");
+        System.out.println("╔════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║ " + breadcrumb + spaces + "║");
+        System.out.println("╚════════════════════════════════════════════════════════════════════════╝");
     }
 }

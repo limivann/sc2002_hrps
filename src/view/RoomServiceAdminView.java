@@ -20,19 +20,19 @@ public class RoomServiceAdminView extends MainView{
      */
     @Override
     public void printMenu() {
-        System.out.println("=== Room Service (Admin) View ===");
+        Helper.clearScreen();
+        printBreadCrumbs("Admin View > Room Service View");
         System.out.println("Please enter an option (1-3)");
         System.out.println("(1) Customize Menu");
         System.out.println("(2) Manage Orders");
         System.out.println("(3) Exit Room Service (Admin) View");
-        
     }
     /**
      * Application for the room service administrative view system
      */
     @Override
     public void viewapp() {
-        int option = 99;
+        int option = -1;
         do {
             printMenu();
             option = Helper.readInt(1,3);
@@ -57,7 +57,7 @@ public class RoomServiceAdminView extends MainView{
     /**
      * Prints the options for the customizing the menu
      */
-    private void printMenu_customizeMenu() {
+    private void printCustomizeMenuMenu() {
         System.out.println("***** CUSTOMIZE MENU *****");
         System.out.println("Please enter an option (1-5)");
         System.out.println("(1) Add menu items");
@@ -76,7 +76,7 @@ public class RoomServiceAdminView extends MainView{
         String description = "";
         double price = 0;
         do{
-            printMenu_customizeMenu();
+            printCustomizeMenuMenu();
             option = Helper.readInt(1, 5);
             switch(option){
                 case 1:

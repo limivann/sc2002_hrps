@@ -21,13 +21,15 @@ public class ReservationView extends MainView {
      */
     @Override
     public void printMenu() {
-        System.out.println("Please select an option (1-6):");
+        Helper.clearScreen();
+        printBreadCrumbs("Admin View > Reservation View");
+        System.out.println("What would you like to do ?");
         System.out.println("(1) Create Reservation");
         System.out.println("(2) Search Reservation");
         System.out.println("(3) Update Reservation");
         System.out.println("(4) Remove Reservation");
         System.out.println("(5) Print All Reservations");
-        System.out.println("(6) Exit");
+        System.out.println("(6) Exit Reservation View");
     }
     /**
      * View Application for the Reservation. <p>

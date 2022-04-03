@@ -219,6 +219,15 @@ public class Helper {
         }
     }
 
+    public static void clearScreen() {
+        try{
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();  
+        } catch (Exception err) {
+            
+        }
+    }
+
+
     public static void main(String[] args) {
         Helper helper = new Helper();
         System.out.println(validateTwoDates("2022-03-25 16:12", "2022-03-25 12:12"));

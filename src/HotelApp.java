@@ -19,15 +19,11 @@ public class HotelApp {
         AdminView adminView = new AdminView();
         UserView userView = new UserView();
 
-        // TODO: Initialize Database
         Database database = new Database();
-        // Initialize room
-
-        System.out.println("Welcome to Hotel Reservation and Payment System");
         int opt = -1;
         do{
             printMainMenu();
-            opt = Helper.readInt();
+            opt = Helper.readInt(1,3);
             switch (opt) {
                 case 1:
                     adminView.viewapp();
@@ -38,8 +34,6 @@ public class HotelApp {
                 case 3:
                     break;
                 default:
-                    // TODO: Throw Exception
-                    System.out.println("Invalid input. Please try again.");
                     break;
             }
         } while (opt != 3);
@@ -50,7 +44,9 @@ public class HotelApp {
      * Menu for views
      */
     public static void printMainMenu() {
-        System.out.println("Please select a view option (1-3)");
+        Helper.clearScreen();
+        System.out.println("Welcome to Hotel Reservation and Payment System");
+        System.out.println("Enter user domain");
         System.out.println("(1) Admin View");
         System.out.println("(2) User View");
         System.out.println("(3) Exit Program");

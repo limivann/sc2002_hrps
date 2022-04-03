@@ -30,7 +30,9 @@ public class RoomView extends MainView{;
      * View Menu for the Room
      */
     public void printMenu() {
-        System.out.println("Please select an option (1-5)");
+        Helper.clearScreen();
+        printBreadCrumbs("Admin View > Room View");
+        System.out.println("What would you like to do ?");
         System.out.println("(1) Update room status");
         System.out.println("(2) Search room");
         System.out.println("(3) Print rooms by status");

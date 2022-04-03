@@ -20,7 +20,8 @@ public class OrderView extends MainView{
      */
     @Override
     public void printMenu() {
-        System.out.println("=== Order View ===");
+        Helper.clearScreen();
+        printBreadCrumbs("User View > Order View");
         System.out.println("Please enter an option (1-2)");
         System.out.println("(1) Create an Order");
         System.out.println("(2) Exit Order View");

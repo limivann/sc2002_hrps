@@ -24,11 +24,12 @@ public class HandleCheckInOutView extends MainView {
      */
     @Override
     public void printMenu() {
-        System.out.println("=== Handle Check In / Check Out View === ");
+        Helper.clearScreen();
+        printBreadCrumbs("User View > Check In / Check Out View");
         System.out.println("Please select an option (1-3)");
         System.out.println("(1) Check In Room");
         System.out.println("(2) Check Out Room");
-        System.out.println("(3) Exit Handle Check In / Check Out View");
+        System.out.println("(3) Exit Check In / Check Out View");
     }
     /**
      * View Application for Check In and Check Out

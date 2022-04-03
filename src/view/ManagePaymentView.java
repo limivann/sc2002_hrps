@@ -12,12 +12,13 @@ public class ManagePaymentView extends MainView {
 
     @Override
     public void printMenu() {
-        System.out.println("=== Manage Payment View ===");
+        Helper.clearScreen();
+        printBreadCrumbs("Admin View > Payment View");
         System.out.println("Please select an option (1-4)");
         System.out.println("(1) Manage Room Price");
         System.out.println("(2) Manage Tax Rate");
         System.out.println("(3) Manage Discount Rate");
-        System.out.println("(4) Exit Manage Payment View");
+        System.out.println("(4) Exit Payment View");
     }
 
     @Override
