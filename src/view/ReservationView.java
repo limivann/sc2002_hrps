@@ -42,7 +42,7 @@ public class ReservationView extends MainView {
         do {
             printMenu();
             opt = Helper.readInt(1,6);
-            switch (opt){
+            switch (opt) {
                 case 1:
                     if (createReservation()) {
                         System.out.println("Create reservation successful");
@@ -51,17 +51,23 @@ public class ReservationView extends MainView {
                     }
                     break;
                 case 2:
-                    System.out.println("Enter Reservation Id (RXXXX)");
+                    Helper.clearScreen();
+                    printBreadCrumbs("Admin View > Reservation View > Search Reservation");
+                    System.out.println("Enter Reservation Id to search (RXXXX)");
                     reservationId = Helper.sc.nextLine();
                     ReservationManager.printReservationDetails(reservationId);
                     break;
                 case 3:
-                    System.out.println("Enter Reservation Id (RXXXX)");
+                    Helper.clearScreen();
+                    printBreadCrumbs("Admin View > Reservation View > Update Reservation");
+                    System.out.println("Enter Reservation Id to update (RXXXX)");
                     reservationId = Helper.sc.nextLine();
                     updateReservation(reservationId);
                     break;
                 case 4:
-                    System.out.println("Enter Reservation Id (RXXXX)");
+                    Helper.clearScreen();
+                    printBreadCrumbs("Admin View > Reservation View > Remove Reservation");
+                    System.out.println("Enter Reservation Id to remove (RXXXX)");
                     reservationId = Helper.sc.nextLine();
                     if (ReservationManager.remove(reservationId)) {
                         System.out.println("Remove reservation successful");
@@ -70,12 +76,17 @@ public class ReservationView extends MainView {
                     }
                     break;
                 case 5:
+                    Helper.clearScreen();
+                    printBreadCrumbs("Admin View > Reservation View > Print All Reservations");
                     ReservationManager.printAllReservations();
                     break;
                 case 6:
                     break;
                 default:
                     System.out.println("Invalid option. Please try again.");
+            }
+            if (opt != 6) {
+                Helper.pressAnyKeyToContinue();
             }
         }while( opt != 6);
     }
@@ -85,7 +96,8 @@ public class ReservationView extends MainView {
      * @return {@code true} if reservation is created successfully. Otherwise, {@code false}.
      */
     public boolean createReservation() {
-        System.out.println("--- Create Reservation ---");
+        Helper.clearScreen();
+        printBreadCrumbs("Admin View > Reservation View > Create Reservation");
         System.out.println("Please enter an option (1-3)");
         System.out.println("(1) Walk-In");
         System.out.println("(2) Reserve");
@@ -167,7 +179,6 @@ public class ReservationView extends MainView {
             }
             ReservationManager.create(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax, ReservationStatus.CHECKED_IN, RoomStatus.OCCUPIED);
         }
-        Helper.pressAnyKeyToContinue();
         return true;
     }
     /**

@@ -277,7 +277,6 @@ public class RoomServiceManager {
      * Prints the menu items in the menu with details of each menu item.
      */
     public static void printMenu(){
-        System.out.println("*** Hotel Menu ***");
         for (MenuItem menuItem: Database.MENU_ITEMS.values()){
             System.out.printf("Item name: %s\nDescription: %s\nPrice: $%.2f\n",
                     menuItem.getName(), menuItem.getDescription(), menuItem.getPrice());

@@ -25,30 +25,31 @@ public class RoomServiceAdminView extends MainView{
         System.out.println("Please enter an option (1-3)");
         System.out.println("(1) Customize Menu");
         System.out.println("(2) Manage Orders");
-        System.out.println("(3) Exit Room Service (Admin) View");
+        System.out.println("(3) Exit Room Service View");
     }
     /**
      * Application for the room service administrative view system
      */
     @Override
     public void viewapp() {
-        int option = -1;
+        int opt = -1;
         do {
             printMenu();
-            option = Helper.readInt(1,3);
-            switch (option) {
+            opt = Helper.readInt(1,3);
+            switch (opt) {
                 case 1:
                     customizeMenu();
                     break;
                 case 2:
                     manageOrders();
+                    break;
                 case 3:
                     break;
                 default:
-                    System.out.println("Invalid Option");
+                    System.out.println("Invalid option");
                     break;
             }
-        } while (option != 3);
+        } while (opt != 3);
 
     }
     
@@ -58,7 +59,8 @@ public class RoomServiceAdminView extends MainView{
      * Prints the options for the customizing the menu
      */
     private void printCustomizeMenuMenu() {
-        System.out.println("***** CUSTOMIZE MENU *****");
+        Helper.clearScreen();
+        printBreadCrumbs("Admin View > Room Service View > Customize Menu");
         System.out.println("Please enter an option (1-5)");
         System.out.println("(1) Add menu items");
         System.out.println("(2) Remove menu items");
@@ -71,15 +73,17 @@ public class RoomServiceAdminView extends MainView{
      * Application for the customize menu system
      */
     private void customizeMenu() {
-        int option = -1;
+        int opt = -1;
         String name = "";
         String description = "";
         double price = 0;
         do{
             printCustomizeMenuMenu();
-            option = Helper.readInt(1, 5);
-            switch(option){
+            opt = Helper.readInt(1, 5);
+            switch (opt) {
                 case 1:
+                    Helper.clearScreen();
+                    printBreadCrumbs("Admin View > Room Service View > Customize Menu > Add menu items");
                     System.out.println("Enter name of item to be added:\r");
                     name = Helper.sc.nextLine();
                     System.out.printf("Enter description of %s:\n\r", name);
@@ -89,11 +93,15 @@ public class RoomServiceAdminView extends MainView{
                     addMenuItem(name, description, price);
                     break;
                 case 2:
+                    Helper.clearScreen();
+                    printBreadCrumbs("Admin View > Room Service View > Customize Menu > Remove menu items");
                     System.out.println("Enter name of item to be removed:\r");
                     name = Helper.sc.nextLine();
                     removeMenuItem(name);
                     break;
                 case 3:
+                    Helper.clearScreen();
+                    printBreadCrumbs("Admin View > Room Service View > Customize Menu > Update menu items");
                     System.out.println("Enter name of item to be updated:\r");
                     name = Helper.sc.nextLine();
                     System.out.printf("Enter description of %s:\n\r", name);
@@ -103,16 +111,20 @@ public class RoomServiceAdminView extends MainView{
                     updateMenuItem(name, description, price);
                     break;
                 case 4:
+                    Helper.clearScreen();
+                    printBreadCrumbs("Admin View > Room Service View > Customize Menu > Print menu items");
                     printMenuItems();
                     break;
                 case 5:
-                    System.out.println("EXITED EDIT MENU");
                     break;
-                default :
+                default:
                     System.out.println("Invalid option");
                     break;
             }
-        }while (option != 5);
+            if (opt != 5) {
+                Helper.pressAnyKeyToContinue();
+            }
+        }while (opt != 5);
     }
 
     /**
@@ -179,7 +191,7 @@ public class RoomServiceAdminView extends MainView{
      */
     public void manageOrders() {
         int opt = -1;
-        do{
+        do {
             printManageOrdersMenu();
             opt = Helper.readInt(1, 4);
             switch (opt) {
@@ -189,6 +201,8 @@ public class RoomServiceAdminView extends MainView{
                     }
                     break;
                 case 2:
+                    Helper.clearScreen();
+                    printBreadCrumbs("Admin View > Room Service View > Manage Orders > Update order status");
                     if (updateOrderStatus()) {
                         System.out.println("Update order successful");
                     } else {
@@ -196,12 +210,17 @@ public class RoomServiceAdminView extends MainView{
                     }
                     break;
                 case 3:
+                    Helper.clearScreen();
+                    printBreadCrumbs("Admin View > Room Service View > Manage Orders > Print all orders");
                     RoomServiceManager.printAllOrders();
                     break;
                 case 4:
                     break;
                 default:
                     System.out.println("Invalid input");
+            }
+            if (opt != 4) {
+                Helper.pressAnyKeyToContinue();
             }
         } while (opt != 4);
         
@@ -211,7 +230,8 @@ public class RoomServiceAdminView extends MainView{
      * Prints the options for the managing order menu
      */
     public void printManageOrdersMenu() {
-        System.out.println("***** MANAGE ORDERS *****");
+        Helper.clearScreen();
+        printBreadCrumbs("Admin View > Room Service View > Manage Orders");
         System.out.println("Please select an option (1-4)");
         System.out.println("(1) Create an order");
         System.out.println("(2) Update order status");
@@ -248,7 +268,6 @@ public class RoomServiceAdminView extends MainView{
      * Print the options for the create order menu.
      */
     private void printCreateOrderMenu() {
-        System.out.println("***** ORDER MENU *****");
         System.out.println("Please enter an option (1-6)");
         System.out.println("(1) Print menu");
         System.out.println("(2) Add menu items");
@@ -278,15 +297,20 @@ public class RoomServiceAdminView extends MainView{
         String itemName;
         int itemAmount;
         int option = -1;
-        do{
+        do { 
+            Helper.clearScreen();
+            printBreadCrumbs("Admin View > Room Service View > Manage Orders > Create order for Room " + roomId);
             printCreateOrderMenu();
-            System.out.println("Enter option: ");
             option = Helper.readInt(1, 6);
-            switch (option){
+            switch (option) {
                 case 1:
+                    Helper.clearScreen();
+                    printBreadCrumbs("Admin View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Print menu");
                     RoomServiceManager.printMenu();
                     break;
                 case 2:
+                    Helper.clearScreen();
+                    printBreadCrumbs("Admin View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Add menu items");
                     System.out.println("Enter item to be added:\r");
                     itemName = Helper.sc.nextLine();
                     System.out.println("Enter amount to be added:\r");
@@ -294,6 +318,8 @@ public class RoomServiceAdminView extends MainView{
                     addOrderItem(itemName, orderId, itemAmount);
                     break;
                 case 3:
+                    Helper.clearScreen();
+                    printBreadCrumbs("Admin View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Remove menu items");
                     System.out.println("Enter item to be removed:\r");
                     itemName = Helper.sc.nextLine();
                     System.out.println("Enter amount to be removed:\r");
@@ -301,19 +327,29 @@ public class RoomServiceAdminView extends MainView{
                     removeOrderItem(itemName, orderId, itemAmount);
                     break;
                 case 4:
+                    Helper.clearScreen();
+                    printBreadCrumbs("Admin View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Print order");
                     RoomServiceManager.printOrder(orderId);
                     break;
                 case 5:
+                    Helper.clearScreen();
+                    printBreadCrumbs("Admin View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Enter remarks");
                     System.out.println("Enter remarks:\r");
                     String remarks = Helper.sc.nextLine();
                     RoomServiceManager.setRemarks(remarks, orderId);
+                    System.out.println("Remarks given");
                     break;
                 case 6:
+                    Helper.clearScreen();
+                    printBreadCrumbs("Admin View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Checkout");
                     confirmOrder(orderId);
                     break;
                 default:
                     System.out.println("Invalid option");
                     break;
+            }
+            if (option != 6){
+                Helper.pressAnyKeyToContinue();
             }
         } while (option != 6);
         return true;

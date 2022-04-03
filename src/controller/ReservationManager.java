@@ -352,7 +352,9 @@ public class ReservationManager {
             System.out.println("You have already checked in");
             return false;
         }
-        updateReservationStatus(reservationId, 3);
+        //  manually check in 
+        search(reservationId).setReservationStatus(ReservationStatus.CHECKED_IN);
+        
         RoomManager.updateRoomStatus(getRoomIdFromReservationId(reservationId), RoomStatus.OCCUPIED);
         return true;
     }
@@ -370,7 +372,8 @@ public class ReservationManager {
             System.out.println("You have already checked out");
             return false;
         }
-        updateReservationStatus(reservationId, 5);
+        // manually check out
+        search(reservationId).setReservationStatus(ReservationStatus.CHECKED_OUT);
 
         // shift waitlist up
         ArrayList<Reservation> candidates = getWaitlistedReservation(getRoomIdFromReservationId(reservationId));

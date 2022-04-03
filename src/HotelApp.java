@@ -45,10 +45,28 @@ public class HotelApp {
      */
     public static void printMainMenu() {
         Helper.clearScreen();
-        System.out.println("Welcome to Hotel Reservation and Payment System");
+        printHRPSTitle();
         System.out.println("Enter user domain");
-        System.out.println("(1) Admin View");
-        System.out.println("(2) User View");
+        System.out.println("(1) Admin");
+        System.out.println("(2) User");
         System.out.println("(3) Exit Program");
+    }
+
+    private static void printHRPSTitle() {
+        System.out.println();
+        System.out.println("╔═════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║                           __    __    _______     _______      ______                               ║");
+        System.out.println("║                          /  |  /  |  /       \\   /       \\    /      \\                              ║");
+        System.out.println("║                          ▐▐ |  ▐▐ |  ▐▐▐▐▐▐▐  |  ▐▐▐▐▐▐▐  |  /▐▐▐▐▐▐  |                             ║");
+        System.out.println("║                          ▐▐ |__▐▐ |  ▐▐ |__▐▐ |  ▐▐ |__▐▐ |  ▐▐ \\__▐▐/                              ║");
+        System.out.println("║                          ▐▐    ▐▐ |  ▐▐    ▐▐<   ▐▐    ▐▐/   ▐▐      \\                              ║");
+        System.out.println("║                          ▐▐▐▐▐▐▐▐ |  ▐▐▐▐▐▐▐  |  ▐▐▐▐▐▐▐/     ▐▐▐▐▐▐  |                             ║");
+        System.out.println("║                          ▐▐ |  ▐▐ |  ▐▐ |  ▐▐ |  ▐▐ |        /  \\__▐▐ |                             ║");
+        System.out.println("║                          ▐▐ |  ▐▐ |  ▐▐ |  ▐▐ |  ▐▐ |        ▐▐    ▐▐/                              ║");
+        System.out.println("║                          ▐▐/   ▐▐/   ▐▐/   ▐▐/   ▐▐/          ▐▐▐▐▐▐/                               ║");
+        System.out.println("║                                                                                                     ║");
+        System.out.println("║                         Welcome to Hotel Reservation and Payment System                             ║");
+        System.out.println("║                                                                                                     ║");
+        System.out.println("╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝");
     }
 }

@@ -36,7 +36,7 @@ public class OrderView extends MainView{
         do{
             printMenu();
             option = Helper.readInt(1, 2);
-            switch(option){
+            switch (option) {
                 case 1:
                     if (!createOrder()) {
                         System.out.println("Create order unsuccessful");
@@ -48,6 +48,9 @@ public class OrderView extends MainView{
                     System.out.println("Invalid Option");
                     break;
             }
+            if (option != 2) {
+                Helper.pressAnyKeyToContinue();
+            }
         } while (option != 2);
         
     }
@@ -55,8 +58,7 @@ public class OrderView extends MainView{
     /**
      * Prints the option for the create order menu.
      */
-    private void printMenu_createOrder() {
-        System.out.println("***** ORDER MENU *****");
+    private void printCreateOrderMenu() {
         System.out.println("Please enter an option (1-6)");
         System.out.println("(1) Print menu");
         System.out.println("(2) Add menu items");
@@ -67,9 +69,9 @@ public class OrderView extends MainView{
     }
 
     /**
-     * Application for the create order system.
+     * Application for create order system
      * 
-     * @return {@code true} if order creation is successful. Otherwise, {@code false} if order creation failed(Room Id does not exist in database) / room is not occupied.
+     * @return {@code true} if order creation is successfull. Otherwise, {@code false} if order creation failed (Room Id of customer does not exist in database) / room is not occupied.
      */
     private boolean createOrder() {
         System.out.println("Please enter your room id in this format floor-room (Eg: 01-05):");
@@ -86,22 +88,29 @@ public class OrderView extends MainView{
         String itemName;
         int itemAmount;
         int option = -1;
-        do{
-            printMenu_createOrder();
-            System.out.println("Enter option: ");
+        do { 
+            Helper.clearScreen();
+            printBreadCrumbs("User View > Order View > Create order for Room " + roomId);
+            printCreateOrderMenu();
             option = Helper.readInt(1, 6);
-            switch (option){
+            switch (option) {
                 case 1:
+                    Helper.clearScreen();
+                    printBreadCrumbs("User View > Order View > Create order for Room " + roomId + " > Print menu");
                     RoomServiceManager.printMenu();
                     break;
                 case 2:
+                    Helper.clearScreen();
+                    printBreadCrumbs("User View > Order View > Create order for Room " + roomId + " > Add menu items");
                     System.out.println("Enter item to be added:\r");
                     itemName = Helper.sc.nextLine();
                     System.out.println("Enter amount to be added:\r");
-                    itemAmount = Helper.sc.nextInt();
+                    itemAmount = Helper.readInt();
                     addOrderItem(itemName, orderId, itemAmount);
                     break;
                 case 3:
+                    Helper.clearScreen();
+                    printBreadCrumbs("User View > Order View > Create order for Room " + roomId + " > Remove menu items");
                     System.out.println("Enter item to be removed:\r");
                     itemName = Helper.sc.nextLine();
                     System.out.println("Enter amount to be removed:\r");
@@ -109,19 +118,29 @@ public class OrderView extends MainView{
                     removeOrderItem(itemName, orderId, itemAmount);
                     break;
                 case 4:
+                    Helper.clearScreen();
+                    printBreadCrumbs("User View > Order View > Create order for Room " + roomId + " > Print order");
                     RoomServiceManager.printOrder(orderId);
                     break;
                 case 5:
+                    Helper.clearScreen();
+                    printBreadCrumbs("User View > Order View > Create order for Room " + roomId + " > Enter remarks");
                     System.out.println("Enter remarks:\r");
                     String remarks = Helper.sc.nextLine();
                     RoomServiceManager.setRemarks(remarks, orderId);
+                    System.out.println("Remarks given");
                     break;
                 case 6:
+                    Helper.clearScreen();
+                    printBreadCrumbs("User View > Order View > Create order for Room " + roomId + " > Checkout");
                     confirmOrder(orderId);
                     break;
                 default:
                     System.out.println("Invalid option");
                     break;
+            }
+            if (option != 6){
+                Helper.pressAnyKeyToContinue();
             }
         } while (option != 6);
         return true;

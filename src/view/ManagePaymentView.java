@@ -26,9 +26,11 @@ public class ManagePaymentView extends MainView {
         int opt = -1;
         do {
             printMenu();
-            opt = Helper.readInt();
+            opt = Helper.readInt(1, 4);
             switch (opt) {
                 case 1:
+                    Helper.clearScreen();
+                    printBreadCrumbs("Admin View > Payment View > Manage Room Price");
                     if (promptEditRoomPrice()) {
                         System.out.println("Edit Room Price Successful!");
                     } else {
@@ -36,6 +38,8 @@ public class ManagePaymentView extends MainView {
                     }
                     break;
                 case 2:
+                    Helper.clearScreen();
+                    printBreadCrumbs("Admin View > Payment View > Manage Tax Rate");
                     if (promptEditTaxRate()) {
                         System.out.println("Edit Tax Rate Successful!");
                     } else {
@@ -43,6 +47,8 @@ public class ManagePaymentView extends MainView {
                     }
                     break;
                 case 3:
+                    Helper.clearScreen();
+                    printBreadCrumbs("Admin View > Payment View > Manage Discount Rate");
                     if (promptEditDiscountRate()) {
                         System.out.println("Edit Discount Rate Successful!");
                     } else {
@@ -52,6 +58,9 @@ public class ManagePaymentView extends MainView {
                 case 4:
                     break;
             }
+            if (opt != 4) {
+                Helper.pressAnyKeyToContinue();
+            }
         } while (opt != 4);
 
     }
@@ -59,7 +68,7 @@ public class ManagePaymentView extends MainView {
     public boolean promptEditRoomPrice() {
         int opt = -1;
         printEditRoomPriceMenu();
-        opt = Helper.readInt();
+        opt = Helper.readInt(1, 4);
         double newPrice = -1;
         switch (opt) {
             case 1:
@@ -78,22 +87,22 @@ public class ManagePaymentView extends MainView {
                 printOldPrice(RoomType.VIP_SUITE);
                 newPrice = promptNewPrice(RoomType.VIP_SUITE);
                 return PromotionManager.editRoomPrice(RoomType.VIP_SUITE, newPrice);
-            case 5:
-                return false;
         }
         return false;
     }
 
     public boolean promptEditTaxRate() {
+        printOldTaxRate();
         double newTaxRate = -1;
-        System.out.println("Please enter a new discount rate");
+        System.out.println("Please enter a new tax rate (0-1)");
         newTaxRate = Helper.readDouble();
         return PromotionManager.editTaxRate(newTaxRate);
     }
 
     public boolean promptEditDiscountRate() {
+        printOldDiscountRate();
         double newDiscountRate = -1;
-        System.out.println("Please enter a new discount rate");
+        System.out.println("Please enter a new discount rate (0-1)");
         newDiscountRate = Helper.readDouble();
         return PromotionManager.editDiscountRate(newDiscountRate);
     }
@@ -132,23 +141,10 @@ public class ManagePaymentView extends MainView {
     
 
     public void printEditRoomPriceMenu() {
-        System.out.println("--- Manage Room Price ---");
-        System.out.println("Please select a room to edit its price (1-5)");
+        System.out.println("Please select a room to edit its price (1-4)");
         System.out.println("(1) Single Room");
         System.out.println("(2) Double Room");
         System.out.println("(3) Deluxe Room");
         System.out.println("(4) Vip Suite");
-        System.out.println("(5) Back");
     }
-
-    public void printEditRoomTaxRateMenu() {
-        System.out.println("--- Manage Tax Rate ---");
-        System.out.println("Please select a room to edit its tax rate (1-5)");
-        System.out.println("(1) Single Room");
-        System.out.println("(2) Double Room");
-        System.out.println("(3) Deluxe Room");
-        System.out.println("(4) Vip Suite");
-        System.out.println("(5) Back");
-    }
-
 }
