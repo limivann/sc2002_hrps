@@ -61,7 +61,11 @@ public class PromotionManager {
      * @return true if edited successfully
      */
     public static boolean editTaxRate(double newTaxRate) {
-        return Database.PRICES.setTaxRate(newTaxRate);
+        if (Database.PRICES.setTaxRate(newTaxRate)) {
+            Database.saveFileIntoDatabase(FileType.PRICES);
+            return true;
+        }
+        return false;
     }
     /**
      * A method that edit the price of a room type
@@ -93,6 +97,7 @@ public class PromotionManager {
                 }
                 break;
         }
+        Database.saveFileIntoDatabase(FileType.PRICES);
         // Cant find
         return false;
     }
@@ -103,7 +108,11 @@ public class PromotionManager {
      * @return true if edited successfully
      */
     public static boolean editDiscountRate(double newDiscountRate) {
-        return Database.PRICES.setDiscountRate(newDiscountRate);
+        if (Database.PRICES.setDiscountRate(newDiscountRate)) {
+            Database.saveFileIntoDatabase(FileType.PRICES);
+            return true;
+        }
+        return false;
     }
     /**
      * A method that initializes the promotion details of the hotel

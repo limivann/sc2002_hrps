@@ -24,11 +24,12 @@ public class HandleCheckInOutView extends MainView {
      */
     @Override
     public void printMenu() {
-        System.out.println("=== Handle Check In / Check Out View === ");
+        Helper.clearScreen();
+        printBreadCrumbs("User View > Check In / Check Out View");
         System.out.println("Please select an option (1-3)");
         System.out.println("(1) Check In Room");
         System.out.println("(2) Check Out Room");
-        System.out.println("(3) Exit Handle Check In / Check Out View");
+        System.out.println("(3) Exit Check In / Check Out View");
     }
     /**
      * View Application for Check In and Check Out
@@ -41,9 +42,13 @@ public class HandleCheckInOutView extends MainView {
             opt = Helper.readInt(1,3);
             switch (opt) {
                 case 1:
+                    Helper.clearScreen();
+                    printBreadCrumbs("User View > Check In / Check Out View > Check In Room");
                     checkin();
                     break;
                 case 2:
+                    Helper.clearScreen();
+                    printBreadCrumbs("User View > Check In / Check Out View > Check Out Room");
                     checkout();
                     break;
                 case 3:
@@ -51,6 +56,9 @@ public class HandleCheckInOutView extends MainView {
                 default:
                     System.out.println("Invalid choice ... Please try again");
                     break;
+            }
+            if (opt != 3) {
+                Helper.pressAnyKeyToContinue();
             }
         } while (opt != 3);
         
@@ -61,7 +69,6 @@ public class HandleCheckInOutView extends MainView {
      */
     public void checkin() {
         Helper.checkReservationStatus();
-        System.out.println("--- Check In Room---");
         System.out.println("Please enter reservation id (RXXXX)");
         String reservationId = Helper.sc.nextLine();
         if (!ReservationManager.validateReservationId(reservationId)) {
@@ -75,7 +82,6 @@ public class HandleCheckInOutView extends MainView {
      * see {@link ReservationManager} for more reservation management details. 
      */
     public void checkout() {
-        System.out.println("--- Check Out Room---");
         System.out.println("Please enter reservation id (RXXXX)");
         String reservationId = Helper.sc.nextLine();
         if (!ReservationManager.validateReservationId(reservationId)) {

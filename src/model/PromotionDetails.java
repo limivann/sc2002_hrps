@@ -65,7 +65,7 @@ public class PromotionDetails implements Serializable {
      * @return true if updated successfully
      */
     public boolean setTaxRate(double taxRate) {
-        if (taxRate < 0) {
+        if (taxRate < 0 || taxRate > 1) {
             return false;
         }
         this.taxRate = taxRate;

@@ -49,7 +49,8 @@ public class GuestManager {
                 contactNo, guestId);
         Database.GUESTS.put(guestId, newGuest);
         Database.saveFileIntoDatabase(FileType.GUESTS);
-        System.out.println(String.format("Guest Created! Guest ID: %s, Name: %s", guestId, newGuest.getName()));
+        System.out.println("Guest Created! Guest Details: ");
+        newGuest.printGuestDetails();
     }
 
     // All update guest helpers

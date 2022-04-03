@@ -284,7 +284,6 @@ public class Guest implements Serializable, Comparable<Guest> {
 
     @Override
     public int compareTo(Guest o) {
-        // TODO Auto-generated method stub
         if (this == o) {
             return 0;
         }

@@ -115,7 +115,6 @@ public class Database {
         if (!readSerializedObject(FileType.PRICES)) {
             System.out.println("Read into Prices failed!");
         }
-        System.out.println("Database init");
     }
     
     /**

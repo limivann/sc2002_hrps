@@ -2,10 +2,7 @@ package src.view;
 
 import src.controller.RoomManager;
 import src.helper.Helper;
-
-import java.util.InputMismatchException;
-
-import src.model.enums.*;
+import src.model.enums.RoomStatus;
 
 // for javadocs
 import src.model.Room;
@@ -30,12 +27,14 @@ public class RoomView extends MainView{;
      * View Menu for the Room
      */
     public void printMenu() {
-        System.out.println("Please select an option (1-5)");
+        Helper.clearScreen();
+        printBreadCrumbs("Admin View > Room View");
+        System.out.println("What would you like to do ?");
         System.out.println("(1) Update room status");
         System.out.println("(2) Search room");
         System.out.println("(3) Print rooms by status");
         System.out.println("(4) Print rooms by occupancy rate");
-        System.out.println("(5) Exit");
+        System.out.println("(5) Exit Room View");
     }
 
     @Override
@@ -70,6 +69,9 @@ public class RoomView extends MainView{;
                     System.out.println("Invalid choice. Please try again.");
                     break;
             }
+            if (opt != 5) {
+                Helper.pressAnyKeyToContinue();
+            }
         } while (opt != 5);
     }
     
@@ -79,6 +81,8 @@ public class RoomView extends MainView{;
      * @param printResults whether to print out the results or not 
      */
     public void promptSearchRoom(boolean printResults) {
+        Helper.clearScreen();
+        printBreadCrumbs("Admin View > Room View > Search room");
         System.out.println("Enter the floor number");
         int floor = Helper.readInt();
         System.out.println("Enter the room number");
@@ -94,6 +98,8 @@ public class RoomView extends MainView{;
      * @return {@code true} if update successfully. Otherwise, {@code false}
      */
     public boolean promptUpdateRoomStatus() {
+        Helper.clearScreen();
+        printBreadCrumbs("Admin View > Room View > Update room status");
         System.out.println("Enter the floor number");
         int floor = Helper.readInt();
         System.out.println("Enter the room number");
@@ -102,7 +108,6 @@ public class RoomView extends MainView{;
         int opt = Helper.readInt(1,4);
         RoomStatus newStatus = RoomStatus.VACANT;
         String guestId = "-1";
-        // TODO: Fix bug
         switch (opt) {
             case 1:
                 newStatus = RoomStatus.VACANT;
@@ -119,6 +124,8 @@ public class RoomView extends MainView{;
                 break;
             case 4:
                 newStatus = RoomStatus.UNDER_MAINTENANCE;
+                break;
+            default:
                 break;
         }
         return RoomManager.updateRoomStatus(floor, room, newStatus, guestId);
@@ -140,6 +147,8 @@ public class RoomView extends MainView{;
      * See {@link RoomManager} for printing function
      */
     public void printRoomByStatus() {
+        Helper.clearScreen();
+        printBreadCrumbs("Admin View > Room View > Print rooms by status");
         RoomManager.printRoomStatus();
     }
     
@@ -147,7 +156,9 @@ public class RoomView extends MainView{;
      * Prompt function for printing room by occupancy rate <p>
      * See {@link RoomManager} for printing function
      */
-    public void printRoomByOccupancyRate(){
+    public void printRoomByOccupancyRate() {
+        Helper.clearScreen();
+        printBreadCrumbs("Admin View > Room View > Print rooms by occupancy rate");
         RoomManager.printOccupancyRate(RoomStatus.VACANT);
     }
 }

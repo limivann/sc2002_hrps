@@ -16,16 +16,10 @@ import src.model.Guest;
  */
 public class GuestView extends MainView{
     /**
-     * The GuestManager object created to call the method from GuestManager
-     */
-    GuestManager g;
-
-    /**
      * Default constructor of the Guest view
      */
     public GuestView() {
         super();
-        g = new GuestManager();
     }
 
     @Override
@@ -33,8 +27,9 @@ public class GuestView extends MainView{
      * View Menu of the guest
      */
     public void printMenu() {
-        System.out.println("=== Guest View ===");
-        System.out.println("Enter your choice");
+        Helper.clearScreen();
+        printBreadCrumbs("Admin View > Guest View");
+        System.out.println("What would you like to do ?");
         System.out.println("(1) Create a Guest");
         System.out.println("(2) Update a Guest detail");
         System.out.println("(3) Remove a Guest");
@@ -51,26 +46,29 @@ public class GuestView extends MainView{
         int opt;
         do {
             printMenu();
-            opt = Helper.readInt();
+            opt = Helper.readInt(1, 6);
             switch (opt) {
                 case 1:
                     if (!promptCreateGuest()) {
                         System.out.println("Create guest unsuccessful");
-                    };
+                    }
+                    ;
                     break;
                 case 2:
                     if (!promptUpdateGuest()) {
                         System.out.println("Update guest unsuccessful");
                     } else {
                         System.out.println("Update guest successful");
-                    };
+                    }
+                    ;
                     break;
                 case 3:
                     if (!promptRemoveGuest()) {
                         System.out.println("Remove guest unsuccessful");
                     } else {
                         System.out.println("Remove guest successful");
-                    };
+                    }
+                    ;
                     break;
                 case 4:
                     promptSearchGuest();
@@ -81,9 +79,10 @@ public class GuestView extends MainView{
                 case 6:
                     break;
                 default:
-                    // TODO: Throw Exception
                     System.out.println("Invalid Choice");
-
+            }
+            if (opt != 6) {
+                Helper.pressAnyKeyToContinue();
             }
         } while (opt != 6);
     }
@@ -94,6 +93,8 @@ public class GuestView extends MainView{
      * @return {@code true} if successfully create a Guest. Otherwise, {@code false}
      */
     public boolean promptCreateGuest() {
+        Helper.clearScreen();
+        printBreadCrumbs("Admin View > Guest View > Create a Guest");
         System.out.println("Please enter guest's first name: ");
         String firstName = Helper.sc.nextLine();
         System.out.println("Please enter guest's last name: ");
@@ -192,6 +193,8 @@ public class GuestView extends MainView{
      * @return {@code true} if update successfully. Otherwise, {@code false}
      */
     public boolean promptUpdateGuest() {
+        Helper.clearScreen();
+        printBreadCrumbs("Admin View > Guest View > Update a Guest Detail");
         System.out.println("Enter the guest that you want to update (GXXXX): ");
         String guestId = Helper.sc.nextLine();
         if (GuestManager.searchGuestById(guestId).size() == 0) {
@@ -269,6 +272,8 @@ public class GuestView extends MainView{
      * Prompt function to search a guest
      */
     public void promptSearchGuest() {
+        Helper.clearScreen();
+        printBreadCrumbs("Admin View > Guest View > Search a Guest");
         System.out.println("Please enter an option on how to search the guests (1-2)");
         System.out.println("(1) Search by guest id");
         System.out.println("(2) Search by keyword (name)");
@@ -300,6 +305,8 @@ public class GuestView extends MainView{
      * @return {@code true} if remove successfully, Otherwise, {@code false} 
      */
     public boolean promptRemoveGuest() {
+        Helper.clearScreen();
+        printBreadCrumbs("Admin View > Guest View > Remove a guest");
         System.out.println("Enter the guest id you want to remove (GXXXX): ");
         String guestId = Helper.sc.nextLine();
         if (!GuestManager.removeGuest(guestId)) {
@@ -315,6 +322,8 @@ public class GuestView extends MainView{
      * see {@link GuestManager} For the printing detail
      */
     public void printGuests() {
+        Helper.clearScreen();
+        printBreadCrumbs("Admin View > Guest View > Print All Guests");
         System.out.println("Please select an option of printing the guest (1-2)");
         System.out.println("(1) Print in order of Guest ID");
         System.out.println("(2) Print in order of Guest name");
@@ -330,5 +339,4 @@ public class GuestView extends MainView{
                 break;
         }
     }
-
 }
