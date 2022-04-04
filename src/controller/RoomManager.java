@@ -6,11 +6,17 @@ import src.model.Room;
 import src.model.enums.*;
 
 import src.model.Guest;
+// for javadocs
+import src.view.AdminView;
+import src.view.RoomView;
 /**
- * The Class that manages {@link Room}.
- * @author Lim Kang Wei, Zhang Kaichen, Ivan
+ * RoomManager is a controller class that acts as a "middleman"
+ * between the view classes -  {@link AdminView} and {@link RoomView} and the model class - {@link Room}. <p>
+ * 
+ * It can initialize or update the room and print Room Status statistic report.
+ * @author Lim Kang Wei, Zhang Kaichen, Ivan，Max
  * @version 1.0
- * @since 30-03-2022
+ * @since 2022-04-04
  */
 public class RoomManager {
     /**

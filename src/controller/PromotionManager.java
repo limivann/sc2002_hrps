@@ -4,9 +4,16 @@ import src.database.Database;
 import src.database.FileType;
 import src.model.PromotionDetails;
 import src.model.enums.RoomType;
+// for javadocs
+import scr.view.AdminView;
+import scr.view.ManagePaymentView;
 /**
- * The Class that manages the {@link PromotionDetails} of the hotel.
- * @author Lim Kang Wei, Ivan
+ * PromotionManager is a controller class that acts as a "middleman" 
+ * between the view classess - {@link AdminView} and {@link ManagePaymentView} and the model classes - {@link Invoice} and {@link PromotionDetails}. <p>
+ * 
+ * It can set tax rate and discount rate. <p>
+ * It can update room prices with the help of {@link RoomManager}.
+ * @author Lim Kang Wei, Ivan, Max
  * @version 1.0
  * @since 2022-04-04
  */
