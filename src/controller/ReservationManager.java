@@ -1,13 +1,9 @@
 package src.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import javax.xml.crypto.Data;
 
 import src.model.Guest;
 import src.model.Reservation;
-import src.model.Room;
 import src.model.enums.ReservationStatus;
 import src.model.enums.RoomStatus;
 import src.database.Database;
@@ -53,7 +49,7 @@ public class ReservationManager {
      * See {@link RoomManager} for more room management details. <p>
      * See {@link Database} for more details about database.
      * @param reservationId Id of the reservation
-     * @return {@code true} is removes successfully. Otherwise, {@code false}.
+     * @return {@code true} is removes successfully. Otherwise, {@code false} if reservation id does not exist.
      */
     public static boolean remove(String reservationId) {
         if (validateReservationId(reservationId)) {
@@ -75,7 +71,7 @@ public class ReservationManager {
     /**
      * A method that validates reservation by reservation Id.
      * @param reservationId Id of the reservation
-     * @return {@code true} if reservation is found in database. Otherwise, {@code false}.
+     * @return {@code true} if reservation is found in database. Otherwise, {@code false} if reservation id does not exist.
      */
     public static boolean validateReservationId(String reservationId) {
         if (Database.RESERVATIONS.containsKey(reservationId)) {
@@ -86,10 +82,10 @@ public class ReservationManager {
         }
     }
     /**
-     * A method that returns reservation by reservation Id.
+     * A method that returns reservation by reservation Id. <p>
+     * See {@link Reservation} for more Reservation details.
      * @param reservationId Id of the reservation
-     * @return Reservation if successfully found in database. <p>
-     * see {@link Reservation} for more Reservation details.
+     * @return Reservation if successfully found in database.
      */
     public static Reservation search(String reservationId) {
         if (validateReservationId(reservationId)) {
@@ -109,9 +105,9 @@ public class ReservationManager {
             return "";
     }
     /**
-     * A method that prints out the details of a specified reservation.
+     * A method that prints out the details of a specified reservation. <p>
+     * See {@link Reservation} for more details about Reservation.
      * @param reservationId Id of the reservation <p>
-     * see {@link Reservation} for more details about Reservation.
      */
     public static void printReservationDetails(String reservationId){
         if(validateReservationId(reservationId)){
@@ -188,7 +184,7 @@ public class ReservationManager {
     
     /**
      * A method that updates the status of reservation.<p>
-     * see {@link ReservationStatus} for different types of Reservation Status.
+     * See {@link ReservationStatus} for different types of Reservation Status.
      * @param reservationId Id of the reservation
      * @param roomId Id of the room 
      * @param reservationStatus status of reservation <p>
@@ -341,7 +337,7 @@ public class ReservationManager {
     /**
      * A method that checks in reservation.
      * @param reservationId - Id of the reservation
-     * @return {@code true} checks in successfully. Otherwise, {@code false}.
+     * @return {@code true} checks in successfully. Otherwise, {@code false} if reservation id does not exist/the guest had already checked in.
      */
     public static boolean checkInReservation(String reservationId) {
         if (!validateReservationId(reservationId)) {
@@ -361,7 +357,7 @@ public class ReservationManager {
     /**
      * A method that checks out reservation.
      * @param reservationId Id of the reservation
-     * @return {@code true} is checks out successfully. Otherwise, {@code false}.
+     * @return {@code true} is checks out successfully. Otherwise, {@code false} if reservation id does not exist/the guest had already checked out.
      */
     public static boolean checkOutReservation(String reservationId) {
         if (!validateReservationId(reservationId)) {
@@ -391,7 +387,7 @@ public class ReservationManager {
     /**
      * A method that gets reservation in the waitlist.
      * @param roomId Id of the room
-     * @return the earliest reservation in the waitlist for a specified room.
+     * @return the earliest {@link Reservation} object in the waitlist for a specified room.
      */
     public static ArrayList<Reservation> getWaitlistedReservation(String roomId) {
         ArrayList<Reservation> candidates = new ArrayList<Reservation>();

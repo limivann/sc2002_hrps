@@ -69,11 +69,16 @@ public class Identity implements Serializable {
     }
     
     /**
-     * Print out the identity detail
+     * Override toString method to show the identity details
+     * @return a string of identity details
      */
-    public void printIdentity(){
-        System.out.println("Identity Type: " + type.identityTypeAsStr);
-        System.out.printf("Identity no: %s\n", getIdentityNo());
+    @Override
+    public String toString() {
+        String res = "";
+
+        res += "Identity Type: " + type.identityTypeAsStr + "\n";
+        res += "Identity no: " + this.getIdentityNo();
+        return res;
     }
     
 }

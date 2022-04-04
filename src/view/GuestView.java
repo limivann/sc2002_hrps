@@ -282,14 +282,14 @@ public class GuestView extends MainView{
             case 1:
                 System.out.println("Enter the guest id you want to search (GXXXX): ");
                 String guestId = Helper.sc.nextLine();
-                if (!GuestManager.printGuestDetails(guestId, true)) {
+                if (!GuestManager.findGuestDetails(guestId, true)) {
                     System.out.println("Guest not found!");
                 }
                 break;
             case 2:
                 System.out.println("Please enter a keyword for the guest to search: ");
                 String keyword = Helper.sc.nextLine();
-                if (!GuestManager.printGuestDetails(keyword, false)) {
+                if (!GuestManager.findGuestDetails(keyword, false)) {
                     System.out.println("Guest not found!");
                 }
                 break;

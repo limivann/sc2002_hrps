@@ -5,20 +5,16 @@ import src.database.FileType;
 import src.helper.Helper;
 import src.model.MenuItem;
 import src.model.Order;
-import src.model.enums.*;
+import src.model.enums.OrderStatus;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Iterator;
 
 // for javadocs
 import src.view.AdminView;
 import src.view.OrderView;
 /**
  * RoomServiceManager is a controller class that acts as a "middleman"  
- * between the view classeses - {@link AdminView} and {@link OrderView} and the model classes - {@link MenuItem} and {@link Order}. <p>
+ * between the view classes - {@link AdminView} and {@link OrderView} and the model classes - {@link MenuItem} and {@link Order}. <p>
  * 
  * It can create an order or customize the menu. <p>
  * Both functionalities are included in the same class {@link RoomServiceManager} to ensure that any changes to the menu will be reflected during
@@ -29,9 +25,6 @@ import src.view.OrderView;
  * 
  */
 public class RoomServiceManager {
-
-    /* Create Order methods */
-
     /**
      * Creates a new order for the customer of the room Id specified as the argument
      * 
@@ -48,7 +41,6 @@ public class RoomServiceManager {
 
     /**
      * Adds menu item of the specified quantity to the customer's order
-     * 
      * @param name Name of the menu item to be added
      * @param orderId Id of the order
      * @param amount Quantity of menu item to be added
@@ -72,7 +64,6 @@ public class RoomServiceManager {
 
     /**
      * Removes menu item of the specified quantity from the customer's order
-     * 
      * @param name Name of the menu item to be removed
      * @param orderId Id of the order
      * @param amount Quantity of menu item to be removed
@@ -95,7 +86,6 @@ public class RoomServiceManager {
 
     /**
      * Prints the order of the specified order Id
-     * 
      * @param orderId Order Id of the order
      */
     public static void printOrder(String orderId){
@@ -105,7 +95,6 @@ public class RoomServiceManager {
 
     /**
      * Sets the remarks for the order of the specified order Id
-     * 
      * @param remarks Remarks for the order
      * @param orderId Order Id of the order
      */
@@ -116,7 +105,6 @@ public class RoomServiceManager {
 
     /**
      * Update the status of the order of the specified order Id
-     * 
      * @param newOrderStatus New order status to be used to update the order status
      * @param orderId Order Id of the order
      * @return {@code true} if updating of order is successfull. Otherwise, {@code false} if id updating of order fails (Order Id is not in database).
@@ -133,7 +121,8 @@ public class RoomServiceManager {
     }
 
     /**
-     * Clears the entire order history of the room after the user has checked out
+     * Clears the entire order history of the room after the user has checked out <p>
+     * Calls {@link RoomManager} to validate room id.
      * @param roomId Id of the room
      * @return {@code true} if removal of order is successful. Otherwise, {@code false} if room id not found.
      */
@@ -150,7 +139,6 @@ public class RoomServiceManager {
     
     /**
      * Checks if order Id is in the database for validation
-     * 
      * @param orderId Order Id of the order
      * @return {@code true} if order Id is found in the database. Otherwise, {@code false} if order Id is not found in database
      */
@@ -250,25 +238,14 @@ public class RoomServiceManager {
 
     /**
      * Gets the menu item id from the specified menu item name.
-     * 
      * @param name Name of the menu item
      * @return The menu item id if menu item found. Otherwise, {@code ""} if menu item not found
      */
     public static String getMenuIdFromName(String name) {
-        HashMap<String, MenuItem> toIterate = Helper.copyHashMap(Database.MENU_ITEMS);
-        Iterator it = toIterate.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            Object currentObject = pair.getValue();
-            if (!(currentObject instanceof Object)) {
-                // pass
-            } else {
-                MenuItem currentMenuItem = (MenuItem) currentObject;
-                if (currentMenuItem.getName().equals(name)) {
-                    return currentMenuItem.getMenuItemId();
-                }
+        for (MenuItem currentMenuItem : Database.MENU_ITEMS.values()) {
+            if (currentMenuItem.getName().equals(name)) {
+                return currentMenuItem.getMenuItemId();
             }
-            it.remove(); // avoids a ConcurrentModificationException
         }
         return "";
     }
@@ -278,8 +255,9 @@ public class RoomServiceManager {
      */
     public static void printMenu(){
         for (MenuItem menuItem: Database.MENU_ITEMS.values()){
-            System.out.printf("Item name: %s\nDescription: %s\nPrice: $%.2f\n",
-                    menuItem.getName(), menuItem.getDescription(), menuItem.getPrice());
+            System.out.println("Item name: " + menuItem.getName());
+            System.out.println("Description: " + menuItem.getDescription());
+            System.out.println(String.format("Price: $%.2f", menuItem.getPrice()));
         }
     }
 }
