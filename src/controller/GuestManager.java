@@ -10,10 +10,16 @@ import src.model.Identity;
 import src.model.enums.Gender;
 import src.model.enums.IdentityType;
 
-/** The Class that manages {@link Guest}.
- * @author Zhang Kaichen
+// for javadocs
+import src.view.AdminView;
+import src.view.GuestView;
+/** GuestManager is a controller class that acts as a "middleman"
+ * between the view classes - {@link AdminView} and {@link GuestView} and the model class - {@link Guest}. <p>
+ * 
+ * It can initialize, create, update or search {@link Guest} details.
+ * @author Zhang Kaichen, Max
  * @version 1.0
- * @since 2022-03-30
+ * @since 2022-04-04
  */
 
 public class GuestManager {

@@ -9,8 +9,11 @@ import src.helper.Helper;
 import src.model.Invoice;
 import src.model.Order;
 /**
- * The Class that handles payment details.
- * @author Lim Kang Wei, Ivan
+ * PaymentManager is a controller class that generates {@link Invoice} and handles payment. <p>
+ * 
+ * Whenever a {@link Room} has checked out, it will receive information from {@link GuestManager}, {@link RoomManager}, {@link ReservationManager}, and {@link RoomServiceManager}
+ * to generate {@link Invoice} and print it upon payment. 
+ * @author Lim Kang Wei, Ivan, Max
  * @version 1.0
  * @since 2022-04-04
  */
