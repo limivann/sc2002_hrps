@@ -24,19 +24,23 @@ public class PaymentManager {
     }
     
     /**
-     * A method that sums the room price and order price. <p>
-     * Calls {@link RoomManager} to search for room and calls {@link RoomServiceManager} to get all orders of the room. 
+     * A method that calculates the subtotal of a reservation. <p>
+     * Calls {@link RoomManager} to get room price, calls {@link ReservationManager} to retrieve number of stays and 
+     * calls {@link RoomServiceManager} to get order price of the room. 
      * @param roomId id of the room
      * @return subtotal of the reservation corresponding to the room id.
      */
-    public static double calculateSubTotal(String roomId) {
-        Room room = RoomManager.searchRoom(roomId);
-        double roomPrice = room.getPrice();
-        ArrayList<Order> orders = RoomServiceManager.searchOrderByRoom(roomId);
-        double orderPrice = 0;
-        for (Order order : orders) {
-            orderPrice += order.getTotalBill();
+    public static double calculateSubTotal(String roomId, String reservationId) {
+        double roomPrice = RoomManager.getRoomPrice(roomId);
+        if (roomPrice == -1) {
+            return -1;
         }
+        double numOfStays = ReservationManager.calculateNumOfStays(reservationId);
+        if (numOfStays == -1) {
+            return -1;
+        }
+        roomPrice *= numOfStays;
+        double orderPrice = RoomServiceManager.calculateTotalOrderPrice(roomId);
         return roomPrice + orderPrice;
     }
     /**
@@ -59,6 +63,7 @@ public class PaymentManager {
                 String.format("Invoice Id: %s\t Date: %s", invoice.getInvoiceId(), invoice.getDateOfPayment()));
         String guestName = GuestManager.searchGuestById(invoice.getGuestId()).get(0).getName();
         System.out.println(String.format("Name: %s\n\nReservation Id: %s", guestName, invoice.getReservationId()));
+        System.out.println(String.format("Nights: %d", invoice.getNights()));
         System.out.println(String.format("SubTotal %.2f", invoice.getSubTotal()));
         System.out.println(String.format("Tax Rate %.0f%%", invoice.getTaxRate() * 100));
         System.out.println(String.format("Discount Rate: %.0f%%", invoice.getDiscountRate() * 100));
@@ -85,15 +90,16 @@ public class PaymentManager {
         Reservation reservation = ReservationManager.search(reservationId);
         String guestId = reservation.getGuestId();
         String roomId = reservation.getRoomId();
+        int nights = ReservationManager.calculateNumOfStays(reservationId);
         double taxRate = PromotionManager.getTaxRate();
         double discountRate = PromotionManager.getDiscountRate();
 
-        double subTotal = calculateSubTotal(roomId);
+        double subTotal = calculateSubTotal(roomId, reservationId);
         double total = calculateTotal(subTotal, discountRate, taxRate);
         int iid = Helper.generateUniqueId(Database.INVOICES);
         String invoiceId = String.format("I%04d", iid);
         String dateOfPayment = Helper.getTimeNow();
-        Invoice invoice = new Invoice(invoiceId, guestId, roomId, reservationId, dateOfPayment, taxRate, discountRate,
+        Invoice invoice = new Invoice(invoiceId, guestId, roomId, reservationId, nights,dateOfPayment, taxRate, discountRate,
                 subTotal,
                 total);
 

@@ -144,7 +144,7 @@ public class GuestView extends MainView{
      */
     public Gender promptGender() {
         printGenderMenu();
-        int choice = Helper.readInt();
+        int choice = Helper.readInt(1, 2);
         if (choice != 1 && choice != 2) {
             return null;
         } else {

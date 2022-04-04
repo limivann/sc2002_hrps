@@ -24,6 +24,12 @@ public class Invoice implements Serializable {
      * Id of the reservation
      */
     private String reservationId;
+
+    /**
+     * Nights spent in the hotel
+     */
+    private int nights;
+
     /**
      * Total amount without tax rate and discount rate
      */
@@ -48,19 +54,21 @@ public class Invoice implements Serializable {
      * Id of the invoice
      */
     private String invoiceId;
+    
     /**
      * Constructor of Invoice
      * @param invoiceId Id of the invoice
      * @param guestId Id of the guest
      * @param roomId Id of the room
      * @param reservationId Id of the reservation
+     * @param nights Nights spent in the hotel
      * @param dateOfPayment Date which the payment is made
      * @param taxRate Tax rate of the invoice
      * @param discountRate Discount rate of the invoice
      * @param subTotal Total amount without tax rate and discount rate
      * @param total Total amount with tax rate and discount rate
      */
-    public Invoice(String invoiceId, String guestId, String roomId, String reservationId, String dateOfPayment,
+    public Invoice(String invoiceId, String guestId, String roomId, String reservationId, int nights, String dateOfPayment,
             double taxRate, double discountRate, double subTotal, double total) {
         // reservation will retrieve details for reservation id, guest id, room id
         // calculate sub total by searching orders
@@ -68,6 +76,7 @@ public class Invoice implements Serializable {
         setGuestId(guestId);
         setRoomId(roomId);
         setReservationId(reservationId);
+        setNights(nights);
         setDateOfPayment(dateOfPayment);
         setTaxRate(taxRate);
         setDiscountRate(discountRate);
@@ -120,6 +129,18 @@ public class Invoice implements Serializable {
      */
     private boolean setSubTotal(double subTotal) {
         this.subTotal = subTotal;
+        return true;
+    }
+    /**
+     * A method that sets the nights spent in the hotel
+     * @param nights Nights spent in the hotel
+     * @return {@code true} if updates successfully. Otherwise, {@code false} if the nights spend is negative
+     */
+    public boolean setNights(int nights) {
+        if (nights < 0) {
+            return false;
+        }
+        this.nights = nights;
         return true;
     }
     /**
@@ -206,6 +227,13 @@ public class Invoice implements Serializable {
      */
     public String getRoomId() {
         return roomId;
+    }
+    /**
+     * A method that returns the nights spent in the hotel
+     * @return Nights spent
+     */
+    public int getNights() {
+        return nights;
     }
     /**
      * A method that returns the reservation Id.

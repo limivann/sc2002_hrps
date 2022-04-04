@@ -429,4 +429,16 @@ public class RoomManager {
         roomToUpdate.setGuestName(guestToUpdateList.get(0).getName());
         return true;
     }
+
+    /**
+     * Method to get room price of given room id
+     * @param roomId Id of the room
+     * @return Room price in double if room id exist. Otherwise, -1. 
+     */
+    public static double getRoomPrice(String roomId) {
+        if (validateRoomId(roomId)) {
+            return Database.ROOMS.get(roomId).getPrice();
+        }
+        return -1;
+    }
 }
