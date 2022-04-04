@@ -132,8 +132,7 @@ public class RoomManager {
      */
     public static void printRoom(String roomId) {
         if (Database.ROOMS.containsKey(roomId)) {
-            Room target = searchRoom(roomId);
-            target.printRoomDetails();
+            printRoomDetails(roomId);
         } else {
             System.out.println("Room doesn't exists.");
         }
@@ -147,8 +146,7 @@ public class RoomManager {
     public static void printRoom(int floor, int room) {
         String roomId = String.format("%02d-%02d", floor, room);
         if (Database.ROOMS.containsKey(roomId)) {
-            Room target = searchRoom(floor, room);
-            target.printRoomDetails();
+            printRoomDetails(roomId);
         } else {
             System.out.println("Room doesn't exists.");
         }
@@ -446,5 +444,24 @@ public class RoomManager {
             return Database.ROOMS.get(roomId).getPrice();
         }
         return -1;
+    }
+
+    /**
+     * Print out the complete detail of the room.
+     * @param roomId Id of the room
+     */
+    public static void printRoomDetails(String roomId) {
+        Room target = searchRoom(roomId);
+        System.out.println("----------------");
+        System.out.printf("Room number: %s\n", target.getRoomId());
+		target.printRoomStatus();
+		target.printRoomtype();
+		if (target.getRoomStatus() == RoomStatus.OCCUPIED || target.getRoomStatus() == RoomStatus.RESERVED) {
+			System.out.printf("Guest Name: %s\n", target.getGuestName());
+		}
+		System.out.printf("Room price: %s\n", target.getPrice());
+		System.out.printf("Wifi Enabled: %s\n", target.getIsWifiEnabled());
+		System.out.printf("Smoking Allowed: %s\n", target.getIsSmokingAllowed());
+        System.out.println("----------------");
     }
 }

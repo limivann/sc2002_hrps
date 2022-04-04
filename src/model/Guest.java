@@ -75,11 +75,11 @@ public class Guest implements Serializable, Comparable<Guest> {
 
     /**
      * Constructor of the guest
-     * @param name name of the guest
+     * @param name full name of the guest
      * @param firstName first name of the guest
      * @param lastName last name of the guest
      * @param creditCard credit card number of the guest
-     * @param address address of the guest
+     * @param address mailing address of the guest
      * @param gender gender of the guest
      * @param identity identity of the guest
      * @param nationality nationality of the guest
@@ -104,27 +104,27 @@ public class Guest implements Serializable, Comparable<Guest> {
     
     // SETTERS
     /**
-     * Setter
-     * @param name name of the guest
-     * @return {@code true} if set successfully
+     * Sets the full name of the guest
+     * @param name full name of the guest
+     * @return {@code true} if sets successfully
      */
     public boolean setName(String name) {
         this.name = name;
         return true;
     }
     /**
-     * Setter
+     * Sets the first name of the guest
      * @param firstName first name of the guest
-     * @return {@code true} if set successfully
+     * @return {@code true} if sets successfully
      */
     public boolean setFirstName(String firstName) {
         this.firstName = firstName;
         return true;
     }
     /**
-     * Setter
+     * Sets the last name of the guest
      * @param lastName last name of the guest
-     * @return {@code true} if set successfully
+     * @return {@code true} if sets successfully
      */
     public boolean setLastName(String lastName) {
         this.lastName = lastName;
@@ -132,9 +132,9 @@ public class Guest implements Serializable, Comparable<Guest> {
     }
 
     /**
-     * Setter
+     * Sets the credit card of the guest
      * @param creditCard credit card of the guest
-     * @return {@code true} if set successfully
+     * @return {@code true} if sets successfully
      */
     public boolean setCreditCard(String creditCard) {
         this.creditCard = creditCard;
@@ -142,18 +142,18 @@ public class Guest implements Serializable, Comparable<Guest> {
     }
 
     /**
-     * Setter
+     * Sets the mailing address of the guest
      * @param address mailing address of the guest
-     * @return {@code true} if set successfully
+     * @return {@code true} if sets successfully
      */
     public boolean setAddress(String address) {
         this.address = address;
         return true;
     }
     /**
-     * Setter
+     * Sets the gender of the guest
      * @param gender gender of the guest
-     * @return {@code true} if set successfully
+     * @return {@code true} if sets successfully
      */
     public boolean setGender(Gender gender) {
         this.gender = gender;
@@ -161,37 +161,37 @@ public class Guest implements Serializable, Comparable<Guest> {
     }
     
     /**
-     * Setter
-     * @param identity identity of the guest
-     * @return {@code true} if set successfully
+     * Sets the identity of the guest <p>
      * see {@link Identity} for the detail of identification
+     * @param identity identity of the guest
+     * @return {@code true} if sets successfully
      */
     public boolean setIdentity(Identity identity) {
         this.identity = identity;
         return true;
     }
     /**
-     * Setter
+     * Sets the nationality of the guest
      * @param nationality nationality of the guest
-     * @return {@code true} if set successfully
+     * @return {@code true} if sets successfully
      */
     public boolean setNationality(String nationality) {
         this.nationality = nationality;
         return true;
     }
     /**
-     * Setter
+     * Sets the contact number of the guest
      * @param contact contact number of the guest
-     * @return {@code true} if set successfully
+     * @return {@code true} if sets successfully
      */
     public boolean setContact(String contact) {
         this.contact = contact;
         return true;
     }
     /**
-     * Setter
+     * Sets the guest id of the guest
      * @param guestId guest id of the guest
-     * @return {@code true} if set successfully
+     * @return {@code true} if sets successfully
      */
     public boolean setGuestId(String guestId) {
         this.guestId = guestId;
@@ -201,29 +201,29 @@ public class Guest implements Serializable, Comparable<Guest> {
     // GETTERS
 
     /**
-     * Getter
-     * @return the name of the guest
+     * Gets the full name of the guest
+     * @return the full name of the guest
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Getter
+     * Gets the credit card of the guest
      * @return the credit card number of guest
      */
     public String getCreditCard() {
         return creditCard;
     }
     /**
-     * Getter
-     * @return the address of the guest
+     * Gets the mailing address of the guest
+     * @return the mailing address of the guest
      */
     public String getAddress() {
         return address;
     }
     /**
-     * Getter
+     * Gets the contact number of the guest
      * @return the contact number of the guest
      */
     public String getContact() {
@@ -231,7 +231,7 @@ public class Guest implements Serializable, Comparable<Guest> {
     }
 
     /**
-     * Getter
+     * Gets the gender of the guest
      * @return the gender of the guest
      */
     public Gender getGender() {
@@ -239,19 +239,23 @@ public class Guest implements Serializable, Comparable<Guest> {
     }
 
     /**
-     * Getter
+     * Gets the nationality of the guest
      * @return the nationality of the guest
      */
     public String getNationality() {
         return nationality;
     }
 
+    /**
+     * Gets the identity of the guest
+     * @return the identity of the guest
+     */
     public Identity getIdentity() {
         return identity;
     }
 
     /**
-     * Getter
+     * Gets the guest id of the guest
      * @return the guest id of the guest
      */
     public String getGuestId() {
@@ -265,8 +269,11 @@ public class Guest implements Serializable, Comparable<Guest> {
     @Override
     public String toString() {
         return String.format("Guest Name: %s, Contact No: %s", getName(), getContact());
-    } 
-
+    }
+    
+    /**
+     * Override compareTo method to compare different guest objects according to full name
+     */
     @Override
     public int compareTo(Guest o) {
         if (this == o) {

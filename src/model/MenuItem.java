@@ -52,7 +52,7 @@ public class MenuItem implements Serializable {
      * Sets the name of the menu item
      * 
      * @param name Name of menu item
-     * @return {@code true} after setting the name successfully
+     * @return {@code true} if sets successfully
      */
     public boolean setName(String name) {
         this.name = name;
@@ -63,7 +63,7 @@ public class MenuItem implements Serializable {
      * Sets the description of the menu item
      * 
      * @param description Description of menu item
-     * @return {@code true} after setting the description successfully
+     * @return {@code true} if sets successfully
      */
     public boolean setDescription(String description) {
         this.description = description;
@@ -74,7 +74,7 @@ public class MenuItem implements Serializable {
      * Sets the price of the menu item
      * 
      * @param price Price of menu item
-     * @return {@code true} after setting the price successfully. Otherwise, {@code false} if failed to set price when a negative number is passed as an argument
+     * @return {@code true} if sets successfully. Otherwise, {@code false} if failed to set price when a negative number is passed as an argument
      */
     public boolean setPrice(double price) {
         if (price < 0) {
@@ -88,7 +88,7 @@ public class MenuItem implements Serializable {
      * Sets the Id of the menu item
      * 
      * @param menuItemId Id of the menu item
-     * @return {@code true} after setting the Id successfully
+     * @return {@code true} if sets successfully
      */
     public boolean setMenuItemId(String menuItemId) {
         this.menuItemId = menuItemId;

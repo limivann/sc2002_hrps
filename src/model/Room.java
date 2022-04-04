@@ -319,37 +319,17 @@ public class Room implements Serializable {
 		return isSmokingAllowed;
 	}
 	
-	// METHODS
-
 	/**
-	 * print out the room status of the room
+	 * Print out the room status of the room
 	 */
 	public void printRoomStatus() {
 		System.out.println(String.format("Room status: %s", getRoomStatus().roomStatusAsStr));
 	}
 
 	/**
-	 * print out the room type of the room
+	 * Print out the room type of the room
 	 */
 	public void printRoomtype(){
 		System.out.println(String.format("Room type: %s", getType().roomTypeAsStr));
 	}
-
-	/**
-	 * print out the complete detail of the room
-	 */
-	public void printRoomDetails(){
-		System.out.println("----------------");
-        System.out.printf("Room number: %s\n", getRoomId());
-		printRoomStatus();
-		printRoomtype();
-		if (roomStatus == RoomStatus.OCCUPIED || roomStatus == RoomStatus.RESERVED) {
-			System.out.printf("Guest Name: %s\n", getGuestName());
-		}
-		System.out.printf("Room price: %s\n", getPrice());
-		System.out.printf("Wifi Enabled: %s\n", getIsWifiEnabled());
-		System.out.printf("Smoking Allowed: %s\n", getIsSmokingAllowed());
-        System.out.println("----------------");
-	}
-	
 }

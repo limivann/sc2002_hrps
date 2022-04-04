@@ -13,8 +13,8 @@ import src.model.enums.IdentityType;
 public class Identity implements Serializable {
     
     /**
-     * The Type of the identity
-     * Driving license or Passport
+     * The Type of the identity. <p>
+     * See {@link IdentityType} for different types of identity.
      */
     private IdentityType type;
 
@@ -25,7 +25,7 @@ public class Identity implements Serializable {
     /**
      * Constructor of the identity
      * @param type type of the identiy
-     * @param identityNo number of the identity
+     * @param identityNo No. of the identity
      */
     public Identity(IdentityType type, String identityNo) {
         setType(type);
@@ -33,9 +33,9 @@ public class Identity implements Serializable {
     }
     
     /**
-     * Setter
+     * Sets the type of the identity.
      * @param type Type of the identity
-     * @return {@code true} if set successfully
+     * @return {@code true} if sets successfully
      */
     public boolean setType(IdentityType type) {
         this.type = type;
@@ -43,9 +43,9 @@ public class Identity implements Serializable {
     }
 
     /**
-     * Setter
+     * Sets the No. of the identity.
      * @param identityNo No. of the identity
-     * @return {@code true} if set successfully
+     * @return {@code true} if sets successfully
      */
     public boolean setIdentityNo(String identityNo) {
         this.identityNo = identityNo;
@@ -53,7 +53,7 @@ public class Identity implements Serializable {
     }
     
     /**
-     * Getter
+     * Gets the type of the identity.
      * @return type of the identity
      */
     public IdentityType getType() {
@@ -61,7 +61,7 @@ public class Identity implements Serializable {
     }
 
     /**
-     * Getter
+     * Gets the No. of the identity.
      * @return identity number
      */
     public String getIdentityNo() {
