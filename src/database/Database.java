@@ -15,10 +15,10 @@ import src.controller.RoomServiceManager;
 import src.model.*;
 
 /**
- * Database model to read and write serialized data into .dat files.
+ * Database class to read and write serialized data into .dat files.
  * @author Ivan, Max
  * @version 1.0
- * @since 2022-03-28
+ * @since 2022-04-04
  */
 
 public class Database {
@@ -266,7 +266,7 @@ public class Database {
     }
     
     /**
-     * A method to initialize {@link Guest} dummy data when the database is empty.
+     * A method to initialize {@link Guest} dummy data when the database is empty. <p>
      * Calls {@link GuestManager} to initialize the dummy guests.
      * @return {@code true} if initialized successfully. Otherwise, {@code false} if database is not empty.
      */
@@ -280,7 +280,7 @@ public class Database {
     }
     
     /**
-     * A method to initialize {@link MenuItem} dummy data when the database is empty.
+     * A method to initialize {@link MenuItem} dummy data when the database is empty. <p>
      * Calls {@link RoomServiceManager} to initialize the dummy menu items.
      * @return {@code true} is initialied successfully. Otherwise, {@code false} if database is not empty.
      */
@@ -295,16 +295,17 @@ public class Database {
     
     /**
      * Method to initialize {@link Room} when the database is empty. <p>
-     * see {@link RoomManager} of details of room initalization.
+     * Calls {@link RoomManager} to initialize all rooms.
      * @return {@code true} if initialized successfully.
      */
     private static boolean initializeRooms() {
         RoomManager.initializeAllRooms();
         return true;
     }
+    
     /**
      * Method to initialize {@link PromotionDetails} when the database is empty. <p>
-     * see {@link PromotionManager} of details of promotion details initalization.
+     * Calls {@link PromotionManager} to initialize promotion details.
      * @return {@code true} if initialized successfully
      */
     private static boolean initializePromotionDetails() {

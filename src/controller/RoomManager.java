@@ -6,11 +6,17 @@ import src.model.Room;
 import src.model.enums.*;
 
 import src.model.Guest;
+// for javadocs
+import src.view.AdminView;
+import src.view.RoomView;
 /**
- * The Class that manages {@link Room}.
- * @author Lim Kang Wei, Zhang Kaichen, Ivan
+ * RoomManager is a controller class that acts as a "middleman"
+ * between the view classes -  {@link AdminView} and {@link RoomView} and the model class - {@link Room}. <p>
+ * 
+ * It can initialize or update the room and print Room Status statistic report.
+ * @author Lim Kang Wei, Zhang Kaichen, Ivan，Max
  * @version 1.0
- * @since 30-03-2022
+ * @since 2022-04-04
  */
 public class RoomManager {
     /**
@@ -126,8 +132,7 @@ public class RoomManager {
      */
     public static void printRoom(String roomId) {
         if (Database.ROOMS.containsKey(roomId)) {
-            Room target = searchRoom(roomId);
-            target.printRoomDetails();
+            printRoomDetails(roomId);
         } else {
             System.out.println("Room doesn't exists.");
         }
@@ -141,8 +146,7 @@ public class RoomManager {
     public static void printRoom(int floor, int room) {
         String roomId = String.format("%02d-%02d", floor, room);
         if (Database.ROOMS.containsKey(roomId)) {
-            Room target = searchRoom(floor, room);
-            target.printRoomDetails();
+            printRoomDetails(roomId);
         } else {
             System.out.println("Room doesn't exists.");
         }
@@ -428,5 +432,36 @@ public class RoomManager {
         roomToUpdate.setGuestId(guestId);
         roomToUpdate.setGuestName(guestToUpdateList.get(0).getName());
         return true;
+    }
+
+    /**
+     * Method to get room price of given room id
+     * @param roomId Id of the room
+     * @return Room price in double if room id exist. Otherwise, -1. 
+     */
+    public static double getRoomPrice(String roomId) {
+        if (validateRoomId(roomId)) {
+            return Database.ROOMS.get(roomId).getPrice();
+        }
+        return -1;
+    }
+
+    /**
+     * Print out the complete detail of the room.
+     * @param roomId Id of the room
+     */
+    public static void printRoomDetails(String roomId) {
+        Room target = searchRoom(roomId);
+        System.out.println("----------------");
+        System.out.printf("Room number: %s\n", target.getRoomId());
+		target.printRoomStatus();
+		target.printRoomtype();
+		if (target.getRoomStatus() == RoomStatus.OCCUPIED || target.getRoomStatus() == RoomStatus.RESERVED) {
+			System.out.printf("Guest Name: %s\n", target.getGuestName());
+		}
+		System.out.printf("Room price: %s\n", target.getPrice());
+		System.out.printf("Wifi Enabled: %s\n", target.getIsWifiEnabled());
+		System.out.printf("Smoking Allowed: %s\n", target.getIsSmokingAllowed());
+        System.out.println("----------------");
     }
 }

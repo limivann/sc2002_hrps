@@ -275,11 +275,25 @@ public class RoomServiceManager {
     /**
      * Prints the menu items in the menu with details of each menu item.
      */
-    public static void printMenu(){
-        for (MenuItem menuItem: Database.MENU_ITEMS.values()){
+    public static void printMenu() {
+        for (MenuItem menuItem : Database.MENU_ITEMS.values()) {
             System.out.println("Item name: " + menuItem.getName());
             System.out.println("Description: " + menuItem.getDescription());
             System.out.println(String.format("Price: $%.2f", menuItem.getPrice()));
         }
+    }
+
+    /**
+     * Method to calculate the total order price of a room
+     * @param roomId Id of the room to calculate
+     * @return total order price of the room.
+     */
+    public static double calculateTotalOrderPrice(String roomId) {
+        ArrayList<Order> orders = searchOrderByRoom(roomId);
+        double total = 0;
+        for (Order order : orders) {
+            total += order.getTotalBill();
+        }
+        return total;
     }
 }

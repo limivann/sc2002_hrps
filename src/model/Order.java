@@ -176,7 +176,7 @@ public class Order implements Serializable {
      * Sets remarks for the order
      * 
      * @param remarks Remarks for the order
-     * @return {@code true} if setting of remarks for the order is successfull
+     * @return {@code true} if sets successfully.
      */
     public boolean setRemarks(String remarks) {
         this.remarks = remarks;
@@ -187,7 +187,7 @@ public class Order implements Serializable {
      * Sets total bill of the order (used only by admin)
      * 
      * @param totalBill total bill of the order
-     * @return {@code true} if setting of total bill of the order is successful
+     * @return {@code true} if sets successfully. Otherwise, {@code false} if the total bill is negative.
      */
     public boolean setTotalBill(double totalBill) {
         if (totalBill < 0) {
@@ -201,7 +201,7 @@ public class Order implements Serializable {
      * Sets status of the order (used only by admin)
      * 
      * @param currentStatus {@link OrderStatus} of the order
-     * @return {@code true} if setting of total status of the order is successful
+     * @return {@code true} if sets successfully.
      */
     public boolean setStatus(OrderStatus currentStatus) {
         status = currentStatus;
@@ -212,7 +212,7 @@ public class Order implements Serializable {
      * Sets room Id of the customer (used only by admin)
      * 
      * @param roomId status of the room Id of the customer
-     * @return {@code true} if setting of room Id is successful
+     * @return {@code true} if sets successfully.
      */
     public boolean setRoomId(String roomId) {
         this.roomId = roomId;

@@ -1,7 +1,5 @@
 package src.helper;
 
-import java.util.InputMismatchException;
-
 /**
  * Thrown by a {@code Scanner} to indicate that the token
  * retrieved is not within the specified range.

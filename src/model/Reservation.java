@@ -80,129 +80,164 @@ public class Reservation implements Serializable {
         this.reservationStatus = reservationStatus;
         this.reservationId = reservationId;
     }
+    
     /**
-     * A method that returns checked in date
-     * @return the date which the guest checked in
-     */
-    public String getCheckedInDate() {
-        return checkedInDate;
-    }
-    /**
-     * A method that updates the checked in date
+     * Sets the checked in date
      * @param checkedInDate the date which the guest checked in
-     * @return {@code true} if updates successfully
+     * @return {@code true} if sets successfully
      */
     public boolean setCheckedInDate(String checkedInDate) {
         this.checkedInDate = checkedInDate;
         return true;
     }
+
     /**
-     * A method that returns checked out date
-     * @return the date which the guest checked out
-     */
-    public String getCheckedOutDate() {
-        return checkedOutDate;
-    }
-    /**
-     * A method that updates the checked out date
+     * Sets the checked out date
      * @param checkedOutDate the date which the guest checked out
-     * @return {@code true} if updates successfully
+     * @return {@code true} if sets successfully
      */
     public boolean setCheckedOutDate(String checkedOutDate) {
         this.checkedOutDate = checkedOutDate;
         return true;
     }
+
     /**
-     * A method that returns guestId
-     * @return Id of the guest
-     */
-    public String getGuestId() {
-        return guestId;
-    }
-    /**
-     * A method that updates guestId
+     * Sets guest Id
      * @param guestId Id of the guest
-     * @return {@code true} if updates successfully
+     * @return {@code true} if sets successfully
      */
     public boolean setGuestId(String guestId) {
         this.guestId = guestId;
         return true;
     }
+
     /**
-     * A method that returns roomId
-     * @return Id of the room
-     */
-    public String getRoomId() {
-        return roomId;
-    }
-    /**
-     * A method that updates the roomId
+     * Sets the room Id
      * @param roomId Id of the room
-     * @return {@code true} if updates successfully
+     * @return {@code true} if sets successfully
      */
     public boolean setRoomId(String roomId) {
         this.roomId = roomId;
         return true;
     }
+    
     /**
-     * A method that returns the number of pax
-     * @return number of people staying in one room
+     * Sets the reservation Id
+     * @param reservationId Id of the reservation
+     * @return {@code true} if sets successfully
      */
-    public int getNumberOfPax() {
-        return numberOfPax;
+    public boolean setReservationId(String reservationId) {
+        this.reservationId = reservationId;
+        return true;
     }
+
     /**
-     * A method that updates the numberOfPax
+     * Sets the reservation date
+     * @param reservationDate Date of the reservation
+     * @return {@code true} if sets successfully
+     */
+    public boolean setReservationDate(String reservationDate) {
+        this.reservationDate = reservationDate;
+        return true;
+    }
+
+    /**
+     * Sets the numberOfPax
      * @param numberOfPax number of people staying in one room
-     * @return {@code true} if updates successfully
+     * @return {@code true} if sets successfully
      */
     public boolean setNumberOfPax(int numberOfPax) {
         this.numberOfPax = numberOfPax;
         return true;
     }
+
     /**
-     * A method that returns reservation date
-     * @return the date which the reservation is made
-     */
-    public String getReservationDate() {
-        return reservationDate;
-    }
-    /**
-     * A method that returns reservation status
-     * @return status of the reservation
-     * {@link ReservationStatus} 
-     */
-    public ReservationStatus getReservationStatus() {
-        return reservationStatus;
-    }
-    /**
-     * A method that updates reservation status
+     * Sets reservation status
      * @param reservationStatus status of the reservation
-     * @return {@code true} if updates successfully
+     * @return {@code true} if sets successfully
      * {@link ReservationStatus} 
      */
     public boolean setReservationStatus(ReservationStatus reservationStatus) {
         this.reservationStatus = reservationStatus;
         return true;
     }
+
     /**
-     * A method that checks whether the reservation is expired or not
+     * Sets the expire status of reservation
+     * @param isExpired A boolean value indicates whether the reservation is expired or not
+     * @return {@code true} if sets successfully
+     */
+    public boolean setIsExpired(boolean isExpired) {
+        this.isExpired = isExpired;
+        return true;
+    }
+    
+    /**
+     * Gets the checked in date
+     * @return the date which the guest checked in
+     */
+    public String getCheckedInDate() {
+        return checkedInDate;
+    }
+
+    /**
+     * Gets the checked out date
+     * @return the date which the guest checked out
+     */
+    public String getCheckedOutDate() {
+        return checkedOutDate;
+    }
+    
+    /**
+     * Gets the guest Id
+     * @return Id of the guest
+     */
+    public String getGuestId() {
+        return guestId;
+    }
+    
+    /**
+     * Gets the room Id
+     * @return Id of the room
+     */
+    public String getRoomId() {
+        return roomId;
+    }
+    
+    /**
+     * Gets the number of pax
+     * @return number of people staying in one room
+     */
+    public int getNumberOfPax() {
+        return numberOfPax;
+    }
+    
+    /**
+     * Gets the reservation date
+     * @return the date which the reservation is made
+     */
+    public String getReservationDate() {
+        return reservationDate;
+    }
+    /**
+     * Gets the reservation status
+     * @return status of the reservation
+     * {@link ReservationStatus} 
+     */
+    public ReservationStatus getReservationStatus() {
+        return reservationStatus;
+    }
+    
+    /**
+     * Gets the expire status of reservation
      * @return {@code true} if the reservation is expired. Otherwise, {@code false}
      */
     public boolean getIsExpired() {
         return isExpired;
     }
+    
     /**
-     * A method that updates the expire status of reservation
-     * @param isExpired A boolean value indicates whether the reservation is expired or not
-     * @return {@code true} if updates successfully
-     */
-    public boolean setIsExpired(boolean isExpired){
-        this.isExpired = isExpired;
-        return true;
-    }
-    /**
-     * A method that returns reservationId
+     * Gets the reservation Id
      * @return Id of the reservation
      */
     public String getReservationId() {

@@ -10,11 +10,17 @@ import src.database.Database;
 import src.database.FileType;
 import src.helper.Helper;
 
+// for javadocs
+import src.view.AdminView;
+import src.view.ReservationView;
 /**
- * The Class that manages {@link Reservation}.
+ * RservationManager is a controller class that acts as a "middleman"
+ * between the view classes - {@link AdminView} and {@link ReservationView} and the model classes - {@link Reservation}, {@link Guest} and {@link Room}. <p>
+ * 
+ * It can create and update reservation with the help of {@link GuestManager} and {@link RoomManager}.
  * @author Max, Ivan
  * @version 1.0
- * @since 2022-04-01
+ * @since 2022-04-04
  */
 public class ReservationManager {
     /**
@@ -398,6 +404,31 @@ public class ReservationManager {
             }
         }
         return candidates;
+    }
+
+    /**
+     * A method that check if any reservation has expired
+     */
+    public static void checkReservationStatus() {
+        for (Reservation reservation : Database.RESERVATIONS.values()) {
+            String date = reservation.getCheckedInDate();
+            if (!Helper.LocalDateTimediff(date)) {
+                updateIsExpired(reservation.getReservationId(), false);
+            }
+        }
+    }
+
+    /**
+     * Method to calculate the number of stays of the given
+     * @param reservationId Id of the reservation
+     * @return Number of days elapsed from check in date to check out date.
+     */
+    public static int calculateNumOfStays(String reservationId) {
+        Reservation reservation = search(reservationId);
+        if (reservation == null) {
+            return -1;
+        }
+        return (int)Helper.calculateDaysElapsed(reservation.getCheckedInDate(), reservation.getCheckedOutDate());
     }
 }
 

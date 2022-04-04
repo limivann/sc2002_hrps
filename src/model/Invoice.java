@@ -24,6 +24,12 @@ public class Invoice implements Serializable {
      * Id of the reservation
      */
     private String reservationId;
+
+    /**
+     * Nights spent in the hotel
+     */
+    private int nights;
+
     /**
      * Total amount without tax rate and discount rate
      */
@@ -48,19 +54,21 @@ public class Invoice implements Serializable {
      * Id of the invoice
      */
     private String invoiceId;
+    
     /**
      * Constructor of Invoice
      * @param invoiceId Id of the invoice
      * @param guestId Id of the guest
      * @param roomId Id of the room
      * @param reservationId Id of the reservation
+     * @param nights Nights spent in the hotel
      * @param dateOfPayment Date which the payment is made
      * @param taxRate Tax rate of the invoice
      * @param discountRate Discount rate of the invoice
      * @param subTotal Total amount without tax rate and discount rate
      * @param total Total amount with tax rate and discount rate
      */
-    public Invoice(String invoiceId, String guestId, String roomId, String reservationId, String dateOfPayment,
+    public Invoice(String invoiceId, String guestId, String roomId, String reservationId, int nights, String dateOfPayment,
             double taxRate, double discountRate, double subTotal, double total) {
         // reservation will retrieve details for reservation id, guest id, room id
         // calculate sub total by searching orders
@@ -68,6 +76,7 @@ public class Invoice implements Serializable {
         setGuestId(guestId);
         setRoomId(roomId);
         setReservationId(reservationId);
+        setNights(nights);
         setDateOfPayment(dateOfPayment);
         setTaxRate(taxRate);
         setDiscountRate(discountRate);
@@ -75,27 +84,27 @@ public class Invoice implements Serializable {
         setTotal(total);
     }
     /**
-     * A method that updates the invoice id.
+     * Sets the invoice id.
      * @param invoiceId Id of the invoice
-     * @return {@code true} if updates successfully.
+     * @return {@code true} if sets successfully.
      */
     public boolean setInvoiceId(String invoiceId) {
         this.invoiceId = invoiceId;
         return true;
     }
     /**
-     * A method that updates the date of payment.
+     * Sets the date of payment.
      * @param dateOfPayment Date which the payment is made
-     * @return {@code true} if updates successfully
+     * @return {@code true} if sets successfully
      */
     private boolean setDateOfPayment(String dateOfPayment) {
         this.dateOfPayment = dateOfPayment;
         return true;
     }
     /**
-     * A method that updates the tax rate.
+     * Sets the tax rate.
      * @param taxRate Tax rate of the invoice
-     * @return {@code true} if updates successfully
+     * @return {@code true} if sets successfully
      */
     private boolean setTaxRate(double taxRate) {
         if (taxRate < 0) {
@@ -105,117 +114,136 @@ public class Invoice implements Serializable {
         return true;
     }
     /**
-     * A method that updates the discount rate. 
+     * Sets the discount rate. 
      * @param discountRate Discount rate of the invoice
-     * @return {@code true} if updates successfully
+     * @return {@code true} if sets successfully
      */
     private boolean setDiscountRate(double discountRate) {
         this.discountRate = discountRate;
         return true;
     }
     /**
-     * A method that updates the subtotal.
+     * Sets the subtotal.
      * @param subTotal Total amount without tax rate and discount rate
-     * @return {@code true} if updates successfully
+     * @return {@code true} if sets successfully
      */
     private boolean setSubTotal(double subTotal) {
         this.subTotal = subTotal;
         return true;
     }
     /**
-     * A method that updates the total.
+     * Sets the nights spent in the hotel
+     * @param nights Nights spent in the hotel
+     * @return {@code true} if sets successfully. Otherwise, {@code false} if the nights spend is negative
+     */
+    public boolean setNights(int nights) {
+        if (nights < 0) {
+            return false;
+        }
+        this.nights = nights;
+        return true;
+    }
+    /**
+     * Sets the total.
      * @param total Total amount with tax rate and discount rate
-     * @return {@code true} if updates successfully
+     * @return {@code true} if sets successfully
      */
     private boolean setTotal(double total) {
         this.total = total;
         return true;
     }
     /**
-     * A method that updates the guest Id.
+     * Sets the guest Id.
      * @param guestId Id of the guest
-     * @return {@code true} if updates successfully
+     * @return {@code true} if sets successfully
      */
     public boolean setGuestId(String guestId) {
         this.guestId = guestId;
         return true;
     }
     /**
-     * A method that updates the room Id.
+     * Sets the room Id.
      * @param roomId Id of the room
-     * @return {@code true} if updates successfully
+     * @return {@code true} if sets successfully
      */
     public boolean setRoomId(String roomId) {
         this.roomId = roomId;
         return true;
     }
     /**
-     * A method that updates the reservation Id.
+     * Sets the reservation Id.
      * @param reservationId Id of the reservation
-     * @return {@code true} if updates successfully
+     * @return {@code true} if sets successfully
      */
     public boolean setReservationId(String reservationId) {
         this.reservationId = reservationId;
         return true;
     }
     /**
-     * A method that returns total.
+     * Gets the total.
      * @return total amount with tax rate and discount rate
      */
     public double getTotal() {
         return total;
     }
     /**
-     * A method that returns date of payment.
+     * Gets the date of payment.
      * @return date which the payment is made
      */
     public String getDateOfPayment() {
         return dateOfPayment;
     }
     /**
-     * A method that return discount rate.
+     * Gets the discount rate. 
      * @return discount rate of the invoice
      */
     public double getDiscountRate() {
         return discountRate;
     }
     /**
-     * A method that returns subtotal.
+     * Gets the subtotal.
      * @return total amount without tax rate and discount rate.
      */
     public double getSubTotal() {
         return subTotal;
     }
     /**
-     * A method that returns tax rate.
+     * Gets the tax rate.
      * @return tax rate of the invoice
      */
     public double getTaxRate() {
         return taxRate;
     }
     /**
-     * A method that returns the guest Id.
+     * Gets the guest Id.
      * @return Id of the guest
      */
     public String getGuestId() {
         return guestId;
     }
     /**
-     * A method that returns the room Id.
+     * Gets the room Id.
      * @return Id of the room
      */
     public String getRoomId() {
         return roomId;
     }
     /**
-     * A method that returns the reservation Id.
+     * Gets the nights spent in the hotel
+     * @return Nights spent
+     */
+    public int getNights() {
+        return nights;
+    }
+    /**
+     * Gets the reservation Id.
      * @return Id of the reservation
      */
     public String getReservationId() {
         return reservationId;
     }
     /**
-     * A method that returns the invoice Id.
+     * Gets the invoice Id.
      * @return Id of the invoice
      */
     public String getInvoiceId() {
