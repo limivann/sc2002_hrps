@@ -1,20 +1,15 @@
 package src.controller;
 
-import java.nio.channels.Pipe;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import src.database.Database;
 import src.database.FileType;
 import src.helper.Helper;
 import src.model.Guest;
 import src.model.Identity;
 import src.model.enums.Gender;
+import src.model.enums.IdentityType;
 
-// for javadocs
-import src.view.GuestView;
 /** The Class that manages {@link Guest}.
  * @author Zhang Kaichen
  * @version 1.0
@@ -50,14 +45,13 @@ public class GuestManager {
         Database.GUESTS.put(guestId, newGuest);
         Database.saveFileIntoDatabase(FileType.GUESTS);
         System.out.println("Guest Created! Guest Details: ");
-        newGuest.printGuestDetails();
+        printGuestDetails(newGuest);
     }
 
     // All update guest helpers
     // For updating one value only
     /**
      * The function to update the detail of the guest and save the file into database <p>
-     * see {@link GuestView#printUpdateGuestMenu()} for the menu of the attribute code <p>
      * @param guestId the guest id of the guest
      * @param attributeCode the attribute code for the detail that user choose to update
      * @param newValue the new detail value for the guest
@@ -99,7 +93,6 @@ public class GuestManager {
     // For updating more than one value (first name, last name)
     /**
      * Overloading method of updateGuest that update the first name and last name of the guest <p>
-     * see {@link GuestView#printUpdateGuestMenu()} for the menu of the attribute code <p>
      * @param guestId the guest id of the guest
      * @param attributeCode the attribute code for the detail that user choose to update
      * @param newValue1 the new value for the first name
@@ -133,7 +126,6 @@ public class GuestManager {
     
     /**
      * Overloading method of updateGuest that update the gender of the guest <p>
-     * see {@link GuestView#printUpdateGuestMenu()} for the menu of the attribute code <p>
      * @param guestId the guest id of the guest
      * @param attributeCode the attribute code for the detail that user choose to update
      * @param gender the new gender of the guest
@@ -163,7 +155,6 @@ public class GuestManager {
     
     /**
      * Overloading method of updateGuest that update the identity of the guest <p>
-     * see {@link GuestView#printUpdateGuestMenu()} for the menu of the attribute code <p>
      * @param guestId the guest id of the guest
      * @param attributeCode the attribute code for the detail that user choose to update
      * @param identity the new identity for the guest
@@ -195,7 +186,7 @@ public class GuestManager {
     /**
      * Search method to search a Guest by guest id <p>
      * @param guestId the guest id that want to search
-     * @return the guest that correspond to the guest id store in an ArrayList
+     * @return ArrayList of {@link Guest} object that correspond to the guest id
      */
     public static ArrayList<Guest> searchGuestById(String guestId) {
         ArrayList<Guest> searchList = new ArrayList<Guest>();
@@ -220,7 +211,7 @@ public class GuestManager {
     /**
      * Function to remove guest from the database <p>
      * @param guestId the guest id of the guest that the user want to remove
-     * @return {@code true} if remove successfully. Otherwise, {@code false}
+     * @return {@code true} if remove successfully. Otherwise, {@code false} if guest id is not found
      */
     public static boolean removeGuest(String guestId) {
         ArrayList<Guest> removeList = GuestManager.searchGuestById(guestId);
@@ -229,7 +220,7 @@ public class GuestManager {
             return false;
         }
         for (Guest guest : removeList) {
-            guest.printGuestDetails();
+           printGuestDetails(guest);
             if (Helper.promptConfirmation("remove this guest")) {
                 Database.GUESTS.remove(guestId);
             } else {
@@ -242,7 +233,7 @@ public class GuestManager {
     
     /**
      * Function to print all guest in the database that show the guest id and the Guest <p>
-     * see {@link Guest#toString()}
+     * see {@link Guest#toString()} for the printing format of guest
      */
     public static void printAllGuests(boolean byId) {
         ArrayList<Guest> sortedList = new ArrayList<Guest>();
@@ -276,13 +267,12 @@ public class GuestManager {
     /**
      * validate if the database has this guest according to guest id <p>
      * @param guestId the guest of the guest that you want to validate
-     * @return {@code true} if guest id exist. Otherwise, {@code false}
+     * @return {@code true} if guest id exist. Otherwise, {@code false} if guest id does not exist
      */
     public static boolean validateGuestId(String guestId) {
         if (Database.GUESTS.containsKey(guestId)) {
             return true;
         } else {
-            // TODO: Throw Exception
             return false;
         }
     }
@@ -290,9 +280,9 @@ public class GuestManager {
     /**
      * Function to print guest details given a particular guest id <p>
      * @param guestId the guest of the guest that you want to print its details
-     * @return {@code true} if guest id exist. Otherwise, {@code false}
+     * @return {@code true} if guest id exist. Otherwise, {@code false} if guest id does not exist
      */
-    public static boolean printGuestDetails(String keyword, boolean byId) {
+    public static boolean findGuestDetails(String keyword, boolean byId) {
         ArrayList<Guest> printList = new ArrayList<Guest>();
         if (byId) {
             printList = searchGuestById(keyword);
@@ -304,8 +294,47 @@ public class GuestManager {
             return false;
         }
         for (Guest guest : printList) {
-            guest.printGuestDetails();
+            printGuestDetails(guest);
         }
         return true;
+    }
+
+    /**
+     * Initializer for dummy guests in the hotel. 
+     */
+    public static void initializeDummyGuests() {
+        Identity identity1 = new Identity(IdentityType.DRIVING_LICENSE, "G2121722W");
+        GuestManager.createGuest("Aaron", "Lim", "12127387136", "Hall 14", Gender.MALE, identity1, "Malaysian",
+                "82712251");
+        Identity identity2 = new Identity(IdentityType.PASSPORT, "A812812B");
+        GuestManager.createGuest("Max", "Tan", "271271282", "Outside NTU", Gender.MALE, identity2, "Malaysian",
+                "85261210");
+        Identity identity3 = new Identity(IdentityType.DRIVING_LICENSE, "F2912712C");
+        GuestManager.createGuest("Hill", "Seah", "12127387136", "Hall 14", Gender.MALE, identity3, "Singaporean",
+                "82712251");
+        Identity identity4 = new Identity(IdentityType.PASSPORT, "A0021273C");
+        GuestManager.createGuest("Kaichen", "Zhang", "998262712", "Hall 2", Gender.MALE, identity4, "Chinese",
+                "97126172");
+        Identity identity5 = new Identity(IdentityType.DRIVING_LICENSE, "G2121722W");
+        GuestManager.createGuest("Yuan Ren", "Loke", "212171612", "NTU", Gender.MALE, identity5, "Programmer",
+                "92512512");
+        Identity identity6 = new Identity(IdentityType.PASSPORT, "A9728172D");
+        GuestManager.createGuest("Fang", "Li", "73232733", "SCSE", Gender.FEMALE, identity6, "Chinese", "96252552");
+    }
+
+    /**
+     * Print the complete details of the guest
+     */
+    public static void printGuestDetails(Guest guest) {
+        System.out.println("----------------");
+        System.out.printf("Guest ID: %s\n", guest.getGuestId());
+        System.out.printf("Name: %s\n", guest.getName());
+        System.out.printf("Credit Card No: %s\n", guest.getCreditCard());
+        System.out.printf("Address: %s\n", guest.getAddress());
+        System.out.println("Gender: " + guest.getGender().genderAsStr);
+        System.out.println(guest.getIdentity());
+        System.out.printf("Nationality: %s\n", guest.getNationality());
+        System.out.printf("Contact No: %s\n", guest.getContact());
+        System.out.println("----------------");
     }
 }

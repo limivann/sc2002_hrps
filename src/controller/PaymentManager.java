@@ -2,14 +2,7 @@ package src.controller;
 
 import src.model.Reservation;
 import src.model.Room;
-import src.model.enums.RoomStatus;
-
 import java.util.ArrayList;
-
-import javax.naming.spi.ResolveResult;
-import javax.print.DocFlavor.STRING;
-import javax.xml.crypto.Data;
-
 import src.database.Database;
 import src.database.FileType;
 import src.helper.Helper;
@@ -17,18 +10,24 @@ import src.model.Invoice;
 import src.model.Order;
 /**
  * The Class that handles payment details.
- * @author Lim Kang Wei
+ * @author Lim Kang Wei, Ivan
  * @version 1.0
- * @since 2020-03-29
+ * @since 2022-04-04
  */
 public class PaymentManager {
-    public PaymentManager() {
-        // 
-    }
+    
     /**
-     * A method that sums the room price and order price 
+     * Default constructor of the PaymentManager
+     */
+    public PaymentManager() {
+        
+    }
+    
+    /**
+     * A method that sums the room price and order price. <p>
+     * Calls {@link RoomManager} to search for room and calls {@link RoomServiceManager} to get all orders of the room. 
      * @param roomId id of the room
-     * @return subtotal of the reservation corresponding to the room id
+     * @return subtotal of the reservation corresponding to the room id.
      */
     public static double calculateSubTotal(String roomId) {
         Room room = RoomManager.searchRoom(roomId);
@@ -51,9 +50,9 @@ public class PaymentManager {
         return subTotal * (1 + taxRate) * (1 - discountRate);
     }
     /**
-     * A method that print out the invoice
+     * A method that print out the invoice <p>
+     * See {@link Invoice} For the details of the reservation and order
      * @param invoice invoice of the reservation
-     * @see Invoice Invoice - Details of the reservation and order
      */
     public static void printInvoice(Invoice invoice) {
         System.out.println(
@@ -65,20 +64,22 @@ public class PaymentManager {
         System.out.println(String.format("Discount Rate: %.0f%%", invoice.getDiscountRate() * 100));
         System.out.println(String.format("Total: %.2f", invoice.getTotal()));
     }
+
     /**
-     * A method that handles payment and make the room vacant
+     * A method that generates invoice of a particular reservation during checkout<p>
+     * See {@link Reservation} For the details of the reservation
      * @param reservationId id of the reservation
-     * @see Reservation - Details of a reservation
      */
     public static void handlePayment(String reservationId) {
         Invoice invoice = generateInvoice(reservationId);
         printInvoice(invoice);
         System.out.println("Payment successful! See you again. :)");
     }
+    
     /**
-     * A method that generates invoice by using getter methods from model classes
+     * A method that generates invoice by fetching details from {@link ReservationManager} and {@link PromotionManager}
      * @param reservationId id of the reservation
-     * @return the invoice object
+     * @return {@link Invoice} object
      */
     public static Invoice generateInvoice(String reservationId) {
         Reservation reservation = ReservationManager.search(reservationId);
@@ -92,15 +93,12 @@ public class PaymentManager {
         int iid = Helper.generateUniqueId(Database.INVOICES);
         String invoiceId = String.format("I%04d", iid);
         String dateOfPayment = Helper.getTimeNow();
-        Invoice invoice = new Invoice(invoiceId, guestId, roomId, reservationId, dateOfPayment, taxRate, discountRate, subTotal,
+        Invoice invoice = new Invoice(invoiceId, guestId, roomId, reservationId, dateOfPayment, taxRate, discountRate,
+                subTotal,
                 total);
 
         Database.INVOICES.put(invoiceId, invoice);
         Database.saveFileIntoDatabase(FileType.INVOICES);
         return invoice;
-    }
-
-    public static void main(String[] args) {
-
     }
 }

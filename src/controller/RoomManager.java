@@ -1,11 +1,7 @@
 package src.controller;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Iterator;
 import src.database.Database;
 import src.database.FileType;
-import src.helper.Helper;
 import src.model.Room;
 import src.model.enums.*;
 
@@ -17,11 +13,6 @@ import src.model.Guest;
  * @since 30-03-2022
  */
 public class RoomManager {
-    /**
-     * The HashMap to store all the room detail
-     */
-    HashMap<String, Room> RoomList = new HashMap<String, Room>();
-
     /**
      * Default constructor of the Room Manager
      */
@@ -35,15 +26,7 @@ public class RoomManager {
      * @return {@code true} if successful. Otherwise, {@code false}
      */
     public static boolean updateRoomPrice(RoomType roomType, double newPrice) {
-        HashMap<String, Room> toIterate = Helper.copyHashMap(Database.ROOMS);
-        Iterator it = toIterate.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            Object currentValue = pair.getValue();
-            if (!(currentValue instanceof Room)) {
-                return false;
-            }
-            Room currentRoom = (Room) currentValue;
+        for (Room currentRoom : Database.ROOMS.values()) {
             if (currentRoom.getType() == roomType) {
                 double newRoomPrice = calculateRoomPrice(roomType, currentRoom.getIsWifiEnabled());
                 if (!currentRoom.setPrice(newRoomPrice)) {
@@ -51,7 +34,6 @@ public class RoomManager {
                 }
                 Database.ROOMS.put(currentRoom.getRoomId(), currentRoom);
             }
-            it.remove(); // avoids a ConcurrentModificationException
         }
         Database.saveFileIntoDatabase(FileType.ROOMS);
         return true;
@@ -212,24 +194,14 @@ public class RoomManager {
     /**
      * Get all the room that currently is in one room status <p>
      * @param roomStatus the room status that you want to search
-     * @return an ArrayList that has all Room object under the input roomStatus
+     * @return an ArrayList that has all {@link Room} object under the input {@link RoomStatus}
      */
     public static ArrayList<Room> getRoomsByStatus(RoomStatus roomStatus) {
         ArrayList<Room> roomsByStatus = new ArrayList<Room>();
-        HashMap<String, Room> toIterate = Helper.copyHashMap(Database.ROOMS);
-        Iterator it = toIterate.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            Object currentValue = pair.getValue();
-            if (!(currentValue instanceof Room)) {
-                // pass
-            } else {
-                Room currentRoom = (Room) currentValue;
-                if (currentRoom.getRoomStatus() == roomStatus) {
-                    roomsByStatus.add(currentRoom);
-                }
+        for (Room room : Database.ROOMS.values()) {
+            if (room.getRoomStatus() == roomStatus) {
+                roomsByStatus.add(room);
             }
-            it.remove(); // avoids a ConcurrentModificationException
         }
         return roomsByStatus;
     }
@@ -238,24 +210,14 @@ public class RoomManager {
      * Get the room by room type and by room status <p>
      * @param roomType the type of room want to search
      * @param roomStatus the status of room that want to search
-     * @return the ArrayList that has the input room type and status
+     * @return the ArrayList that has {@link Room} object with desired {@link RoomType} and {@link RoomStatus}
      */
     public static ArrayList<Room> getRoomsByRoomTypeAndStatus(RoomType roomType, RoomStatus roomStatus) {
         ArrayList<Room> roomsByRoomType = new ArrayList<Room>();
-        HashMap<String, Room> toIterate = Helper.copyHashMap(Database.ROOMS);
-        Iterator it = toIterate.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            Object currentValue = pair.getValue();
-            if (!(currentValue instanceof Room)) {
-                // pass
-            } else {
-                Room currentRoom = (Room) currentValue;
-                if (currentRoom.getType() == roomType && currentRoom.getRoomStatus() == roomStatus) {
-                    roomsByRoomType.add(currentRoom);
-                }
+        for (Room room : Database.ROOMS.values()) {
+            if (room.getType() == roomType && room.getRoomStatus() == roomStatus) {
+                roomsByRoomType.add(room);
             }
-            it.remove(); // avoids a ConcurrentModificationException
         }
         return roomsByRoomType;
     }
@@ -311,21 +273,7 @@ public class RoomManager {
     }
 
     /**
-     * Print out all the room details <p>
-     * see {@link Room#toString()} to see the toString method
-     */
-    public static void printAllRooms() {
-        HashMap<String, Room> toIterate = Helper.copyHashMap(Database.ROOMS);
-        Iterator it = toIterate.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            System.out.println(pair.getKey() + " = " + pair.getValue());
-            it.remove(); // avoids a ConcurrentModificationException
-        }
-    }
-
-    /**
-     * Initializer for all the room in the hotel
+     * Initializer for all the rooms in the hotel
      */
     public static void initializeAllRooms() {
         // One floor 12 rooms, 4 floors in total
@@ -386,9 +334,9 @@ public class RoomManager {
     }
 
     /**
-     * constructor of the room <p>
-     * see {@link RoomType} For the different room type <p>
-     * see {@link RoomStatus} For the different status of the room <p>
+     * Method to create rooms <p>
+     * See {@link RoomType} For the different room type <p>
+     * See {@link RoomStatus} For the different status of the room <p>
      * @param roomType Type of the room
      * @param roomId the room Id for the room
      * @param floorNumber Floor number of the room
@@ -396,7 +344,7 @@ public class RoomManager {
      * @param roomStatus Status of the room
      * @param isWifiEnabled whether the wifi is enabled in the room
      * @param isSmokingAllowed whether the smoking is allowed in the room
-     * @return the new Room object
+     * @return {@link Room} object that is being created
      */
     public static Room createRoom(RoomType roomType, String roomId, int floorNumber, int roomNumber,
             RoomStatus roomStatus,
@@ -409,8 +357,8 @@ public class RoomManager {
     }
 
     /**
-     * Calculate the price of the room
-     * see {@link PromotionManager} for the formula for price
+     * Calculate the price of the room. <p>
+     * Call {@link PromotionManager} to get room price.
      * @param roomType Type of the room
      * @param isWifiEnabled whether the wifi is enabled or not
      * @return the price of the room
@@ -422,13 +370,12 @@ public class RoomManager {
     /**
      * Validate the hotel has this room id or not
      * @param roomId room id of the room you want to check
-     * @return {@code true} if contains this room. Otherwise, {@code false}
+     * @return {@code true} if contains this room. Otherwise, {@code false} if room id does not exist.
      */
     public static boolean validateRoomId(String roomId) {
         if (Database.ROOMS.containsKey(roomId)) {
             return true;
         } else {
-            // TODO: Throw Exception
             return false;
         }
     }
@@ -438,7 +385,7 @@ public class RoomManager {
      * See {@link RoomStatus} for the different types of room status
      * @param roomId room id of the room you want to check
      * @param roomStatus room status of the room to compare
-     * @return {@code true} if this room has vacancy. Otherwise, {@code false}
+     * @return {@code true} if this room has vacancy. Otherwise, {@code false} if room id does not exist
      */
     public static boolean checkRoomVacancy(String roomId, RoomStatus roomStatus) {
         if (validateRoomId(roomId)) {
@@ -451,7 +398,7 @@ public class RoomManager {
      * Validate if the number of pax exceeds the maximum capacity of the room or not.
      * @param roomId room id of the room you want to check
      * @param numOfPax the number of pax of the room
-     * @return {@code true} if the number of pax does not exceed the room capacity. Otherwise, {@code false}
+     * @return {@code true} if the number of pax does not exceed the room capacity. Otherwise, {@code false} if number of pax is not valid.
      */
     public static boolean validateNumOfPax(String roomId, int numOfPax) {
         if (numOfPax <= 0) {
@@ -464,6 +411,13 @@ public class RoomManager {
         return false;
     }
 
+    /**
+     * Method to update the room's guest details. <p>
+     * Calls {@link GuestManager} to retrieve guest details.
+     * @param roomId room id of the room you want to update
+     * @param guestId guest id of the guest 
+     * @return {@code true} if updating of guest details is successful. Otherwise, {@code false} if guest id does not exist.
+     */
     public static boolean updateRoomGuestDetails(String roomId, String guestId) {
         ArrayList<Guest> guestToUpdateList = GuestManager.searchGuestById(guestId);
         if (guestToUpdateList.size() == 0) {

@@ -3,24 +3,27 @@ package src.controller;
 import src.database.Database;
 import src.database.FileType;
 import src.model.PromotionDetails;
-import src.model.Room;
 import src.model.enums.RoomType;
 /**
  * The Class that manages the {@link PromotionDetails} of the hotel.
- * @author Lim Kang Wei
+ * @author Lim Kang Wei, Ivan
  * @version 1.0
- * @since 2020-03-29
+ * @since 2022-04-04
  */
 public class PromotionManager {
+    /**
+     * Default constructor of the PromotionManager
+     */
     public PromotionManager() {
 
     }
+    
     /**
-     * A method that calculates the room's price with the wifi-enabled multiplier
+     * A method that calculates the room's price by retrieving {@link PromotionDetails} object from the {@link Database} <p>
+     * See {@link RoomType} for the type of the room
      * @param roomType the room type
      * @param isWifiEnabled whether wifi is enabled or not
      * @return price of the room
-     * @see RoomType RoomType - type of the room
      */
     public static double getRoomPrice(RoomType roomType, boolean isWifiEnabled) {
         switch (roomType) {
@@ -38,7 +41,6 @@ public class PromotionManager {
         return -1;
     }
 
-    // GETTERS
     /**
      * A method that returns tax rate of the hotel
      * @return tax rate of the hotel
@@ -58,7 +60,7 @@ public class PromotionManager {
     /**
      * A method that edit the tax rate of the hotel
      * @param newTaxRate new tax rate of the hotel
-     * @return true if edited successfully
+     * @return {@code true} if edited successfully. Otherwise, {@code false} if editing tax rate is unsuccessful
      */
     public static boolean editTaxRate(double newTaxRate) {
         if (Database.PRICES.setTaxRate(newTaxRate)) {
@@ -67,14 +69,15 @@ public class PromotionManager {
         }
         return false;
     }
+    
     /**
-     * A method that edit the price of a room type
-     * @param roomType room type
-     * @param newRoomPrice new price for the room type
-     * @return true if edited successfully
+     * A method that edit the price of a room type <p>
+     * Calls {@link RoomManager} to update room price of every single room that is affected.
+     * @param roomType room type of the room to be update
+     * @param newRoomPrice new price for the room
+     * @return {@code true} if edited successfully. Otherwise, {@code false} if editing room price is unsuccessful
      */
     public static boolean editRoomPrice(RoomType roomType, double newRoomPrice) {
-        // TODO: Change all room price not just the promotion details
         switch (roomType) {
             case SINGLE:
                 if (Database.PRICES.setSingleRoomPrice(newRoomPrice)) {
@@ -105,7 +108,7 @@ public class PromotionManager {
     /**
      * A method that edit the discount rate of the hotel
      * @param newDiscountRate new discount rate of the hotel
-     * @return true if edited successfully
+     * @return {@code true} if edited successfully. Otherwise, {@code false} if editing discount rate is unsuccessful
      */
     public static boolean editDiscountRate(double newDiscountRate) {
         if (Database.PRICES.setDiscountRate(newDiscountRate)) {
@@ -116,7 +119,7 @@ public class PromotionManager {
     }
     /**
      * A method that initializes the promotion details of the hotel
-     * @return true if edited successfully
+     * @return {@code true} if edited successfully.
      */
     public static boolean initializePromotionDetails() {
         PromotionDetails promotionDetails = new PromotionDetails(0.05, 0.17, 200, 360, 400, 1000, 1.2);

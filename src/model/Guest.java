@@ -246,6 +246,10 @@ public class Guest implements Serializable, Comparable<Guest> {
         return nationality;
     }
 
+    public Identity getIdentity() {
+        return identity;
+    }
+
     /**
      * Getter
      * @return the guest id of the guest
@@ -253,26 +257,7 @@ public class Guest implements Serializable, Comparable<Guest> {
     public String getGuestId() {
         return guestId;
     }
-
-    public String getLastName() {
-        return lastName;
-    }
     
-    /**
-     * Print the complete details of the guest
-     */
-    public void printGuestDetails() {
-        System.out.printf("Guest ID: %s\n", getGuestId());
-        System.out.println("----------------");
-        System.out.printf("Name: %s\n", getName());
-        System.out.printf("Credit Card No: %s\n", getCreditCard());
-        System.out.printf("Address: %s\n", getAddress());
-        System.out.println("Gender: " + getGender().genderAsStr);
-        identity.printIdentity();
-        System.out.printf("Nationality: %s\n", getNationality());
-        System.out.printf("Contact No: %s\n", getContact());
-        System.out.println("----------------");
-    }
     /**
      * Override toString method to show the simplified details of the guest
      * @return a string of guest details

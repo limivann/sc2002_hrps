@@ -1,6 +1,5 @@
 package src.helper;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map;
@@ -13,7 +12,6 @@ import java.time.temporal.ChronoUnit;
 
 import src.controller.ReservationManager;
 import src.database.Database;
-import src.model.Guest;
 import src.model.Reservation;
 
 public class Helper {
@@ -225,11 +223,5 @@ public class Helper {
         } catch (Exception err) {
             
         }
-    }
-
-
-    public static void main(String[] args) {
-        Helper helper = new Helper();
-        System.out.println(validateTwoDates("2022-03-25 16:12", "2022-03-25 12:12"));
     }
 }
