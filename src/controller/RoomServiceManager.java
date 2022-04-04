@@ -251,6 +251,28 @@ public class RoomServiceManager {
     }
 
     /**
+     * Initializer for dummy menu items in the hotel. 
+     */
+    public static void initializeDummyMenuItems() {
+        addMenuItem("Mee Goreng",
+                "chicken, wok-fried yellow noodles, spicy shrimp paste, egg, chye sim", 24);
+        addMenuItem("Yang Chow Fried Rice",
+                "Chinese sausage, barbecue pork, shrimp, fried egg", 24);
+        addMenuItem("Singapore Laksa Lemak",
+                "rice noodles, quail egg, bean curd, fish cake, spicy coconut gravy with prawns", 25);
+        addMenuItem("Chicken Curry", "coconut gravy, achar, steamed rice", 26);
+        addMenuItem("Char Kway Teow",
+                "wok-fried rice & egg noodles, prawns, Chinese sausage, squid, fish cake, bean sprouts, black soy sauce",
+                26);
+        addMenuItem("Hokkien Mee", "rice & egg noodles, prawns, squid, pork belly, bean sprouts",
+                26);
+        addMenuItem("Hainanese Chicken Rice", "chicken broth, ginger, chilli, dark soy sauce", 26);
+        addMenuItem("Nasi Goreng",
+                "Indonesian-style fried rice, sunny side-up egg, achar, chicken satay, chicken drumstick, peanut sauce, prawn crackers",
+                28);
+    }
+
+    /**
      * Prints the menu items in the menu with details of each menu item.
      */
     public static void printMenu(){

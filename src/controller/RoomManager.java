@@ -358,7 +358,7 @@ public class RoomManager {
 
     /**
      * Calculate the price of the room. <p>
-     * See {@link PromotionManager} for the formula for price
+     * Call {@link PromotionManager} to get room price.
      * @param roomType Type of the room
      * @param isWifiEnabled whether the wifi is enabled or not
      * @return the price of the room

@@ -8,6 +8,7 @@ import src.helper.Helper;
 import src.model.Guest;
 import src.model.Identity;
 import src.model.enums.Gender;
+import src.model.enums.IdentityType;
 
 /** The Class that manages {@link Guest}.
  * @author Zhang Kaichen
@@ -296,6 +297,29 @@ public class GuestManager {
             printGuestDetails(guest);
         }
         return true;
+    }
+
+    /**
+     * Initializer for dummy guests in the hotel. 
+     */
+    public static void initializeDummyGuests() {
+        Identity identity1 = new Identity(IdentityType.DRIVING_LICENSE, "G2121722W");
+        GuestManager.createGuest("Aaron", "Lim", "12127387136", "Hall 14", Gender.MALE, identity1, "Malaysian",
+                "82712251");
+        Identity identity2 = new Identity(IdentityType.PASSPORT, "A812812B");
+        GuestManager.createGuest("Max", "Tan", "271271282", "Outside NTU", Gender.MALE, identity2, "Malaysian",
+                "85261210");
+        Identity identity3 = new Identity(IdentityType.DRIVING_LICENSE, "F2912712C");
+        GuestManager.createGuest("Hill", "Seah", "12127387136", "Hall 14", Gender.MALE, identity3, "Singaporean",
+                "82712251");
+        Identity identity4 = new Identity(IdentityType.PASSPORT, "A0021273C");
+        GuestManager.createGuest("Kaichen", "Zhang", "998262712", "Hall 2", Gender.MALE, identity4, "Chinese",
+                "97126172");
+        Identity identity5 = new Identity(IdentityType.DRIVING_LICENSE, "G2121722W");
+        GuestManager.createGuest("Yuan Ren", "Loke", "212171612", "NTU", Gender.MALE, identity5, "Programmer",
+                "92512512");
+        Identity identity6 = new Identity(IdentityType.PASSPORT, "A9728172D");
+        GuestManager.createGuest("Fang", "Li", "73232733", "SCSE", Gender.FEMALE, identity6, "Chinese", "96252552");
     }
 
     /**
