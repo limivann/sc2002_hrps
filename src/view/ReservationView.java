@@ -1,6 +1,9 @@
 package src.view;
 
 import src.controller.ReservationManager;
+
+import java.util.ArrayList;
+
 import src.controller.GuestManager;
 import src.helper.Helper;
 import src.model.enums.ReservationStatus;
@@ -22,7 +25,7 @@ public class ReservationView extends MainView {
     @Override
     public void printMenu() {
         Helper.clearScreen();
-        printBreadCrumbs("Admin View > Reservation View");
+        printBreadCrumbs("Hotel App View > Reservation View");
         System.out.println("What would you like to do ?");
         System.out.println("(1) Create Reservation");
         System.out.println("(2) Search Reservation");
@@ -52,21 +55,21 @@ public class ReservationView extends MainView {
                     break;
                 case 2:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Reservation View > Search Reservation");
+                    printBreadCrumbs("Hotel App View > Reservation View > Search Reservation");
                     System.out.println("Enter Reservation Id to search (RXXXX)");
                     reservationId = Helper.sc.nextLine();
                     ReservationManager.printReservationDetails(reservationId);
                     break;
                 case 3:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Reservation View > Update Reservation");
+                    printBreadCrumbs("Hotel App View > Reservation View > Update Reservation");
                     System.out.println("Enter Reservation Id to update (RXXXX)");
                     reservationId = Helper.sc.nextLine();
                     updateReservation(reservationId);
                     break;
                 case 4:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Reservation View > Remove Reservation");
+                    printBreadCrumbs("Hotel App View > Reservation View > Remove Reservation");
                     System.out.println("Enter Reservation Id to remove (RXXXX)");
                     reservationId = Helper.sc.nextLine();
                     if (ReservationManager.remove(reservationId)) {
@@ -77,7 +80,7 @@ public class ReservationView extends MainView {
                     break;
                 case 5:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Reservation View > Print All Reservations");
+                    printBreadCrumbs("Hotel App View > Reservation View > Print All Reservations");
                     ReservationManager.printAllReservations();
                     break;
                 case 6:
@@ -97,16 +100,11 @@ public class ReservationView extends MainView {
      */
     public boolean createReservation() {
         Helper.clearScreen();
-        printBreadCrumbs("Admin View > Reservation View > Create Reservation");
-        System.out.println("Please enter an option (1-3)");
+        printBreadCrumbs("Hotel App View > Reservation View > Create Reservation");
+        System.out.println("Please enter an option (1-2)");
         System.out.println("(1) Walk-In");
         System.out.println("(2) Reserve");
-        System.out.println("(3) Exit");
-        int choice = Helper.readInt(1, 3);
-        if (choice == 3) {
-            System.out.println("Exited");
-            return false;
-        }
+        int choice = Helper.readInt(1, 2);
 
         String checkedInDate;
         String checkedOutDate;
@@ -130,12 +128,7 @@ public class ReservationView extends MainView {
             }
         }
         RoomManager.printRoom(roomId);
-        System.out.println("Enter Guest Id (GXXXX)");
-        guestId = Helper.sc.nextLine();
-        if (!GuestManager.validateGuestId(guestId)) {
-            System.out.println("Guest id not found. Please try again");
-            return false;
-        }
+        
 
         System.out.println("Enter number of pax");
         numberOfPax = Helper.readInt();
@@ -143,6 +136,18 @@ public class ReservationView extends MainView {
             System.out.println("Number of Pax exceeds room capacity. Please try again");
             return false;
         }
+
+        ArrayList<String> guestIds = new ArrayList<String>();
+        for (int guestNo = 1; guestNo <= numberOfPax; guestNo++) {
+            System.out.println("Enter Guest Id (GXXXX) for guest " + guestNo + ":");
+            guestId = Helper.sc.nextLine();
+            if (!GuestManager.validateGuestId(guestId)) {
+                System.out.println("Guest Id not found. Please try again");
+                return false;
+            }
+            guestIds.add(guestId);
+        }
+        
 
         if (choice == 2) {
             System.out.println("Enter Check In Date");
@@ -161,9 +166,9 @@ public class ReservationView extends MainView {
                 return false;
             }
             if (inWaitlist) {
-                ReservationManager.create(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax, ReservationStatus.IN_WAITLIST, RoomStatus.RESERVED);
+                ReservationManager.create(checkedInDate, checkedOutDate, guestIds, roomId, numberOfPax, ReservationStatus.IN_WAITLIST, RoomStatus.RESERVED);
             } else {
-                ReservationManager.create(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax, ReservationStatus.CONFIRMED, RoomStatus.RESERVED);
+                ReservationManager.create(checkedInDate, checkedOutDate, guestIds, roomId, numberOfPax, ReservationStatus.CONFIRMED, RoomStatus.RESERVED);
             }
         } else {
             System.out.println("Enter Check Out Date");
@@ -177,7 +182,7 @@ public class ReservationView extends MainView {
                 System.out.println("Check out date cannot be earlier than check in date!");
                 return false;
             }
-            ReservationManager.create(checkedInDate, checkedOutDate, guestId, roomId, numberOfPax, ReservationStatus.CHECKED_IN, RoomStatus.OCCUPIED);
+            ReservationManager.create(checkedInDate, checkedOutDate, guestIds, roomId, numberOfPax, ReservationStatus.CHECKED_IN, RoomStatus.OCCUPIED);
         }
         return true;
     }
@@ -257,15 +262,25 @@ public class ReservationView extends MainView {
                         isUpdateSuccessful = true;
                         break;
                     case 3:
-                        System.out.println("Enter guest Id");
-                        guestId = Helper.sc.nextLine();
-                        if (!GuestManager.validateGuestId(guestId)) {
-                            System.out.println("Guest id not found. Please try again");
-                            isUpdateSuccessful = false;
-                            break;
+                        Reservation reservation = ReservationManager.search(reservationId);
+                        ArrayList<String> guestIds = new ArrayList<String>();
+                        isUpdateSuccessful = false;
+                        for (int guestNo = 1; guestNo <= reservation.getNumberOfPax(); guestNo++) {
+                            System.out.println("Enter guest Id for " + guestNo);
+                            guestId = Helper.sc.nextLine();
+                            if (!GuestManager.validateGuestId(guestId)) {
+                                System.out.println("Guest id not found. Please try again");
+                                break;
+                            }
+                            guestIds.add(guestId);
+                            if (guestNo == reservation.getNumberOfPax()) {
+                                isUpdateSuccessful = true;
+                            }
                         }
-                        ReservationManager.updateGuestId(reservationId, guestId);
-                        isUpdateSuccessful = true;
+                        if (!isUpdateSuccessful) {
+                            break;
+                        } 
+                        ReservationManager.updateGuestIds(reservationId, guestIds);
                         break;
                     case 4:
                         System.out.println("Enter room Id");
@@ -278,7 +293,6 @@ public class ReservationView extends MainView {
                             } else {
                                 System.out.println("Room id not found.");
                             }
-                            break;
                         } else {
                             ReservationManager.updateRoomId(reservationId, roomId, ReservationStatus.CONFIRMED);
                             isUpdateSuccessful = true;

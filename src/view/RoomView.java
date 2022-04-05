@@ -1,9 +1,10 @@
 package src.view;
 
+import src.controller.ReservationManager;
 import src.controller.RoomManager;
 import src.helper.Helper;
 import src.model.enums.RoomStatus;
-
+import java.util.ArrayList;
 // for javadocs
 import src.model.Room;
 
@@ -19,7 +20,7 @@ public class RoomView extends MainView{;
      * the default constructor for the room view
      */
     public RoomView() {
-        
+        super();
     }
 
     @Override
@@ -28,7 +29,7 @@ public class RoomView extends MainView{;
      */
     public void printMenu() {
         Helper.clearScreen();
-        printBreadCrumbs("Admin View > Room View");
+        printBreadCrumbs("Hotel App View > Room View");
         System.out.println("What would you like to do ?");
         System.out.println("(1) Update room status");
         System.out.println("(2) Search room");
@@ -82,7 +83,7 @@ public class RoomView extends MainView{;
      */
     public void promptSearchRoom(boolean printResults) {
         Helper.clearScreen();
-        printBreadCrumbs("Admin View > Room View > Search room");
+        printBreadCrumbs("Hotel App View > Room View > Search room");
         System.out.println("Enter the floor number");
         int floor = Helper.readInt();
         System.out.println("Enter the room number");
@@ -99,7 +100,7 @@ public class RoomView extends MainView{;
      */
     public boolean promptUpdateRoomStatus() {
         Helper.clearScreen();
-        printBreadCrumbs("Admin View > Room View > Update room status");
+        printBreadCrumbs("Hotel App View > Room View > Update room status");
         System.out.println("Enter the floor number");
         int floor = Helper.readInt();
         System.out.println("Enter the room number");
@@ -107,28 +108,33 @@ public class RoomView extends MainView{;
         printRoomStatusMenu();
         int opt = Helper.readInt(1,4);
         RoomStatus newStatus = RoomStatus.VACANT;
-        String guestId = "-1";
+        Room targetRoom = RoomManager.searchRoom(floor, room);
+        if (targetRoom == null) {
+            System.out.println("Room does not exist");
+            return false;
+        }
+        if (targetRoom.getRoomStatus() == RoomStatus.RESERVED || targetRoom.getRoomStatus() == RoomStatus.OCCUPIED) {
+            System.out.println("Please check out the guest before changing the room status");
+            return false;
+        }
+        ArrayList<String> guestIds = new ArrayList<String>();
         switch (opt) {
             case 1:
                 newStatus = RoomStatus.VACANT;
                 break;
             case 2:
-                newStatus = RoomStatus.OCCUPIED;
-                System.out.println("Please enter the guest's id");
-                guestId = Helper.sc.nextLine();
-                break;
+                System.out.println("Error: Please make a walk in reservation to update the room to occupied");
+                return false;
             case 3:
-                newStatus = RoomStatus.RESERVED;
-                System.out.println("Please enter the guest's id");
-                guestId = Helper.sc.nextLine();
-                break;
+                System.out.println("Error: Please make a reservation to update the room to reserved");
+                return false;
             case 4:
                 newStatus = RoomStatus.UNDER_MAINTENANCE;
                 break;
             default:
                 break;
         }
-        return RoomManager.updateRoomStatus(floor, room, newStatus, guestId);
+        return RoomManager.updateRoomStatus(floor, room, newStatus, guestIds);
     }
 
     /**
@@ -148,7 +154,7 @@ public class RoomView extends MainView{;
      */
     public void printRoomByStatus() {
         Helper.clearScreen();
-        printBreadCrumbs("Admin View > Room View > Print rooms by status");
+        printBreadCrumbs("Hotel App View > Room View > Print rooms by status");
         RoomManager.printRoomStatus();
     }
     
@@ -158,7 +164,7 @@ public class RoomView extends MainView{;
      */
     public void printRoomByOccupancyRate() {
         Helper.clearScreen();
-        printBreadCrumbs("Admin View > Room View > Print rooms by occupancy rate");
+        printBreadCrumbs("Hotel App View > Room View > Print rooms by occupancy rate");
         RoomManager.printOccupancyRate(RoomStatus.VACANT);
     }
 }

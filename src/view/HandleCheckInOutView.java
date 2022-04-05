@@ -1,9 +1,11 @@
 package src.view;
 
 import java.lang.Thread;
+import java.util.ArrayList;
 
 import javax.naming.spi.ResolveResult;
 
+import src.controller.GuestManager;
 import src.controller.PaymentManager;
 import src.controller.ReservationManager;
 import src.controller.RoomManager;
@@ -25,7 +27,7 @@ public class HandleCheckInOutView extends MainView {
     @Override
     public void printMenu() {
         Helper.clearScreen();
-        printBreadCrumbs("User View > Check In / Check Out View");
+        printBreadCrumbs("Hotel App View > Check In / Check Out View");
         System.out.println("Please select an option (1-3)");
         System.out.println("(1) Check In Room");
         System.out.println("(2) Check Out Room");
@@ -43,12 +45,12 @@ public class HandleCheckInOutView extends MainView {
             switch (opt) {
                 case 1:
                     Helper.clearScreen();
-                    printBreadCrumbs("User View > Check In / Check Out View > Check In Room");
+                    printBreadCrumbs("Hotel App View > Check In / Check Out View > Check In Room");
                     checkin();
                     break;
                 case 2:
                     Helper.clearScreen();
-                    printBreadCrumbs("User View > Check In / Check Out View > Check Out Room");
+                    printBreadCrumbs("Hotel App View > Check In / Check Out View > Check Out Room");
                     checkout();
                     break;
                 case 3:
@@ -94,7 +96,20 @@ public class HandleCheckInOutView extends MainView {
         }
         String paymentOptStr = promptPayment() == 1 ? "Cash" : "Credit Card";
         System.out.println("You have chosen to pay by " + paymentOptStr);
-        PaymentManager.handlePayment(reservationId);
+
+        ArrayList<String> guestsToPay = ReservationManager.search(reservationId).getGuestIds();
+        System.out.println("Please select which guest to make the payment ");
+        for (int i = 1; i <= guestsToPay.size(); i++) {
+            System.out.println(String.format("(%d) %s: %s", i, guestsToPay.get(i - 1),
+                    GuestManager.searchGuestById(guestsToPay.get(i - 1)).get(0).getName()));
+        }
+        if (guestsToPay.size() == 0) {
+            System.out.println("This reservation has no guest");
+            return;
+        }
+        int opt = Helper.readInt(1, guestsToPay.size());
+
+        PaymentManager.handlePayment(reservationId, guestsToPay.get(opt-1));
 
         //  remove all order details of that room
         RoomServiceManager.removeEntireOrderOfRoom(ReservationManager.getRoomIdFromReservationId(reservationId));

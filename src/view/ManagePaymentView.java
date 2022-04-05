@@ -1,7 +1,6 @@
 package src.view;
 
 import src.helper.Helper;
-
 import src.model.enums.RoomType;
 import src.controller.PromotionManager;
 public class ManagePaymentView extends MainView {
@@ -13,7 +12,7 @@ public class ManagePaymentView extends MainView {
     @Override
     public void printMenu() {
         Helper.clearScreen();
-        printBreadCrumbs("Admin View > Payment View");
+        printBreadCrumbs("Hotel App View > Payment View");
         System.out.println("Please select an option (1-4)");
         System.out.println("(1) Manage Room Price");
         System.out.println("(2) Manage Tax Rate");
@@ -30,7 +29,7 @@ public class ManagePaymentView extends MainView {
             switch (opt) {
                 case 1:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Payment View > Manage Room Price");
+                    printBreadCrumbs("Hotel App View > Payment View > Manage Room Price");
                     if (promptEditRoomPrice()) {
                         System.out.println("Edit Room Price Successful!");
                     } else {
@@ -39,7 +38,7 @@ public class ManagePaymentView extends MainView {
                     break;
                 case 2:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Payment View > Manage Tax Rate");
+                    printBreadCrumbs("Hotel App View > Payment View > Manage Tax Rate");
                     if (promptEditTaxRate()) {
                         System.out.println("Edit Tax Rate Successful!");
                     } else {
@@ -48,7 +47,7 @@ public class ManagePaymentView extends MainView {
                     break;
                 case 3:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Payment View > Manage Discount Rate");
+                    printBreadCrumbs("Hotel App View > Payment View > Manage Discount Rate");
                     if (promptEditDiscountRate()) {
                         System.out.println("Edit Discount Rate Successful!");
                     } else {
@@ -136,9 +135,6 @@ public class ManagePaymentView extends MainView {
     public void printOldDiscountRate() {
         System.out.println(String.format("The old discount rate is %.2f", PromotionManager.getDiscountRate()));
     }
-
-
-    
 
     public void printEditRoomPriceMenu() {
         System.out.println("Please select a room to edit its price (1-4)");

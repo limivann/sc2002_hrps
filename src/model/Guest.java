@@ -275,10 +275,10 @@ public class Guest implements Serializable, Comparable<Guest> {
      * Override compareTo method to compare different guest objects according to full name
      */
     @Override
-    public int compareTo(Guest o) {
-        if (this == o) {
+    public int compareTo(Guest guest) {
+        if (this == guest) {
             return 0;
         }
-        return this.getName().compareTo(o.getName());
+        return this.getName().compareTo(guest.getName());
     }
 }

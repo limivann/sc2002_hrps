@@ -2,6 +2,9 @@ package src.controller;
 
 import src.model.Reservation;
 import src.model.Room;
+
+import java.util.ArrayList;
+
 import src.database.Database;
 import src.database.FileType;
 import src.helper.Helper;
@@ -77,8 +80,8 @@ public class PaymentManager {
      * See {@link Reservation} For the details of the reservation
      * @param reservationId id of the reservation
      */
-    public static void handlePayment(String reservationId) {
-        Invoice invoice = generateInvoice(reservationId);
+    public static void handlePayment(String reservationId, String guestId) {
+        Invoice invoice = generateInvoice(reservationId, guestId);
         printInvoice(invoice);
         System.out.println("Payment successful! See you again. :)");
     }
@@ -90,7 +93,8 @@ public class PaymentManager {
      */
     public static Invoice generateInvoice(String reservationId) {
         Reservation reservation = ReservationManager.search(reservationId);
-        String guestId = reservation.getGuestId();
+        ArrayList<String> guestId = reservation.getGuestIds();
+        String guestIdToPay = guestId.get(0);
         String roomId = reservation.getRoomId();
         int nights = ReservationManager.calculateNumOfStays(reservationId);
         double taxRate = PromotionManager.getTaxRate();
@@ -101,7 +105,7 @@ public class PaymentManager {
         int iid = Helper.generateUniqueId(Database.INVOICES);
         String invoiceId = String.format("I%04d", iid);
         String dateOfPayment = Helper.getTimeNow();
-        Invoice invoice = new Invoice(invoiceId, guestId, roomId, reservationId, nights,dateOfPayment, taxRate, discountRate,
+        Invoice invoice = new Invoice(invoiceId, guestIdToPay, roomId, reservationId, nights,dateOfPayment, taxRate, discountRate,
                 subTotal,
                 total);
 

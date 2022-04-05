@@ -3,6 +3,8 @@ package src.model;
 import src.model.enums.RoomType;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
 import src.model.enums.RoomStatus;
 
 /**
@@ -16,7 +18,6 @@ public class Room implements Serializable {
 	 * For java serializable
 	 */
 	private static final long serialVersionUID = 2L;
-
 
 	/**
 	 * The type of the room <p>
@@ -61,11 +62,6 @@ public class Room implements Serializable {
 	private boolean isSmokingAllowed;
 
 	/**
-	 * The guest name in the room
-	 */
-	private String guestName;
-
-	/**
 	 * The id of the room
 	 */
 	private String roomId;
@@ -73,7 +69,7 @@ public class Room implements Serializable {
 	/**
 	 * The id of the guest live in the room
 	 */
-	private String guestId;
+	private ArrayList<String> guestIds;
 
 	/**
 	 * The constructor for the room
@@ -100,31 +96,6 @@ public class Room implements Serializable {
 		setPrice(price);
 	}	
 	
-	/**
-	 * Constructor for the room
-	 * @param type Type of the room
-	 * @param floorNumber Floor number of the room
-	 * @param roomNumber Room number of the room
-	 * @param roomStatus Status of the room
-	 * @param price Price of the room
-	 * @param isWifiEnabled whether the wifi is enabled in the room
-	 * @param isSmokingAllowed whether the smoking is allowed in the room
-	 * see {@link RoomStatus} for different status of the room
-	 * see {@link RoomType} for different type of the room
-	 */
-	public Room(RoomType type, int floorNumber, int roomNumber, RoomStatus roomStatus, double price,
-			boolean isWifiEnabled, boolean isSmokingAllowed) {
-		this.type = type;
-		this.floorNumber = floorNumber;
-		this.roomNumber = roomNumber;
-		this.roomNumberString = "0" + floorNumber + "-" + "0" + roomNumber;
-		this.roomStatus = roomStatus;
-		this.price = price;
-		this.isWifiEnabled = isWifiEnabled;
-		this.isSmokingAllowed = isSmokingAllowed;
-		// this.orders = new ArrayList<OrderItem>();
-	}
-	
 	// SETTERS
 	/**
 	 * Setter
@@ -146,16 +117,6 @@ public class Room implements Serializable {
 	 */
 	public boolean setRoomStatus(RoomStatus roomStatus) {
 		this.roomStatus = roomStatus;
-		return true;
-	}
-
-	/**
-	 * Setter
-	 * @param guestName name of the guest in the room
-	 * @return {@code true} if successfully set
-	 */
-	public boolean setGuestName(String guestName) {
-		this.guestName = guestName;
 		return true;
 	}
 
@@ -222,11 +183,11 @@ public class Room implements Serializable {
 
 	/**
 	 * Setter
-	 * @param guestId the guest id of the guest in the room
+	 * @param guestIds the guest ids of the guests in the room
 	 * @return {@code true} if successfully set
 	 */
-	public boolean setGuestId(String guestId) {
-		this.guestId = guestId;
+	public boolean setGuestIds(ArrayList<String> guestIds) {
+		this.guestIds = guestIds;
 		return true;
 	}
 
@@ -255,13 +216,6 @@ public class Room implements Serializable {
 		return this.price;
 	}
 
-	/**
-	 * Getter
-	 * @return the guest name in the room
-	 */
-	public String getGuestName() {
-		return guestName;
-	}
 
 	/**
 	 * Getter
@@ -275,8 +229,8 @@ public class Room implements Serializable {
 	 * Getter
 	 * @return the guest id in the room
 	 */
-	public String getGuestId() {
-		return guestId;
+	public ArrayList<String> getGuestIds() {
+		return guestIds;
 	}
 
 	/**
@@ -329,7 +283,19 @@ public class Room implements Serializable {
 	/**
 	 * Print out the room type of the room
 	 */
-	public void printRoomtype(){
+	public void printRoomtype() {
 		System.out.println(String.format("Room type: %s", getType().roomTypeAsStr));
+	}
+	
+	/**
+     * Override toString method to show the simplified details of the room
+     * @return a string of room details
+     */
+	@Override
+	public String toString(){
+		String res = "";
+		res += String.format("Room ID: %s, Room Type: %s, Room Status: %s", getRoomId(), getType().roomTypeAsStr,
+			getRoomStatus().roomStatusAsStr);
+		return res;
 	}
 }

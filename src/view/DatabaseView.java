@@ -21,7 +21,7 @@ public class DatabaseView extends MainView {
     @Override
     public void printMenu() {
         Helper.clearScreen();
-        printBreadCrumbs("Admin View > Database View");
+        printBreadCrumbs("Hotel App View > Database View");
         System.out.println("Please select an option (1-4)");
         System.out.println("(1) Initialize guests");
         System.out.println("(2) Initialize menu");
@@ -40,7 +40,7 @@ public class DatabaseView extends MainView {
             switch (opt) {
                 case 1:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Initialize guests");
+                    printBreadCrumbs("Hotel App View > Initialize guests");
                     if (initializeGuest()) {
                         System.out.println("Guest initialization successful");
                     } else {
@@ -49,7 +49,7 @@ public class DatabaseView extends MainView {
                     break;
                 case 2:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Database View > Initialize menu");
+                    printBreadCrumbs("Hotel App View > Database View > Initialize menu");
                     if (initializeMenu()) {
                         System.out.println("Menu initialization successful");
                     } else {
@@ -58,7 +58,7 @@ public class DatabaseView extends MainView {
                     break;
                 case 3:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Database View > Reset database");
+                    printBreadCrumbs("Hotel App View > Database View > Reset database");
                     if (resetDatabase()) {
                         System.out.println("Database cleared");
                     }

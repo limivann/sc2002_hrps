@@ -10,11 +10,11 @@ import src.model.enums.OrderStatus;
 import java.util.ArrayList;
 
 // for javadocs
-import src.view.AdminView;
-import src.view.OrderView;
+import src.view.HotelAppView;
+import src.view.RoomServiceAdminView;
 /**
  * RoomServiceManager is a controller class that acts as a "middleman"  
- * between the view classes - {@link AdminView} and {@link OrderView} and the model classes - {@link MenuItem} and {@link Order}. <p>
+ * between the view classes - {@link HotelAppView} and {@link RoomServiceAdminView} and the model classes - {@link MenuItem} and {@link Order}. <p>
  * 
  * It can create an order or customize the menu. <p>
  * Both functionalities are included in the same class {@link RoomServiceManager} to ensure that any changes to the menu will be reflected during

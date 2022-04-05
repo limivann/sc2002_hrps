@@ -75,7 +75,6 @@ public class Identity implements Serializable {
     @Override
     public String toString() {
         String res = "";
-
         res += "Identity Type: " + type.identityTypeAsStr + "\n";
         res += "Identity no: " + this.getIdentityNo();
         return res;
