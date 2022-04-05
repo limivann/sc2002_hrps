@@ -13,7 +13,7 @@ import src.model.enums.RoomStatus;
  * @version 1.0
  * @since 2022-03-30
  */
-public class Room implements Serializable {
+public class Room implements Serializable, Comparable<Room> {
 	/**
 	 * For java serializable
 	 */
@@ -292,10 +292,19 @@ public class Room implements Serializable {
      * @return a string of room details
      */
 	@Override
-	public String toString(){
+	public String toString() {
 		String res = "";
 		res += String.format("Room ID: %s, Room Type: %s, Room Status: %s", getRoomId(), getType().roomTypeAsStr,
-			getRoomStatus().roomStatusAsStr);
+				getRoomStatus().roomStatusAsStr);
 		return res;
+	}
+
+	/**
+     * Override compareTo method to compare different room objects according to floor number and room number
+     */
+	@Override
+	public int compareTo(Room room) {
+		
+		return 0;
 	}
 }

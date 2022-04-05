@@ -2,9 +2,6 @@ package src.controller;
 
 import src.model.Reservation;
 import src.model.Room;
-
-import java.util.ArrayList;
-
 import src.database.Database;
 import src.database.FileType;
 import src.helper.Helper;
