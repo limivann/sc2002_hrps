@@ -76,8 +76,9 @@ public class HandleCheckInOutView extends MainView {
         if (!ReservationManager.validateReservationId(reservationId)) {
             return;
         }
-        ReservationManager.checkInReservation(reservationId);
-        System.out.println(String.format("Check in complete for reservation id: %s", reservationId));
+        if (ReservationManager.checkInReservation(reservationId)) {
+            System.out.println(String.format("Check in complete for reservation id: %s", reservationId));
+        }
     }
     /**
      * View for Check Out reservation

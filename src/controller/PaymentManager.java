@@ -80,21 +80,21 @@ public class PaymentManager {
         System.out.println(String.format("Reservation Id: %s",invoice.getReservationId()));
         System.out.println(String.format("Nights: %d", invoice.getNights()));
 
-        System.out.println("Order Items:");
         HashMap<MenuItem, Integer> ordersMade = new HashMap<MenuItem, Integer>();
         for (Order order : invoice.getOrders()) {
             HashMap<MenuItem, Integer> currentOrders = order.getCurrentOrders();
             for (Map.Entry<MenuItem, Integer> currentEntry : currentOrders.entrySet()) {
                 if (!ordersMade.containsKey(currentEntry.getKey())) {
-                    currentOrders.put(currentEntry.getKey(), 0);
+                    ordersMade.put(currentEntry.getKey(), 0);
                 }
-                currentOrders.put(currentEntry.getKey(),
-                        currentOrders.get(currentEntry.getKey()) + currentEntry.getValue());
+                ordersMade.put(currentEntry.getKey(), ordersMade.get(currentEntry.getKey()) + currentEntry.getValue());
             }
         }
-
-        for (Map.Entry<MenuItem, Integer> orderMade : ordersMade.entrySet()) {
-            
+        if (ordersMade.size() != 0) {
+            System.out.println(String.format("Order Items, Quantity, Price"));
+            for (Map.Entry<MenuItem, Integer> orderMade : ordersMade.entrySet()) {
+                System.out.println(String.format("%s, %s, $%.2f", orderMade.getKey().getName(), orderMade.getValue(), orderMade.getKey().getPrice()));
+            }
         }
 
         System.out.println(String.format("SubTotal %.2f", invoice.getSubTotal()));
