@@ -19,7 +19,7 @@ import src.view.GuestView;
  * It can initialize, create, update or search {@link Guest} details.
  * @author Zhang Kaichen, Max
  * @version 1.0
- * @since 2022-04-04
+ * @since 2022-04-05
  */
 
 public class GuestManager {
@@ -202,7 +202,11 @@ public class GuestManager {
         }
         return searchList;
     }
-
+    /**
+     * Search method search a Guest by keyword <p>
+     * @param keyword any part of the guest name
+     * @return ArrayList of {@link Guest} object that correspond to the keyword
+     */
     public static ArrayList<Guest> searchGuestByKeywords(String keyword) {
         ArrayList<Guest> searchList = new ArrayList<Guest>();
         for (Guest guest : Database.GUESTS.values()) {
