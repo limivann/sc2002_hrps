@@ -129,7 +129,6 @@ public class ReservationView extends MainView {
         }
         RoomManager.printRoom(roomId);
         
-
         System.out.println("Enter number of pax");
         numberOfPax = Helper.readInt();
         if (!RoomManager.validateNumOfPax(roomId, numberOfPax)) {
@@ -143,6 +142,10 @@ public class ReservationView extends MainView {
             guestId = Helper.sc.nextLine();
             if (!GuestManager.validateGuestId(guestId)) {
                 System.out.println("Guest Id not found. Please try again");
+                return false;
+            }
+            if (guestIds.contains(guestId)) {
+                System.out.println("Duplicate guest id. Please try again");
                 return false;
             }
             guestIds.add(guestId);
