@@ -91,9 +91,9 @@ public class PaymentManager {
             }
         }
         if (ordersMade.size() != 0) {
-            System.out.println(String.format("Order Items, Quantity, Price"));
+            System.out.println(String.format("Order Items, Quantity, Unit Price, Total"));
             for (Map.Entry<MenuItem, Integer> orderMade : ordersMade.entrySet()) {
-                System.out.println(String.format("%s, %s, $%.2f", orderMade.getKey().getName(), orderMade.getValue(), orderMade.getKey().getPrice()));
+                System.out.println(String.format("%s, %s, $%.2f, $%.2f", orderMade.getKey().getName(), orderMade.getValue(), orderMade.getKey().getPrice(), orderMade.getKey().getPrice() * orderMade.getValue()));
             }
         }
 

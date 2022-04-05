@@ -465,8 +465,10 @@ public class RoomManager {
             ArrayList<Order> emptyOrder = new ArrayList<Order>();
             targetRoom.setOrders(emptyOrder);
             return true;
+        } else {
+            targetRoom.getOrders().add(order);
         }
-        targetRoom.getOrders().add(order);
+        Database.saveFileIntoDatabase(FileType.ROOMS);
         return true;
     }
 }

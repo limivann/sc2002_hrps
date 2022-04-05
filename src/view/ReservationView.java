@@ -241,8 +241,8 @@ public class ReservationView extends MainView {
             int numberOfPax;
             int isExpired;
             int reservationStatus;
-            boolean isUpdateSuccessful = false;
             do {
+                boolean isUpdateSuccessful = false;
                 printUpdateReservationMenu();
                 opt = Helper.readInt();
                 switch (opt) {
@@ -334,8 +334,9 @@ public class ReservationView extends MainView {
                     case 7:
                         printReservationStatusMenu();
                         reservationStatus = Helper.readInt(1, 6);
-                        ReservationManager.updateReservationStatus(reservationId, reservationStatus);
-                        isUpdateSuccessful = true;
+                        if (ReservationManager.updateReservationStatus(reservationId, reservationStatus)) {
+                            isUpdateSuccessful = true;
+                        }
                         break;
                     case 8:
                         break;
