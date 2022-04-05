@@ -1,4 +1,4 @@
-package src.database;
+ipackage src.database;
 import java.util.HashMap;
 
 import java.io.IOException;
