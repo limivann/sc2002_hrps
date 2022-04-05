@@ -8,6 +8,7 @@ import src.model.Order;
 import src.model.enums.OrderStatus;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 // for javadocs
 import src.view.HotelAppView;
@@ -94,9 +95,24 @@ public class RoomServiceManager {
      */
     public static void printOrder(String orderId){
         Order currentOrder = Database.ORDERS.get(orderId);
-        currentOrder.printOrder();
+        System.out.printf("Order Id: %s  Room: %s  Date/Time: %s\n", currentOrder.getOrderId(), currentOrder.getRoomId() , currentOrder.getDateTime());
+        System.out.println("\t\t-Order-\t\t");
+        for (Map.Entry<MenuItem, Integer> entry : currentOrder.getCurrentOrders().entrySet()) {
+            MenuItem key = entry.getKey();
+            Integer value = entry.getValue();
+            System.out.printf("Item: %s  x%d  Price: $%.2f\n", key.getName(), value, value * key.getPrice());
+        }
+        System.out.println("Remarks: " + currentOrder.getRemarks());
+        System.out.printf("Total bill: $%.2f\n", currentOrder.getTotalBill());
     }
+    
 
+    /**
+     * Prints the order of the customer
+     */
+    public void printOrderDetails(){
+        
+    }
     /**
      * Sets the remarks for the order of the specified order Id
      * @param remarks Remarks for the order

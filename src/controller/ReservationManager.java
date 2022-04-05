@@ -261,6 +261,11 @@ public class ReservationManager {
         if (!validateReservationId(reservationId)) {
             return false;
         }
+        if (search(reservationId).getReservationStatus() == ReservationStatus.CHECKED_IN
+                || search(reservationId).getReservationStatus() == ReservationStatus.CHECKED_OUT) {
+            System.out.println("Please check in using check in / check out view");
+            return false;
+        }
         switch (status) {
             case 1:
                 if (search(reservationId).getReservationStatus() == ReservationStatus.CONFIRMED) {
@@ -365,8 +370,8 @@ public class ReservationManager {
             return false;
         }
         ReservationStatus reservationStatus = search(reservationId).getReservationStatus();
-        if (reservationStatus == ReservationStatus.CHECKED_OUT) {
-            System.out.println("You have already checked out");
+        if (reservationStatus != ReservationStatus.CHECKED_IN) {
+            System.out.println("This reservation is " + reservationStatus.reservationStatusAsStr);
             return false;
         }
         // manually check out

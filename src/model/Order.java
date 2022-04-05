@@ -113,6 +113,15 @@ public class Order implements Serializable {
     }
 
     /**
+     * Get the special remarks of the order.
+     * @return The special remarks of the order.
+     */
+    public String getRemarks() {
+        return remarks;
+    }
+
+
+    /**
      * Adds a menu item and the specified quantity desired to be added to the current order.
      * At the same time, this method adds the prices of the menu items added to the total bill.
      * 
@@ -158,21 +167,7 @@ public class Order implements Serializable {
     public HashMap<MenuItem, Integer> getCurrentOrders() {
         return currentOrders;
     }
-    
-    /**
-     * Prints the order of the customer
-     */
-    public void printOrder(){
-        System.out.printf("Order Id: %s  Room: %s  Date/Time: %s\n", getOrderId(), getRoomId() ,dateTime);
-        System.out.println("\t\t-Order-\t\t");
-        for (Map.Entry<MenuItem, Integer> entry : currentOrders.entrySet()) {
-            MenuItem key = entry.getKey();
-            Integer value = entry.getValue();
-            System.out.printf("Item: %s  x%d  Price: $%.2f\n", key.getName(), value, value * key.getPrice());
-        }
-        System.out.println("Remarks: " + this.remarks);
-        System.out.printf("Total bill: $%.2f\n", this.totalBill);
-    }
+
 
     /**
      * Sets remarks for the order
