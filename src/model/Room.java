@@ -13,7 +13,7 @@ import src.model.enums.RoomStatus;
  */
 public class Room implements Serializable {
 	/**
-	 * serial id for the room
+	 * For java serializable
 	 */
 	private static final long serialVersionUID = 2L;
 

@@ -8,6 +8,7 @@ import src.model.enums.RoomType;
 // for javadocs
 import src.view.AdminView;
 import src.view.ManagePaymentView;
+import src.model.Invoice;
 /**
  * PromotionManager is a controller class that acts as a "middleman" 
  * between the view classess - {@link AdminView} and {@link ManagePaymentView} and the model classes - {@link Invoice} and {@link PromotionDetails}. <p>

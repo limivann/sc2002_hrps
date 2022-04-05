@@ -2,12 +2,10 @@ package src.controller;
 
 import src.model.Reservation;
 import src.model.Room;
-import java.util.ArrayList;
 import src.database.Database;
 import src.database.FileType;
 import src.helper.Helper;
 import src.model.Invoice;
-import src.model.Order;
 /**
  * PaymentManager is a controller class that generates {@link Invoice} and handles payment. <p>
  * 
@@ -31,6 +29,7 @@ public class PaymentManager {
      * Calls {@link RoomManager} to get room price, calls {@link ReservationManager} to retrieve number of stays and 
      * calls {@link RoomServiceManager} to get order price of the room. 
      * @param roomId id of the room
+     * @param reservationId id of the reservation
      * @return subtotal of the reservation corresponding to the room id.
      */
     public static double calculateSubTotal(String roomId, String reservationId) {

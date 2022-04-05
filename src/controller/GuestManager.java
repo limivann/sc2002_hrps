@@ -239,7 +239,8 @@ public class GuestManager {
     
     /**
      * Function to print all guest in the database that show the guest id and the Guest <p>
-     * see {@link Guest#toString()} for the printing format of guest
+     * See {@link Guest#toString()} for the printing format of guest
+     * @param byId {@code true} if print by id. Otherwise, {@code false} if print by guest name.
      */
     public static void printAllGuests(boolean byId) {
         ArrayList<Guest> sortedList = new ArrayList<Guest>();
@@ -285,7 +286,8 @@ public class GuestManager {
 
     /**
      * Function to print guest details given a particular guest id <p>
-     * @param guestId the guest of the guest that you want to print its details
+     * @param keyword keyword to find guest, can be guest id or substring of guest name
+     * @param byId {@code true} if find by guest id. Otherwise, {@code false} if find by guest name.
      * @return {@code true} if guest id exist. Otherwise, {@code false} if guest id does not exist
      */
     public static boolean findGuestDetails(String keyword, boolean byId) {
@@ -330,6 +332,7 @@ public class GuestManager {
 
     /**
      * Print the complete details of the guest
+     * @param guest {@link Guest} object to print 
      */
     public static void printGuestDetails(Guest guest) {
         System.out.println("----------------");
