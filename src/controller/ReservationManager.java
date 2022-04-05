@@ -1,6 +1,7 @@
 package src.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import src.model.Guest;
 import src.model.Reservation;
@@ -119,7 +120,7 @@ public class ReservationManager {
     public static void printReservationDetails(String reservationId){
         if(validateReservationId(reservationId)){
             Reservation reservation = Database.RESERVATIONS.get(reservationId);
-            System.out.println("----------------");
+            System.out.println(String.format("%-50s", "").replace(" ", "-"));
             System.out.println(String.format("%-30s: %s", "Reservation Id", reservation.getReservationId()));
             ArrayList<String> guestIds = reservation.getGuestIds();
             String guestIdsAsStr = "";
@@ -133,7 +134,7 @@ public class ReservationManager {
             System.out.println(String.format("%-30s: %s", "Reservation Created Date",reservation.getReservationDate()));
             System.out.println(String.format("%-30s: %s", "Number of Pax",String.valueOf(reservation.getNumberOfPax())));
             System.out.println(String.format("%-30s: %s", "Reservation Status",reservation.getReservationStatus()));
-            System.out.println("----------------");
+            System.out.println(String.format("%-50s", "").replace(" ", "-"));
         }
     }
     
@@ -315,7 +316,13 @@ public class ReservationManager {
      * A method that prints out all the reservations in database.
      */
     public static void printAllReservations() {
+        ArrayList<Reservation> sortedList = new ArrayList<Reservation>();
+        // copy
         for (Reservation reservation : Database.RESERVATIONS.values()) {
+            sortedList.add(reservation);
+        }
+        Collections.sort(sortedList);
+        for (Reservation reservation : sortedList) {
             System.out.println(reservation);
         }
     }
@@ -375,6 +382,7 @@ public class ReservationManager {
         } else {
             RoomManager.updateRoomStatus(getRoomIdFromReservationId(reservationId), RoomStatus.VACANT);
         }
+        Database.saveAllFiles();
         return true;
     }
     

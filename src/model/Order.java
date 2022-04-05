@@ -138,23 +138,25 @@ public class Order implements Serializable {
      * @param amount Number of menu item to be removed from the oder
      * @return {@code true} if removal is successful. Otherwise, {@code false} if removal failed (Amount entered to be removed is more than current amount in order)
      */
-    public boolean removeOrderItem(MenuItem toBeRemoved, int amount){
+    public boolean removeOrderItem(MenuItem toBeRemoved, int amount) {
 
         int currAmount = currentOrders.get(toBeRemoved);
-        if (amount <= currAmount){
-            if (amount == currAmount){
+        if (amount <= currAmount) {
+            if (amount == currAmount) {
                 currentOrders.remove(toBeRemoved);
-            }
-            else{
+            } else {
                 currentOrders.put(toBeRemoved, currAmount - amount);
             }
             totalBill -= (toBeRemoved.getPrice() * amount);
             return true;
-        }
-        else {
+        } else {
             System.out.println("");
             return false;
         }
+    }
+    
+    public HashMap<MenuItem, Integer> getCurrentOrders() {
+        return currentOrders;
     }
     
     /**

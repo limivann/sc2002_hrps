@@ -339,15 +339,16 @@ public class GuestManager {
      * @param guest {@link Guest} object to print 
      */
     public static void printGuestDetails(Guest guest) {
-        System.out.println("----------------");
-        System.out.printf("Guest ID: %s\n", guest.getGuestId());
-        System.out.printf("Name: %s\n", guest.getName());
-        System.out.printf("Credit Card No: %s\n", guest.getCreditCard());
-        System.out.printf("Address: %s\n", guest.getAddress());
-        System.out.println("Gender: " + guest.getGender().genderAsStr);
-        System.out.println(guest.getIdentity());
-        System.out.printf("Nationality: %s\n", guest.getNationality());
-        System.out.printf("Contact No: %s\n", guest.getContact());
-        System.out.println("----------------");
+        System.out.println(String.format("%-40s", "").replace(" ", "-"));
+        System.out.println(String.format("%-20s: %s", "Guest ID", guest.getGuestId()));
+        System.out.println(String.format("%-20s: %s", "Name", guest.getName()));
+        System.out.println(String.format("%-20s: %s", "Credit Card", guest.getCreditCard()));
+        System.out.println(String.format("%-20s: %s", "Address", guest.getAddress()));
+        System.out.println(String.format("%-20s: %s", "Gender", guest.getGender().genderAsStr));
+        System.out.println(String.format("%-20s: %s", "Identity Type", guest.getIdentity().getType().identityTypeAsStr));
+        System.out.println(String.format("%-20s: %s", "Identity No.", guest.getIdentity().getIdentityNo()));
+        System.out.println(String.format("%-20s: %s", "Nationality", guest.getNationality()));
+        System.out.println(String.format("%-20s: %s", "Contact No.", guest.getContact()));
+        System.out.println(String.format("%-40s", "").replace(" ", "-"));
     }
 }

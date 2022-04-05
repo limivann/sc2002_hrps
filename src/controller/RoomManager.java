@@ -1,11 +1,12 @@
 package src.controller;
 import java.util.ArrayList;
+import java.util.Collections;
 import src.database.Database;
 import src.database.FileType;
+import src.model.Order;
 import src.model.Room;
 import src.model.enums.*;
 
-import src.model.Guest;
 // for javadocs
 import src.view.HotelAppView;
 import src.view.RoomView;
@@ -59,7 +60,6 @@ public class RoomManager {
             Database.saveFileIntoDatabase(FileType.ROOMS);
             return true;
         } else {
-            // TODO: Throw exception
             System.out.println("Room id doesn't exists. ");
             return false;
         }
@@ -197,6 +197,7 @@ public class RoomManager {
                 roomsByStatus.add(room);
             }
         }
+        Collections.sort(roomsByStatus);
         return roomsByStatus;
     }
 
@@ -213,6 +214,7 @@ public class RoomManager {
                 roomsByRoomType.add(room);
             }
         }
+        Collections.sort(roomsByRoomType);
         return roomsByRoomType;
     }
 
@@ -441,16 +443,30 @@ public class RoomManager {
                 guestIds += guestId + " ";
             }
         }
-        System.out.println("----------------");
-        System.out.printf("Room number: %s\n", target.getRoomId());
-		target.printRoomStatus();
-		target.printRoomtype();
-		if (target.getRoomStatus() == RoomStatus.OCCUPIED || target.getRoomStatus() == RoomStatus.RESERVED) {
-			System.out.printf("Guest(s): %s\n", guestIds);
-		}
-		System.out.printf("Room price: %s\n", target.getPrice());
-		System.out.printf("Wifi Enabled: %s\n", target.getIsWifiEnabled());
-		System.out.printf("Smoking Allowed: %s\n", target.getIsSmokingAllowed());
-        System.out.println("----------------");
+        System.out.println(String.format("%-40s", "").replace(" ", "-"));
+        System.out.println(String.format("%-20s: %s", "Room Number", target.getRoomId()));
+        System.out.println(String.format("%-20s: %s", "Room Status", target.getRoomStatus().roomStatusAsStr));
+        System.out.println(String.format("%-20s: %s", "Room Type", target.getType().roomTypeAsStr));
+        if (target.getRoomStatus() == RoomStatus.OCCUPIED || target.getRoomStatus() == RoomStatus.RESERVED) {
+            System.out.println(String.format("%-20s: %s", "Guest(s)", guestIds));
+        }
+        System.out.println(String.format("%-20s: %s", "Room Price", target.getPrice()));
+        System.out.println(String.format("%-20s: %s", "Wifi Enabled", target.getIsWifiEnabled()));
+        System.out.println(String.format("%-20s: %s", "Smoking Allowed", target.getIsSmokingAllowed()));
+        System.out.println(String.format("%-40s", "").replace(" ", "-"));
+    }
+    
+    public static boolean updateRoomOrders(String roomId, Order order, boolean clearRoom) {
+        Room targetRoom = searchRoom(roomId);
+        if (targetRoom == null) {
+            return false;
+        }
+        if (clearRoom) {
+            ArrayList<Order> emptyOrder = new ArrayList<Order>();
+            targetRoom.setOrders(emptyOrder);
+            return true;
+        }
+        targetRoom.getOrders().add(order);
+        return true;
     }
 }

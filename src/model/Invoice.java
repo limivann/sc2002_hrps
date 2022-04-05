@@ -1,6 +1,7 @@
 package src.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 /**
  * A class that handles invoice model.
  * @author Max
@@ -30,6 +31,10 @@ public class Invoice implements Serializable {
      */
     private int nights;
 
+    /**
+     * ArrayList of {@link Order}(s) made by the guest
+     */
+    private ArrayList<Order> orders;
     /**
      * Total amount without tax rate and discount rate
      */
@@ -69,7 +74,7 @@ public class Invoice implements Serializable {
      * @param total Total amount with tax rate and discount rate
      */
     public Invoice(String invoiceId, String guestId, String roomId, String reservationId, int nights, String dateOfPayment,
-            double taxRate, double discountRate, double subTotal, double total) {
+            double taxRate, double discountRate, ArrayList<Order> orders ,double subTotal, double total) {
         // reservation will retrieve details for reservation id, guest id, room id
         // calculate sub total by searching orders
         setInvoiceId(invoiceId);
@@ -80,6 +85,7 @@ public class Invoice implements Serializable {
         setDateOfPayment(dateOfPayment);
         setTaxRate(taxRate);
         setDiscountRate(discountRate);
+        setOrders(orders);
         setSubTotal(subTotal);
         setTotal(total);
     }
@@ -179,6 +185,17 @@ public class Invoice implements Serializable {
         this.reservationId = reservationId;
         return true;
     }
+
+    /**
+     * Sets the orders made by the guest
+     * @param orders ArrayList of {@link Order}(s) made by the guest
+     * @return {@code true} if sets successfully
+     */
+    public boolean setOrders(ArrayList<Order> orders) {
+        this.orders = orders;
+        return true;
+    }
+
     /**
      * Gets the total.
      * @return total amount with tax rate and discount rate
@@ -248,6 +265,14 @@ public class Invoice implements Serializable {
      */
     public String getInvoiceId() {
         return invoiceId;
+    }
+
+    /**
+     * Gets the orders made by the guest
+     * @return ArrayList of {@link Order}(s) made by the guest
+     */
+    public ArrayList<Order> getOrders() {
+        return orders;
     }
     /**
     * Override toString method to show the simplified details of the invoice.
