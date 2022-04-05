@@ -13,6 +13,7 @@ import src.helper.Helper;
 // for javadocs
 import src.view.AdminView;
 import src.view.ReservationView;
+import src.model.Room;
 /**
  * RservationManager is a controller class that acts as a "middleman"
  * between the view classes - {@link AdminView} and {@link ReservationView} and the model classes - {@link Reservation}, {@link Guest} and {@link Room}. <p>
@@ -113,7 +114,7 @@ public class ReservationManager {
     /**
      * A method that prints out the details of a specified reservation. <p>
      * See {@link Reservation} for more details about Reservation.
-     * @param reservationId Id of the reservation <p>
+     * @param reservationId Id of the reservation
      */
     public static void printReservationDetails(String reservationId){
         if(validateReservationId(reservationId)){
