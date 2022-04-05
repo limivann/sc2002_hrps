@@ -16,40 +16,15 @@ public class HotelApp {
      */
     public static void main(String[] args) {
         // Intialize helpers and view apps
-        AdminView adminView = new AdminView();
-        UserView userView = new UserView();
+        HotelAppView hotelAppView = new HotelAppView();
 
         Database database = new Database();
-        int opt = -1;
-        do{
-            printMainMenu();
-            opt = Helper.readInt(1,3);
-            switch (opt) {
-                case 1:
-                    adminView.viewapp();
-                    break;
-                case 2:
-                    userView.viewapp();
-                    break;
-                case 3:
-                    break;
-                default:
-                    break;
-            }
-        } while (opt != 3);
-        Database.saveAllFiles();
-        System.out.println("Program closing ... Thank you for using HRPS!");
-    }
-    /**
-     * Menu for views
-     */
-    public static void printMainMenu() {
         Helper.clearScreen();
         printHRPSTitle();
-        System.out.println("Enter user domain");
-        System.out.println("(1) Admin");
-        System.out.println("(2) User");
-        System.out.println("(3) Exit Program");
+        Helper.pressAnyKeyToContinue();
+        hotelAppView.viewapp();
+        Database.saveAllFiles();
+        System.out.println("Program closing ... Thank you for using HRPS!");
     }
 
     private static void printHRPSTitle() {

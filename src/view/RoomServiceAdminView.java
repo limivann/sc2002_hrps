@@ -21,7 +21,7 @@ public class RoomServiceAdminView extends MainView{
     @Override
     public void printMenu() {
         Helper.clearScreen();
-        printBreadCrumbs("Admin View > Room Service View");
+        printBreadCrumbs("Hotel App View > Room Service View");
         System.out.println("Please enter an option (1-3)");
         System.out.println("(1) Customize Menu");
         System.out.println("(2) Manage Orders");
@@ -60,7 +60,7 @@ public class RoomServiceAdminView extends MainView{
      */
     private void printCustomizeMenuMenu() {
         Helper.clearScreen();
-        printBreadCrumbs("Admin View > Room Service View > Customize Menu");
+        printBreadCrumbs("Hotel App View > Room Service View > Customize Menu");
         System.out.println("Please enter an option (1-5)");
         System.out.println("(1) Add menu items");
         System.out.println("(2) Remove menu items");
@@ -83,7 +83,7 @@ public class RoomServiceAdminView extends MainView{
             switch (opt) {
                 case 1:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Room Service View > Customize Menu > Add menu items");
+                    printBreadCrumbs("Hotel App View > Room Service View > Customize Menu > Add menu items");
                     System.out.println("Enter name of item to be added:\r");
                     name = Helper.sc.nextLine();
                     System.out.printf("Enter description of %s:\n\r", name);
@@ -94,14 +94,14 @@ public class RoomServiceAdminView extends MainView{
                     break;
                 case 2:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Room Service View > Customize Menu > Remove menu items");
+                    printBreadCrumbs("Hotel App View > Room Service View > Customize Menu > Remove menu items");
                     System.out.println("Enter name of item to be removed:\r");
                     name = Helper.sc.nextLine();
                     removeMenuItem(name);
                     break;
                 case 3:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Room Service View > Customize Menu > Update menu items");
+                    printBreadCrumbs("Hotel App View > Room Service View > Customize Menu > Update menu items");
                     System.out.println("Enter name of item to be updated:\r");
                     name = Helper.sc.nextLine();
                     System.out.printf("Enter description of %s:\n\r", name);
@@ -112,7 +112,7 @@ public class RoomServiceAdminView extends MainView{
                     break;
                 case 4:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Room Service View > Customize Menu > Print menu items");
+                    printBreadCrumbs("Hotel App View > Room Service View > Customize Menu > Print menu items");
                     printMenuItems();
                     break;
                 case 5:
@@ -202,7 +202,7 @@ public class RoomServiceAdminView extends MainView{
                     break;
                 case 2:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Room Service View > Manage Orders > Update order status");
+                    printBreadCrumbs("Hotel App View > Room Service View > Manage Orders > Update order status");
                     if (updateOrderStatus()) {
                         System.out.println("Update order successful");
                     } else {
@@ -211,7 +211,7 @@ public class RoomServiceAdminView extends MainView{
                     break;
                 case 3:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Room Service View > Manage Orders > Print all orders");
+                    printBreadCrumbs("Hotel App View > Room Service View > Manage Orders > Print all orders");
                     RoomServiceManager.printAllOrders();
                     break;
                 case 4:
@@ -231,7 +231,7 @@ public class RoomServiceAdminView extends MainView{
      */
     public void printManageOrdersMenu() {
         Helper.clearScreen();
-        printBreadCrumbs("Admin View > Room Service View > Manage Orders");
+        printBreadCrumbs("Hotel App View > Room Service View > Manage Orders");
         System.out.println("Please select an option (1-4)");
         System.out.println("(1) Create an order");
         System.out.println("(2) Update order status");
@@ -299,18 +299,18 @@ public class RoomServiceAdminView extends MainView{
         int option = -1;
         do { 
             Helper.clearScreen();
-            printBreadCrumbs("Admin View > Room Service View > Manage Orders > Create order for Room " + roomId);
+            printBreadCrumbs("Hotel App View > Room Service View > Manage Orders > Create order for Room " + roomId);
             printCreateOrderMenu();
             option = Helper.readInt(1, 6);
             switch (option) {
                 case 1:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Print menu");
+                    printBreadCrumbs("Hotel App View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Print menu");
                     RoomServiceManager.printMenu();
                     break;
                 case 2:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Add menu items");
+                    printBreadCrumbs("Hotel App View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Add menu items");
                     System.out.println("Enter item to be added:\r");
                     itemName = Helper.sc.nextLine();
                     System.out.println("Enter amount to be added:\r");
@@ -319,7 +319,7 @@ public class RoomServiceAdminView extends MainView{
                     break;
                 case 3:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Remove menu items");
+                    printBreadCrumbs("Hotel App View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Remove menu items");
                     System.out.println("Enter item to be removed:\r");
                     itemName = Helper.sc.nextLine();
                     System.out.println("Enter amount to be removed:\r");
@@ -328,12 +328,12 @@ public class RoomServiceAdminView extends MainView{
                     break;
                 case 4:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Print order");
+                    printBreadCrumbs("Hotel App View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Print order");
                     RoomServiceManager.printOrder(orderId);
                     break;
                 case 5:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Enter remarks");
+                    printBreadCrumbs("Hotel App View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Enter remarks");
                     System.out.println("Enter remarks:\r");
                     String remarks = Helper.sc.nextLine();
                     RoomServiceManager.setRemarks(remarks, orderId);
@@ -341,7 +341,7 @@ public class RoomServiceAdminView extends MainView{
                     break;
                 case 6:
                     Helper.clearScreen();
-                    printBreadCrumbs("Admin View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Checkout");
+                    printBreadCrumbs("Hotel App View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Checkout");
                     confirmOrder(orderId);
                     break;
                 default:

@@ -5,52 +5,58 @@ import src.helper.Helper;
 /**
  * Viewing interface for the hotel administrator
  */
-public class AdminView extends MainView{
+public class HotelAppView extends MainView{
     /**
      * Default constructor
      */
-    public AdminView() {
+    protected GuestView guestView;
+    protected RoomView roomView;
+    protected ReservationView reservationView;
+    protected RoomServiceAdminView roomServiceAdminView;
+    protected HandleCheckInOutView handleCheckInOutView;
+    protected ManagePaymentView managePaymentView;
+    protected DatabaseView databaseView;
+    
+    public HotelAppView() {
         super();
+        guestView = new GuestView();
+        roomView = new RoomView();
+        reservationView = new ReservationView();
+        roomServiceAdminView = new RoomServiceAdminView();
+        handleCheckInOutView = new HandleCheckInOutView();
+        managePaymentView = new ManagePaymentView();
+        databaseView = new DatabaseView();
+        
     }
     /**
      * View Menu for Admin
      */
     @Override
-    /**
-     * Admin view menu
-     */
     public void printMenu() {
         Helper.clearScreen();
-        printBreadCrumbs("Admin View");
+        printBreadCrumbs("Hotel App View");
         System.out.println("What would you like to do ?");
         System.out.println("(1) Manage Guest");
         System.out.println("(2) Manage Room");
         System.out.println("(3) Manage Reservation");
         System.out.println("(4) Manage RoomService");
-        System.out.println("(5) Manage Payment");
-        System.out.println("(6) Manage Database");
-        System.out.println("(7) Exit Admin View");   
+        System.out.println("(5) Manage Check In / Check Out");
+        System.out.println("(6) Manage Payment");
+        System.out.println("(7) Manage Database");
+        System.out.println("(8) Exit HRPS");   
     }
     /**
-     * View Application for Admin
+     * View Application for Hotel
      */
     @Override
-    /**
-     * Admin View Application Menu
-     */
     public void viewapp() {
         // init views
-        GuestView guestView = new GuestView();
-        RoomView roomView = new RoomView();
-        ReservationView reservationView = new ReservationView();
-        RoomServiceAdminView roomServiceAdminView = new RoomServiceAdminView();
-        ManagePaymentView managePaymentView = new ManagePaymentView();
-        DatabaseView databaseView = new DatabaseView();
+        
 
         int opt = -1;
         do{
             printMenu();
-            opt = Helper.readInt(1, 7);
+            opt = Helper.readInt(1, 8);
             switch (opt) {
                 case 1:
                     guestView.viewapp();
@@ -65,19 +71,20 @@ public class AdminView extends MainView{
                     roomServiceAdminView.viewapp();
                     break;
                 case 5:
-                    managePaymentView.viewapp();
+                    handleCheckInOutView.viewapp();
                     break;
                 case 6:
-                    databaseView.viewapp();
+                    managePaymentView.viewapp();
                     break;
                 case 7:
+                    databaseView.viewapp();
+                    break;
+                case 8:
                     break;
                 default:
-                    // TODO: Throw Exception
-                    System.out.println("Invalid input. Please try again.");
                     break;
             }
-        } while (opt != 7);
+        } while (opt != 8);
         
     }
     

@@ -28,7 +28,7 @@ public class GuestView extends MainView{
      */
     public void printMenu() {
         Helper.clearScreen();
-        printBreadCrumbs("Admin View > Guest View");
+        printBreadCrumbs("Hotel App View > Guest View");
         System.out.println("What would you like to do ?");
         System.out.println("(1) Create a Guest");
         System.out.println("(2) Update a Guest detail");
@@ -94,7 +94,7 @@ public class GuestView extends MainView{
      */
     public boolean promptCreateGuest() {
         Helper.clearScreen();
-        printBreadCrumbs("Admin View > Guest View > Create a Guest");
+        printBreadCrumbs("Hotel App View > Guest View > Create a Guest");
         System.out.println("Please enter guest's first name: ");
         String firstName = Helper.sc.nextLine();
         System.out.println("Please enter guest's last name: ");
@@ -194,7 +194,7 @@ public class GuestView extends MainView{
      */
     public boolean promptUpdateGuest() {
         Helper.clearScreen();
-        printBreadCrumbs("Admin View > Guest View > Update a Guest Detail");
+        printBreadCrumbs("Hotel App View > Guest View > Update a Guest Detail");
         System.out.println("Enter the guest that you want to update (GXXXX): ");
         String guestId = Helper.sc.nextLine();
         if (GuestManager.searchGuestById(guestId).size() == 0) {
@@ -273,7 +273,7 @@ public class GuestView extends MainView{
      */
     public void promptSearchGuest() {
         Helper.clearScreen();
-        printBreadCrumbs("Admin View > Guest View > Search a Guest");
+        printBreadCrumbs("Hotel App View > Guest View > Search a Guest");
         System.out.println("Please enter an option on how to search the guests (1-2)");
         System.out.println("(1) Search by guest id");
         System.out.println("(2) Search by keyword (name)");
@@ -306,7 +306,7 @@ public class GuestView extends MainView{
      */
     public boolean promptRemoveGuest() {
         Helper.clearScreen();
-        printBreadCrumbs("Admin View > Guest View > Remove a guest");
+        printBreadCrumbs("Hotel App View > Guest View > Remove a guest");
         System.out.println("Enter the guest id you want to remove (GXXXX): ");
         String guestId = Helper.sc.nextLine();
         if (!GuestManager.removeGuest(guestId)) {
@@ -323,7 +323,7 @@ public class GuestView extends MainView{
      */
     public void printGuests() {
         Helper.clearScreen();
-        printBreadCrumbs("Admin View > Guest View > Print All Guests");
+        printBreadCrumbs("Hotel App View > Guest View > Print All Guests");
         System.out.println("Please select an option of printing the guest (1-2)");
         System.out.println("(1) Print in order of Guest ID");
         System.out.println("(2) Print in order of Guest name");

@@ -11,10 +11,10 @@ import src.model.enums.Gender;
 import src.model.enums.IdentityType;
 
 // for javadocs
-import src.view.AdminView;
+import src.view.HotelAppView;
 import src.view.GuestView;
 /** GuestManager is a controller class that acts as a "middleman"
- * between the view classes - {@link AdminView} and {@link GuestView} and the model class - {@link Guest}. <p>
+ * between the view classes - {@link HotelAppView} and {@link GuestView} and the model class - {@link Guest}. <p>
  * 
  * It can initialize, create, update or search {@link Guest} details.
  * @author Zhang Kaichen, Max

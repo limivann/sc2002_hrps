@@ -7,11 +7,11 @@ import src.model.enums.*;
 
 import src.model.Guest;
 // for javadocs
-import src.view.AdminView;
+import src.view.HotelAppView;
 import src.view.RoomView;
 /**
  * RoomManager is a controller class that acts as a "middleman"
- * between the view classes -  {@link AdminView} and {@link RoomView} and the model class - {@link Room}. <p>
+ * between the view classes -  {@link HotelAppView} and {@link RoomView} and the model class - {@link Room}. <p>
  * 
  * It can initialize or update the room and print Room Status statistic report.
  * @author Lim Kang Wei, Zhang Kaichen, Ivan，Max
@@ -73,29 +73,13 @@ public class RoomManager {
      * @param guestId Id of the guest to be added/removed from the room
      * @return {@code true} if successful. Otherwise, {@code false} if the room id not found.
      */
-    public static boolean updateRoomStatus(int floorNumber, int roomNumber, RoomStatus roomStatus, String guestId) {
-        ArrayList<Guest> guestList;
-        Guest guest = null;
-        if (guestId != "-1"){
-            guestList = GuestManager.searchGuestById(guestId);
-            if (guestList.size() == 0) {
-                System.out.println("Guest not found!");
-                return false;
-            }
-            guest = guestList.get(0);
-        }
+    public static boolean updateRoomStatus(int floorNumber, int roomNumber, RoomStatus roomStatus, ArrayList<String> guestIds) {
         String roomId = String.format("%02d-%02d", floorNumber, roomNumber);
         if (Database.ROOMS.containsKey(roomId)) {
             Room targetRoom = Database.ROOMS.get(roomId);
             targetRoom.setRoomStatus(roomStatus);
             // set guest details
-            if (guest != null) {
-                targetRoom.setGuestId(guest.getGuestId());
-                targetRoom.setGuestName(guest.getName());
-            } else {
-                targetRoom.setGuestId("");
-                targetRoom.setGuestName("");
-            }
+            targetRoom.setGuestIds(guestIds);
             Database.ROOMS.put(roomId, targetRoom);
             Database.saveFileIntoDatabase(FileType.ROOMS);
             return true;
@@ -110,20 +94,26 @@ public class RoomManager {
      * Method to search a room by floor and room number of the room <p>
      * @param floor floor number of the room
      * @param room room number of the room
-     * @return the room object correspond to the room id
+     * @return the room object correspond to the room id. Otherwise, {@code null} if the room is not found
      */
     public static Room searchRoom(int floor, int room) {
         String roomId = String.format("%02d-%02d", floor, room);
-        return Database.ROOMS.get(roomId);
+        if (Database.ROOMS.containsKey(roomId)) {
+            return Database.ROOMS.get(roomId);
+        }
+        return null;
     }
 
     /**
      * Method to search a room by room id <p>
      * @param roomId room id of the room
-     * @return the room object correspond to the room id
+     * @return the room object correspond to the room id. Otherwise, {@code null} if the room is not found
      */
     public static Room searchRoom(String roomId) {
-        return Database.ROOMS.get(roomId);
+        if (Database.ROOMS.containsKey(roomId)) {
+            return Database.ROOMS.get(roomId);
+        }
+        return null;
     }
 
     /**
@@ -422,16 +412,9 @@ public class RoomManager {
      * @param guestId guest id of the guest 
      * @return {@code true} if updating of guest details is successful. Otherwise, {@code false} if guest id does not exist.
      */
-    public static boolean updateRoomGuestDetails(String roomId, String guestId) {
-        ArrayList<Guest> guestToUpdateList = GuestManager.searchGuestById(guestId);
-        if (guestToUpdateList.size() == 0) {
-            System.out.println("Guest not found");
-            return false;
-        }
+    public static boolean updateRoomGuestDetails(String roomId, ArrayList<String> guestIds) {
         Room roomToUpdate = searchRoom(roomId);
-        roomToUpdate.setGuestId(guestId);
-        roomToUpdate.setGuestName(guestToUpdateList.get(0).getName());
-        return true;
+        return roomToUpdate.setGuestIds(guestIds);
     }
 
     /**
@@ -452,12 +435,18 @@ public class RoomManager {
      */
     public static void printRoomDetails(String roomId) {
         Room target = searchRoom(roomId);
+        String guestIds = "";
+        if (target.getGuestIds() != null) {
+            for (String guestId : target.getGuestIds()) {
+                guestIds += guestId + " ";
+            }
+        }
         System.out.println("----------------");
         System.out.printf("Room number: %s\n", target.getRoomId());
 		target.printRoomStatus();
 		target.printRoomtype();
 		if (target.getRoomStatus() == RoomStatus.OCCUPIED || target.getRoomStatus() == RoomStatus.RESERVED) {
-			System.out.printf("Guest Name: %s\n", target.getGuestName());
+			System.out.printf("Guest(s): %s\n", guestIds);
 		}
 		System.out.printf("Room price: %s\n", target.getPrice());
 		System.out.printf("Wifi Enabled: %s\n", target.getIsWifiEnabled());

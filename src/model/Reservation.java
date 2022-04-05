@@ -2,6 +2,7 @@ package src.model;
 import src.model.enums.ReservationStatus;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import src.helper.Helper;
 /**
@@ -30,7 +31,7 @@ public class Reservation implements Serializable {
     /**
      * Id of the guest
      */
-    private String guestId;
+    private ArrayList<String> guestIds;
     /**
      * Id of the room
      */
@@ -64,7 +65,7 @@ public class Reservation implements Serializable {
      * @param reservationStatus status of the reservation
      * {@link ReservationStatus} 
      */
-    public Reservation(String checkedInDate, String checkedOutDate, String guestId, String roomId, int numberOfPax, String reservationId, ReservationStatus reservationStatus){
+    public Reservation(String checkedInDate, String checkedOutDate, ArrayList<String> guestIds, String roomId, int numberOfPax, String reservationId, ReservationStatus reservationStatus){
         this.reservationDate = Helper.getTimeNow();
         if(checkedInDate==null){
             this.checkedInDate = this.reservationDate;
@@ -73,7 +74,7 @@ public class Reservation implements Serializable {
             this.checkedInDate = checkedInDate;
         }
         this.checkedOutDate = checkedOutDate;
-        this.guestId = guestId;
+        this.guestIds = guestIds;
         this.roomId = roomId;
         this.numberOfPax = numberOfPax;
         this.isExpired = false;
@@ -106,8 +107,8 @@ public class Reservation implements Serializable {
      * @param guestId Id of the guest
      * @return {@code true} if sets successfully
      */
-    public boolean setGuestId(String guestId) {
-        this.guestId = guestId;
+    public boolean setGuestIds(ArrayList<String> guestIds) {
+        this.guestIds = guestIds;
         return true;
     }
 
@@ -192,8 +193,8 @@ public class Reservation implements Serializable {
      * Gets the guest Id
      * @return Id of the guest
      */
-    public String getGuestId() {
-        return guestId;
+    public ArrayList<String> getGuestIds() {
+        return guestIds;
     }
     
     /**
@@ -249,9 +250,15 @@ public class Reservation implements Serializable {
     */
     @Override    
     public String toString() {
+        String guests = "";
+        if (getGuestIds().size() != 0) {
+            for (String guestId : getGuestIds()) {
+                guests += guestId + " ";
+            }
+        }
         String res = String.format(
                 "Reservation Id: %s Guest Id: %s Room Id: %s NumOfPax: %d Check In: %s Check Out: %s Status: %s Is Expired: %b",
-                getReservationId(), getGuestId(), getRoomId(), getNumberOfPax(), getCheckedInDate(), getCheckedOutDate(),
+                getReservationId(), guests, getRoomId(), getNumberOfPax(), getCheckedInDate(), getCheckedOutDate(),
                 getReservationStatus().reservationStatusAsStr, getIsExpired()
             );
         return res;
