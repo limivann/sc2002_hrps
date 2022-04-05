@@ -91,10 +91,8 @@ public class PaymentManager {
      * @param reservationId id of the reservation
      * @return {@link Invoice} object
      */
-    public static Invoice generateInvoice(String reservationId) {
+    public static Invoice generateInvoice(String reservationId, String guestId) {
         Reservation reservation = ReservationManager.search(reservationId);
-        ArrayList<String> guestId = reservation.getGuestIds();
-        String guestIdToPay = guestId.get(0);
         String roomId = reservation.getRoomId();
         int nights = ReservationManager.calculateNumOfStays(reservationId);
         double taxRate = PromotionManager.getTaxRate();
@@ -105,7 +103,7 @@ public class PaymentManager {
         int iid = Helper.generateUniqueId(Database.INVOICES);
         String invoiceId = String.format("I%04d", iid);
         String dateOfPayment = Helper.getTimeNow();
-        Invoice invoice = new Invoice(invoiceId, guestIdToPay, roomId, reservationId, nights,dateOfPayment, taxRate, discountRate,
+        Invoice invoice = new Invoice(invoiceId, guestId, roomId, reservationId, nights,dateOfPayment, taxRate, discountRate,
                 subTotal,
                 total);
 
