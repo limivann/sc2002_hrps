@@ -56,7 +56,7 @@ public class PromotionDetails implements Serializable {
     }
     
     /**
-     * 
+     * Constructor of the class
      * @param discountRate discount rate of the hotel
      * @param taxRate tax rate of the hotel
      * @param singleRoomPrice single room price

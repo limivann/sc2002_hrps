@@ -113,7 +113,7 @@ public class RoomView extends MainView{;
             return false;
         }
         if (targetRoom.getRoomStatus() == RoomStatus.RESERVED || targetRoom.getRoomStatus() == RoomStatus.OCCUPIED) {
-            System.out.println("Please check out the guest before changing the room status");
+            System.out.println("Please check in / check out the guest before changing the room status");
             return false;
         }
         ArrayList<String> guestIds = new ArrayList<String>();

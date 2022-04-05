@@ -112,7 +112,10 @@ public class HandleCheckInOutView extends MainView {
         PaymentManager.handlePayment(reservationId, guestsToPay.get(opt-1));
 
         //  remove all order details of that room
-        RoomServiceManager.removeEntireOrderOfRoom(ReservationManager.getRoomIdFromReservationId(reservationId));
+        RoomManager.updateRoomOrders(ReservationManager.getRoomIdFromReservationId(reservationId), null, true);
+
+        // in orders, update all orders made by that room to be delivered
+        RoomServiceManager.updateAllRoomOrderToDelivered(ReservationManager.getRoomIdFromReservationId(reservationId));
     }
     /**
      * Prompt Payment option 

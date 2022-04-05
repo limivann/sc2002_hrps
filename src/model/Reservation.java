@@ -11,7 +11,7 @@ import src.helper.Helper;
  * @version 1.0
  * @since 2022-3-28
  */
-public class Reservation implements Serializable {
+public class Reservation implements Serializable, Comparable<Reservation> {
     /**
      * For Java Serializable
      */
@@ -262,5 +262,16 @@ public class Reservation implements Serializable {
                 getReservationStatus().reservationStatusAsStr, getIsExpired()
             );
         return res;
+    }
+
+    @Override
+    public int compareTo(Reservation reservation) {
+        if (this == reservation) {
+            return 0;
+        }
+        int thisReservationId = Integer.parseInt(this.getReservationId().substring(1));
+        int thatReservationId = Integer.parseInt(reservation.getReservationId().substring(1));
+
+        return thisReservationId - thatReservationId;
     }
 }

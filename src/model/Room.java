@@ -36,11 +36,6 @@ public class Room implements Serializable, Comparable<Room> {
 	private int roomNumber;
 
 	/**
-	 * The room Number in String format
-	 */
-	private String roomNumberString;
-
-	/**
 	 * The Status of the room <p>
 	 * See {@link RoomStatus} for different status of the room.
 	 */
@@ -67,9 +62,14 @@ public class Room implements Serializable, Comparable<Room> {
 	private String roomId;
 
 	/**
-	 * The id of the guest live in the room
+	 * The id of the guests that booked the room
 	 */
 	private ArrayList<String> guestIds;
+
+	/**
+	 * ArrayList of {@link Order} objects made by the room.
+	 */
+	private ArrayList<Order> orders;
 
 	/**
 	 * The constructor for the room
@@ -94,11 +94,12 @@ public class Room implements Serializable, Comparable<Room> {
 		setWifiEnabled(isWifiEnabled);
 		setSmokingAllowed(isSmokingAllowed);
 		setPrice(price);
+		setOrders(new ArrayList<Order>());
 	}	
 	
 	// SETTERS
 	/**
-	 * Setter
+	 * Sets the price of the room
 	 * @param price price of the room
 	 * @return {@code true} if input is valid
 	 */
@@ -111,7 +112,7 @@ public class Room implements Serializable, Comparable<Room> {
 	}
 
 	/**
-	 * Setter
+	 * Sets the status of the room
 	 * @param roomStatus the status of the room
 	 * @return {@code true} if successfully set
 	 */
@@ -121,7 +122,7 @@ public class Room implements Serializable, Comparable<Room> {
 	}
 
 	/**
-	 * Setter
+	 * Sets the floor number of the room
 	 * @param floorNumber the floor number of the room
 	 * @return {@code true} if successfully set
 	 */
@@ -132,7 +133,7 @@ public class Room implements Serializable, Comparable<Room> {
 	}
 
 	/**
-	 * Setter
+	 * Sets the room number of the room
 	 * @param roomNumber the room number of the room
 	 * @return {@code true} if successfully set
 	 */
@@ -142,7 +143,7 @@ public class Room implements Serializable, Comparable<Room> {
 	}
 
 	/**
-	 * Setter
+	 * Sets the id of the room
 	 * @param roomId the id of the room
 	 * @return {@code true} if successfully set
 	 */
@@ -152,7 +153,7 @@ public class Room implements Serializable, Comparable<Room> {
 	}
 
 	/**
-	 * Setter
+	 * Sets the type of the room
 	 * @param type the type of the room
 	 * @return {@code true} if successfully set
 	 */
@@ -162,8 +163,8 @@ public class Room implements Serializable, Comparable<Room> {
 	}
 
 	/**
-	 * Setter
-	 * @param isWifiEnabled is wifi enabled in the room or not
+	 * Sets the wifi enable feature of the room
+	 * @param isWifiEnabled {@code true} if wifi is enabled in the room. Otherwise, {@code false}.
 	 * @return {@code true} if successfully set
 	 */
 	public boolean setWifiEnabled(boolean isWifiEnabled) {
@@ -172,8 +173,8 @@ public class Room implements Serializable, Comparable<Room> {
 	}
 
 	/**
-	 * Setter
-	 * @param isSmokingAllowed is smoking allowed in the room or not
+	 * Sets the smoking allow feature of the room
+	 * @param isSmokingAllowed {@code true} if smoking allowed is in the room. Otherwise, {@code false}.
 	 * @return {@code true} if successfully set
 	 */
 	public boolean setSmokingAllowed(boolean isSmokingAllowed) {
@@ -182,7 +183,7 @@ public class Room implements Serializable, Comparable<Room> {
 	}
 
 	/**
-	 * Setter
+	 * Sets the guest ids of the guests in the room
 	 * @param guestIds the guest ids of the guests in the room
 	 * @return {@code true} if successfully set
 	 */
@@ -191,17 +192,20 @@ public class Room implements Serializable, Comparable<Room> {
 		return true;
 	}
 
-	// GETTERS
 	/**
-	 * Getter
-	 * @return the room number
+	 * Sets the orders made by the room
+	 * @param orders ArrayList of {@link Order}(s) made by the room
+	 * @return {@code true} if successfully set
 	 */
-	public String getRoomNumberString() {
-		return this.roomNumberString;
+	public boolean setOrders(ArrayList<Order> orders) {
+		this.orders = orders;
+		return true;
 	}
 
+	// GETTERS
+
 	/**
-	 * Getter
+	 * Gets the status of the room
 	 * @return the room status of the room
 	 */
 	public RoomStatus getRoomStatus() {
@@ -209,7 +213,7 @@ public class Room implements Serializable, Comparable<Room> {
 	}
 
 	/**
-	 * Getter
+	 * Sets the price of the room
 	 * @return the price of the room
 	 */
 	public double getPrice() {
@@ -218,7 +222,7 @@ public class Room implements Serializable, Comparable<Room> {
 
 
 	/**
-	 * Getter
+	 * Gets the id of the room
 	 * @return the room id of the room
 	 */
 	public String getRoomId() {
@@ -226,15 +230,15 @@ public class Room implements Serializable, Comparable<Room> {
 	}
 
 	/**
-	 * Getter
-	 * @return the guest id in the room
+	 * Gets the guest ids of the guests in the room
+	 * @return ArrayList of guestIds in the room
 	 */
 	public ArrayList<String> getGuestIds() {
 		return guestIds;
 	}
 
 	/**
-	 * Getter
+	 * Gets the floor number of the room
 	 * @return the floor number of the room
 	 */
 	public int getFloorNumber() {
@@ -242,7 +246,7 @@ public class Room implements Serializable, Comparable<Room> {
 	}
 
 	/**
-	 * Getter
+	 * Gets the room number of the room
 	 * @return the room number of the room
 	 */
 	public int getRoomNumber() {
@@ -250,41 +254,36 @@ public class Room implements Serializable, Comparable<Room> {
 	}
 
 	/**
-	 * Getter
-	 * @return the type of the room
+	 * Gets the type of the room
+	 * @return the {@link RoomType} of the room
 	 */
 	public RoomType getType() {
 		return type;
 	}
 	
 	/**
-	 * Getter
-	 * @return whether wifi is enabled or not
+	 * Gets the wifi enable feature of the room
+	 * @return {@code true} if wifi is enabled in the room. Otherwise, {@code false}.
 	 */
 	public boolean getIsWifiEnabled() {
 		return isWifiEnabled;
 	}
 
 	/**
-	 * Getter
-	 * @return whether smoking is allowed or not
+	 * Gets the smoking allow feature of the room
+	 * @return {@code true} if smoking allowed is in the room. Otherwise, {@code false}.
 	 */
 	public boolean getIsSmokingAllowed() {
 		return isSmokingAllowed;
 	}
-	
-	/**
-	 * Print out the room status of the room
-	 */
-	public void printRoomStatus() {
-		System.out.println(String.format("Room status: %s", getRoomStatus().roomStatusAsStr));
-	}
+
 
 	/**
-	 * Print out the room type of the room
+	 * Gets the orders made by the room
+	 * @return ArrayList of {@link Order}(s) made by the room
 	 */
-	public void printRoomtype() {
-		System.out.println(String.format("Room type: %s", getType().roomTypeAsStr));
+	public ArrayList<Order> getOrders() {
+		return orders;
 	}
 	
 	/**
@@ -304,7 +303,14 @@ public class Room implements Serializable, Comparable<Room> {
      */
 	@Override
 	public int compareTo(Room room) {
+		if (this == room) {
+			return 0;
+		}
+		int thisFloorNumber = this.getFloorNumber();
+		int thatFloorNumber = room.getFloorNumber();
 		
-		return 0;
+		int thisRoomIdInt = thisFloorNumber * 100 + this.getRoomNumber();
+		int thatRoomIdInt = thatFloorNumber * 100 + room.getRoomNumber(); 
+		return thisRoomIdInt - thatRoomIdInt;
 	}
 }

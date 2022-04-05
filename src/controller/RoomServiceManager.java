@@ -26,15 +26,19 @@ import src.view.RoomServiceAdminView;
  */
 public class RoomServiceManager {
     /**
-     * Creates a new order for the customer of the room Id specified as the argument
-     * 
+     * Creates a new order for the customer of the room Id specified as the argument. <p>
+     * Calls {@link RoomManager} to update room orders
      * @param roomId Room Id of customer ordering
      * @return Order Id of the new order
      */
     public static String createOrder(String roomId) {
         int oid = Helper.generateUniqueId(Database.ORDERS);
         String orderId = String.format("O%04d", oid);
-        Order newOrder = new Order(orderId , Helper.getTimeNow(), roomId);
+        Order newOrder = new Order(orderId, Helper.getTimeNow(), roomId);
+        
+        // update room's order
+        RoomManager.updateRoomOrders(roomId, newOrder, false);
+
         Database.ORDERS.put(orderId, newOrder);
         return orderId;
     }
@@ -121,18 +125,20 @@ public class RoomServiceManager {
     }
 
     /**
-     * Clears the entire order history of the room after the user has checked out <p>
+     * Update all room order to delivered after the user has checked out <p>
      * Calls {@link RoomManager} to validate room id.
      * @param roomId Id of the room
-     * @return {@code true} if removal of order is successful. Otherwise, {@code false} if room id not found.
+     * @return {@code true} if update of room orders is successful. Otherwise, {@code false} if room id not found.
      */
-    public static boolean removeEntireOrderOfRoom(String roomId) {
+    public static boolean updateAllRoomOrderToDelivered(String roomId) {
         if (!RoomManager.validateRoomId(roomId)) {
             return false;
         }
-        ArrayList<Order> orderToClear = searchOrderByRoom(roomId);
-        for (Order order : orderToClear) {
-            Database.ORDERS.remove(order.getOrderId());    
+        ArrayList<Order> orderToUpdate = searchOrderByRoom(roomId);
+        for (Order order : orderToUpdate) {
+            if (order.getStatus() == OrderStatus.CONFIRMED || order.getStatus() == OrderStatus.PREPARING){
+                updateStatus(OrderStatus.DELIVERED, order.getOrderId());    
+            }
         }
         return true;
     }
@@ -289,7 +295,10 @@ public class RoomServiceManager {
      * @return total order price of the room.
      */
     public static double calculateTotalOrderPrice(String roomId) {
-        ArrayList<Order> orders = searchOrderByRoom(roomId);
+        ArrayList<Order> orders = RoomManager.searchRoom(roomId).getOrders();
+        if (orders == null) {
+            return 0;
+        }
         double total = 0;
         for (Order order : orders) {
             total += order.getTotalBill();
