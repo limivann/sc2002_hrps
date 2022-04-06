@@ -98,7 +98,14 @@ public class PaymentManager {
         System.out.println(String.format("%-66s", "").replace(" ", "─"));
 
         // print room types
-        System.out.println(String.format("%-44s %5s %5s %9s", invoice.getRoomTypeAsStr().toUpperCase(), invoice.getRoomPrice(),
+        String roomTypeWithWifiStr = invoice.getRoomTypeAsStr();
+        if (invoice.getIsRoomWifiEnabled()) {
+            roomTypeWithWifiStr += " with wifi";
+        } else {
+            roomTypeWithWifiStr += " w/o wifi";
+        }
+
+        System.out.println(String.format("%-44s %5s %5s %9s", roomTypeWithWifiStr.toUpperCase(), invoice.getRoomPrice(),
                 invoice.getNights(), invoice.getRoomPrice() * invoice.getNights()));
         
 
@@ -143,6 +150,7 @@ public class PaymentManager {
         Reservation reservation = ReservationManager.search(reservationId);
         String roomId = reservation.getRoomId();
         String roomTypeAsStr = RoomManager.searchRoom(roomId).getType().roomTypeAsStr;
+        boolean isRoomWifiEnabled = RoomManager.searchRoom(roomId).getIsWifiEnabled();
         double roomPrice = RoomManager.searchRoom(roomId).getPrice();
         int nights = ReservationManager.calculateNumOfStays(reservationId);
         double taxRate = PromotionManager.getTaxRate();
@@ -154,7 +162,8 @@ public class PaymentManager {
         String invoiceId = String.format("I%04d", iid);
         String dateOfPayment = Helper.getTimeNow();
 
-        Invoice invoice = new Invoice(invoiceId, guestIdToPay, roomTypeAsStr, roomPrice , reservationId, nights, dateOfPayment, taxRate,
+        Invoice invoice = new Invoice(invoiceId, guestIdToPay, roomTypeAsStr, roomPrice, isRoomWifiEnabled,
+                reservationId, nights, dateOfPayment, taxRate,
                 discountRate, orders, subTotal, total);
 
         Database.INVOICES.put(invoiceId, invoice);
