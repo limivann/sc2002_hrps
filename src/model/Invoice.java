@@ -17,10 +17,17 @@ public class Invoice implements Serializable {
      * Id of the guest
      */
     private String guestId;
+    
     /**
-     * Id of the room
+     * Room type of the stay
      */
-    private String roomId;
+    private String roomTypeAsStr;
+
+    /**
+     * Room price of the room on the day of payment
+     */
+    private double roomPrice;
+
     /**
      * Id of the reservation
      */
@@ -64,7 +71,8 @@ public class Invoice implements Serializable {
      * Constructor of Invoice
      * @param invoiceId Id of the invoice
      * @param guestId Id of the guest
-     * @param roomId Id of the room
+     * @param roomTypeAsStr Room type of the stay
+     * @param roomPrice Room price of the room
      * @param reservationId Id of the reservation
      * @param nights Nights spent in the hotel
      * @param dateOfPayment Date which the payment is made
@@ -73,13 +81,14 @@ public class Invoice implements Serializable {
      * @param subTotal Total amount without tax rate and discount rate
      * @param total Total amount with tax rate and discount rate
      */
-    public Invoice(String invoiceId, String guestId, String roomId, String reservationId, int nights, String dateOfPayment,
+    public Invoice(String invoiceId, String guestId, String roomTypeAsStr, double roomPrice,String reservationId, int nights, String dateOfPayment,
             double taxRate, double discountRate, ArrayList<Order> orders ,double subTotal, double total) {
         // reservation will retrieve details for reservation id, guest id, room id
         // calculate sub total by searching orders
         setInvoiceId(invoiceId);
         setGuestId(guestId);
-        setRoomId(roomId);
+        setRoomTypeAsStr(roomTypeAsStr);
+        setRoomPrice(roomPrice);
         setReservationId(reservationId);
         setNights(nights);
         setDateOfPayment(dateOfPayment);
@@ -167,15 +176,27 @@ public class Invoice implements Serializable {
         this.guestId = guestId;
         return true;
     }
+    
     /**
-     * Sets the room Id.
-     * @param roomId Id of the room
+     * Sets the room type of the stay
+     * @param roomTypeAsStr Room type of the stay
      * @return {@code true} if sets successfully
      */
-    public boolean setRoomId(String roomId) {
-        this.roomId = roomId;
+    public boolean setRoomTypeAsStr(String roomTypeAsStr) {
+        this.roomTypeAsStr = roomTypeAsStr;
         return true;
     }
+    
+    /**
+     * Sets the room price of the room on the day of payment
+     * @param roomTypeAsStr Room price of the room on the day of payment
+     * @return {@code true} if sets successfully
+     */
+    public boolean setRoomPrice(double roomPrice) {
+        this.roomPrice = roomPrice;
+        return true;
+    }
+
     /**
      * Sets the reservation Id.
      * @param reservationId Id of the reservation
@@ -238,13 +259,23 @@ public class Invoice implements Serializable {
     public String getGuestId() {
         return guestId;
     }
+
     /**
-     * Gets the room Id.
-     * @return Id of the room
+     * Gets the room type of the stay
+     * @return Room type of the stay
      */
-    public String getRoomId() {
-        return roomId;
+    public String getRoomTypeAsStr() {
+        return roomTypeAsStr;
     }
+
+    /**
+     * Gets the room price of the room on the day of payment
+     * @return Room price of the room on the day of payment
+     */
+    public double getRoomPrice() {
+        return roomPrice;
+    }
+    
     /**
      * Gets the nights spent in the hotel
      * @return Nights spent

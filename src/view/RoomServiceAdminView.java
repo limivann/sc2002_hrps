@@ -329,7 +329,7 @@ public class RoomServiceAdminView extends MainView{
                 case 4:
                     Helper.clearScreen();
                     printBreadCrumbs("Hotel App View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Print order");
-                    RoomServiceManager.printOrder(orderId);
+                    RoomServiceManager.printOrderDetails(orderId);
                     break;
                 case 5:
                     Helper.clearScreen();
@@ -394,7 +394,7 @@ public class RoomServiceAdminView extends MainView{
      */
     private void confirmOrder(String orderId) {
         System.out.println("RECEIPT:");
-        RoomServiceManager.printOrder(orderId);
+        RoomServiceManager.printOrderDetails(orderId);
         System.out.println("Order Sent!!!\nThank you for ordering!!! :):):)");
         RoomServiceManager.updateStatus(OrderStatus.CONFIRMED, orderId);
     }

@@ -8,6 +8,8 @@ import src.model.Order;
 import src.model.enums.OrderStatus;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 
 // for javadocs
@@ -93,26 +95,26 @@ public class RoomServiceManager {
      * Prints the order of the specified order Id
      * @param orderId Order Id of the order
      */
-    public static void printOrder(String orderId){
+    public static void printOrderDetails(String orderId){
         Order currentOrder = Database.ORDERS.get(orderId);
-        System.out.printf("Order Id: %s  Room: %s  Date/Time: %s\n", currentOrder.getOrderId(), currentOrder.getRoomId() , currentOrder.getDateTime());
-        System.out.println("\t\t-Order-\t\t");
+        System.out.println(String.format("%-58s", "").replace(" ", "-"));
+        System.out.printf("Order Id: %s  Room: %s  Date/Time: %s\n", currentOrder.getOrderId(),
+                currentOrder.getRoomId(), currentOrder.getDateTime());
+        System.out.println();
+        System.out.println(String.format("%-30s %10s %15s", "Item", "Qty", "Price"));
+        System.out.println(String.format("%-58s", "").replace(" ", "─"));
         for (Map.Entry<MenuItem, Integer> entry : currentOrder.getCurrentOrders().entrySet()) {
             MenuItem key = entry.getKey();
             Integer value = entry.getValue();
-            System.out.printf("Item: %s  x%d  Price: $%.2f\n", key.getName(), value, value * key.getPrice());
+            System.out.printf("%-30s %10d %12s$%.0f\n", key.getName().toString(), value, "", value * key.getPrice());
         }
-        System.out.println("Remarks: " + currentOrder.getRemarks());
-        System.out.printf("Total bill: $%.2f\n", currentOrder.getTotalBill());
+        System.out.println();
+        System.out.println();
+        System.out.println(String.format("%-11s: %s", "Remarks", currentOrder.getRemarks()));
+        System.out.println(String.format("%-11s: $%.2f", "Total bill", currentOrder.getTotalBill()));
+        System.out.println(String.format("%-58s", "").replace(" ", "-"));
     }
     
-
-    /**
-     * Prints the order of the customer
-     */
-    public void printOrderDetails(){
-        
-    }
     /**
      * Sets the remarks for the order of the specified order Id
      * @param remarks Remarks for the order
@@ -172,7 +174,14 @@ public class RoomServiceManager {
      * Prints all the orders in the database
      */
     public static void printAllOrders() {
+        ArrayList<Order> sortedList = new ArrayList<Order>();
+
+        // copy
         for (Order order : Database.ORDERS.values()) {
+            sortedList.add(order);
+        }
+        Collections.sort(sortedList);
+        for (Order order : sortedList) {
             System.out.println(order);
         }
     }
