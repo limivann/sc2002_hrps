@@ -78,7 +78,7 @@ public class RoomManager {
      * @return {@code true} if successful. Otherwise, {@code false} if the room id not found.
      */
     public static boolean updateRoomStatus(int floorNumber, int roomNumber, RoomStatus roomStatus, ArrayList<String> guestIds) {
-        String roomId = String.format("%02d-%02d", floorNumber, roomNumber);
+        String roomId = String.format("%02d%02d", floorNumber, roomNumber);
         if (Database.ROOMS.containsKey(roomId)) {
             Room targetRoom = Database.ROOMS.get(roomId);
             targetRoom.setRoomStatus(roomStatus);
@@ -101,7 +101,7 @@ public class RoomManager {
      * @return the room object correspond to the room id. Otherwise, {@code null} if the room is not found
      */
     public static Room searchRoom(int floor, int room) {
-        String roomId = String.format("%02d-%02d", floor, room);
+        String roomId = String.format("%02d%02d", floor, room);
         if (Database.ROOMS.containsKey(roomId)) {
             return Database.ROOMS.get(roomId);
         }
@@ -138,7 +138,7 @@ public class RoomManager {
      * @param room the room number of the room
      */
     public static void printRoom(int floor, int room) {
-        String roomId = String.format("%02d-%02d", floor, room);
+        String roomId = String.format("%02d%02d", floor, room);
         if (Database.ROOMS.containsKey(roomId)) {
             printRoomDetails(roomId);
         } else {
@@ -300,7 +300,7 @@ public class RoomManager {
         boolean isSmokingAllowed = false;
         for (int floor = 1; floor <= 4; floor++) {
             for (int room = 1; room <= 12; room++) {
-                String roomId = String.format("%02d-%02d", floor, room);
+                String roomId = String.format("%02d%02d", floor, room);
                 Room newRoom = null;
                 isWifiEnabled = nonWifiEnabledCounter == 0 ? false : true;
                 isSmokingAllowed = isSmokingAllowedCounter == 0 ? true : false;
