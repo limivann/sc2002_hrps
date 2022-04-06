@@ -2,6 +2,7 @@ package src.controller;
 
 import src.model.Reservation;
 import src.model.Room;
+import src.model.enums.RoomType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,14 +73,16 @@ public class PaymentManager {
      * @param invoice invoice of the reservation
      */
     public static void printInvoice(Invoice invoice) {
+        System.out.println("INVOICE: ");
+        System.out.println(String.format("%-66s", "").replace(" ", "-"));
         System.out.println(
-                String.format("Invoice Id: %s\t Date: %s", invoice.getInvoiceId(), invoice.getDateOfPayment()));
+                String.format("%-15s: %s %18sDate Of Issue: %s", "Invoice Id" ,invoice.getInvoiceId(), "" ,invoice.getDateOfPayment().substring(0, 11)));
         String guestName = GuestManager.searchGuestById(invoice.getGuestId()).get(0).getName();
-        System.out.println(String.format("Name: %s", guestName));
+        System.out.println(String.format("%-15s: %s","Name" ,guestName));
+        System.out.println(String.format("%-15s: %s", "Reservation Id", invoice.getReservationId()));
+        System.out.println(String.format("%-15s: %d", "Night(s)",invoice.getNights()));
         System.out.println();
-        System.out.println(String.format("Reservation Id: %s",invoice.getReservationId()));
-        System.out.println(String.format("Nights: %d", invoice.getNights()));
-
+        System.out.println();
         HashMap<MenuItem, Integer> ordersMade = new HashMap<MenuItem, Integer>();
         for (Order order : invoice.getOrders()) {
             HashMap<MenuItem, Integer> currentOrders = order.getCurrentOrders();
@@ -90,17 +93,34 @@ public class PaymentManager {
                 ordersMade.put(currentEntry.getKey(), ordersMade.get(currentEntry.getKey()) + currentEntry.getValue());
             }
         }
-        if (ordersMade.size() != 0) {
-            System.out.println(String.format("Order Items, Quantity, Unit Price, Total"));
-            for (Map.Entry<MenuItem, Integer> orderMade : ordersMade.entrySet()) {
-                System.out.println(String.format("%s, %s, $%.2f, $%.2f", orderMade.getKey().getName(), orderMade.getValue(), orderMade.getKey().getPrice(), orderMade.getKey().getPrice() * orderMade.getValue()));
-            }
+
+        System.out.println(String.format("%-40s %5s %5s %8s", "Description", "Unit Price", "Qty", "Amount"));
+        System.out.println(String.format("%-66s", "").replace(" ", "─"));
+
+        // print room types
+        System.out.println(String.format("%-44s %5s %5s %9s", invoice.getRoomTypeAsStr().toUpperCase(), invoice.getRoomPrice(),
+                invoice.getNights(), invoice.getRoomPrice() * invoice.getNights()));
+        
+
+        for (Map.Entry<MenuItem, Integer> orderMade : ordersMade.entrySet()) {
+            System.out.println(
+                    String.format("%-44s %5s %5s %9s", orderMade.getKey().getName(), orderMade.getKey().getPrice(),
+                            orderMade.getValue(), orderMade.getKey().getPrice() * orderMade.getValue()));
         }
 
-        System.out.println(String.format("SubTotal %.2f", invoice.getSubTotal()));
-        System.out.println(String.format("Tax Rate %.0f%%", invoice.getTaxRate() * 100));
-        System.out.println(String.format("Discount Rate: %.0f%%", invoice.getDiscountRate() * 100));
-        System.out.println(String.format("Total: %.2f", invoice.getTotal()));
+        System.out.println();
+        System.out.println();
+
+        String subTotal = String.format("$%.2f", invoice.getSubTotal());
+        String taxRate = String.format("%.0f%%", invoice.getTaxRate() * 100);
+        String discountRate = String.format("%.0f%%", invoice.getDiscountRate() * 100);
+        String total = String.format("$%.2f", invoice.getTotal());
+        
+        System.out.println(String.format("%55s %10s" ,"SubTotal",subTotal));
+        System.out.println(String.format("%55s %10s" ,"Tax Rate",taxRate));
+        System.out.println(String.format("%55s %10s" ,"Discount Rate",discountRate));
+        System.out.println(String.format("%55s %10s" ,"Total",total));
+        System.out.println(String.format("%-66s", "").replace(" ", "-"));
     }
 
     /**
@@ -115,13 +135,15 @@ public class PaymentManager {
     }
     
     /**
-     * A method that generates invoice by fetching details from {@link ReservationManager} and {@link PromotionManager}
+     * A method that generates invoice by fetching details from {@link ReservationManager}, {@link RoomManager} and {@link PromotionManager}
      * @param reservationId id of the reservation
      * @return {@link Invoice} object
      */
     public static Invoice generateInvoice(String reservationId, String guestIdToPay) {
         Reservation reservation = ReservationManager.search(reservationId);
         String roomId = reservation.getRoomId();
+        String roomTypeAsStr = RoomManager.searchRoom(roomId).getType().roomTypeAsStr;
+        double roomPrice = RoomManager.searchRoom(roomId).getPrice();
         int nights = ReservationManager.calculateNumOfStays(reservationId);
         double taxRate = PromotionManager.getTaxRate();
         double discountRate = PromotionManager.getDiscountRate();
@@ -132,7 +154,7 @@ public class PaymentManager {
         String invoiceId = String.format("I%04d", iid);
         String dateOfPayment = Helper.getTimeNow();
 
-        Invoice invoice = new Invoice(invoiceId, guestIdToPay, roomId, reservationId, nights, dateOfPayment, taxRate,
+        Invoice invoice = new Invoice(invoiceId, guestIdToPay, roomTypeAsStr, roomPrice , reservationId, nights, dateOfPayment, taxRate,
                 discountRate, orders, subTotal, total);
 
         Database.INVOICES.put(invoiceId, invoice);

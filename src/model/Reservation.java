@@ -259,11 +259,13 @@ public class Reservation implements Serializable, Comparable<Reservation> {
         String res = String.format(
                 "Reservation Id: %s Guest Id: %s Room Id: %s NumOfPax: %d Check In: %s Check Out: %s Status: %s Is Expired: %b",
                 getReservationId(), guests, getRoomId(), getNumberOfPax(), getCheckedInDate(), getCheckedOutDate(),
-                getReservationStatus().reservationStatusAsStr, getIsExpired()
-            );
+                getReservationStatus().reservationStatusAsStr, getIsExpired());
         return res;
     }
 
+    /**
+     * Override compareTo method to compare different reservation objects according to reservation id
+     */
     @Override
     public int compareTo(Reservation reservation) {
         if (this == reservation) {

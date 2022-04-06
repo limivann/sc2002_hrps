@@ -13,7 +13,7 @@ import java.util.Map;
  * @version 1.0
  * @since 2022-03-31
  */
-public class Order implements Serializable {
+public class Order implements Serializable, Comparable<Order> {
     /**
      * For Java Serializable.
      */
@@ -236,10 +236,24 @@ public class Order implements Serializable {
      */
     @Override
     public String toString() {
-        String res = String.format("Order Id: %s\t Date/Time: %s\t Room Id: %s\t Order Status: %s", getOrderId(),
-                getDateTime(), getRoomId(), getStatus().orderStatusAsStr);
+        String res = String.format("Order Id: %s\tRoom Id: %s\t\tDate/Time: %s\t\tOrder Status: %s", getOrderId(),
+                getRoomId(), getDateTime(), getStatus().orderStatusAsStr);
+        
         return res;
     }
 
+    /**
+     * Override compareTo method to compare different Order objects according to order id
+     */
+    @Override
+    public int compareTo(Order order) {
+        if (this == order) {
+            return 0;
+        }
+        int thisOrderId = Integer.parseInt(this.getOrderId().substring(1));
+        int thatOrderId = Integer.parseInt(order.getOrderId().substring(1));
+
+        return thisOrderId - thatOrderId;
+    }
     
 }
