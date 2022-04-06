@@ -4,7 +4,6 @@ import src.model.enums.OrderStatus;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Order represents the room servce order made either by the customer/hotel personnel. <p>

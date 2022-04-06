@@ -8,24 +8,24 @@ import java.util.ArrayList;
 import src.model.Room;
 
 /**
- * The Class that shows the view of {@link Room}.
+ * RoomView provides the view to take user input which calls {@link RoomManager} to manage {@link Room}.
  * @author Lim Kang Wei
  * @version 1.0
- * @since 2022-03-30
+ * @since 2022-04-06
  */
 public class RoomView extends MainView{;
 
     /**
-     * the default constructor for the room view
+     * Default constructor for the Roomview.
      */
     public RoomView() {
         super();
     }
 
-    @Override
     /**
-     * View Menu for the Room
+     * View Menu of the RoomView.
      */
+    @Override
     public void printMenu() {
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Room View");
@@ -36,12 +36,12 @@ public class RoomView extends MainView{;
         System.out.println("(4) Print rooms by occupancy rate");
         System.out.println("(5) Exit Room View");
     }
-
-    @Override
     /**
-     * View Application for the room
-     */
-    public void viewapp() {
+     * View Application of the RoomView. <p>
+     * see {@link RoomManager} for more {@link Room} management details.
+     */ 
+    @Override
+    public void viewApp() {
         int opt = -1;
         do {
             printMenu();

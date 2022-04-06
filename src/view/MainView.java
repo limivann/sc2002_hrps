@@ -1,9 +1,14 @@
 package src.view;
-
+/**
+ * MainView is an abstract class which is inherited by every view class.
+ * @author Max
+ * @version 1.0
+ * @since 2022-04-06
+ */
 import src.helper.Helper;
 public abstract class MainView {
     public abstract void printMenu();
-    public abstract void viewapp();
+    public abstract void viewApp();
     
     public Helper helper;
 

@@ -2,7 +2,6 @@ package src.controller;
 
 import src.model.Reservation;
 import src.model.Room;
-import src.model.enums.RoomType;
 
 import java.util.ArrayList;
 import java.util.HashMap;

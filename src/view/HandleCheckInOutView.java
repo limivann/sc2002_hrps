@@ -1,10 +1,6 @@
 package src.view;
 
-import java.lang.Thread;
 import java.util.ArrayList;
-
-import javax.naming.spi.ResolveResult;
-
 import src.controller.GuestManager;
 import src.controller.OrderManager;
 import src.controller.PaymentManager;
@@ -12,17 +8,20 @@ import src.controller.ReservationManager;
 import src.controller.RoomManager;
 import src.helper.Helper;
 /**
- * The Class checks in and checks out a reservation.
- * @author Lim Kang Wei
+ * HandleCheckInCheckOutView provides the view to take user input which check in or check out {@link Room}.
+ * @author Lim Kang Wei, Max
  * @version 1.0
- * @since 2020-03-29
+ * @since 2020-04-06
  */
 public class HandleCheckInOutView extends MainView {
+    /**
+     * Default constructor for the HandleCheckInCheckOutView.
+     */
     public HandleCheckInOutView() {
         super();
     }
     /**
-     * View Menu for Check In and Check Out
+     * View Menu of the HandleCheckInCheckOutView.
      */
     @Override
     public void printMenu() {
@@ -34,10 +33,10 @@ public class HandleCheckInOutView extends MainView {
         System.out.println("(3) Exit Check In / Check Out View");
     }
     /**
-     * View Application for Check In and Check Out
+     * View Application of the HandleCheckInCheckOutView. 
      */
     @Override
-    public void viewapp() {  
+    public void viewApp() {  
         int opt = -1;
         do{
             printMenu();
@@ -66,7 +65,7 @@ public class HandleCheckInOutView extends MainView {
         
     }
     /**
-     * View for Check In reservation
+     * View for Check In reservation.
      * see {@link ReservationManager} for more reservation management details.
      */
     public void checkin() {
@@ -81,7 +80,7 @@ public class HandleCheckInOutView extends MainView {
         }
     }
     /**
-     * View for Check Out reservation
+     * View for Check Out reservation.
      * see {@link ReservationManager} for more reservation management details. 
      */
     public void checkout() {

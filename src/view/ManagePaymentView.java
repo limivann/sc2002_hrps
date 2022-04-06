@@ -3,12 +3,23 @@ package src.view;
 import src.helper.Helper;
 import src.model.enums.RoomType;
 import src.controller.PromotionManager;
+/**
+ * ManagePaymentView provides the view to take user input which calls {@link PromotionManager} to manage {@link PromotionDetails}.
+ * @author Max
+ * @version 1.0
+ * @since 2022-04-06
+ */
 public class ManagePaymentView extends MainView {
-    
+
+    /**
+     * Default constructor for the ManagePaymentView.
+     */
     public ManagePaymentView() {
         super();
     }
-
+    /**
+     * View Menu of the ManagePaymentView.
+     */
     @Override
     public void printMenu() {
         Helper.clearScreen();
@@ -19,9 +30,12 @@ public class ManagePaymentView extends MainView {
         System.out.println("(3) Manage Discount Rate");
         System.out.println("(4) Exit Payment View");
     }
-
+    /**
+     * View Application for the ManagePaymentView. <p>
+     * see {@link PromotionManager} for more {@link PromotionDetails} management details.
+     */
     @Override
-    public void viewapp() {
+    public void viewApp() {
         int opt = -1;
         do {
             printMenu();
@@ -63,7 +77,10 @@ public class ManagePaymentView extends MainView {
         } while (opt != 4);
 
     }
-    
+    /**
+     * View Menu for editing room price.
+     * @return {@code true} if updates successfully. Otherwise, {@code false}.
+     */
     public boolean promptEditRoomPrice() {
         int opt = -1;
         printEditRoomPriceMenu();
@@ -89,7 +106,10 @@ public class ManagePaymentView extends MainView {
         }
         return false;
     }
-
+    /**
+     * View Menu for editing tax rate.
+     * @return {@code true} if updates successfully. Otherwise, {@code false}.
+     */
     public boolean promptEditTaxRate() {
         printOldTaxRate();
         double newTaxRate = -1;
@@ -97,7 +117,10 @@ public class ManagePaymentView extends MainView {
         newTaxRate = Helper.readDouble();
         return PromotionManager.editTaxRate(newTaxRate);
     }
-
+    /**
+     * View Menu for editing discount rate.
+     * @return {@code true} if updates successfully. Otherwise, {@code false}.
+     */
     public boolean promptEditDiscountRate() {
         printOldDiscountRate();
         double newDiscountRate = -1;
@@ -105,14 +128,24 @@ public class ManagePaymentView extends MainView {
         newDiscountRate = Helper.readDouble();
         return PromotionManager.editDiscountRate(newDiscountRate);
     }
-
+    /**
+     * View Menu for updating new room price of a certain type of room.
+     * @param roomType The type of the room <p>
+     * See {@link RoomType} for different types of room.
+     * @return the new price of the room.
+     */
     public double promptNewPrice(RoomType roomType) {
         System.out.println("Please enter a new price for " + roomType.roomTypeAsStr);
         double newPrice = -1;
         newPrice = Helper.readDouble();
         return newPrice;
     }
-
+    /**
+     * View Menu for updating new tax rate of a certain type of room.
+     * @param roomType The type of the room <p>
+     * See {@link RoomType} for different types of room.
+     * @return the new tax rate of the room.
+     */
     public double promptNewTaxRate(RoomType roomType) {
         System.out.println("Please enter a new tax rate for " + roomType.roomTypeAsStr);
         double newTaxRate = -1;
@@ -120,22 +153,30 @@ public class ManagePaymentView extends MainView {
         return newTaxRate;
     }
     
-    
-
-    // Print old prices / taxes / discount rates
+    /**
+     * Prints the old room price of a certain type of room.
+     * @param roomType the type of the room <p>
+     * See {@link RoomType} for different types of room.
+     */
     public void printOldPrice(RoomType roomType) {
         System.out.println(String.format("The old price of %s is %.2f", roomType.roomTypeAsStr,
                 PromotionManager.getRoomPrice(roomType, false)));
     }
-    
+    /**
+     * Prints the old tax rate.
+     */
     public void printOldTaxRate() {
         System.out.println(String.format("The old tax rate is %.2f", PromotionManager.getTaxRate()));
     }
-
+    /**
+     * Prints the old discount rate.
+     */
     public void printOldDiscountRate() {
         System.out.println(String.format("The old discount rate is %.2f", PromotionManager.getDiscountRate()));
     }
-
+    /**
+     * View Menu for choosing the type of room to edit room price. 
+     */
     public void printEditRoomPriceMenu() {
         System.out.println("Please select a room to edit its price (1-4)");
         System.out.println("(1) Single Room");

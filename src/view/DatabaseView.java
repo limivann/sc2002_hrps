@@ -3,20 +3,20 @@ package src.view;
 import src.database.Database;
 import src.helper.Helper;
 /** 
- * Class to update {@link Database} 
+ * DatabaseView provides the view to manage {@link Database}.
  * @author Max
  * @version 1.0
- * @since 2022-03-29
+ * @since 2022-04-06
  */
 public class DatabaseView extends MainView {
     /**
-     * Default constructor of Database.
+     * Default constructor of DatabaseView.
      */
     public DatabaseView() {
         super();
     }
     /**
-     * View Menu for Database.
+     * View Menu of the DatabaseView.
      */
     @Override
     public void printMenu() {
@@ -29,10 +29,11 @@ public class DatabaseView extends MainView {
         System.out.println("(4) Exit Database View");
     }
     /**
-     * View Application for Database.
+     * View Application of the DatabaseView. <p>
+     * See {@link Database} for more details.
      */
     @Override
-    public void viewapp() {
+    public void viewApp() {
         int opt = -1;
         do {
             printMenu();
