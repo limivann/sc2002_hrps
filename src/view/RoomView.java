@@ -3,6 +3,8 @@ package src.view;
 import src.controller.RoomManager;
 import src.helper.Helper;
 import src.model.enums.RoomStatus;
+import src.model.enums.RoomType;
+
 import java.util.ArrayList;
 // for javadocs
 import src.model.Room;
@@ -34,7 +36,8 @@ public class RoomView extends MainView{;
         System.out.println("(2) Search room");
         System.out.println("(3) Print rooms by status");
         System.out.println("(4) Print rooms by occupancy rate");
-        System.out.println("(5) Exit Room View");
+        System.out.println("(5) Edit Room Price");
+        System.out.println("(6) Exit Room View");
     }
 
     @Override
@@ -45,7 +48,7 @@ public class RoomView extends MainView{;
         int opt = -1;
         do {
             printMenu();
-            opt = Helper.readInt(1,5);
+            opt = Helper.readInt(1,6);
             switch (opt) {
                 case 1:
                     if (promptUpdateRoomStatus()) {
@@ -64,15 +67,22 @@ public class RoomView extends MainView{;
                     printRoomByOccupancyRate();
                     break;
                 case 5:
+                    if (!promptEditRoomPrice()) {
+                        System.out.println("Edit room price unsuccessful");
+                    } else {
+                        System.out.println("Edit room price successful");
+                    }
+                    
+                case 6:
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
                     break;
             }
-            if (opt != 5) {
+            if (opt != 6) {
                 Helper.pressAnyKeyToContinue();
             }
-        } while (opt != 5);
+        } while (opt != 6);
     }
     
     /**
@@ -165,5 +175,35 @@ public class RoomView extends MainView{;
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Room View > Print rooms by occupancy rate");
         RoomManager.printOccupancyRate(RoomStatus.VACANT);
+    }
+
+    public boolean promptEditRoomPrice() {
+        Helper.clearScreen();
+        printBreadCrumbs("Hotel App View > Room View > Edit Room Price");
+        printRoomTypeMenu();
+        int roomTypeOpt = Helper.readInt(1, 4);
+        System.out.println("Please enter a new price for the room");
+        double newPrice = Helper.readDouble();
+        switch (roomTypeOpt) {
+            case 1:
+                return RoomManager.updateRoomPrice(RoomType.SINGLE, newPrice);
+            case 2:
+                return RoomManager.updateRoomPrice(RoomType.DOUBLE, newPrice);
+            case 3:
+                return RoomManager.updateRoomPrice(RoomType.DELUXE, newPrice);
+            case 4:
+                return RoomManager.updateRoomPrice(RoomType.VIP_SUITE, newPrice);
+            default:
+                break;
+        }
+        return false;
+    }
+
+    private void printRoomTypeMenu() {
+        System.out.println("Please enter a room type (1-4)");
+        System.out.println("(1) Single Room");
+        System.out.println("(2) Double Room");
+        System.out.println("(3) Deluxe Room");
+        System.out.println("(4) Vip Suite");
     }
 }

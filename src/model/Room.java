@@ -60,8 +60,6 @@ public abstract class Room implements Serializable,Comparable<Room> {
 	 */
 	private ArrayList<Order> orders;
 
-	public Room(){}
-
 	/**
 	 * The constructor for the room
 	 * @param type the type of the room
@@ -93,6 +91,8 @@ public abstract class Room implements Serializable,Comparable<Room> {
 	 * @return {@code true} if input is valid
 	 */
 	abstract public boolean setPrice(double price);
+
+	abstract public boolean setMaxCapacity();
 
 	/**
 	 * Sets the status of the room
@@ -198,7 +198,7 @@ public abstract class Room implements Serializable,Comparable<Room> {
 	 */
 	abstract public double getPrice();
 
-
+	abstract public int getMaxCapacity();
 	/**
 	 * Gets the id of the room
 	 * @return the room id of the room

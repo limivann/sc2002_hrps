@@ -17,6 +17,7 @@ public class HotelAppView extends MainView{
     protected DatabaseView databaseView;
     protected MenuView menuView;
     protected OrderView orderView;
+    protected InvoiceView invoiceView;
     
     public HotelAppView() {
         super();
@@ -28,7 +29,7 @@ public class HotelAppView extends MainView{
         databaseView = new DatabaseView();
         menuView = new MenuView();
         orderView = new OrderView();
-        
+        invoiceView = new InvoiceView();
     }
     /**
      * View Menu for Admin
@@ -44,9 +45,10 @@ public class HotelAppView extends MainView{
         System.out.println("(4) Manage Orders");
         System.out.println("(5) Manage Hotel Menu");
         System.out.println("(6) Manage Check In / Check Out");
-        System.out.println("(7) Manage Payment");
-        System.out.println("(8) Manage Database");
-        System.out.println("(9) Exit HRPS");   
+        System.out.println("(7) Manage Promotion Details");
+        System.out.println("(8) Manage Invoices");
+        System.out.println("(9) Manage Database");
+        System.out.println("(10) Exit HRPS");   
     }
     /**
      * View Application for Hotel
@@ -55,11 +57,10 @@ public class HotelAppView extends MainView{
     public void viewapp() {
         // init views
         
-
         int opt = -1;
         do{
             printMenu();
-            opt = Helper.readInt(1, 9);
+            opt = Helper.readInt(1, 10);
             switch (opt) {
                 case 1:
                     guestView.viewapp();
@@ -83,14 +84,17 @@ public class HotelAppView extends MainView{
                     managePaymentView.viewapp();
                     break;
                 case 8:
-                    databaseView.viewapp();
+                    invoiceView.viewapp();
                     break;
                 case 9:
+                    databaseView.viewapp();
+                    break;
+                case 10:
                     break;
                 default:
                     break;
             }
-        } while (opt != 9);
+        } while (opt != 10);
         
     }
     

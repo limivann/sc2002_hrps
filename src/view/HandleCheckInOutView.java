@@ -28,7 +28,7 @@ public class HandleCheckInOutView extends MainView {
     public void printMenu() {
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Check In / Check Out View");
-        System.out.println("Please select an option (1-3)");
+        System.out.println("What would you like to do ?");
         System.out.println("(1) Check In Room");
         System.out.println("(2) Check Out Room");
         System.out.println("(3) Exit Check In / Check Out View");

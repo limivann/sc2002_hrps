@@ -39,8 +39,9 @@ public class RoomManager {
     public static boolean updateRoomPrice(RoomType roomType, double newPrice) {
         for (Room currentRoom : Database.ROOMS.values()) {
             if (currentRoom.getRoomType() == roomType) {
-                double newRoomPrice = calculateRoomPrice(roomType, currentRoom.getIsWifiEnabled());
+                double newRoomPrice = newPrice * (currentRoom.getIsWifiEnabled() ? 1.2 : 1);
                 if (!currentRoom.setPrice(newRoomPrice)) {
+                    System.out.println("Price is must be greater than 0");
                     return false;
                 }
                 Database.ROOMS.put(currentRoom.getRoomId(), currentRoom);
@@ -350,22 +351,31 @@ public class RoomManager {
             RoomStatus roomStatus,
             boolean isWifiEnabled, boolean isSmokingAllowed) {
 
-        double roomPrice = calculateRoomPrice(roomType, isWifiEnabled);
+        double roomPrice = -1;
+        double singleRoomDefaultPrice = 200;
+        double doubleRoomDefaultPrice = 360;
+        double deluxeRoomDefaultPrice = 400;
+        double vipSuiteDefaultPrice = 1000;
+        
         Room newRoom = null;
         switch (roomType) {
             case SINGLE:
+                roomPrice = singleRoomDefaultPrice * (isWifiEnabled ? 1.2 : 1);
                 newRoom = new SingleRoom(roomId, floorNumber, roomNumber, roomStatus, isWifiEnabled, isSmokingAllowed,
                         roomPrice);
                 break;
             case DOUBLE:
+                roomPrice = doubleRoomDefaultPrice * (isWifiEnabled ? 1.2 : 1);
                 newRoom = new DoubleRoom(roomId, floorNumber, roomNumber, roomStatus, isWifiEnabled, isSmokingAllowed,
                         roomPrice);
                 break;
             case DELUXE:
+                roomPrice = deluxeRoomDefaultPrice * (isWifiEnabled ? 1.2 : 1);
                 newRoom = new DeluxeRoom(roomId, floorNumber, roomNumber, roomStatus, isWifiEnabled, isSmokingAllowed,
                         roomPrice);
                 break;
             case VIP_SUITE:
+                roomPrice = vipSuiteDefaultPrice * (isWifiEnabled ? 1.2 : 1);
                 newRoom = new VipSuite(roomId, floorNumber, roomNumber, roomStatus, isWifiEnabled, isSmokingAllowed,
                         roomPrice);
                 break;
@@ -375,16 +385,6 @@ public class RoomManager {
         return newRoom;
     }
 
-    /**
-     * Calculate the price of the room. <p>
-     * Call {@link PromotionManager} to get room price.
-     * @param roomType Type of the room
-     * @param isWifiEnabled whether the wifi is enabled or not
-     * @return the price of the room
-     */
-    public static double calculateRoomPrice(RoomType roomType, boolean isWifiEnabled) {
-        return PromotionManager.getRoomPrice(roomType, isWifiEnabled);
-    }
 
     /**
      * Validate the hotel has this room id or not
@@ -425,7 +425,7 @@ public class RoomManager {
         }
         if (validateRoomId(roomId)) {
             Room room = searchRoom(roomId);
-            return numOfPax <= room.getRoomType().maxCapacity;
+            return numOfPax <= room.getMaxCapacity();
         }
         return false;
     }

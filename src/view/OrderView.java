@@ -13,7 +13,7 @@ public class OrderView extends MainView{
     public void printMenu() {
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Order View");
-        System.out.println("Please select an option (1-4)");
+        System.out.println("What would you like to do ?");
         System.out.println("(1) Create an order");
         System.out.println("(2) Update order status");
         System.out.println("(3) Print all orders");
@@ -101,7 +101,7 @@ public class OrderView extends MainView{
      * @return {@code true} if order creation is successfull. Otherwise, {@code false} if order creation failed (Room Id of customer does not exist in database) / room is not occupied.
      */
     private boolean createOrder() {
-        System.out.println("Please enter Room Id <2 digit floor level><running number from 01>");
+        System.out.println("Please enter the Room Id in this format <FloorNo><RoomNo> (eg: 0103)");
         String roomId = Helper.sc.nextLine();
         if (!RoomManager.validateRoomId(roomId)) {
             System.out.println("Room does not exist");

@@ -2,7 +2,6 @@ package src.controller;
 
 import src.model.Reservation;
 import src.model.Room;
-import src.model.enums.RoomType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,69 +65,7 @@ public class PaymentManager {
     public static double calculateTotal(double subTotal, double discountRate, double taxRate) {
         return subTotal * (1 + taxRate) * (1 - discountRate);
     }
-    /**
-     * A method that print out the invoice <p>
-     * See {@link Invoice} For the details of the reservation and order
-     * @param invoice invoice of the reservation
-     */
-    public static void printInvoice(Invoice invoice) {
-        System.out.println("INVOICE: ");
-        System.out.println(String.format("%-66s", "").replace(" ", "-"));
-        System.out.println(
-                String.format("%-15s: %s %18sDate Of Issue: %s", "Invoice Id" ,invoice.getInvoiceId(), "" ,invoice.getDateOfPayment().substring(0, 11)));
-        String guestName = GuestManager.searchGuestById(invoice.getGuestId()).get(0).getName();
-        System.out.println(String.format("%-15s: %s","Name" ,guestName));
-        System.out.println(String.format("%-15s: %s", "Reservation Id", invoice.getReservationId()));
-        System.out.println(String.format("%-15s: %d", "Night(s)",invoice.getNights()));
-        System.out.println();
-        System.out.println();
-        HashMap<MenuItem, Integer> ordersMade = new HashMap<MenuItem, Integer>();
-        for (Order order : invoice.getOrders()) {
-            HashMap<MenuItem, Integer> currentOrders = order.getCurrentOrders();
-            for (Map.Entry<MenuItem, Integer> currentEntry : currentOrders.entrySet()) {
-                if (!ordersMade.containsKey(currentEntry.getKey())) {
-                    ordersMade.put(currentEntry.getKey(), 0);
-                }
-                ordersMade.put(currentEntry.getKey(), ordersMade.get(currentEntry.getKey()) + currentEntry.getValue());
-            }
-        }
-
-        System.out.println(String.format("%-40s %5s %5s %8s", "Description", "Unit Price", "Qty", "Amount"));
-        System.out.println(String.format("%-66s", "").replace(" ", "─"));
-
-        // print room types
-        String roomTypeWithWifiStr = invoice.getRoomTypeAsStr();
-        if (invoice.getIsRoomWifiEnabled()) {
-            roomTypeWithWifiStr += " with wifi";
-        } else {
-            roomTypeWithWifiStr += " w/o wifi";
-        }
-
-        System.out.println(String.format("%-44s %5s %5s %9s", roomTypeWithWifiStr.toUpperCase(), invoice.getRoomPrice(),
-                invoice.getNights(), invoice.getRoomPrice() * invoice.getNights()));
-        
-
-        for (Map.Entry<MenuItem, Integer> orderMade : ordersMade.entrySet()) {
-            System.out.println(
-                    String.format("%-44s %5s %5s %9s", orderMade.getKey().getName(), orderMade.getKey().getPrice(),
-                            orderMade.getValue(), orderMade.getKey().getPrice() * orderMade.getValue()));
-        }
-
-        System.out.println();
-        System.out.println();
-
-        String subTotal = String.format("$%.2f", invoice.getSubTotal());
-        String taxRate = String.format("%.0f%%", invoice.getTaxRate() * 100);
-        String discountRate = String.format("%.0f%%", invoice.getDiscountRate() * 100);
-        String total = String.format("$%.2f", invoice.getTotal());
-        
-        System.out.println(String.format("%55s %10s" ,"SubTotal",subTotal));
-        System.out.println(String.format("%55s %10s" ,"Tax Rate",taxRate));
-        System.out.println(String.format("%55s %10s" ,"Discount Rate",discountRate));
-        System.out.println(String.format("%55s %10s" ,"Total",total));
-        System.out.println(String.format("%-66s", "").replace(" ", "-"));
-    }
-
+    
     /**
      * A method that generates invoice of a particular reservation during checkout<p>
      * See {@link Reservation} For the details of the reservation
@@ -136,7 +73,7 @@ public class PaymentManager {
      */
     public static void handlePayment(String reservationId, String guestId) {
         Invoice invoice = generateInvoice(reservationId, guestId);
-        printInvoice(invoice);
+        InvoiceManager.printInvoiceDetails(invoice);
         System.out.println("Payment successful! See you again. :)");
     }
     
@@ -161,12 +98,7 @@ public class PaymentManager {
         String invoiceId = String.format("I%04d", iid);
         String dateOfPayment = Helper.getTimeNow();
 
-        Invoice invoice = new Invoice(invoiceId, guestIdToPay, roomTypeAsStr, roomPrice, isRoomWifiEnabled,
-                reservationId, nights, dateOfPayment, taxRate,
-                discountRate, orders, subTotal, total);
-
-        Database.INVOICES.put(invoiceId, invoice);
-        Database.saveFileIntoDatabase(FileType.INVOICES);
-        return invoice;
+        return InvoiceManager.createInvoice(invoiceId, guestIdToPay, roomTypeAsStr, roomPrice, isRoomWifiEnabled,
+                reservationId, nights, dateOfPayment, taxRate, discountRate, orders, subTotal, total);
     }
 }

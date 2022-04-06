@@ -6,12 +6,14 @@ import src.model.enums.RoomType;
 public class DoubleRoom extends Room {
     private double price;
     private RoomType roomType;
+    private int maxCapacity;
 
     public DoubleRoom(String roomId, int floorNumber, int roomNumber, RoomStatus roomStatus,
             boolean isWifiEnabled, boolean isSmokingAllowed, double price) {
         super(roomId, floorNumber, roomNumber, roomStatus, isWifiEnabled, isSmokingAllowed);
         setPrice(price);
         setRoomType();
+        setMaxCapacity();
     }
     
     @Override
@@ -30,6 +32,13 @@ public class DoubleRoom extends Room {
 
 
     @Override
+    public boolean setMaxCapacity() {
+        this.maxCapacity = 2;
+        return true;
+    }
+
+
+    @Override
     public double getPrice() {
         return this.price;
     }
@@ -38,4 +47,11 @@ public class DoubleRoom extends Room {
     public RoomType getRoomType() {
         return roomType;
     }
+
+    @Override
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
+
+    
 }

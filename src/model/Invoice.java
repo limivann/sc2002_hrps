@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 2022-3-30
  */
-public class Invoice implements Serializable {
+public class Invoice implements Serializable, Comparable<Invoice> {
     /**
      * For Java Serializable
      */
@@ -335,8 +335,18 @@ public class Invoice implements Serializable {
     */
     @Override
     public String toString() {
-        String res = String.format("Invoice Id: %s, Guest Id: %s, Reservation Id: %s, Total: %f", getInvoiceId(), getGuestId(),
-                getReservationId(), getTotal());
+        String res = String.format("Invoice Id: %s\t\tDate Of Issue: %s\t\tTotal: %.2f", getInvoiceId(), getDateOfPayment(),getTotal());
         return res;
+    }
+    @Override
+    public int compareTo(Invoice invoice) {
+        if (this == invoice) {
+            return 0;
+        }
+
+        int thisInvoiceId = Integer.parseInt(this.getInvoiceId().substring(1));
+        int thatInvoiceId = Integer.parseInt(invoice.getInvoiceId().substring(1));
+
+        return thisInvoiceId - thatInvoiceId;
     }
 }   

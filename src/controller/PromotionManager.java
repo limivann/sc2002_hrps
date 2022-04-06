@@ -26,29 +26,6 @@ public class PromotionManager {
     public PromotionManager() {
 
     }
-    
-    /**
-     * A method that calculates the room's price by retrieving {@link PromotionDetails} object from the {@link Database} <p>
-     * See {@link RoomType} for the type of the room
-     * @param roomType the room type
-     * @param isWifiEnabled whether wifi is enabled or not
-     * @return price of the room
-     */
-    public static double getRoomPrice(RoomType roomType, boolean isWifiEnabled) {
-        switch (roomType) {
-            case SINGLE:
-                return Database.PRICES.getSingleRoomPrice() * (isWifiEnabled ? Database.PRICES.getWifiEnabledMultiplier() : 1);
-            case DOUBLE:
-                return Database.PRICES.getDoubleRoomPrice() * (isWifiEnabled ? Database.PRICES.getWifiEnabledMultiplier() : 1);
-            case DELUXE:
-                return Database.PRICES.getDeluxeRoomPrice() * (isWifiEnabled ? Database.PRICES.getWifiEnabledMultiplier() : 1);
-            case VIP_SUITE:
-                return Database.PRICES.getVipSuitePrice() * (isWifiEnabled ? Database.PRICES.getWifiEnabledMultiplier() : 1);
-        }
-        // Cant find
-        
-        return -1;
-    }
 
     /**
      * A method that returns tax rate of the hotel
@@ -78,41 +55,6 @@ public class PromotionManager {
         }
         return false;
     }
-    
-    /**
-     * A method that edit the price of a room type <p>
-     * Calls {@link RoomManager} to update room price of every single room that is affected.
-     * @param roomType room type of the room to be update
-     * @param newRoomPrice new price for the room
-     * @return {@code true} if edited successfully. Otherwise, {@code false} if editing room price is unsuccessful
-     */
-    public static boolean editRoomPrice(RoomType roomType, double newRoomPrice) {
-        switch (roomType) {
-            case SINGLE:
-                if (Database.PRICES.setSingleRoomPrice(newRoomPrice)) {
-                    return RoomManager.updateRoomPrice(RoomType.SINGLE, newRoomPrice);
-                }
-                break;
-            case DOUBLE:
-                if (Database.PRICES.setDoubleRoomPrice(newRoomPrice)) {
-                    return RoomManager.updateRoomPrice(RoomType.DOUBLE, newRoomPrice);
-                }
-                break;
-            case DELUXE:
-                if (Database.PRICES.setDeluxeRoomPrice(newRoomPrice)) {
-                    return RoomManager.updateRoomPrice(RoomType.DELUXE, newRoomPrice);
-                }
-                break;
-            case VIP_SUITE:
-                if (Database.PRICES.setVipSuitePrice(newRoomPrice)) {
-                    return RoomManager.updateRoomPrice(RoomType.VIP_SUITE, newRoomPrice);
-                }
-                break;
-        }
-        Database.saveFileIntoDatabase(FileType.PRICES);
-        // Cant find
-        return false;
-    }
 
     /**
      * A method that edit the discount rate of the hotel
@@ -131,7 +73,7 @@ public class PromotionManager {
      * @return {@code true} if edited successfully.
      */
     public static boolean initializePromotionDetails() {
-        PromotionDetails promotionDetails = new PromotionDetails(0.05, 0.17, 200, 360, 400, 1000, 1.2);
+        PromotionDetails promotionDetails = new PromotionDetails(0.05, 0.17);
         Database.PRICES = promotionDetails;
         return true;
     }

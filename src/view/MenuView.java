@@ -12,7 +12,7 @@ public class MenuView extends MainView{
     public void printMenu() {
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Menu View");
-        System.out.println("Please enter an option (1-5)");
+        System.out.println("What would you like to do ?");
         System.out.println("(1) Add menu items");
         System.out.println("(2) Remove menu items");
         System.out.println("(3) Update menu items");

@@ -22,7 +22,7 @@ public class DatabaseView extends MainView {
     public void printMenu() {
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Database View");
-        System.out.println("Please select an option (1-4)");
+        System.out.println("What would you like to do ?");
         System.out.println("(1) Initialize guests");
         System.out.println("(2) Initialize menu");
         System.out.println("(3) Reset database");

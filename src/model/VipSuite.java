@@ -7,12 +7,14 @@ import src.model.enums.RoomType;
 public class VipSuite extends Room{
     private double price;
     private RoomType roomType;
+    private int maxCapacity;
 
     public VipSuite(String roomId, int floorNumber, int roomNumber, RoomStatus roomStatus,
             boolean isWifiEnabled, boolean isSmokingAllowed, double price) {
         super(roomId, floorNumber, roomNumber, roomStatus, isWifiEnabled, isSmokingAllowed);
         setPrice(price);
         setRoomType();
+        setMaxCapacity();
     }
     
     @Override
@@ -29,6 +31,12 @@ public class VipSuite extends Room{
         return true;
     }
 
+    @Override
+    public boolean setMaxCapacity() {
+        this.maxCapacity = 4;
+        return true;
+    }
+
 
     @Override
     public double getPrice() {
@@ -38,5 +46,10 @@ public class VipSuite extends Room{
     @Override
     public RoomType getRoomType() {
         return roomType;
+    }
+
+    @Override
+    public int getMaxCapacity() {
+        return maxCapacity;
     }
 }

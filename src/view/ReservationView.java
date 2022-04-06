@@ -112,7 +112,7 @@ public class ReservationView extends MainView {
         String roomId;
         int numberOfPax;
         boolean inWaitlist = false;
-        System.out.println("Please enter Room Id <2 digit floor level><running number from 01>");
+        System.out.println("Please enter the Room Id in this format <FloorNo><RoomNo> (eg: 0103)");
         roomId = Helper.sc.nextLine();
         if (!RoomManager.validateRoomId(roomId)) {
             System.out.println("Room does not exist");
@@ -286,7 +286,7 @@ public class ReservationView extends MainView {
                         ReservationManager.updateGuestIds(reservationId, guestIds);
                         break;
                     case 4:
-                        System.out.println("Please enter Room Id <2 digit floor level><running number from 01>");
+                        System.out.println("Please enter the Room Id in this format <FloorNo><RoomNo> (eg: 0103)");
                         roomId = Helper.sc.nextLine();
                         if (!RoomManager.checkRoomVacancy(roomId, RoomStatus.VACANT)) {
                             if (RoomManager.validateRoomId(roomId)) {
