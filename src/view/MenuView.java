@@ -2,17 +2,22 @@ package src.view;
 
 import src.controller.MenuManager;
 import src.helper.Helper;
-
+/**
+ * MenuView provides the view to take user input which calls {@link MenuManager} to manage {@link Menu}.
+ * @author Max
+ * @version 1.0
+ * @since 2022-04-06
+ */
 public class MenuView extends MainView{
 
     /**
-     * Prints the menu for customizing the hotel menu
+     * View Menu of the MenuView.
      */
     @Override
     public void printMenu() {
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Menu View");
-        System.out.println("Please enter an option (1-5)");
+        System.out.println("What would you like to do ?");
         System.out.println("(1) Add menu items");
         System.out.println("(2) Remove menu items");
         System.out.println("(3) Update menu items");
@@ -21,10 +26,11 @@ public class MenuView extends MainView{
     }
 
     /**
-     * Application for the customize menu system
+     * View Application of the MenuView. <p>
+     * See {@link MenuManager} for more {@link Menu} management details.
      */
     @Override
-    public void viewapp() {
+    public void viewApp() {
         int opt = -1;
         String name = "";
         String description = "";

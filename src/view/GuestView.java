@@ -9,23 +9,22 @@ import src.model.enums.IdentityType;
 // for javadocs
 import src.model.Guest;
 /**
-* The Class that shows the view of {@link Guest}.
+ * GuestView provides the view to take user input which calls {@link GuestManager} to manage {@link Guest}.
  * @author Zhang Kaichen
  * @version 1.0
- * @since 2022-03-30
+ * @since 2022-04-06
  */
 public class GuestView extends MainView{
     /**
-     * Default constructor of the Guest view
+     * Default constructor of the GuestView.
      */
     public GuestView() {
         super();
     }
-
-    @Override
     /**
-     * View Menu of the guest
+     * View Menu of the GuestView.
      */
+    @Override
     public void printMenu() {
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Guest View");
@@ -37,12 +36,12 @@ public class GuestView extends MainView{
         System.out.println("(5) Print all Guests");
         System.out.println("(6) Exit Guest View");
     }
-
-    @Override
     /**
-     * Application of the Guest View
+     * View Application of the GuestView. <p>
+     * see {@link GuestManager} for more {@link Guest} management details.
      */
-    public void viewapp() {
+    @Override
+    public void viewApp() {
         int opt;
         do {
             printMenu();
@@ -198,7 +197,6 @@ public class GuestView extends MainView{
         System.out.println("Enter the guest that you want to update (GXXXX): ");
         String guestId = Helper.sc.nextLine();
         if (GuestManager.searchGuestById(guestId).size() == 0) {
-            // TODO: Exception
             System.out.println("Guest not found!");
             return false;
         }

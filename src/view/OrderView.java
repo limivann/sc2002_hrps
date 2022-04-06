@@ -6,22 +6,32 @@ import src.controller.RoomManager;
 import src.helper.Helper;
 import src.model.enums.OrderStatus;
 import src.model.enums.RoomStatus;
-
+/**
+ * OrderView provides the view to take user input which calls {@link OrderManager} to manage {@link Order}.
+ * @author Max
+ * @version 1.0
+ * @since 2022-04-06
+ */
 public class OrderView extends MainView{
-
+    /**
+     * View Menu of the OrderView.
+     */
     @Override
     public void printMenu() {
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Order View");
-        System.out.println("Please select an option (1-4)");
+        System.out.println("What would you like to do ?");
         System.out.println("(1) Create an order");
         System.out.println("(2) Update order status");
         System.out.println("(3) Print all orders");
         System.out.println("(4) Exit");
     }
-
+    /**
+     * View Application of the OrderView. <p>
+     * See {@link OrderManager} for more {@link Order} management details.
+     */
     @Override
-    public void viewapp() {
+    public void viewApp() {
         int opt = -1;
         do {
             printMenu();
@@ -101,7 +111,7 @@ public class OrderView extends MainView{
      * @return {@code true} if order creation is successfull. Otherwise, {@code false} if order creation failed (Room Id of customer does not exist in database) / room is not occupied.
      */
     private boolean createOrder() {
-        System.out.println("Please enter your room id in this format floor-room (Eg: 01-05):");
+        System.out.println("Please enter the Room Id in this format <FloorNo><RoomNo> (eg: 0103)");
         String roomId = Helper.sc.nextLine();
         if (!RoomManager.validateRoomId(roomId)) {
             System.out.println("Room does not exist");

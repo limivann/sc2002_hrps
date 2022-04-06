@@ -3,8 +3,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import src.database.Database;
 import src.database.FileType;
+import src.model.DeluxeRoom;
+import src.model.DoubleRoom;
 import src.model.Order;
 import src.model.Room;
+import src.model.SingleRoom;
+import src.model.VipSuite;
 import src.model.enums.*;
 
 // for javadocs
@@ -34,9 +38,10 @@ public class RoomManager {
      */
     public static boolean updateRoomPrice(RoomType roomType, double newPrice) {
         for (Room currentRoom : Database.ROOMS.values()) {
-            if (currentRoom.getType() == roomType) {
-                double newRoomPrice = calculateRoomPrice(roomType, currentRoom.getIsWifiEnabled());
+            if (currentRoom.getRoomType() == roomType) {
+                double newRoomPrice = newPrice * (currentRoom.getIsWifiEnabled() ? 1.2 : 1);
                 if (!currentRoom.setPrice(newRoomPrice)) {
+                    System.out.println("Price is must be greater than 0");
                     return false;
                 }
                 Database.ROOMS.put(currentRoom.getRoomId(), currentRoom);
@@ -74,7 +79,7 @@ public class RoomManager {
      * @return {@code true} if successful. Otherwise, {@code false} if the room id not found.
      */
     public static boolean updateRoomStatus(int floorNumber, int roomNumber, RoomStatus roomStatus, ArrayList<String> guestIds) {
-        String roomId = String.format("%02d-%02d", floorNumber, roomNumber);
+        String roomId = String.format("%02d%02d", floorNumber, roomNumber);
         if (Database.ROOMS.containsKey(roomId)) {
             Room targetRoom = Database.ROOMS.get(roomId);
             targetRoom.setRoomStatus(roomStatus);
@@ -84,7 +89,6 @@ public class RoomManager {
             Database.saveFileIntoDatabase(FileType.ROOMS);
             return true;
         } else {
-            // TODO: Throw exception
             System.out.println("Room id doesn't exists. ");
             return false;
         }
@@ -97,7 +101,7 @@ public class RoomManager {
      * @return the room object correspond to the room id. Otherwise, {@code null} if the room is not found
      */
     public static Room searchRoom(int floor, int room) {
-        String roomId = String.format("%02d-%02d", floor, room);
+        String roomId = String.format("%02d%02d", floor, room);
         if (Database.ROOMS.containsKey(roomId)) {
             return Database.ROOMS.get(roomId);
         }
@@ -134,7 +138,7 @@ public class RoomManager {
      * @param room the room number of the room
      */
     public static void printRoom(int floor, int room) {
-        String roomId = String.format("%02d-%02d", floor, room);
+        String roomId = String.format("%02d%02d", floor, room);
         if (Database.ROOMS.containsKey(roomId)) {
             printRoomDetails(roomId);
         } else {
@@ -210,7 +214,7 @@ public class RoomManager {
     public static ArrayList<Room> getRoomsByRoomTypeAndStatus(RoomType roomType, RoomStatus roomStatus) {
         ArrayList<Room> roomsByRoomType = new ArrayList<Room>();
         for (Room room : Database.ROOMS.values()) {
-            if (room.getType() == roomType && room.getRoomStatus() == roomStatus) {
+            if (room.getRoomType() == roomType && room.getRoomStatus() == roomStatus) {
                 roomsByRoomType.add(room);
             }
         }
@@ -223,7 +227,6 @@ public class RoomManager {
      * @param roomStatus room status that want to print
      */
     public static void printOccupancyRate(RoomStatus roomStatus) {
-        // TODO: Make this reusable on other room statuses
         ArrayList<Room> vacantSingleRooms = new ArrayList<Room>();
         ArrayList<Room> vacantDoubleRooms = new ArrayList<Room>();
         ArrayList<Room> vacantDeluxeRooms = new ArrayList<Room>();
@@ -287,7 +290,6 @@ public class RoomManager {
 
         int totalNumOfRooms = numOfSingleRooms + numOfDoubleRooms + numOfDeluxeRooms + numOfVipSuites;
         if (totalNumOfRooms != 48) {
-            // TODO: Throw error
             System.out.println("Room count is not 48");
             return;
         }
@@ -296,7 +298,7 @@ public class RoomManager {
         boolean isSmokingAllowed = false;
         for (int floor = 1; floor <= 4; floor++) {
             for (int room = 1; room <= 12; room++) {
-                String roomId = String.format("%02d-%02d", floor, room);
+                String roomId = String.format("%02d%02d", floor, room);
                 Room newRoom = null;
                 isWifiEnabled = nonWifiEnabledCounter == 0 ? false : true;
                 isSmokingAllowed = isSmokingAllowedCounter == 0 ? true : false;
@@ -346,22 +348,40 @@ public class RoomManager {
             RoomStatus roomStatus,
             boolean isWifiEnabled, boolean isSmokingAllowed) {
 
-        double roomPrice = calculateRoomPrice(roomType, isWifiEnabled);
-        Room newRoom = new Room(roomType, roomId, floorNumber, roomNumber, roomStatus, isWifiEnabled, isSmokingAllowed,
-                roomPrice);
+        double roomPrice = -1;
+        double singleRoomDefaultPrice = 200;
+        double doubleRoomDefaultPrice = 360;
+        double deluxeRoomDefaultPrice = 400;
+        double vipSuiteDefaultPrice = 1000;
+        
+        Room newRoom = null;
+        switch (roomType) {
+            case SINGLE:
+                roomPrice = singleRoomDefaultPrice * (isWifiEnabled ? 1.2 : 1);
+                newRoom = new SingleRoom(roomId, floorNumber, roomNumber, roomStatus, isWifiEnabled, isSmokingAllowed,
+                        roomPrice);
+                break;
+            case DOUBLE:
+                roomPrice = doubleRoomDefaultPrice * (isWifiEnabled ? 1.2 : 1);
+                newRoom = new DoubleRoom(roomId, floorNumber, roomNumber, roomStatus, isWifiEnabled, isSmokingAllowed,
+                        roomPrice);
+                break;
+            case DELUXE:
+                roomPrice = deluxeRoomDefaultPrice * (isWifiEnabled ? 1.2 : 1);
+                newRoom = new DeluxeRoom(roomId, floorNumber, roomNumber, roomStatus, isWifiEnabled, isSmokingAllowed,
+                        roomPrice);
+                break;
+            case VIP_SUITE:
+                roomPrice = vipSuiteDefaultPrice * (isWifiEnabled ? 1.2 : 1);
+                newRoom = new VipSuite(roomId, floorNumber, roomNumber, roomStatus, isWifiEnabled, isSmokingAllowed,
+                        roomPrice);
+                break;
+            default:
+                break;
+        }
         return newRoom;
     }
 
-    /**
-     * Calculate the price of the room. <p>
-     * Call {@link PromotionManager} to get room price.
-     * @param roomType Type of the room
-     * @param isWifiEnabled whether the wifi is enabled or not
-     * @return the price of the room
-     */
-    public static double calculateRoomPrice(RoomType roomType, boolean isWifiEnabled) {
-        return PromotionManager.getRoomPrice(roomType, isWifiEnabled);
-    }
 
     /**
      * Validate the hotel has this room id or not
@@ -402,7 +422,7 @@ public class RoomManager {
         }
         if (validateRoomId(roomId)) {
             Room room = searchRoom(roomId);
-            return numOfPax <= room.getType().maxCapacity;
+            return numOfPax <= room.getMaxCapacity();
         }
         return false;
     }
@@ -446,7 +466,7 @@ public class RoomManager {
         System.out.println(String.format("%-40s", "").replace(" ", "-"));
         System.out.println(String.format("%-20s: %s", "Room Number", target.getRoomId()));
         System.out.println(String.format("%-20s: %s", "Room Status", target.getRoomStatus().roomStatusAsStr));
-        System.out.println(String.format("%-20s: %s", "Room Type", target.getType().roomTypeAsStr));
+        System.out.println(String.format("%-20s: %s", "Room Type", target.getRoomType().roomTypeAsStr));
         if (target.getRoomStatus() == RoomStatus.OCCUPIED || target.getRoomStatus() == RoomStatus.RESERVED) {
             System.out.println(String.format("%-20s: %s", "Guest(s)", guestIds));
         }

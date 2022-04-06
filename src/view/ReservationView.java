@@ -13,14 +13,14 @@ import src.controller.RoomManager;
 // for javadocs
 import src.model.Reservation;
 /**
- * The Class that shows the view of {@link Reservation}.
+ * ReservationView provides the view to take user input which calls {@link ReservationManager} to manage {@link Reservation}.
  * @author Max 
  * @version 1.0
- * @since 2022-3-28
+ * @since 2022-4-06
  */
 public class ReservationView extends MainView {
     /**
-     * View Menu for the Reservation.
+     * View Menu of the ReservationView.
      */
     @Override
     public void printMenu() {
@@ -35,11 +35,11 @@ public class ReservationView extends MainView {
         System.out.println("(6) Exit Reservation View");
     }
     /**
-     * View Application for the Reservation. <p>
-     * see {@link ReservationManager} for more reservation management details.
+     * View Application for the ReservationView. <p>
+     * see {@link ReservationManager} for more {@link Reservation} management details.
      */
     @Override
-    public void viewapp(){
+    public void viewApp(){
         int opt = -1;
         String reservationId;
         do {
@@ -112,7 +112,7 @@ public class ReservationView extends MainView {
         String roomId;
         int numberOfPax;
         boolean inWaitlist = false;
-        System.out.println("Enter Room Id (eg: 01-05)");
+        System.out.println("Please enter the Room Id in this format <FloorNo><RoomNo> (eg: 0103)");
         roomId = Helper.sc.nextLine();
         if (!RoomManager.validateRoomId(roomId)) {
             System.out.println("Room does not exist");
@@ -286,7 +286,7 @@ public class ReservationView extends MainView {
                         ReservationManager.updateGuestIds(reservationId, guestIds);
                         break;
                     case 4:
-                        System.out.println("Enter room Id");
+                        System.out.println("Please enter the Room Id in this format <FloorNo><RoomNo> (eg: 0103)");
                         roomId = Helper.sc.nextLine();
                         if (!RoomManager.checkRoomVacancy(roomId, RoomStatus.VACANT)) {
                             if (RoomManager.validateRoomId(roomId)) {

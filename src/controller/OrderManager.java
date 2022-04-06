@@ -18,9 +18,9 @@ import src.view.OrderView;
  * OrderManager is a controller class that acts as a "middleman"
  * between the view classes -  {@link OrderView} and the model classes - {@link Order}. <p>
  *
- * @author Hill Seah
+ * @author Hill Seah, Max
  * @version 1.0
- * @since 2022-03-31
+ * @since 2022-04-06
  *
  */
 public class OrderManager {

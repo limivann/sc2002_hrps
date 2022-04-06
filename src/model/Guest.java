@@ -207,7 +207,20 @@ public class Guest implements Serializable, Comparable<Guest> {
     public String getName() {
         return name;
     }
-
+    /**
+     * Gets the first name of the guest
+     * @return the first name of the guest
+     */
+    public String getFirstName(){
+        return firstName;
+    }
+    /**
+     * Gets the last name of the guest
+     * @return the last name of the guest
+     */
+    public String getLastName(){
+        return lastName;
+    }
     /**
      * Gets the credit card of the guest
      * @return the credit card number of guest

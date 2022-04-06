@@ -7,17 +7,43 @@ import src.helper.Helper;
  */
 public class HotelAppView extends MainView{
     /**
-     * Default constructor
+     * View Menu for managing {@link Guest}.
      */
     protected GuestView guestView;
+    /**
+     * View Menu for managing {@link Room}.
+     */
     protected RoomView roomView;
+    /**
+     * View Menu for managing {@link Reservation}.
+     */
     protected ReservationView reservationView;
+    /**
+     * View Menu for handling Check In and Check Out.
+     */
     protected HandleCheckInOutView handleCheckInOutView;
+    /**
+     * View Menu for managing {@link PromotionDetails}.
+     */
     protected ManagePaymentView managePaymentView;
+    /**
+     * View Menu for managing {@link Database}.
+     */
     protected DatabaseView databaseView;
+    /**
+     * View Menu for managing {@link Menu}.
+     */
     protected MenuView menuView;
+    /**
+     * View Menu for managing {@link Order}.
+     */
     protected OrderView orderView;
     
+    protected InvoiceView invoiceView;
+    
+    /**
+     * Default constructor for the HotelAppView.
+     */
     public HotelAppView() {
         super();
         guestView = new GuestView();
@@ -28,7 +54,7 @@ public class HotelAppView extends MainView{
         databaseView = new DatabaseView();
         menuView = new MenuView();
         orderView = new OrderView();
-        
+        invoiceView = new InvoiceView();
     }
     /**
      * View Menu for Admin
@@ -44,53 +70,56 @@ public class HotelAppView extends MainView{
         System.out.println("(4) Manage Orders");
         System.out.println("(5) Manage Hotel Menu");
         System.out.println("(6) Manage Check In / Check Out");
-        System.out.println("(7) Manage Payment");
-        System.out.println("(8) Manage Database");
-        System.out.println("(9) Exit HRPS");   
+        System.out.println("(7) Manage Promotion Details");
+        System.out.println("(8) Manage Invoices");
+        System.out.println("(9) Manage Database");
+        System.out.println("(10) Exit HRPS");   
     }
     /**
      * View Application for Hotel
      */
     @Override
-    public void viewapp() {
+    public void viewApp() {
         // init views
         
-
         int opt = -1;
         do{
             printMenu();
-            opt = Helper.readInt(1, 9);
+            opt = Helper.readInt(1, 10);
             switch (opt) {
                 case 1:
-                    guestView.viewapp();
+                    guestView.viewApp();
                     break;
                 case 2:
-                    roomView.viewapp();
+                    roomView.viewApp();
                     break;
                 case 3:
-                    reservationView.viewapp();
+                    reservationView.viewApp();
                     break;
                 case 4:
-                    orderView.viewapp();
+                    orderView.viewApp();
                     break;
                 case 5:
-                    menuView.viewapp();
+                    menuView.viewApp();
                     break;
                 case 6:
-                    handleCheckInOutView.viewapp();
+                    handleCheckInOutView.viewApp();
                     break;
                 case 7:
-                    managePaymentView.viewapp();
+                    managePaymentView.viewApp();
                     break;
                 case 8:
-                    databaseView.viewapp();
+                    invoiceView.viewApp();
                     break;
                 case 9:
+                    databaseView.viewApp();
+                    break;
+                case 10:
                     break;
                 default:
                     break;
             }
-        } while (opt != 9);
+        } while (opt != 10);
         
     }
     
