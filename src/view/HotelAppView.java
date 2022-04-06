@@ -12,20 +12,22 @@ public class HotelAppView extends MainView{
     protected GuestView guestView;
     protected RoomView roomView;
     protected ReservationView reservationView;
-    protected RoomServiceAdminView roomServiceAdminView;
     protected HandleCheckInOutView handleCheckInOutView;
     protected ManagePaymentView managePaymentView;
     protected DatabaseView databaseView;
+    protected MenuView menuView;
+    protected OrderView orderView;
     
     public HotelAppView() {
         super();
         guestView = new GuestView();
         roomView = new RoomView();
         reservationView = new ReservationView();
-        roomServiceAdminView = new RoomServiceAdminView();
         handleCheckInOutView = new HandleCheckInOutView();
         managePaymentView = new ManagePaymentView();
         databaseView = new DatabaseView();
+        menuView = new MenuView();
+        orderView = new OrderView();
         
     }
     /**
@@ -39,11 +41,12 @@ public class HotelAppView extends MainView{
         System.out.println("(1) Manage Guest");
         System.out.println("(2) Manage Room");
         System.out.println("(3) Manage Reservation");
-        System.out.println("(4) Manage RoomService");
-        System.out.println("(5) Manage Check In / Check Out");
-        System.out.println("(6) Manage Payment");
-        System.out.println("(7) Manage Database");
-        System.out.println("(8) Exit HRPS");   
+        System.out.println("(4) Manage Orders");
+        System.out.println("(5) Manage Hotel Menu");
+        System.out.println("(6) Manage Check In / Check Out");
+        System.out.println("(7) Manage Payment");
+        System.out.println("(8) Manage Database");
+        System.out.println("(9) Exit HRPS");   
     }
     /**
      * View Application for Hotel
@@ -56,7 +59,7 @@ public class HotelAppView extends MainView{
         int opt = -1;
         do{
             printMenu();
-            opt = Helper.readInt(1, 8);
+            opt = Helper.readInt(1, 9);
             switch (opt) {
                 case 1:
                     guestView.viewapp();
@@ -68,23 +71,26 @@ public class HotelAppView extends MainView{
                     reservationView.viewapp();
                     break;
                 case 4:
-                    roomServiceAdminView.viewapp();
+                    orderView.viewapp();
                     break;
                 case 5:
-                    handleCheckInOutView.viewapp();
+                    menuView.viewapp();
                     break;
                 case 6:
-                    managePaymentView.viewapp();
+                    handleCheckInOutView.viewapp();
                     break;
                 case 7:
-                    databaseView.viewapp();
+                    managePaymentView.viewapp();
                     break;
                 case 8:
+                    databaseView.viewapp();
+                    break;
+                case 9:
                     break;
                 default:
                     break;
             }
-        } while (opt != 8);
+        } while (opt != 9);
         
     }
     

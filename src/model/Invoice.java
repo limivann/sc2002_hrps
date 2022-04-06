@@ -24,6 +24,11 @@ public class Invoice implements Serializable {
     private String roomTypeAsStr;
 
     /**
+     * Wifi enabled room 
+     */
+    private boolean isRoomWifiEnabled;
+
+    /**
      * Room price of the room on the day of payment
      */
     private double roomPrice;
@@ -73,6 +78,7 @@ public class Invoice implements Serializable {
      * @param guestId Id of the guest
      * @param roomTypeAsStr Room type of the stay
      * @param roomPrice Room price of the room
+     * @param isRoomWifiEnabled Wifi enabled room 
      * @param reservationId Id of the reservation
      * @param nights Nights spent in the hotel
      * @param dateOfPayment Date which the payment is made
@@ -81,7 +87,7 @@ public class Invoice implements Serializable {
      * @param subTotal Total amount without tax rate and discount rate
      * @param total Total amount with tax rate and discount rate
      */
-    public Invoice(String invoiceId, String guestId, String roomTypeAsStr, double roomPrice,String reservationId, int nights, String dateOfPayment,
+    public Invoice(String invoiceId, String guestId, String roomTypeAsStr, double roomPrice, boolean isRoomWifiEnabled, String reservationId, int nights, String dateOfPayment,
             double taxRate, double discountRate, ArrayList<Order> orders ,double subTotal, double total) {
         // reservation will retrieve details for reservation id, guest id, room id
         // calculate sub total by searching orders
@@ -186,6 +192,16 @@ public class Invoice implements Serializable {
         this.roomTypeAsStr = roomTypeAsStr;
         return true;
     }
+
+    /**
+     * Sets if the room is wifi enabled 
+     * @param isRoomWifiEnabled {@code true} if the room is wifi enabled. Otherwise, {@code false}.
+     * @return {@code true} if the room is wifi enabled. Otherwise, {@code false}.
+     */
+    public boolean setRoomWifiEnabled(boolean isRoomWifiEnabled) {
+        this.isRoomWifiEnabled = isRoomWifiEnabled;
+        return true;
+    }
     
     /**
      * Sets the room price of the room on the day of payment
@@ -274,6 +290,14 @@ public class Invoice implements Serializable {
      */
     public double getRoomPrice() {
         return roomPrice;
+    }
+
+    /**
+     * Gets if the room is wifi enabled
+     * @return {@code true} if the room is wifi enabled. Otherwise, {@code false}.
+     */
+    public boolean getIsRoomWifiEnabled() {
+        return isRoomWifiEnabled;
     }
     
     /**

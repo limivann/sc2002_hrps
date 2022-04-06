@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import javax.naming.spi.ResolveResult;
 
 import src.controller.GuestManager;
+import src.controller.OrderManager;
 import src.controller.PaymentManager;
 import src.controller.ReservationManager;
 import src.controller.RoomManager;
-import src.controller.RoomServiceManager;
 import src.helper.Helper;
 /**
  * The Class checks in and checks out a reservation.
@@ -116,7 +116,7 @@ public class HandleCheckInOutView extends MainView {
         RoomManager.updateRoomOrders(ReservationManager.getRoomIdFromReservationId(reservationId), null, true);
 
         // in orders, update all orders made by that room to be delivered
-        RoomServiceManager.updateAllRoomOrderToDelivered(ReservationManager.getRoomIdFromReservationId(reservationId));
+        OrderManager.updateAllRoomOrderToDelivered(ReservationManager.getRoomIdFromReservationId(reservationId));
     }
     /**
      * Prompt Payment option 
