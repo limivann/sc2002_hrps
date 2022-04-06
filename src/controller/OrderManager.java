@@ -15,6 +15,15 @@ import java.util.Map;
 import src.view.HotelAppView;
 import src.view.RoomServiceAdminView;
 
+/**
+ * OrderManager is a controller class that acts as a "middleman"
+ * between the view classes -  {@link RoomServiceAdminView} and the model classes - {@link Order}. <p>
+ *
+ * @author Hill Seah
+ * @version 1.0
+ * @since 2022-03-31
+ *
+ */
 public class OrderManager {
     /**
      * Creates a new order for the customer of the room Id specified as the argument. <p>

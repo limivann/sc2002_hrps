@@ -8,6 +8,16 @@ import src.helper.Helper;
 import src.view.HotelAppView;
 import src.view.RoomView;
 
+/**
+ * MenuManager is a controller class that acts as a "middleman"
+ * between the view classes - {@link RoomServiceAdminView} and the model classes - {@link MenuItem}. <p>
+ *
+ * It can customize the menu. <p>
+ * @author Hill Seah
+ * @version 1.0
+ * @since 2022-03-31
+ *
+ */
 public class MenuManager {
     /**
      * Adds a new menu item, with details of its name, preparation description and price to the menu
