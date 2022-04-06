@@ -1,5 +1,6 @@
 package src.view;
-
+import src.controller.MenuManager;
+import src.controller.OrderManager;
 import src.controller.RoomManager;
 import src.controller.RoomServiceManager;
 import src.helper.Helper;
@@ -131,7 +132,7 @@ public class RoomServiceAdminView extends MainView{
      * Prints the available menu items in the hotel menu
      */
     private void printMenuItems(){
-        RoomServiceManager.printMenu();
+        MenuManager.printMenu();
     }
 
     /**
@@ -144,7 +145,7 @@ public class RoomServiceAdminView extends MainView{
      */
     private void addMenuItem(String name, String description, double price){
 
-        if (RoomServiceManager.addMenuItem(name, description, price)){
+        if (MenuManager.addMenuItem(name, description, price)){
             System.out.printf("\"%s\" added to menu SUCCESSFULLY\n", name);
         }
         else{
@@ -159,7 +160,7 @@ public class RoomServiceAdminView extends MainView{
      * @param name Name of the menu item to be removed
      */
     private void removeMenuItem(String name){
-        if (RoomServiceManager.removeMenuItem(name)){
+        if (MenuManager.removeMenuItem(name)){
             System.out.printf("\"%s\" removed from menu SUCCESSFULLY\n", name);
         }
         else{
@@ -177,7 +178,7 @@ public class RoomServiceAdminView extends MainView{
      */
     private void updateMenuItem(String name, String description, double price) {
 
-        if (RoomServiceManager.updateMenuItem(name, description, price)) {
+        if (MenuManager.updateMenuItem(name, description, price)) {
             System.out.printf("%s updated in menu SUCCESSFULLY\n", name);
         } else {
             System.out.printf("Update menu FAILED (\"%s\" NOT FOUND in menu)\n", name);
@@ -212,7 +213,7 @@ public class RoomServiceAdminView extends MainView{
                 case 3:
                     Helper.clearScreen();
                     printBreadCrumbs("Hotel App View > Room Service View > Manage Orders > Print all orders");
-                    RoomServiceManager.printAllOrders();
+                    OrderManager.printAllOrders();
                     break;
                 case 4:
                     break;
@@ -251,11 +252,11 @@ public class RoomServiceAdminView extends MainView{
         int orderStatusOption = Helper.readInt(1,3);
         switch (orderStatusOption) {
             case 1:
-                return RoomServiceManager.updateStatus(OrderStatus.CONFIRMED, orderIdToUpdate);
+                return OrderManager.updateStatus(OrderStatus.CONFIRMED, orderIdToUpdate);
             case 2:
-                return RoomServiceManager.updateStatus(OrderStatus.PREPARING, orderIdToUpdate);
+                return OrderManager.updateStatus(OrderStatus.PREPARING, orderIdToUpdate);
             case 3:
-                return RoomServiceManager.updateStatus(OrderStatus.DELIVERED, orderIdToUpdate);
+                return OrderManager.updateStatus(OrderStatus.DELIVERED, orderIdToUpdate);
             default:
                 break;
         }
@@ -293,7 +294,7 @@ public class RoomServiceAdminView extends MainView{
             System.out.println("Room is not occupied!");
             return false;
         }
-        String orderId = RoomServiceManager.createOrder(roomId);
+        String orderId = OrderManager.createOrder(roomId);
         String itemName;
         int itemAmount;
         int option = -1;
@@ -306,7 +307,7 @@ public class RoomServiceAdminView extends MainView{
                 case 1:
                     Helper.clearScreen();
                     printBreadCrumbs("Hotel App View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Print menu");
-                    RoomServiceManager.printMenu();
+                    MenuManager.printMenu();
                     break;
                 case 2:
                     Helper.clearScreen();
@@ -329,14 +330,14 @@ public class RoomServiceAdminView extends MainView{
                 case 4:
                     Helper.clearScreen();
                     printBreadCrumbs("Hotel App View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Print order");
-                    RoomServiceManager.printOrderDetails(orderId);
+                    OrderManager.printOrderDetails(orderId);
                     break;
                 case 5:
                     Helper.clearScreen();
                     printBreadCrumbs("Hotel App View > Room Service View > Manage Orders > Create an order for Room " + roomId + " > Enter remarks");
                     System.out.println("Enter remarks:\r");
                     String remarks = Helper.sc.nextLine();
-                    RoomServiceManager.setRemarks(remarks, orderId);
+                    OrderManager.setRemarks(remarks, orderId);
                     System.out.println("Remarks given");
                     break;
                 case 6:
@@ -363,7 +364,7 @@ public class RoomServiceAdminView extends MainView{
      * @param amount Quantity of menu item to be added
      */
     private void addOrderItem(String name, String orderId, int amount){
-        if (RoomServiceManager.addOrderItem(name, orderId, amount)){
+        if (OrderManager.addOrderItem(name, orderId, amount)){
             System.out.printf("\"%s\" added to order SUCCESSFULLY\n", name);
         }
         else{
@@ -379,7 +380,7 @@ public class RoomServiceAdminView extends MainView{
      * @param amount Quantity of menu item to be removed
      */
     private void removeOrderItem(String name, String orderId, int amount){
-        if (RoomServiceManager.removeOrderItem(name, orderId, amount)){
+        if (OrderManager.removeOrderItem(name, orderId, amount)){
             System.out.printf("\"%s\" removed from order SUCCESSFULLY\n", name);
         }
         else{
@@ -394,9 +395,9 @@ public class RoomServiceAdminView extends MainView{
      */
     private void confirmOrder(String orderId) {
         System.out.println("RECEIPT:");
-        RoomServiceManager.printOrderDetails(orderId);
+        OrderManager.printOrderDetails(orderId);
         System.out.println("Order Sent!!!\nThank you for ordering!!! :):):)");
-        RoomServiceManager.updateStatus(OrderStatus.CONFIRMED, orderId);
+        OrderManager.updateStatus(OrderStatus.CONFIRMED, orderId);
     }
     
     /**
