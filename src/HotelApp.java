@@ -18,15 +18,16 @@ public class HotelApp {
         // Intialize helpers and view apps
         HotelAppView hotelAppView = new HotelAppView();
 
-        Database database = new Database();
         Helper.clearScreen();
         printHRPSTitle();
         Helper.pressAnyKeyToContinue();
-        hotelAppView.viewapp();
+        hotelAppView.viewApp();
         Database.saveAllFiles();
         System.out.println("Program closing ... Thank you for using HRPS!");
     }
-
+    /**
+     * Prints the HRPS title.
+     */
     private static void printHRPSTitle() {
         System.out.println();
         System.out.println("╔═════════════════════════════════════════════════════════════════════════════════════════════════════╗");

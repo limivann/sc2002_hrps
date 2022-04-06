@@ -6,9 +6,16 @@ import src.controller.RoomManager;
 import src.helper.Helper;
 import src.model.enums.OrderStatus;
 import src.model.enums.RoomStatus;
-
+/**
+ * OrderView provides the view to take user input which calls {@link OrderManager} to manage {@link Order}.
+ * @author Max
+ * @version 1.0
+ * @since 2022-04-06
+ */
 public class OrderView extends MainView{
-
+    /**
+     * View Menu of the OrderView.
+     */
     @Override
     public void printMenu() {
         Helper.clearScreen();
@@ -19,9 +26,12 @@ public class OrderView extends MainView{
         System.out.println("(3) Print all orders");
         System.out.println("(4) Exit");
     }
-
+    /**
+     * View Application of the OrderView. <p>
+     * See {@link OrderManager} for more {@link Order} management details.
+     */
     @Override
-    public void viewapp() {
+    public void viewApp() {
         int opt = -1;
         do {
             printMenu();

@@ -7,18 +7,43 @@ import src.helper.Helper;
  */
 public class HotelAppView extends MainView{
     /**
-     * Default constructor
+     * View Menu for managing {@link Guest}.
      */
     protected GuestView guestView;
+    /**
+     * View Menu for managing {@link Room}.
+     */
     protected RoomView roomView;
+    /**
+     * View Menu for managing {@link Reservation}.
+     */
     protected ReservationView reservationView;
+    /**
+     * View Menu for handling Check In and Check Out.
+     */
     protected HandleCheckInOutView handleCheckInOutView;
+    /**
+     * View Menu for managing {@link PromotionDetails}.
+     */
     protected ManagePaymentView managePaymentView;
+    /**
+     * View Menu for managing {@link Database}.
+     */
     protected DatabaseView databaseView;
+    /**
+     * View Menu for managing {@link Menu}.
+     */
     protected MenuView menuView;
+    /**
+     * View Menu for managing {@link Order}.
+     */
     protected OrderView orderView;
+    
     protected InvoiceView invoiceView;
     
+    /**
+     * Default constructor for the HotelAppView.
+     */
     public HotelAppView() {
         super();
         guestView = new GuestView();
@@ -54,7 +79,7 @@ public class HotelAppView extends MainView{
      * View Application for Hotel
      */
     @Override
-    public void viewapp() {
+    public void viewApp() {
         // init views
         
         int opt = -1;
@@ -63,31 +88,31 @@ public class HotelAppView extends MainView{
             opt = Helper.readInt(1, 10);
             switch (opt) {
                 case 1:
-                    guestView.viewapp();
+                    guestView.viewApp();
                     break;
                 case 2:
-                    roomView.viewapp();
+                    roomView.viewApp();
                     break;
                 case 3:
-                    reservationView.viewapp();
+                    reservationView.viewApp();
                     break;
                 case 4:
-                    orderView.viewapp();
+                    orderView.viewApp();
                     break;
                 case 5:
-                    menuView.viewapp();
+                    menuView.viewApp();
                     break;
                 case 6:
-                    handleCheckInOutView.viewapp();
+                    handleCheckInOutView.viewApp();
                     break;
                 case 7:
-                    managePaymentView.viewapp();
+                    managePaymentView.viewApp();
                     break;
                 case 8:
-                    invoiceView.viewapp();
+                    invoiceView.viewApp();
                     break;
                 case 9:
-                    databaseView.viewapp();
+                    databaseView.viewApp();
                     break;
                 case 10:
                     break;

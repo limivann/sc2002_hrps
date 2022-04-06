@@ -13,14 +13,14 @@ import src.controller.RoomManager;
 // for javadocs
 import src.model.Reservation;
 /**
- * The Class that shows the view of {@link Reservation}.
+ * ReservationView provides the view to take user input which calls {@link ReservationManager} to manage {@link Reservation}.
  * @author Max 
  * @version 1.0
- * @since 2022-3-28
+ * @since 2022-4-06
  */
 public class ReservationView extends MainView {
     /**
-     * View Menu for the Reservation.
+     * View Menu of the ReservationView.
      */
     @Override
     public void printMenu() {
@@ -35,11 +35,11 @@ public class ReservationView extends MainView {
         System.out.println("(6) Exit Reservation View");
     }
     /**
-     * View Application for the Reservation. <p>
-     * see {@link ReservationManager} for more reservation management details.
+     * View Application for the ReservationView. <p>
+     * see {@link ReservationManager} for more {@link Reservation} management details.
      */
     @Override
-    public void viewapp(){
+    public void viewApp(){
         int opt = -1;
         String reservationId;
         do {

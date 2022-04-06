@@ -20,7 +20,7 @@ public class InvoiceView extends MainView {
     }
 
     @Override
-    public void viewapp() {
+    public void viewApp() {
         int opt = -1;
         do {
             printMenu();

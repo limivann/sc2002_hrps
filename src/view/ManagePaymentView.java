@@ -3,12 +3,23 @@ package src.view;
 import src.helper.Helper;
 import src.model.enums.RoomType;
 import src.controller.PromotionManager;
+/**
+ * ManagePaymentView provides the view to take user input which calls {@link PromotionManager} to manage {@link PromotionDetails}.
+ * @author Max
+ * @version 1.0
+ * @since 2022-04-06
+ */
 public class ManagePaymentView extends MainView {
-    
+
+    /**
+     * Default constructor for the ManagePaymentView.
+     */
     public ManagePaymentView() {
         super();
     }
-
+    /**
+     * View Menu of the ManagePaymentView.
+     */
     @Override
     public void printMenu() {
         Helper.clearScreen();
@@ -18,9 +29,12 @@ public class ManagePaymentView extends MainView {
         System.out.println("(2) Manage Discount Rate");
         System.out.println("(3) Exit Payment View");
     }
-
+    /**
+     * View Application for the ManagePaymentView. <p>
+     * see {@link PromotionManager} for more {@link PromotionDetails} management details.
+     */
     @Override
-    public void viewapp() {
+    public void viewApp() {
         int opt = -1;
         do {
             printMenu();
@@ -62,7 +76,10 @@ public class ManagePaymentView extends MainView {
         newTaxRate = Helper.readDouble();
         return PromotionManager.editTaxRate(newTaxRate);
     }
-
+    /**
+     * View Menu for editing discount rate.
+     * @return {@code true} if updates successfully. Otherwise, {@code false}.
+     */
     public boolean promptEditDiscountRate() {
         printOldDiscountRate();
         double newDiscountRate = -1;
@@ -82,7 +99,9 @@ public class ManagePaymentView extends MainView {
     public void printOldTaxRate() {
         System.out.println(String.format("The old tax rate is %.2f", PromotionManager.getTaxRate()));
     }
-
+    /**
+     * Prints the old discount rate.
+     */
     public void printOldDiscountRate() {
         System.out.println(String.format("The old discount rate is %.2f", PromotionManager.getDiscountRate()));
     }

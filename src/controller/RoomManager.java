@@ -89,7 +89,6 @@ public class RoomManager {
             Database.saveFileIntoDatabase(FileType.ROOMS);
             return true;
         } else {
-            // TODO: Throw exception
             System.out.println("Room id doesn't exists. ");
             return false;
         }
@@ -228,7 +227,6 @@ public class RoomManager {
      * @param roomStatus room status that want to print
      */
     public static void printOccupancyRate(RoomStatus roomStatus) {
-        // TODO: Make this reusable on other room statuses
         ArrayList<Room> vacantSingleRooms = new ArrayList<Room>();
         ArrayList<Room> vacantDoubleRooms = new ArrayList<Room>();
         ArrayList<Room> vacantDeluxeRooms = new ArrayList<Room>();
@@ -292,7 +290,6 @@ public class RoomManager {
 
         int totalNumOfRooms = numOfSingleRooms + numOfDoubleRooms + numOfDeluxeRooms + numOfVipSuites;
         if (totalNumOfRooms != 48) {
-            // TODO: Throw error
             System.out.println("Room count is not 48");
             return;
         }
