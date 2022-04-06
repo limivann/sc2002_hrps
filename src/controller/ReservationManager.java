@@ -380,6 +380,7 @@ public class ReservationManager {
         // shift waitlist up
         ArrayList<Reservation> candidates = getWaitlistedReservation(getRoomIdFromReservationId(reservationId));
         if (candidates.size() > 0) {
+            Collections.sort(candidates);
             Reservation target = candidates.get(0);
             target.setReservationStatus(ReservationStatus.CONFIRMED);
             RoomManager.updateRoomStatus(getRoomIdFromReservationId(reservationId), RoomStatus.RESERVED);

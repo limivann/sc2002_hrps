@@ -9,9 +9,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import src.controller.GuestManager;
+import src.controller.MenuManager;
 import src.controller.PromotionManager;
 import src.controller.RoomManager;
-import src.controller.RoomServiceManager;
 import src.model.*;
 
 /**
@@ -289,7 +289,7 @@ public class Database {
             System.out.println("The database already has some menu items. Reset database first to initialize menu items");
             return false;
         }
-        RoomServiceManager.initializeDummyMenuItems();
+        MenuManager.initializeDummyMenuItems();
         return true;
     }
     

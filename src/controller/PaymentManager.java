@@ -35,7 +35,6 @@ public class PaymentManager {
     /**
      * A method that calculates the subtotal of a reservation. <p>
      * Calls {@link RoomManager} to get room price, calls {@link ReservationManager} to retrieve number of stays and 
-     * calls {@link RoomServiceManager} to get order price of the room. 
      * @param roomId id of the room
      * @param reservationId id of the reservation
      * @return subtotal of the reservation corresponding to the room id.
