@@ -148,7 +148,7 @@ public class PaymentManager {
     public static Invoice generateInvoice(String reservationId, String guestIdToPay) {
         Reservation reservation = ReservationManager.search(reservationId);
         String roomId = reservation.getRoomId();
-        String roomTypeAsStr = RoomManager.searchRoom(roomId).getType().roomTypeAsStr;
+        String roomTypeAsStr = RoomManager.searchRoom(roomId).getRoomType().roomTypeAsStr;
         boolean isRoomWifiEnabled = RoomManager.searchRoom(roomId).getIsWifiEnabled();
         double roomPrice = RoomManager.searchRoom(roomId).getPrice();
         int nights = ReservationManager.calculateNumOfStays(reservationId);

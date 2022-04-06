@@ -3,8 +3,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import src.database.Database;
 import src.database.FileType;
+import src.model.DeluxeRoom;
+import src.model.DoubleRoom;
 import src.model.Order;
 import src.model.Room;
+import src.model.SingleRoom;
+import src.model.VipSuite;
 import src.model.enums.*;
 
 // for javadocs
@@ -34,7 +38,7 @@ public class RoomManager {
      */
     public static boolean updateRoomPrice(RoomType roomType, double newPrice) {
         for (Room currentRoom : Database.ROOMS.values()) {
-            if (currentRoom.getType() == roomType) {
+            if (currentRoom.getRoomType() == roomType) {
                 double newRoomPrice = calculateRoomPrice(roomType, currentRoom.getIsWifiEnabled());
                 if (!currentRoom.setPrice(newRoomPrice)) {
                     return false;
@@ -210,7 +214,7 @@ public class RoomManager {
     public static ArrayList<Room> getRoomsByRoomTypeAndStatus(RoomType roomType, RoomStatus roomStatus) {
         ArrayList<Room> roomsByRoomType = new ArrayList<Room>();
         for (Room room : Database.ROOMS.values()) {
-            if (room.getType() == roomType && room.getRoomStatus() == roomStatus) {
+            if (room.getRoomType() == roomType && room.getRoomStatus() == roomStatus) {
                 roomsByRoomType.add(room);
             }
         }
@@ -347,8 +351,27 @@ public class RoomManager {
             boolean isWifiEnabled, boolean isSmokingAllowed) {
 
         double roomPrice = calculateRoomPrice(roomType, isWifiEnabled);
-        Room newRoom = new Room(roomType, roomId, floorNumber, roomNumber, roomStatus, isWifiEnabled, isSmokingAllowed,
-                roomPrice);
+        Room newRoom = null;
+        switch (roomType) {
+            case SINGLE:
+                newRoom = new SingleRoom(roomId, floorNumber, roomNumber, roomStatus, isWifiEnabled, isSmokingAllowed,
+                        roomPrice);
+                break;
+            case DOUBLE:
+                newRoom = new DoubleRoom(roomId, floorNumber, roomNumber, roomStatus, isWifiEnabled, isSmokingAllowed,
+                        roomPrice);
+                break;
+            case DELUXE:
+                newRoom = new DeluxeRoom(roomId, floorNumber, roomNumber, roomStatus, isWifiEnabled, isSmokingAllowed,
+                        roomPrice);
+                break;
+            case VIP_SUITE:
+                newRoom = new VipSuite(roomId, floorNumber, roomNumber, roomStatus, isWifiEnabled, isSmokingAllowed,
+                        roomPrice);
+                break;
+            default:
+                break;
+        }
         return newRoom;
     }
 
@@ -402,7 +425,7 @@ public class RoomManager {
         }
         if (validateRoomId(roomId)) {
             Room room = searchRoom(roomId);
-            return numOfPax <= room.getType().maxCapacity;
+            return numOfPax <= room.getRoomType().maxCapacity;
         }
         return false;
     }
@@ -446,7 +469,7 @@ public class RoomManager {
         System.out.println(String.format("%-40s", "").replace(" ", "-"));
         System.out.println(String.format("%-20s: %s", "Room Number", target.getRoomId()));
         System.out.println(String.format("%-20s: %s", "Room Status", target.getRoomStatus().roomStatusAsStr));
-        System.out.println(String.format("%-20s: %s", "Room Type", target.getType().roomTypeAsStr));
+        System.out.println(String.format("%-20s: %s", "Room Type", target.getRoomType().roomTypeAsStr));
         if (target.getRoomStatus() == RoomStatus.OCCUPIED || target.getRoomStatus() == RoomStatus.RESERVED) {
             System.out.println(String.format("%-20s: %s", "Guest(s)", guestIds));
         }

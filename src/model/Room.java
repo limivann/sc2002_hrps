@@ -13,17 +13,11 @@ import src.model.enums.RoomStatus;
  * @version 1.0
  * @since 2022-03-30
  */
-public class Room implements Serializable, Comparable<Room> {
+public abstract class Room implements Serializable,Comparable<Room> {
 	/**
 	 * For java serializable
 	 */
 	private static final long serialVersionUID = 2L;
-
-	/**
-	 * The type of the room <p>
-	 * See {@link RoomType} for different types of room.
-	 */
-	private RoomType type;
 
 	/**
 	 * Floor number of the room
@@ -40,11 +34,6 @@ public class Room implements Serializable, Comparable<Room> {
 	 * See {@link RoomStatus} for different status of the room.
 	 */
 	private RoomStatus roomStatus;
-
-	/**
-	 * price for the room
-	 */
-	private double price;
 
 	/**
 	 * whether the wifi is enabled or not
@@ -71,6 +60,8 @@ public class Room implements Serializable, Comparable<Room> {
 	 */
 	private ArrayList<Order> orders;
 
+	public Room(){}
+
 	/**
 	 * The constructor for the room
 	 * @param type the type of the room
@@ -84,16 +75,14 @@ public class Room implements Serializable, Comparable<Room> {
 	 * see {@link RoomStatus} for different status of the room
 	 * see {@link RoomType} for different type of the room
 	 */
-	public Room(RoomType type, String roomId, int floorNumber, int roomNumber, RoomStatus roomStatus, boolean isWifiEnabled,
-			boolean isSmokingAllowed, double price) {
-		setType(type);
+	public Room(String roomId, int floorNumber, int roomNumber, RoomStatus roomStatus, boolean isWifiEnabled,
+			boolean isSmokingAllowed) {
 		setRoomId(roomId);
 		setFloorNumber(floorNumber);
 		setRoomNumber(roomNumber);
 		setRoomStatus(roomStatus);
 		setWifiEnabled(isWifiEnabled);
 		setSmokingAllowed(isSmokingAllowed);
-		setPrice(price);
 		setOrders(new ArrayList<Order>());
 	}	
 	
@@ -103,13 +92,7 @@ public class Room implements Serializable, Comparable<Room> {
 	 * @param price price of the room
 	 * @return {@code true} if input is valid
 	 */
-	public boolean setPrice(double price) {
-		if (price <= 0) {
-			return false;
-		}
-		this.price = price;
-		return true;
-	}
+	abstract public boolean setPrice(double price);
 
 	/**
 	 * Sets the status of the room
@@ -157,10 +140,7 @@ public class Room implements Serializable, Comparable<Room> {
 	 * @param type the type of the room
 	 * @return {@code true} if successfully set
 	 */
-	public boolean setType(RoomType type) {
-		this.type = type;
-		return true;
-	}
+	abstract public boolean setRoomType();
 
 	/**
 	 * Sets the wifi enable feature of the room
@@ -216,9 +196,7 @@ public class Room implements Serializable, Comparable<Room> {
 	 * Sets the price of the room
 	 * @return the price of the room
 	 */
-	public double getPrice() {
-		return this.price;
-	}
+	abstract public double getPrice();
 
 
 	/**
@@ -257,9 +235,7 @@ public class Room implements Serializable, Comparable<Room> {
 	 * Gets the type of the room
 	 * @return the {@link RoomType} of the room
 	 */
-	public RoomType getType() {
-		return type;
-	}
+	abstract public RoomType getRoomType();
 	
 	/**
 	 * Gets the wifi enable feature of the room
@@ -292,11 +268,8 @@ public class Room implements Serializable, Comparable<Room> {
      */
 	@Override
 	public String toString() {
-		String res = "";
-		res += String.format("Room ID: %s, Room Type: %s, Room Status: %s", getRoomId(), getType().roomTypeAsStr,
-				getRoomStatus().roomStatusAsStr);
-		return res;
-	}
+		return roomId;
+	};
 
 	/**
      * Override compareTo method to compare different room objects according to floor number and room number
