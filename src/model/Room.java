@@ -62,14 +62,12 @@ public abstract class Room implements Serializable,Comparable<Room> {
 
 	/**
 	 * The constructor for the room
-	 * @param type the type of the room
 	 * @param roomId id of the room
 	 * @param floorNumber floor number of the room
 	 * @param roomNumber room number of the room
 	 * @param roomStatus status of the room
 	 * @param isWifiEnabled whether is wifi enabled
 	 * @param isSmokingAllowed whether smoking is allowed
-	 * @param price the price of the room
 	 * see {@link RoomStatus} for different status of the room
 	 * see {@link RoomType} for different type of the room
 	 */
@@ -79,8 +77,8 @@ public abstract class Room implements Serializable,Comparable<Room> {
 		setFloorNumber(floorNumber);
 		setRoomNumber(roomNumber);
 		setRoomStatus(roomStatus);
-		setWifiEnabled(isWifiEnabled);
-		setSmokingAllowed(isSmokingAllowed);
+		setIsWifiEnabled(isWifiEnabled);
+		setIsSmokingAllowed(isSmokingAllowed);
 		setOrders(new ArrayList<Order>());
 	}	
 	
@@ -88,11 +86,22 @@ public abstract class Room implements Serializable,Comparable<Room> {
 	/**
 	 * Sets the price of the room
 	 * @param price price of the room
-	 * @return {@code true} if input is valid
+	 * @return {@code true} if successfully set
 	 */
 	abstract public boolean setPrice(double price);
 
-	abstract public boolean setMaxCapacity();
+	/**
+	 * Sets the max capacity of the room
+	 * @return {@code true} if successfully set
+	 */
+	abstract public boolean setMaxCapacity(int maxCapacity);
+
+	/**
+	 * Sets the type of the room
+	 * @param type the type of the room
+	 * @return {@code true} if successfully set
+	 */
+	abstract public boolean setRoomType(RoomType roomType);
 
 	/**
 	 * Sets the status of the room
@@ -135,19 +144,13 @@ public abstract class Room implements Serializable,Comparable<Room> {
 		return true;
 	}
 
-	/**
-	 * Sets the type of the room
-	 * @param type the type of the room
-	 * @return {@code true} if successfully set
-	 */
-	abstract public boolean setRoomType();
 
 	/**
 	 * Sets the wifi enable feature of the room
 	 * @param isWifiEnabled {@code true} if wifi is enabled in the room. Otherwise, {@code false}.
 	 * @return {@code true} if successfully set
 	 */
-	public boolean setWifiEnabled(boolean isWifiEnabled) {
+	public boolean setIsWifiEnabled(boolean isWifiEnabled) {
 		this.isWifiEnabled = isWifiEnabled;
 		return true;
 	}
@@ -157,7 +160,7 @@ public abstract class Room implements Serializable,Comparable<Room> {
 	 * @param isSmokingAllowed {@code true} if smoking allowed is in the room. Otherwise, {@code false}.
 	 * @return {@code true} if successfully set
 	 */
-	public boolean setSmokingAllowed(boolean isSmokingAllowed) {
+	public boolean setIsSmokingAllowed(boolean isSmokingAllowed) {
 		this.isSmokingAllowed = isSmokingAllowed;
 		return true;
 	}
@@ -193,12 +196,22 @@ public abstract class Room implements Serializable,Comparable<Room> {
 	}
 
 	/**
-	 * Sets the price of the room
+	 * Gets the price of the room
 	 * @return the price of the room
 	 */
 	abstract public double getPrice();
-
+	/**
+	 * Gets the max capacity of the room
+	 * @return the max capacity of the room
+	 */
 	abstract public int getMaxCapacity();
+
+	/**
+	 * Gets the type of the room
+	 * @return the {@link RoomType} of the room
+	 */
+	abstract public RoomType getRoomType();
+
 	/**
 	 * Gets the id of the room
 	 * @return the room id of the room
@@ -231,12 +244,6 @@ public abstract class Room implements Serializable,Comparable<Room> {
 		return roomNumber;
 	}
 
-	/**
-	 * Gets the type of the room
-	 * @return the {@link RoomType} of the room
-	 */
-	abstract public RoomType getRoomType();
-	
 	/**
 	 * Gets the wifi enable feature of the room
 	 * @return {@code true} if wifi is enabled in the room. Otherwise, {@code false}.

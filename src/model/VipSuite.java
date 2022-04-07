@@ -36,8 +36,8 @@ public class VipSuite extends Room{
             boolean isWifiEnabled, boolean isSmokingAllowed, double price) {
         super(roomId, floorNumber, roomNumber, roomStatus, isWifiEnabled, isSmokingAllowed);
         setPrice(price);
-        setRoomType();
-        setMaxCapacity();
+        setRoomType(RoomType.VIP_SUITE);
+        setMaxCapacity(4);
     }
     /**
      * Sets the room price.
@@ -55,8 +55,8 @@ public class VipSuite extends Room{
      * @return {@code true} if sets successfully.
      */
     @Override
-    public boolean setRoomType() {
-        roomType = RoomType.VIP_SUITE;
+    public boolean setRoomType(RoomType roomType) {
+        this.roomType = roomType;
         return true;
     }
     /**
@@ -64,8 +64,8 @@ public class VipSuite extends Room{
      * @return {@code true} if sets successfully.
      */
     @Override
-    public boolean setMaxCapacity() {
-        this.maxCapacity = 4;
+    public boolean setMaxCapacity(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
         return true;
     }
 
