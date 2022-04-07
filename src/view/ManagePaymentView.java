@@ -1,7 +1,6 @@
 package src.view;
 
 import src.helper.Helper;
-import src.model.enums.RoomType;
 import src.controller.PromotionManager;
 /**
  * ManagePaymentView provides the view to take user input which calls {@link PromotionManager} to manage {@link PromotionDetails}.
@@ -68,34 +67,32 @@ public class ManagePaymentView extends MainView {
 
     }
     
-
+    /**
+     * Prompt for editing tax rate.
+     * @return {@code true} if updates successfully. Otherwise, {@code false}.
+     */
     public boolean promptEditTaxRate() {
         printOldTaxRate();
         double newTaxRate = -1;
-        System.out.println("Please enter a new tax rate (0-1)");
+        System.out.println("Please enter a new tax rate (> 0)");
         newTaxRate = Helper.readDouble();
         return PromotionManager.editTaxRate(newTaxRate);
     }
     /**
-     * View Menu for editing discount rate.
+     * Prompt for editing discount rate.
      * @return {@code true} if updates successfully. Otherwise, {@code false}.
      */
     public boolean promptEditDiscountRate() {
         printOldDiscountRate();
         double newDiscountRate = -1;
-        System.out.println("Please enter a new discount rate (0-1)");
+        System.out.println("Please enter a new discount rate (> 0)");
         newDiscountRate = Helper.readDouble();
         return PromotionManager.editDiscountRate(newDiscountRate);
     }
-
-
-    public double promptNewTaxRate(RoomType roomType) {
-        System.out.println("Please enter a new tax rate for " + roomType.roomTypeAsStr);
-        double newTaxRate = -1;
-        newTaxRate = Helper.readDouble();
-        return newTaxRate;
-    }
     
+    /**
+     * Prints the old tax rate.
+     */
     public void printOldTaxRate() {
         System.out.println(String.format("The old tax rate is %.2f", PromotionManager.getTaxRate()));
     }
@@ -103,6 +100,6 @@ public class ManagePaymentView extends MainView {
      * Prints the old discount rate.
      */
     public void printOldDiscountRate() {
-        System.out.println(String.format("The old discount rate is %.2f", PromotionManager.getDiscountRate()));
+        System.out.println(String.format("The old discount rate is %.2f", PromotionManager.getDiscountRate(null)));
     }
 }

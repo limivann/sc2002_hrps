@@ -6,7 +6,7 @@ import src.helper.Helper;
 
 
 /**
- * The Class that handles Guest model
+ * The Class that handles the data of hotel's guests. 
  * @author Zhang Kaichen
  * @version 1.0
  * @since 30-03-2022

@@ -17,7 +17,7 @@ public class HotelApp {
     public static void main(String[] args) {
         // Intialize helpers and view apps
         HotelAppView hotelAppView = new HotelAppView();
-
+        Database database = new Database();
         Helper.clearScreen();
         printHRPSTitle();
         Helper.pressAnyKeyToContinue();

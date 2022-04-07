@@ -8,7 +8,7 @@ import src.helper.Helper;
 import src.view.MenuView;
 /**
  * MenuManager is a controller class that acts as a "middleman"
- * between the view classes - {@link MenuView} and the model classes - {@link MenuItem}. <p>
+ * between the view class - {@link MenuView} and the model classes - {@link MenuItem}. <p>
  *
  * It can customize the menu. <p>
  * @author Hill Seah

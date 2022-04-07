@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import src.helper.Helper;
 /**
- * The Class that handles Reservation model.
+ * The Class that handles the data of hotel's reservations.
  * @author Max 
  * @version 1.0
  * @since 2022-3-28

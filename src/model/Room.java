@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import src.model.enums.RoomStatus;
 
 /**
- * The Class that handles Room model
+ * The Class that handles the data of hotel's rooms.
  * @author Zhang Kaichen
  * @version 1.0
  * @since 2022-03-30

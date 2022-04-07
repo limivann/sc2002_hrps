@@ -2,13 +2,22 @@ package src.view;
 
 import src.controller.InvoiceManager;
 import src.helper.Helper;
-
+/**
+ * InvoiceView provides the view to take user input which calls {@link InvoiceManager} to search or print {@link Invoice}.
+ * @author Ivan, Max
+ * @version 1.0
+ * @since 2022-04-07
+ */
 public class InvoiceView extends MainView {
-    
+    /**
+     * Default constructor of the InvoiceView.
+     */
     public InvoiceView() {
         super();
     }
-
+    /**
+     * View Menu of the InvoiceView.
+     */
     @Override
     public void printMenu() {
         Helper.clearScreen();
@@ -18,7 +27,10 @@ public class InvoiceView extends MainView {
         System.out.println("(2) Print All Invoice");
         System.out.println("(3) Exit Invoice View");
     }
-
+    /**
+     * View Application of the InvoiceView. <p>
+     * see {@link InvoiceManager} for more {@link Invoice} management details.
+     */
     @Override
     public void viewApp() {
         int opt = -1;
@@ -45,7 +57,9 @@ public class InvoiceView extends MainView {
 
         } while (opt != 3);
     }
-    
+    /**
+     * The function that receives input which searches and prints a {@link Invoice} through {@link InvoiceManager}.
+     */
     public void promptSearchInvoice() {
         System.out.println("Enter Invoice Id to search (IXXXX)");
         String invoiceId = Helper.sc.nextLine();

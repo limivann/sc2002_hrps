@@ -3,7 +3,7 @@ package src.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 /**
- * A class that handles invoice model.
+ * The Class that handles the data of hotel's invoices.
  * @author Max
  * @version 1.0
  * @since 2022-3-30
@@ -338,6 +338,9 @@ public class Invoice implements Serializable, Comparable<Invoice> {
         String res = String.format("Invoice Id: %s\t\tDate Of Issue: %s\t\tTotal: %.2f", getInvoiceId(), getDateOfPayment(),getTotal());
         return res;
     }
+    /**
+     * Override compareTo method to compare different invoice objects according to invoice id.
+     */
     @Override
     public int compareTo(Invoice invoice) {
         if (this == invoice) {

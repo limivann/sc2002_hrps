@@ -4,14 +4,10 @@ import src.model.Reservation;
 import src.model.Room;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import src.database.Database;
-import src.database.FileType;
 import src.helper.Helper;
 import src.model.Invoice;
-import src.model.MenuItem;
 import src.model.Order;
 /**
  * PaymentManager is a controller class that generates {@link Invoice} and handles payment. <p>
@@ -90,7 +86,7 @@ public class PaymentManager {
         double roomPrice = RoomManager.searchRoom(roomId).getPrice();
         int nights = ReservationManager.calculateNumOfStays(reservationId);
         double taxRate = PromotionManager.getTaxRate();
-        double discountRate = PromotionManager.getDiscountRate();
+        double discountRate = PromotionManager.getDiscountRate(reservation.getCheckedInDate());
         ArrayList<Order> orders = RoomManager.searchRoom(roomId).getOrders();
         double subTotal = calculateSubTotal(roomId, reservationId);
         double total = calculateTotal(subTotal, discountRate, taxRate);
