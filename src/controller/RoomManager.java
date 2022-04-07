@@ -9,7 +9,8 @@ import src.model.Order;
 import src.model.Room;
 import src.model.SingleRoom;
 import src.model.VipSuite;
-import src.model.enums.*;
+import src.model.enums.RoomStatus;
+import src.model.enums.RoomType;
 
 // for javadocs
 import src.view.HotelAppView;

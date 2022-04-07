@@ -90,7 +90,7 @@ public class RoomView extends MainView{;
      * See {@link RoomManager} to check for the printing room method <p>
      * @param printResults whether to print out the results or not 
      */
-    public void promptSearchRoom(boolean printResults) {
+    private void promptSearchRoom(boolean printResults) {
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Room View > Search room");
         System.out.println("Enter the floor number");
@@ -107,7 +107,7 @@ public class RoomView extends MainView{;
      * See {@link RoomManager} for update function <p>
      * @return {@code true} if update successfully. Otherwise, {@code false}
      */
-    public boolean promptUpdateRoomStatus() {
+    private boolean promptUpdateRoomStatus() {
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Room View > Update room status");
         System.out.println("Enter the floor number");
@@ -161,7 +161,7 @@ public class RoomView extends MainView{;
      * Prompt function for printing room by status  <p>
      * See {@link RoomManager} for printing function
      */
-    public void printRoomByStatus() {
+    private void printRoomByStatus() {
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Room View > Print rooms by status");
         RoomManager.printRoomStatus();
@@ -171,13 +171,17 @@ public class RoomView extends MainView{;
      * Prompt function for printing room by occupancy rate <p>
      * See {@link RoomManager} for printing function
      */
-    public void printRoomByOccupancyRate() {
+    private void printRoomByOccupancyRate() {
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Room View > Print rooms by occupancy rate");
         RoomManager.printOccupancyRate(RoomStatus.VACANT);
     }
 
-    public boolean promptEditRoomPrice() {
+    /**
+     * Prompt function for editing room price
+     * @return {@code true} if update of room price is successful. Otherwise, {@code false}.
+     */
+    private boolean promptEditRoomPrice() {
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Room View > Edit Room Price");
         printRoomTypeMenu();

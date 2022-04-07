@@ -91,7 +91,7 @@ public class GuestView extends MainView{
      * see {@link GuestManager}
      * @return {@code true} if successfully create a {@link Guest}. Otherwise, {@code false}.
      */
-    public boolean promptCreateGuest() {
+    private boolean promptCreateGuest() {
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Guest View > Create a Guest");
         System.out.println("Please enter guest's first name: ");
@@ -122,7 +122,7 @@ public class GuestView extends MainView{
     /**
      * View Menu for Gender
      */
-    public void printGenderMenu() {
+    private void printGenderMenu() {
         System.out.println("Please enter the guest's gender (1-2)");
         System.out.println("(1) Male");
         System.out.println("(2) Female");
@@ -131,7 +131,7 @@ public class GuestView extends MainView{
     /**
      * View Menu for Identity
      */
-    public void printIdentityMenu() {
+    private void printIdentityMenu() {
         System.out.println("Please enter the identity type (1-2)");
         System.out.println("(1) Driving License");
         System.out.println("(2) Passport");
@@ -141,7 +141,7 @@ public class GuestView extends MainView{
      * Function that generate the input for the gender for the guest <p>
      * @return the gender type that is chosen if choice is valid
      */
-    public Gender promptGender() {
+    private Gender promptGender() {
         printGenderMenu();
         int choice = Helper.readInt(1, 2);
         if (choice != 1 && choice != 2) {
@@ -163,7 +163,7 @@ public class GuestView extends MainView{
      * Function that generate the input for the identity for the guest <p>
      * @return {@link Identity} object that is chosen if choice is valid. Otherwise, {@code null}.
      */
-    public Identity promptIdentity() {
+    private Identity promptIdentity() {
         printIdentityMenu();
         int choice = Helper.readInt(1, 2);
         Identity identity;
@@ -191,7 +191,7 @@ public class GuestView extends MainView{
      * Prompt to update Guest <p>
      * @return {@code true} if update successfully. Otherwise, {@code false}
      */
-    public boolean promptUpdateGuest() {
+    private boolean promptUpdateGuest() {
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Guest View > Update a Guest Detail");
         System.out.println("Enter the guest that you want to update (GXXXX): ");
@@ -254,7 +254,7 @@ public class GuestView extends MainView{
     /**
      * View Menu for update
      */
-    public void printUpdateGuestMenu() {
+    private void printUpdateGuestMenu() {
         System.out.println("Please choose the information that you want to update (1-7)");
         System.out.println("(1) Name");
         System.out.println("(2) Credit Card");
@@ -269,7 +269,7 @@ public class GuestView extends MainView{
     /**
      * Prompt function to search a guest
      */
-    public void promptSearchGuest() {
+    private void promptSearchGuest() {
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Guest View > Search a Guest");
         System.out.println("Please enter an option on how to search the guests (1-2)");
@@ -302,7 +302,7 @@ public class GuestView extends MainView{
      * see {@link GuestManager} For the remove function detail <p>
      * @return {@code true} if remove successfully, Otherwise, {@code false} 
      */
-    public boolean promptRemoveGuest() {
+    private boolean promptRemoveGuest() {
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Guest View > Remove a guest");
         System.out.println("Enter the guest id you want to remove (GXXXX): ");
@@ -319,7 +319,7 @@ public class GuestView extends MainView{
      * Prompt function to print all guest <p>
      * see {@link GuestManager} For the printing detail
      */
-    public void printGuests() {
+    private void printGuests() {
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Guest View > Print All Guests");
         System.out.println("Please select an option of printing the guest (1-2)");
