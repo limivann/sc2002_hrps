@@ -2,7 +2,7 @@ package src.model;
 
 import java.io.Serializable;
 /**
- * The Class that store the rates of the hotel.
+ * The Class that handles the discount rate and tax rate of the hotel.
  * @author Lim Kang Wei, Ivan
  * @version 1.0
  * @since 2020-04-04

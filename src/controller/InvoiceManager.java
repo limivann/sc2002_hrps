@@ -1,24 +1,48 @@
 package src.controller;
 
-import java.text.CollationElementIterator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.xml.crypto.Data;
 
 import src.database.Database;
 import src.database.FileType;
 import src.model.Invoice;
 import src.model.MenuItem;
 import src.model.Order;
-
+/**
+ * InvoiceManager is a controller class that acts as a "middleman"
+ * between the view classes - {@link InvoiceView} and {@link HandleCheckInCheckOutView} and the model class - {@link Invoice}. <p>
+ * 
+ * It can create and print {@link Invoice}. <p>
+ * @author Ivan, Max
+ * @version 1.0
+ * @since 2022-04-07
+ */
 public class InvoiceManager {
+    /**
+     * Default constructor of InvoiceManager.
+     */
     public InvoiceManager() {
 
     }
-
+    /**
+     * Creates an {@link Invoice}.
+     * @param invoiceId Id of the invoice.
+     * @param guestIdToPay Id of the guest who makes payment.
+     * @param roomTypeAsStr The type of the room.
+     * @param roomPrice The price of the room.
+     * @param isRoomWifiEnabled A boolean value which indicates whether the room is Wifi enabled.
+     * @param reservationId Id of the reservation.
+     * @param nights Numbers of nights spent.
+     * @param dateOfPayment The date which the payment is made.
+     * @param taxRate The rate of tax.
+     * @param discountRate The rate of discount. 
+     * @param orders Orders of the room.
+     * @param subTotal Total amount without discount rate and tax rate.
+     * @param total Total amount with discount rate and tax rate.
+     * @return The created invoice.
+     */
     public static Invoice createInvoice(String invoiceId, String guestIdToPay, String roomTypeAsStr, double roomPrice,
             boolean isRoomWifiEnabled, String reservationId, int nights, String dateOfPayment, double taxRate,
             double discountRate, ArrayList<Order> orders, double subTotal, double total) {
@@ -29,7 +53,10 @@ public class InvoiceManager {
         Database.saveFileIntoDatabase(FileType.INVOICES);
         return invoice;
     }
-
+    /**
+     * Prints out a specified invoice by invoice Id.
+     * @param invoiceId Id of the Invoice.
+     */
     public static void printInvoice(String invoiceId) {
         if (!validateInvoiceId(invoiceId)) {
             return;
@@ -37,7 +64,9 @@ public class InvoiceManager {
         Invoice invoice = Database.INVOICES.get(invoiceId);
         printInvoiceDetails(invoice);
     }
-
+    /**
+     * Prints out all the invoices.
+     */
     public static void printAllInvoices() {
         ArrayList<Invoice> sortedList = new ArrayList<Invoice>();
         for (Invoice invoice : Database.INVOICES.values()) {
@@ -49,7 +78,11 @@ public class InvoiceManager {
         }
     }
 
-
+    /**
+     * Validates an invoice by invoice Id.
+     * @param invoiceId Id of the invoice.
+     * @return {@code true} if the invoice Id is valid. Otherwise, {@code false}.
+     */
     public static boolean validateInvoiceId(String invoiceId){
         if (!Database.INVOICES.containsKey(invoiceId)) {
             System.out.println("Invoice does not exist");
@@ -61,8 +94,8 @@ public class InvoiceManager {
 
     /**
      * A method that print out the invoice <p>
-     * See {@link Invoice} For the details of the reservation and order
-     * @param invoice invoice of the reservation
+     * See {@link Invoice} For the details of the reservation and order.
+     * @param invoice invoice of the reservation.
      */
     public static void printInvoiceDetails(Invoice invoice) {
         System.out.println("INVOICE: ");

@@ -87,9 +87,9 @@ public class GuestView extends MainView{
     }
     // Create Guest
     /**
-     * The function that receives input and create a guest through Guest Manager <p>
+     * The function that receives input and creates a {@link Guest} through Guest Manager <p>
      * see {@link GuestManager}
-     * @return {@code true} if successfully create a Guest. Otherwise, {@code false}
+     * @return {@code true} if successfully create a {@link Guest}. Otherwise, {@code false}.
      */
     public boolean promptCreateGuest() {
         Helper.clearScreen();

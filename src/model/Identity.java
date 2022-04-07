@@ -5,7 +5,7 @@ import java.io.Serializable;
 import src.model.enums.IdentityType;
 
 /**
- * The Class for identity details of the guest
+ * The Class that handles the identity details of the guests.
  * @author Zhang Kaichen
  * @version 1.0
  * @since 2022-03-30
