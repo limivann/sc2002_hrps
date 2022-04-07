@@ -6,6 +6,8 @@ package src.view;
  * @since 2022-04-06
  */
 
+import src.helper.Helper;
+
 /**
  * Abstract class for view classes
  */
@@ -24,7 +26,7 @@ public abstract class MainView {
      * Default constructor for main view
      */
     public MainView() {
-
+        Helper helper = new Helper();
     }
 
     /**
