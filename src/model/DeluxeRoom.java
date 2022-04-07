@@ -35,8 +35,8 @@ public class DeluxeRoom extends Room  {
             boolean isWifiEnabled, boolean isSmokingAllowed, double price) {
         super(roomId, floorNumber, roomNumber, roomStatus, isWifiEnabled, isSmokingAllowed);
         setPrice(price);
-        setRoomType();
-        setMaxCapacity();
+        setRoomType(RoomType.DELUXE);
+        setMaxCapacity(2);
     }
     /**
      * Sets the room price.
@@ -54,8 +54,8 @@ public class DeluxeRoom extends Room  {
      * @return {@code true} if sets successfully.
      */
     @Override
-    public boolean setRoomType() {
-        roomType = RoomType.DELUXE;
+    public boolean setRoomType(RoomType roomType) {
+        this.roomType = roomType;
         return true;
     }
     /**
@@ -63,8 +63,8 @@ public class DeluxeRoom extends Room  {
      * @return {@code true} if sets successfully.
      */
     @Override
-    public boolean setMaxCapacity() {
-        this.maxCapacity = 2;
+    public boolean setMaxCapacity(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
         return true;
     }
 
