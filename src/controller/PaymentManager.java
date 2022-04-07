@@ -79,7 +79,7 @@ public class PaymentManager {
      * @return {@link Invoice} object
      */
     public static Invoice generateInvoice(String reservationId, String guestIdToPay) {
-        Reservation reservation = ReservationManager.search(reservationId);
+        Reservation reservation = ReservationManager.searchReservation(reservationId);
         String roomId = reservation.getRoomId();
         String roomTypeAsStr = RoomManager.searchRoom(roomId).getRoomType().roomTypeAsStr;
         boolean isRoomWifiEnabled = RoomManager.searchRoom(roomId).getIsWifiEnabled();

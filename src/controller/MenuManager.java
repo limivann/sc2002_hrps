@@ -18,6 +18,12 @@ import src.view.MenuView;
  */
 public class MenuManager {
     /**
+     * Default constructor for Menu Manager
+     */
+    public MenuManager() {
+        
+    }
+    /**
      * Adds a new menu item, with details of its name, preparation description and price to the menu
      * 
      * @param name Name of the menu item to be added

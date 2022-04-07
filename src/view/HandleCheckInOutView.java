@@ -45,12 +45,12 @@ public class HandleCheckInOutView extends MainView {
                 case 1:
                     Helper.clearScreen();
                     printBreadCrumbs("Hotel App View > Check In / Check Out View > Check In Room");
-                    checkin();
+                    checkIn();
                     break;
                 case 2:
                     Helper.clearScreen();
                     printBreadCrumbs("Hotel App View > Check In / Check Out View > Check Out Room");
-                    checkout();
+                    checkOut();
                     break;
                 case 3:
                     break;
@@ -68,7 +68,7 @@ public class HandleCheckInOutView extends MainView {
      * View for Check In reservation.
      * see {@link ReservationManager} for more reservation management details.
      */
-    public void checkin() {
+    private void checkIn() {
         ReservationManager.checkReservationStatus();
         System.out.println("Please enter reservation id (RXXXX)");
         String reservationId = Helper.sc.nextLine();
@@ -83,7 +83,7 @@ public class HandleCheckInOutView extends MainView {
      * View for Check Out reservation.
      * see {@link ReservationManager} for more reservation management details. 
      */
-    public void checkout() {
+    private void checkOut() {
         System.out.println("Please enter reservation id (RXXXX)");
         String reservationId = Helper.sc.nextLine();
         if (!ReservationManager.validateReservationId(reservationId)) {
@@ -97,7 +97,7 @@ public class HandleCheckInOutView extends MainView {
         String paymentOptStr = promptPayment() == 1 ? "Cash" : "Credit Card";
         System.out.println("You have chosen to pay by " + paymentOptStr);
 
-        ArrayList<String> guestsToPay = ReservationManager.search(reservationId).getGuestIds();
+        ArrayList<String> guestsToPay = ReservationManager.searchReservation(reservationId).getGuestIds();
         System.out.println("Please select which guest to make the payment ");
         for (int i = 1; i <= guestsToPay.size(); i++) {
             System.out.println(String.format("(%d) %s: %s", i, guestsToPay.get(i - 1),
@@ -121,7 +121,7 @@ public class HandleCheckInOutView extends MainView {
      * Prompt Payment option 
      * @return choice of payment method 
      */
-    public int promptPayment() {
+    private int promptPayment() {
         System.out.println("Please select a payment method (1-2)");
         System.out.println("(1) Cash");
         System.out.println("(2) Credit Card");

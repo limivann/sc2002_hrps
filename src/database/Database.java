@@ -141,7 +141,7 @@ public class Database {
      * @param fileType file type to be read.
      * @return {@code true} if read from file is successful. Otherwise, {@code false}.
      */
-    public static boolean readSerializedObject(FileType fileType) {
+    private static boolean readSerializedObject(FileType fileType) {
         String fileExtension = ".dat";
         String filePath = "./src/database/" + folder + "/" + fileType.fileName + fileExtension;
         try{
@@ -205,7 +205,7 @@ public class Database {
      * @param fileType file type to write into.
      * @return {@code true} if write to file is successful. Otherwise, {@code false}.
      */
-    public static boolean writeSerializedObject(FileType fileType) {
+    private static boolean writeSerializedObject(FileType fileType) {
         String fileExtension = ".dat";
         String filePath = "./src/database/" + folder + "/" + fileType.fileName + fileExtension;
         try {

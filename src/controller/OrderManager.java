@@ -190,9 +190,9 @@ public class OrderManager {
      */
     public static ArrayList<Order> searchOrderByRoom(String roomId) {
         ArrayList<Order> orders = new ArrayList<Order>();
-        for (Order o : Database.ORDERS.values()) {
-            if (o.getRoomId().equals(roomId)){
-                orders.add(o);
+        for (Order order : Database.ORDERS.values()) {
+            if (order.getRoomId().equals(roomId)){
+                orders.add(order);
             }
         }
         return orders;

@@ -80,7 +80,7 @@ public class DatabaseView extends MainView {
      * @return {@code true} if initialized successfully. Otherwise, {@code false} <p>
      * see {@link Database} for more initialization details.
      */
-    public boolean initializeGuest() {
+    private boolean initializeGuest() {
         return Database.initializeDummyGuests();
     }
     /**
@@ -88,7 +88,7 @@ public class DatabaseView extends MainView {
      * @return {@code true} if initialized successfully. Otherwise, {@code false} <p>
      * see {@link Database} for more initialization details. 
      */
-    public boolean initializeMenu() {
+    private boolean initializeMenu() {
         return Database.initializeDummyMenu();
     }
     /**
@@ -96,7 +96,7 @@ public class DatabaseView extends MainView {
      * @return {@code true} if reset successfully. Otherwise, {@code false} <p>
      * see {@link Database} for more details.
      */
-    public boolean resetDatabase() {
+    private boolean resetDatabase() {
         if (Helper.promptConfirmation("reset the database")) {
             return Database.clearDatabase();
         } else {

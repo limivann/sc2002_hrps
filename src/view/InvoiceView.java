@@ -60,7 +60,7 @@ public class InvoiceView extends MainView {
     /**
      * The function that receives input which searches and prints a {@link Invoice} through {@link InvoiceManager}.
      */
-    public void promptSearchInvoice() {
+    private void promptSearchInvoice() {
         System.out.println("Enter Invoice Id to search (IXXXX)");
         String invoiceId = Helper.sc.nextLine();
         if (!InvoiceManager.validateInvoiceId(invoiceId)) {

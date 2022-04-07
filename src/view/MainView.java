@@ -5,17 +5,32 @@ package src.view;
  * @version 1.0
  * @since 2022-04-06
  */
-import src.helper.Helper;
-public abstract class MainView {
-    public abstract void printMenu();
-    public abstract void viewApp();
-    
-    public Helper helper;
 
+/**
+ * Abstract class for view classes
+ */
+public abstract class MainView {
+    /**
+     * Abstract method for view menu
+     */
+    protected abstract void printMenu();
+
+    /**
+     * Abstract method for view app
+     */
+    public abstract void viewApp();
+
+    /**
+     * Default constructor for main view
+     */
     public MainView() {
-        helper = new Helper();
+
     }
 
+    /**
+     * Method to print breadcrumbs for navigation purposes
+     * @param breadcrumb breadcumbs description
+     */
     protected void printBreadCrumbs(String breadcrumb) {
         String spaces = String.format("%" + (105 - breadcrumb.length()) + "s", "");
         System.out.println(
@@ -26,17 +41,3 @@ public abstract class MainView {
     }
     
 }
-
-
-// __    __    _______     _______      ______  
-// /  |  /  |  /       \   /       \    /      \ 
-// $$ |  $$ |  $$$$$$$  |  $$$$$$$  |  /$$$$$$  |
-// $$ |__$$ |  $$ |__$$ |  $$ |__$$ |  $$ \__$$/ 
-// $$    $$ |  $$    $$<   $$    $$/   $$      \ 
-// $$$$$$$$ |  $$$$$$$  |  $$$$$$$/     $$$$$$  |
-// $$ |  $$ |  $$ |  $$ |  $$ |        /  \__$$ |
-// $$ |  $$ |  $$ |  $$ |  $$ |        $$    $$/ 
-// $$/   $$/   $$/   $$/   $$/          $$$$$$/  
-                                        
-                                        
-                                        

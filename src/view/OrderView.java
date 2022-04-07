@@ -12,7 +12,13 @@ import src.model.enums.RoomStatus;
  * @version 1.0
  * @since 2022-04-06
  */
-public class OrderView extends MainView{
+public class OrderView extends MainView {
+    /**
+     * Default constructor for order view
+     */
+    public OrderView() {
+        
+    }
     /**
      * View Menu of the OrderView.
      */
@@ -72,7 +78,7 @@ public class OrderView extends MainView{
      * 
      * @return {@code true} if order is successfully updated. Otherwise, {@code false} if order is failed to be updated (Order id does not exist in database)
      */
-    public boolean updateOrderStatus() {
+    private boolean updateOrderStatus() {
         System.out.println("Please enter the order id you want to update (OXXXX): ");
         String orderIdToUpdate = Helper.sc.nextLine();
         printOrderStatusMenu();
@@ -89,8 +95,6 @@ public class OrderView extends MainView{
         }
         return false;
     }
-
-    /* Create Order */
 
     /**
      * Print the options for the create order menu.
@@ -230,7 +234,7 @@ public class OrderView extends MainView{
     /**
      * Prints the options for the order status menu
      */
-    public void printOrderStatusMenu() {
+    private void printOrderStatusMenu() {
         System.out.println("Please enter a new status (1-3)");
         System.out.println("(1) Confirmed");
         System.out.println("(2) Preparing");

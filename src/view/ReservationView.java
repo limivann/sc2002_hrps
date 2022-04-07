@@ -20,6 +20,12 @@ import src.model.Reservation;
  */
 public class ReservationView extends MainView {
     /**
+     * Default constructor for Reservation View
+     */
+    public ReservationView() {
+        
+    }
+    /**
      * View Menu of the ReservationView.
      */
     @Override
@@ -72,7 +78,7 @@ public class ReservationView extends MainView {
                     printBreadCrumbs("Hotel App View > Reservation View > Remove Reservation");
                     System.out.println("Enter Reservation Id to remove (RXXXX)");
                     reservationId = Helper.sc.nextLine();
-                    if (ReservationManager.remove(reservationId)) {
+                    if (ReservationManager.removeReservation(reservationId)) {
                         System.out.println("Remove reservation successful");
                     } else {
                         System.out.println("Remove reservation unsuccessful");
@@ -98,7 +104,7 @@ public class ReservationView extends MainView {
      * {@link ReservationManager} for more reservation management details. <p>
      * @return {@code true} if reservation is created successfully. Otherwise, {@code false}.
      */
-    public boolean createReservation() {
+    private boolean createReservation() {
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Reservation View > Create Reservation");
         System.out.println("Please enter an option (1-2)");
@@ -169,9 +175,9 @@ public class ReservationView extends MainView {
                 return false;
             }
             if (inWaitlist) {
-                ReservationManager.create(checkedInDate, checkedOutDate, guestIds, roomId, numberOfPax, ReservationStatus.IN_WAITLIST, RoomStatus.RESERVED);
+                ReservationManager.createReservation(checkedInDate, checkedOutDate, guestIds, roomId, numberOfPax, ReservationStatus.IN_WAITLIST, RoomStatus.RESERVED);
             } else {
-                ReservationManager.create(checkedInDate, checkedOutDate, guestIds, roomId, numberOfPax, ReservationStatus.CONFIRMED, RoomStatus.RESERVED);
+                ReservationManager.createReservation(checkedInDate, checkedOutDate, guestIds, roomId, numberOfPax, ReservationStatus.CONFIRMED, RoomStatus.RESERVED);
             }
         } else {
             System.out.println("Enter Check Out Date");
@@ -185,7 +191,7 @@ public class ReservationView extends MainView {
                 System.out.println("Check out date cannot be earlier than check in date!");
                 return false;
             }
-            ReservationManager.create(checkedInDate, checkedOutDate, guestIds, roomId, numberOfPax, ReservationStatus.CHECKED_IN, RoomStatus.OCCUPIED);
+            ReservationManager.createReservation(checkedInDate, checkedOutDate, guestIds, roomId, numberOfPax, ReservationStatus.CHECKED_IN, RoomStatus.OCCUPIED);
         }
         return true;
     }
@@ -193,7 +199,7 @@ public class ReservationView extends MainView {
      * View Menu for Reservation Status. <p>
      * {@link ReservationStatus}
      */
-    public void printReservationStatusMenu() {
+    private void printReservationStatusMenu() {
         System.out.println("Enter new reservation status (1-6)");
         System.out.println("(1) Confirmed");
         System.out.println("(2) In Waitlist");
@@ -205,7 +211,7 @@ public class ReservationView extends MainView {
     /**
      * View Menu for Reservation Update.
      */
-    public void printUpdateReservationMenu() {
+    private void printUpdateReservationMenu() {
         System.out.println("--- Update Reservation ---");
         System.out.println("Please enter an option (1-8)");
         System.out.println("(1) Update Checked In Date");
@@ -220,7 +226,7 @@ public class ReservationView extends MainView {
     /**
      * View Menu for Expiration Status of Reservation.
      */
-    public void printExpiredMenu() {
+    private void printExpiredMenu() {
         System.out.println("Please select an option (1-3");
         System.out.println("(1) Expired");
         System.out.println("(2) Not Expired");
@@ -232,7 +238,7 @@ public class ReservationView extends MainView {
      * see {@link ReservationStatus} for different types of Reservation Status. <p>
      * see {@link ReservationManager} for more reservation management details.
      */
-    public void updateReservation(String reservationId){
+    private void updateReservation(String reservationId){
         if (ReservationManager.validateReservationId(reservationId)) {
             int opt = -1;
             String Date;
@@ -265,7 +271,7 @@ public class ReservationView extends MainView {
                         isUpdateSuccessful = true;
                         break;
                     case 3:
-                        Reservation reservation = ReservationManager.search(reservationId);
+                        Reservation reservation = ReservationManager.searchReservation(reservationId);
                         ArrayList<String> guestIds = new ArrayList<String>();
                         isUpdateSuccessful = false;
                         for (int guestNo = 1; guestNo <= reservation.getNumberOfPax(); guestNo++) {

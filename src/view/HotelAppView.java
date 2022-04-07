@@ -39,6 +39,9 @@ public class HotelAppView extends MainView{
      */
     protected OrderView orderView;
     
+    /**
+     * View Menu for managing {@link Invoice}.
+     */
     protected InvoiceView invoiceView;
     
     /**
