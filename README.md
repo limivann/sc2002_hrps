@@ -13,3 +13,8 @@ javadoc -d ./docs/ ./src/*java ./src/controller/*java ./src/database/*java ./src
 Make sure there are no errors and no warnings
 
 Launch the index.html under ./javadoc/index.html
+
+
+```Run jar file
+java -jar ./build/SC2002_HRPS.jar
+```
