@@ -3,6 +3,7 @@ package src.helper;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -245,6 +246,21 @@ public class Helper {
     }
 
     /**
+     * Method to check if the date is weekend
+     * @param dateToCheck Date to check in String
+     * @return {@code true} if the date to check is weekend. Otherwise, {@code false}.
+     */
+    public static boolean checkIsDateWeekend(String dateToCheck) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dateTime = getDate(dateToCheck, format);
+        DayOfWeek dayOfWeek = dateTime.getDayOfWeek();
+        if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Method to pause the application and prompt user to press the ENTER key to continue using the app.
      */
     public static void pressAnyKeyToContinue() {
@@ -259,10 +275,10 @@ public class Helper {
      * Method to clear the screen of the terminal for user experience and neat interface.
      */
     public static void clearScreen() {
-        try{
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();  
+        try {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
         } catch (Exception err) {
-            
+
         }
     }
 }

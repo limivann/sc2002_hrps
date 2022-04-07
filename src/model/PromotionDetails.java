@@ -48,7 +48,7 @@ public class PromotionDetails implements Serializable {
      * @return true if updates successfully
      */
     public boolean setDiscountRate(double discountRate) {
-        if (discountRate < 0 || discountRate > 1) {
+        if (discountRate <= 0 || discountRate > 1) {
             return false;
         }
         this.discountRate = discountRate;

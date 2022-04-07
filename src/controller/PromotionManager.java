@@ -2,8 +2,8 @@ package src.controller;
 
 import src.database.Database;
 import src.database.FileType;
+import src.helper.Helper;
 import src.model.PromotionDetails;
-import src.model.enums.RoomType;
 
 // for javadocs
 import src.view.HotelAppView;
@@ -13,8 +13,7 @@ import src.model.Invoice;
  * PromotionManager is a controller class that acts as a "middleman" 
  * between the view classess - {@link HotelAppView} and {@link ManagePaymentView} and the model classes - {@link Invoice} and {@link PromotionDetails}. <p>
  * 
- * It can set tax rate and discount rate. <p>
- * It can update room prices with the help of {@link RoomManager}.
+ * It can set tax rate and discount rate.
  * @author Lim Kang Wei, Ivan, Max
  * @version 1.0
  * @since 2022-04-04
@@ -38,8 +37,17 @@ public class PromotionManager {
      * A method that returns discount rate of the hotel
      * @return discount rate of the hotel
      */
-    public static double getDiscountRate() {
-        return Database.PRICES.getDiscountRate();
+    public static double getDiscountRate(String checkInDate) {
+        if (checkInDate == null) {
+            return Database.PRICES.getDiscountRate();
+        }
+        if (Helper.checkIsDateWeekend(checkInDate)) {
+            // no discount on weekend
+            return 0;
+        }
+        else {
+            return Database.PRICES.getDiscountRate();
+        }
     }
     
     // SETTERS
@@ -53,6 +61,7 @@ public class PromotionManager {
             Database.saveFileIntoDatabase(FileType.PRICES);
             return true;
         }
+        System.out.println("Discount Rate must be positive");
         return false;
     }
 
@@ -66,6 +75,7 @@ public class PromotionManager {
             Database.saveFileIntoDatabase(FileType.PRICES);
             return true;
         }
+        System.out.println("Discount Rate must be positive and less than 1");
         return false;
     }
     /**
@@ -73,7 +83,7 @@ public class PromotionManager {
      * @return {@code true} if edited successfully.
      */
     public static boolean initializePromotionDetails() {
-        PromotionDetails promotionDetails = new PromotionDetails(0.05, 0.17);
+        PromotionDetails promotionDetails = new PromotionDetails(0.10, 0.17);
         Database.PRICES = promotionDetails;
         return true;
     }

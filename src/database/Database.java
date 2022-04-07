@@ -53,7 +53,7 @@ public class Database {
     public static HashMap<String, MenuItem> MENU_ITEMS = new HashMap<String, MenuItem>();
     
     /**
-     * {@link PromotionDetails} object to contain prices, discount rate and tax rate of the hotel.
+     * {@link PromotionDetails} object to contain discount rate and tax rate of the hotel.
      */
     public static PromotionDetails PRICES;
 

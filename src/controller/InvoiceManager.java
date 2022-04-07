@@ -1,12 +1,9 @@
 package src.controller;
 
-import java.text.CollationElementIterator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.xml.crypto.Data;
 
 import src.database.Database;
 import src.database.FileType;
@@ -116,8 +113,9 @@ public class InvoiceManager {
         String total = String.format("$%.2f", invoice.getTotal());
         
         System.out.println(String.format("%55s %10s" ,"SubTotal",subTotal));
-        System.out.println(String.format("%55s %10s" ,"Tax Rate",taxRate));
-        System.out.println(String.format("%55s %10s" ,"Discount Rate",discountRate));
+        System.out.println(String.format("%55s %10s", "Tax Rate", taxRate));
+        String discountRateStr = ((invoice.getDiscountRate() == 0) ? "Weekend " : "Weekday ") + "Discount Rate";
+        System.out.println(String.format("%55s %10s" , discountRateStr , discountRate));
         System.out.println(String.format("%55s %10s" ,"Total",total));
         System.out.println(String.format("%-66s", "").replace(" ", "-"));
     }

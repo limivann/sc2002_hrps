@@ -199,6 +199,9 @@ public class RoomView extends MainView{;
         return false;
     }
 
+    /**
+     * View Menu for room types
+     */
     private void printRoomTypeMenu() {
         System.out.println("Please enter a room type (1-4)");
         System.out.println("(1) Single Room");

@@ -429,7 +429,6 @@ public class RoomManager {
 
     /**
      * Method to update the room's guest details. <p>
-     * Calls {@link GuestManager} to retrieve guest details.
      * @param roomId room id of the room you want to update
      * @param guestId guest id of the guest 
      * @return {@code true} if updating of guest details is successful. Otherwise, {@code false} if guest id does not exist.
