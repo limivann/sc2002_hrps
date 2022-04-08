@@ -9,11 +9,12 @@ import src.database.Database;
 import src.helper.Helper;
 import src.model.Invoice;
 import src.model.Order;
+
 /**
  * PaymentManager is a controller class that generates {@link Invoice} and handles payment. <p>
  * 
- * Whenever a {@link Room} has checked out, it will receive information from {@link GuestManager}, {@link RoomManager}, {@link ReservationManager}, and {@link RoomServiceManager}
- * to generate {@link Invoice} and print it upon payment. 
+ * Whenever a {@link Room} has checked out, it will receive information from {@link GuestManager}, {@link RoomManager}, 
+ * {@link ReservationManager}, {@link PromotionManager} and {@link InvoiceManager} to generate {@link Invoice} and print it upon payment. 
  * @author Lim Kang Wei, Ivan, Max
  * @version 1.0
  * @since 2022-04-04
@@ -79,14 +80,13 @@ public class PaymentManager {
      * @return {@link Invoice} object
      */
     public static Invoice generateInvoice(String reservationId, String guestIdToPay) {
-        Reservation reservation = ReservationManager.searchReservation(reservationId);
-        String roomId = reservation.getRoomId();
+        String roomId = ReservationManager.searchReservation(reservationId).getRoomId();
         String roomTypeAsStr = RoomManager.searchRoom(roomId).getRoomType().roomTypeAsStr;
         boolean isRoomWifiEnabled = RoomManager.searchRoom(roomId).getIsWifiEnabled();
         double roomPrice = RoomManager.searchRoom(roomId).getPrice();
         int nights = ReservationManager.calculateNumOfStays(reservationId);
         double taxRate = PromotionManager.getTaxRate();
-        double discountRate = PromotionManager.getDiscountRate(reservation.getCheckedInDate());
+        double discountRate = PromotionManager.getDiscountRate(ReservationManager.searchReservation(reservationId).getCheckedInDate());
         ArrayList<Order> orders = RoomManager.searchRoom(roomId).getOrders();
         double subTotal = calculateSubTotal(roomId, reservationId);
         double total = calculateTotal(subTotal, discountRate, taxRate);

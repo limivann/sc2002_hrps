@@ -8,15 +8,12 @@ import src.model.enums.RoomType;
  * @version 1.0
  * @since 2022-04-07
  */
-public class DeluxeRoom extends Room  {
+public class DeluxeRoom extends Room {
     /**
      * The price of the room.
      */
     private double price;
-    /**
-     * The type of the room.
-     */
-    private RoomType roomType;
+
     /**
      * The max capacity of the room.
      */
