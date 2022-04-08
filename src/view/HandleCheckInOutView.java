@@ -71,7 +71,7 @@ public class HandleCheckInOutView extends MainView {
     private void checkIn() {
         ReservationManager.checkReservationStatus();
         System.out.println("Please enter reservation id (RXXXX)");
-        String reservationId = Helper.sc.nextLine();
+        String reservationId = Helper.readString();
         if (!ReservationManager.validateReservationId(reservationId)) {
             return;
         }
@@ -85,7 +85,7 @@ public class HandleCheckInOutView extends MainView {
      */
     private void checkOut() {
         System.out.println("Please enter reservation id (RXXXX)");
-        String reservationId = Helper.sc.nextLine();
+        String reservationId = Helper.readString();
         if (!ReservationManager.validateReservationId(reservationId)) {
             return;
         }
@@ -125,7 +125,7 @@ public class HandleCheckInOutView extends MainView {
         System.out.println("Please select a payment method (1-2)");
         System.out.println("(1) Cash");
         System.out.println("(2) Credit Card");
-        int opt = Helper.sc.nextInt();
+        int opt = Helper.readInt();
         return opt;
     }
 }

@@ -80,7 +80,7 @@ public class OrderView extends MainView {
      */
     private boolean updateOrderStatus() {
         System.out.println("Please enter the order id you want to update (OXXXX): ");
-        String orderIdToUpdate = Helper.sc.nextLine();
+        String orderIdToUpdate = Helper.readString();
         printOrderStatusMenu();
         int orderStatusOption = Helper.readInt(1,3);
         switch (orderStatusOption) {
@@ -116,7 +116,7 @@ public class OrderView extends MainView {
      */
     private boolean createOrder() {
         System.out.println("Please enter the Room Id in this format <FloorNo><RoomNo> (eg: 0103)");
-        String roomId = Helper.sc.nextLine();
+        String roomId = Helper.readString();
         if (!RoomManager.validateRoomId(roomId)) {
             System.out.println("Room does not exist");
             return false;
@@ -144,7 +144,7 @@ public class OrderView extends MainView {
                     Helper.clearScreen();
                     printBreadCrumbs("Hotel App View > Order View > Create an order for Room " + roomId + " > Add menu items");
                     System.out.println("Enter item to be added:\r");
-                    itemName = Helper.sc.nextLine();
+                    itemName = Helper.readString();
                     System.out.println("Enter amount to be added:\r");
                     itemAmount = Helper.readInt();
                     addOrderItem(itemName, orderId, itemAmount);
@@ -153,9 +153,9 @@ public class OrderView extends MainView {
                     Helper.clearScreen();
                     printBreadCrumbs("Hotel App View > Order View > Create an order for Room " + roomId + " > Remove menu items");
                     System.out.println("Enter item to be removed:\r");
-                    itemName = Helper.sc.nextLine();
+                    itemName = Helper.readString();
                     System.out.println("Enter amount to be removed:\r");
-                    itemAmount = Helper.sc.nextInt();
+                    itemAmount = Helper.readInt();
                     removeOrderItem(itemName, orderId, itemAmount);
                     break;
                 case 4:
@@ -167,7 +167,7 @@ public class OrderView extends MainView {
                     Helper.clearScreen();
                     printBreadCrumbs("Hotel App View > Order View > Create an order for Room " + roomId + " > Enter remarks");
                     System.out.println("Enter remarks:\r");
-                    String remarks = Helper.sc.nextLine();
+                    String remarks = Helper.readString();
                     OrderManager.setRemarks(remarks, orderId);
                     System.out.println("Remarks given");
                     break;

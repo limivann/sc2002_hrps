@@ -58,6 +58,7 @@ public class Reservation implements Serializable, Comparable<Reservation> {
      * Constructor of Reservation
      * @param checkedInDate the date which the guest checked in
      * @param checkedOutDate the date which the guest checked out
+     * @param reservationDate the date which the reservation is made
      * @param guestId Id of the guest
      * @param roomId Id of the room
      * @param numberOfPax number of people staying in one room
@@ -65,8 +66,8 @@ public class Reservation implements Serializable, Comparable<Reservation> {
      * @param reservationStatus status of the reservation
      * {@link ReservationStatus} 
      */
-    public Reservation(String checkedInDate, String checkedOutDate, ArrayList<String> guestIds, String roomId, int numberOfPax, String reservationId, ReservationStatus reservationStatus){
-        this.reservationDate = Helper.getTimeNow();
+    public Reservation(String checkedInDate, String checkedOutDate, String reservationDate, ArrayList<String> guestIds, String roomId, int numberOfPax, String reservationId, ReservationStatus reservationStatus){
+        this.reservationDate = reservationDate;
         if(checkedInDate==null){
             this.checkedInDate = this.reservationDate;
         }

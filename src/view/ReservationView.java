@@ -63,21 +63,21 @@ public class ReservationView extends MainView {
                     Helper.clearScreen();
                     printBreadCrumbs("Hotel App View > Reservation View > Search Reservation");
                     System.out.println("Enter Reservation Id to search (RXXXX)");
-                    reservationId = Helper.sc.nextLine();
+                    reservationId = Helper.readString();
                     ReservationManager.printReservationDetails(reservationId);
                     break;
                 case 3:
                     Helper.clearScreen();
                     printBreadCrumbs("Hotel App View > Reservation View > Update Reservation");
                     System.out.println("Enter Reservation Id to update (RXXXX)");
-                    reservationId = Helper.sc.nextLine();
+                    reservationId = Helper.readString();
                     updateReservation(reservationId);
                     break;
                 case 4:
                     Helper.clearScreen();
                     printBreadCrumbs("Hotel App View > Reservation View > Remove Reservation");
                     System.out.println("Enter Reservation Id to remove (RXXXX)");
-                    reservationId = Helper.sc.nextLine();
+                    reservationId = Helper.readString();
                     if (ReservationManager.removeReservation(reservationId)) {
                         System.out.println("Remove reservation successful");
                     } else {
@@ -119,7 +119,7 @@ public class ReservationView extends MainView {
         int numberOfPax;
         boolean inWaitlist = false;
         System.out.println("Please enter the Room Id in this format <FloorNo><RoomNo> (eg: 0103)");
-        roomId = Helper.sc.nextLine();
+        roomId = Helper.readString();
         if (!RoomManager.validateRoomId(roomId)) {
             System.out.println("Room does not exist");
             return false;
@@ -145,7 +145,7 @@ public class ReservationView extends MainView {
         ArrayList<String> guestIds = new ArrayList<String>();
         for (int guestNo = 1; guestNo <= numberOfPax; guestNo++) {
             System.out.println("Enter Guest Id (GXXXX) for guest " + guestNo + ":");
-            guestId = Helper.sc.nextLine();
+            guestId = Helper.readString();
             if (!GuestManager.validateGuestId(guestId)) {
                 System.out.println("Guest Id not found. Please try again");
                 return false;
@@ -276,7 +276,7 @@ public class ReservationView extends MainView {
                         isUpdateSuccessful = false;
                         for (int guestNo = 1; guestNo <= reservation.getNumberOfPax(); guestNo++) {
                             System.out.println("Enter guest Id for " + guestNo);
-                            guestId = Helper.sc.nextLine();
+                            guestId = Helper.readString();
                             if (!GuestManager.validateGuestId(guestId)) {
                                 System.out.println("Guest id not found. Please try again");
                                 break;
@@ -293,7 +293,7 @@ public class ReservationView extends MainView {
                         break;
                     case 4:
                         System.out.println("Please enter the Room Id in this format <FloorNo><RoomNo> (eg: 0103)");
-                        roomId = Helper.sc.nextLine();
+                        roomId = Helper.readString();
                         if (!RoomManager.checkRoomVacancy(roomId, RoomStatus.VACANT)) {
                             if (RoomManager.validateRoomId(roomId)) {
                                 System.out.println("Room is not Vacant! Guest will be move to waitlist");

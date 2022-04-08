@@ -43,9 +43,9 @@ public class MenuView extends MainView{
                     Helper.clearScreen();
                     printBreadCrumbs("Hotel App View > Menu View > Add menu items");
                     System.out.println("Enter name of item to be added:\r");
-                    name = Helper.sc.nextLine();
+                    name = Helper.readString();
                     System.out.printf("Enter description of %s:\n\r", name);
-                    description = Helper.sc.nextLine();
+                    description = Helper.readString();
                     System.out.printf("Enter price of %s:\n\r", name);
                     price = Helper.readDouble();
                     addMenuItem(name, description, price);
@@ -54,16 +54,16 @@ public class MenuView extends MainView{
                     Helper.clearScreen();
                     printBreadCrumbs("Hotel App View > Menu View > Remove menu items");
                     System.out.println("Enter name of item to be removed:\r");
-                    name = Helper.sc.nextLine();
+                    name = Helper.readString();
                     removeMenuItem(name);
                     break;
                 case 3:
                     Helper.clearScreen();
                     printBreadCrumbs("Hotel App View > Menu View > Update menu items");
                     System.out.println("Enter name of item to be updated:\r");
-                    name = Helper.sc.nextLine();
+                    name = Helper.readString();
                     System.out.printf("Enter description of %s:\n\r", name);
-                    description = Helper.sc.nextLine();
+                    description = Helper.readString();
                     System.out.printf("Enter price of %s:\n\r", name);
                     price = Helper.readDouble();
                     updateMenuItem(name, description, price);

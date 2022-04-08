@@ -16,15 +16,14 @@ import java.time.temporal.ChronoUnit;
  */
 public class Helper {
     /**
-     * Scanner object for input/output functionalities
+     * Scanner object for taking user input
      */
-    public static Scanner sc;
-
+    public static final Scanner sc = new Scanner(System.in);
     /**
      * Default constructor for initializing Scanner object
      */
     public Helper() {
-        sc = new Scanner(System.in);
+
     }
 
     /**
@@ -34,18 +33,17 @@ public class Helper {
      * @return The read integer entered in the terminal.
      */
     public static int readInt() {
-        while (true){
-            try{
+        while (true) {
+            try {
                 int userInput = -1;
                 userInput = sc.nextInt();
                 sc.nextLine(); // Consume newline left-over
                 return userInput;
-            } catch(InputMismatchException e){
+            } catch (InputMismatchException e) {
                 sc.nextLine();
                 System.out.println("Invalid Input, Enter an integer!");
             }
         }
-        
     }
 
     /**
@@ -60,22 +58,23 @@ public class Helper {
      * @param max maximum valid value that will be read and returned.
      * @return The read integer entered in the terminal.
      */
-    public static int readInt(int min, int max){
+    public static int readInt(int min, int max) {
+       
         while (true){
             try{
                 int userInput = -1;
                 userInput = sc.nextInt();
                 sc.nextLine(); // Consume newline left-over
-                if (userInput < min || userInput > max){
+                if (userInput < min || userInput > max) {
                     throw new OutOfRange();
                 }
-                else{
+                else {
                     return userInput;
                 }
             } catch(InputMismatchException e){
                 sc.nextLine();
                 System.out.println("Invalid Input, Enter an integer!");
-            } catch(OutOfRange e){
+            } catch (OutOfRange e) {
                 System.out.println("Input is out of allowed range");
             }
         }
@@ -88,6 +87,7 @@ public class Helper {
      * @return returns the read double entered in the terminal.
      */
     public static double readDouble() {
+       
         while (true) {
             try {
                 double userInput = -1;
@@ -100,6 +100,16 @@ public class Helper {
             }
         }
     }
+
+    /**
+     * Reads a new line of string 
+     * @return user input as string
+     */
+    public static String readString() {
+       
+        String userInput = sc.nextLine();
+        return userInput;
+    }
     
     /**
      * Method to prompt confirmation from the user. Usually for confirmation of removing data
@@ -107,6 +117,7 @@ public class Helper {
      * @return {@code true} if user input 'yes'. Otherwise, {@code false}.
      */
     public static boolean promptConfirmation(String message) {
+       
         System.out.println(String.format("Are you sure you want to %s? (yes/no)", message));
         String userInput = sc.nextLine();
         return userInput.equals("yes");
@@ -142,6 +153,7 @@ public class Helper {
      * @return String object for the date in the format "yyyy-MM-dd HH:mm"
      */
     public static String setDate(boolean now) {
+       
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         if (now) {
             return getTimeNow();
@@ -151,9 +163,10 @@ public class Helper {
         try {
             LocalDateTime Date = LocalDateTime.parse(date, format);
             date = format.format(Date);
-            if (validateDate(date, format))
+            if (validateDate(date, format)) {
                 return date;
-            else {
+
+            } else {
                 System.out.println("Invalid Date");
             }
         } catch (DateTimeParseException e) {
