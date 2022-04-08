@@ -17,48 +17,52 @@ public abstract class Room implements Serializable,Comparable<Room> {
 	/**
 	 * For java serializable
 	 */
-	private static final long serialVersionUID = 2L;
+	protected static final long serialVersionUID = 2L;
 
+	/**
+	 * Type of the room
+	 */
+	protected RoomType roomType;
 	/**
 	 * Floor number of the room
 	 */
-	private int floorNumber;
+	protected int floorNumber;
 
 	/**
 	 * Room number of the room
 	 */
-	private int roomNumber;
+	protected int roomNumber;
 
 	/**
 	 * The Status of the room <p>
 	 * See {@link RoomStatus} for different status of the room.
 	 */
-	private RoomStatus roomStatus;
+	protected RoomStatus roomStatus;
 
 	/**
 	 * whether the wifi is enabled or not
 	 */
-	private boolean isWifiEnabled;
+	protected boolean isWifiEnabled;
 
 	/**
 	 * whether the smoking is allowed
 	 */
-	private boolean isSmokingAllowed;
+	protected boolean isSmokingAllowed;
 
 	/**
 	 * The id of the room
 	 */
-	private String roomId;
+	protected String roomId;
 
 	/**
 	 * The id of the guests that booked the room
 	 */
-	private ArrayList<String> guestIds;
+	protected ArrayList<String> guestIds;
 
 	/**
 	 * ArrayList of {@link Order} objects made by the room.
 	 */
-	private ArrayList<Order> orders;
+	protected ArrayList<Order> orders;
 
 	/**
 	 * The constructor for the room

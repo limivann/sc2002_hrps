@@ -13,10 +13,7 @@ public class DoubleRoom extends Room {
      * The price of the room.
      */
     private double price;
-    /**
-     * The type of the room.
-     */
-    private RoomType roomType;
+
     /**
      * The max capacity of the room.
      */
