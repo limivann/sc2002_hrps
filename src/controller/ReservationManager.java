@@ -47,7 +47,8 @@ public class ReservationManager {
     int numberOfPax, ReservationStatus reservationStatus, RoomStatus roomStatus) {
         int rid = Helper.generateUniqueId(Database.RESERVATIONS);
         String reservationId = String.format("R%04d", rid);
-        Reservation newReservation = new Reservation(checkedInDate, checkedOutDate, guestIds, roomId, numberOfPax,
+        String reservationDate = Helper.getTimeNow();
+        Reservation newReservation = new Reservation(checkedInDate, checkedOutDate, reservationDate, guestIds, roomId, numberOfPax,
                 reservationId, reservationStatus);
         Database.RESERVATIONS.put(reservationId, newReservation);
         Database.saveFileIntoDatabase(FileType.RESERVATIONS);

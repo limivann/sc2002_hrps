@@ -62,7 +62,7 @@ public class InvoiceView extends MainView {
      */
     private void promptSearchInvoice() {
         System.out.println("Enter Invoice Id to search (IXXXX)");
-        String invoiceId = Helper.sc.nextLine();
+        String invoiceId = Helper.readString();
         if (!InvoiceManager.validateInvoiceId(invoiceId)) {
             return;
         }

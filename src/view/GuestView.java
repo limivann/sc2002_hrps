@@ -95,13 +95,13 @@ public class GuestView extends MainView{
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Guest View > Create a Guest");
         System.out.println("Please enter guest's first name: ");
-        String firstName = Helper.sc.nextLine();
+        String firstName = Helper.readString();
         System.out.println("Please enter guest's last name: ");
-        String lastName = Helper.sc.nextLine();
+        String lastName = Helper.readString();
         System.out.println("Please enter guest's credit card number: ");
-        String creditCardNumber = Helper.sc.nextLine();
+        String creditCardNumber = Helper.readString();
         System.out.println("Please enter guest's address: ");
-        String address = Helper.sc.nextLine();
+        String address = Helper.readString();
         Gender gender = promptGender();
         if (gender == null) {
             return false;
@@ -111,9 +111,9 @@ public class GuestView extends MainView{
             return false;
         }
         System.out.println("Please enter guest's nationality");
-        String nationality = Helper.sc.nextLine();
+        String nationality = Helper.readString();
         System.out.println("Please enter guest's contact number");
-        String contactNo = Helper.sc.nextLine();
+        String contactNo = Helper.readString();
         GuestManager.createGuest(firstName, lastName, creditCardNumber, address, gender, identity, nationality,
                 contactNo);
         return true;
@@ -172,12 +172,12 @@ public class GuestView extends MainView{
             case 1:
                 System.out.println(
                         "Enter the guest's " + IdentityType.DRIVING_LICENSE.identityTypeAsStr + " number: ");
-                identityNo = Helper.sc.nextLine();
+                identityNo = Helper.readString();
                 identity = new Identity(IdentityType.DRIVING_LICENSE, identityNo);
                 return identity;
             case 2:
                 System.out.println("Enter the guest's " + IdentityType.PASSPORT.identityTypeAsStr + " number: ");
-                identityNo = Helper.sc.nextLine();
+                identityNo = Helper.readString();
                 identity = new Identity(IdentityType.PASSPORT, identityNo);
                 return identity;
             default:
@@ -195,7 +195,7 @@ public class GuestView extends MainView{
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Guest View > Update a Guest Detail");
         System.out.println("Enter the guest that you want to update (GXXXX): ");
-        String guestId = Helper.sc.nextLine();
+        String guestId = Helper.readString();
         if (GuestManager.searchGuestById(guestId).size() == 0) {
             System.out.println("Guest not found!");
             return false;
@@ -206,19 +206,19 @@ public class GuestView extends MainView{
         switch (opt) {
             case 1:
                 System.out.println("Please enter the guest's new first name:");
-                String firstName = Helper.sc.nextLine();
+                String firstName = Helper.readString();
                 System.out.println("Please enter the guest's new last name:");
-                String lastName = Helper.sc.nextLine();
+                String lastName = Helper.readString();
                 GuestManager.updateGuest(guestId, 1, firstName, lastName);
                 return true;
             case 2:
                 System.out.println("Please enter the guest's new credit card number:");
-                String creditCardNo = Helper.sc.nextLine();
+                String creditCardNo = Helper.readString();
                 GuestManager.updateGuest(guestId, 2, creditCardNo);
                 return true;
             case 3:
                 System.out.println("Please enter the guest's new address:");
-                String address = Helper.sc.nextLine();
+                String address = Helper.readString();
                 GuestManager.updateGuest(guestId, 3, address);
                 return true;
             case 4:
@@ -237,12 +237,12 @@ public class GuestView extends MainView{
                 return true;
             case 6:
                 System.out.println("Please enter your nationality:");
-                String nationality = Helper.sc.nextLine();
+                String nationality = Helper.readString();
                 GuestManager.updateGuest(guestId, 3, nationality);
                 return true;
             case 7:
                 System.out.println("Please enter your contact number:");
-                String contactNo = Helper.sc.nextLine();
+                String contactNo = Helper.readString();
                 GuestManager.updateGuest(guestId, 7, contactNo);
                 return true;
             default:
@@ -279,14 +279,14 @@ public class GuestView extends MainView{
         switch (opt) {
             case 1:
                 System.out.println("Enter the guest id you want to search (GXXXX): ");
-                String guestId = Helper.sc.nextLine();
+                String guestId = Helper.readString();
                 if (!GuestManager.findGuestDetails(guestId, true)) {
                     System.out.println("Guest not found!");
                 }
                 break;
             case 2:
                 System.out.println("Please enter a keyword for the guest to search: ");
-                String keyword = Helper.sc.nextLine();
+                String keyword = Helper.readString();
                 if (!GuestManager.findGuestDetails(keyword, false)) {
                     System.out.println("Guest not found!");
                 }
@@ -306,7 +306,7 @@ public class GuestView extends MainView{
         Helper.clearScreen();
         printBreadCrumbs("Hotel App View > Guest View > Remove a guest");
         System.out.println("Enter the guest id you want to remove (GXXXX): ");
-        String guestId = Helper.sc.nextLine();
+        String guestId = Helper.readString();
         if (!GuestManager.removeGuest(guestId)) {
             System.out.println("Guest not found!");
             return false;
