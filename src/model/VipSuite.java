@@ -45,6 +45,7 @@ public class VipSuite extends Room {
         if (price < 0) {
             return false;
         }
+        this.price = price;
         return true;
     }
     /**
