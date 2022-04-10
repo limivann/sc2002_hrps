@@ -33,9 +33,11 @@ public class PromotionManager {
     public static double getTaxRate() {
         return Database.PRICES.getTaxRate();
     }
+    
     /**
      * A method that returns discount rate of the hotel
-     * @return discount rate of the hotel
+     * @param checkInDate Date of check in
+     * @return Discount rate of the hotel
      */
     public static double getDiscountRate(String checkInDate) {
         if (checkInDate == null) {

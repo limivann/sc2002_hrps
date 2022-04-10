@@ -2,8 +2,11 @@ package src.view;
 
 import src.controller.MenuManager;
 import src.helper.Helper;
+
+// for javadocs
+import src.model.MenuItem;
 /**
- * MenuView provides the view to take user input which calls {@link MenuManager} to manage {@link Menu}.
+ * MenuView provides the view to take user input which calls {@link MenuManager} to manage {@link MenuItem}.
  * @author Max
  * @version 1.0
  * @since 2022-04-06
@@ -27,7 +30,7 @@ public class MenuView extends MainView{
 
     /**
      * View Application of the MenuView. <p>
-     * See {@link MenuManager} for more {@link Menu} management details.
+     * See {@link MenuManager} for more {@link MenuItem} management details.
      */
     @Override
     public void viewApp() {

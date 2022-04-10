@@ -37,7 +37,7 @@ public class ReservationManager {
      * See {@link RoomStatus} for different types of Room Status.
      * @param checkedInDate the date which the guest checked in
      * @param checkedOutDate the date which the guest checked out
-     * @param guestId Id of the guest
+     * @param guestIds Ids of the guests
      * @param roomId Id of the room
      * @param numberOfPax number of people staying in one room
      * @param reservationStatus status of the reservation
@@ -188,8 +188,8 @@ public class ReservationManager {
     /**
      * A method that updates guest id of reservation.
      * @param reservationId Id of the reservation
-     * @param guestId Id of the guest 
-     * @return {@code true} if updating of guest id is successful. Otherwise, {@code false} if the reservation id is not found.
+     * @param guestIds Ids of the guests
+     * @return {@code true} if updating of guest id(s) is successful. Otherwise, {@code false} if the reservation id is not found.
      */
     public static boolean updateGuestIds(String reservationId, ArrayList<String> guestIds) {
         if (!validateReservationId(reservationId)) {

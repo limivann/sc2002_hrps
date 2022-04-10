@@ -10,9 +10,14 @@ import src.database.FileType;
 import src.model.Invoice;
 import src.model.MenuItem;
 import src.model.Order;
+
+// for javadocs
+import src.view.InvoiceView;
+import src.view.HandleCheckInOutView;
+
 /**
  * InvoiceManager is a controller class that acts as a "middleman"
- * between the view classes - {@link InvoiceView} and {@link HandleCheckInCheckOutView} and the model class - {@link Invoice}. <p>
+ * between the view classes - {@link InvoiceView} and {@link HandleCheckInOutView} and the model class - {@link Invoice}. <p>
  * 
  * It can create and print {@link Invoice}. <p>
  * @author Ivan, Max

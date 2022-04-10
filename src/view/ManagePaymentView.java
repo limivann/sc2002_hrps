@@ -2,6 +2,10 @@ package src.view;
 
 import src.helper.Helper;
 import src.controller.PromotionManager;
+
+// for javadocs
+import src.model.PromotionDetails;
+
 /**
  * ManagePaymentView provides the view to take user input which calls {@link PromotionManager} to manage {@link PromotionDetails}.
  * @author Max

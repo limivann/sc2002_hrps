@@ -6,6 +6,9 @@ import src.controller.RoomManager;
 import src.helper.Helper;
 import src.model.enums.OrderStatus;
 import src.model.enums.RoomStatus;
+
+// for javadocs
+import src.model.Order;
 /**
  * OrderView provides the view to take user input which calls {@link OrderManager} to manage {@link Order}.
  * @author Max

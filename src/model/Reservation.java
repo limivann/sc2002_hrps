@@ -59,7 +59,7 @@ public class Reservation implements Serializable, Comparable<Reservation> {
      * @param checkedInDate the date which the guest checked in
      * @param checkedOutDate the date which the guest checked out
      * @param reservationDate the date which the reservation is made
-     * @param guestId Id of the guest
+     * @param guestIds Ids of the guest(s)
      * @param roomId Id of the room
      * @param numberOfPax number of people staying in one room
      * @param reservationId Id of the reservation
@@ -105,7 +105,7 @@ public class Reservation implements Serializable, Comparable<Reservation> {
 
     /**
      * Sets guest Id
-     * @param guestId Id of the guest
+     * @param guestIds Ids of the guest(s)
      * @return {@code true} if sets successfully
      */
     public boolean setGuestIds(ArrayList<String> guestIds) {

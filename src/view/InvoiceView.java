@@ -2,6 +2,9 @@ package src.view;
 
 import src.controller.InvoiceManager;
 import src.helper.Helper;
+
+//  for javadocs
+import src.model.Invoice;
 /**
  * InvoiceView provides the view to take user input which calls {@link InvoiceManager} to search or print {@link Invoice}.
  * @author Ivan, Max

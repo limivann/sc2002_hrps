@@ -66,7 +66,8 @@ public class PaymentManager {
     /**
      * A method that generates invoice of a particular reservation during checkout<p>
      * See {@link Reservation} For the details of the reservation
-     * @param reservationId id of the reservation
+     * @param reservationId Id of the reservation
+     * @param guestId Id of the guest
      */
     public static void handlePayment(String reservationId, String guestId) {
         Invoice invoice = generateInvoice(reservationId, guestId);
@@ -76,7 +77,8 @@ public class PaymentManager {
     
     /**
      * A method that generates invoice by fetching details from {@link ReservationManager}, {@link RoomManager} and {@link PromotionManager}
-     * @param reservationId id of the reservation
+     * @param reservationId Id of the reservation
+     * @param guestIdToPay Id of the guest to pay
      * @return {@link Invoice} object
      */
     public static Invoice generateInvoice(String reservationId, String guestIdToPay) {

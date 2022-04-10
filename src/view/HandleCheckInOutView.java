@@ -7,6 +7,9 @@ import src.controller.PaymentManager;
 import src.controller.ReservationManager;
 import src.controller.RoomManager;
 import src.helper.Helper;
+
+// for javadocs
+import src.model.Room;
 /**
  * HandleCheckInCheckOutView provides the view to take user input which check in or check out {@link Room}.
  * @author Lim Kang Wei, Max

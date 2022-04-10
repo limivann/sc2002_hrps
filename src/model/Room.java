@@ -96,13 +96,14 @@ public abstract class Room implements Serializable,Comparable<Room> {
 
 	/**
 	 * Sets the max capacity of the room
+	 * @param maxCapacity Max capacity of the room
 	 * @return {@code true} if successfully set
 	 */
 	abstract public boolean setMaxCapacity(int maxCapacity);
 
 	/**
 	 * Sets the type of the room
-	 * @param type the type of the room
+	 * @param roomType the type of the room
 	 * @return {@code true} if successfully set
 	 */
 	abstract public boolean setRoomType(RoomType roomType);

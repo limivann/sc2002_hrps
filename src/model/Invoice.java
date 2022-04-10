@@ -84,6 +84,7 @@ public class Invoice implements Serializable, Comparable<Invoice> {
      * @param dateOfPayment Date which the payment is made
      * @param taxRate Tax rate of the invoice
      * @param discountRate Discount rate of the invoice
+     * @param orders ArrayList of {@link Order} object that the room had made
      * @param subTotal Total amount without tax rate and discount rate
      * @param total Total amount with tax rate and discount rate
      */
@@ -205,7 +206,7 @@ public class Invoice implements Serializable, Comparable<Invoice> {
     
     /**
      * Sets the room price of the room on the day of payment
-     * @param roomTypeAsStr Room price of the room on the day of payment
+     * @param roomPrice Room price of the room on the day of payment
      * @return {@code true} if sets successfully
      */
     public boolean setRoomPrice(double roomPrice) {

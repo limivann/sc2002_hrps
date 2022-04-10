@@ -281,7 +281,7 @@ public class Database {
     
     /**
      * A method to initialize {@link MenuItem} dummy data when the database is empty. <p>
-     * Calls {@link RoomServiceManager} to initialize the dummy menu items.
+     * Calls {@link MenuManager} to initialize the dummy menu items.
      * @return {@code true} is initialied successfully. Otherwise, {@code false} if database is not empty.
      */
     public static boolean initializeDummyMenu() {

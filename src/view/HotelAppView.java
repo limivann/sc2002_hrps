@@ -1,9 +1,21 @@
 package src.view;
 
 import src.helper.Helper;
+// for javadocs
+import src.model.Guest;
+import src.model.Room;
+import src.model.Reservation;
+import src.model.PromotionDetails;
+import src.database.Database;
+import src.model.MenuItem;
+import src.model.Order;
+import src.model.Invoice;
 
-/**
+ /**
  * Viewing interface for the hotel administrator
+ * @author Max, Ivan
+ * @version 1.0
+ * @since 2020-04-10
  */
 public class HotelAppView extends MainView{
     /**
@@ -31,7 +43,7 @@ public class HotelAppView extends MainView{
      */
     protected DatabaseView databaseView;
     /**
-     * View Menu for managing {@link Menu}.
+     * View Menu for managing {@link MenuItem}.
      */
     protected MenuView menuView;
     /**

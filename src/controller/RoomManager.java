@@ -76,7 +76,7 @@ public class RoomManager {
      * @param floorNumber floor number of the room
      * @param roomNumber room number of the room
      * @param roomStatus room status of the room
-     * @param guestId Id of the guest to be added/removed from the room
+     * @param guestIds Ids of the guest(s) to be added/removed from the room
      * @return {@code true} if successful. Otherwise, {@code false} if the room id not found.
      */
     public static boolean updateRoomStatus(int floorNumber, int roomNumber, RoomStatus roomStatus, ArrayList<String> guestIds) {
@@ -431,7 +431,7 @@ public class RoomManager {
     /**
      * Method to update the room's guest details. <p>
      * @param roomId room id of the room you want to update
-     * @param guestId guest id of the guest 
+     * @param guestIds Ids of the guest(s)
      * @return {@code true} if updating of guest details is successful. Otherwise, {@code false} if guest id does not exist.
      */
     public static boolean updateRoomGuestDetails(String roomId, ArrayList<String> guestIds) {
