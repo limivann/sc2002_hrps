@@ -305,8 +305,8 @@ public class ReservationManager {
                 if (searchReservation(reservationId).getReservationStatus() == ReservationStatus.EXPIRED) {
                     return true;
                 }
-                if (searchReservation(reservationId).getReservationStatus() == ReservationStatus.CHECKED_OUT) {
-                    System.out.println("Please check out before changing the status to expired");
+                if (searchReservation(reservationId).getReservationStatus() == ReservationStatus.CHECKED_IN) {
+                    System.out.println("Please check in before changing the status to expired");
                     return false;
                 }
                 searchReservation(reservationId).setReservationStatus(ReservationStatus.EXPIRED);
@@ -349,12 +349,12 @@ public class ReservationManager {
         }
         Reservation reservation = searchReservation(reservationId);
         ReservationStatus reservationStatus = reservation.getReservationStatus();
-        if (reservationStatus == ReservationStatus.CHECKED_IN) {
-            System.out.println("You have already checked in");
-            return false;
-        }
         if (reservationStatus != ReservationStatus.CONFIRMED) {
             System.out.println("This reservation is " + reservationStatus.reservationStatusAsStr);
+            return false;
+        }
+        if (reservationStatus == ReservationStatus.CHECKED_IN) {
+            System.out.println("You have already checked in");
             return false;
         }
         if (!Helper.validateTwoDates(reservation.getCheckedInDate(), Helper.getTimeNow())) {
@@ -416,7 +416,7 @@ public class ReservationManager {
     }
 
     /**
-     * A method that check if any reservation has expired
+     * A method that check if any 'confirmed' reservation has expired
      */
     public static void checkReservationStatus() {
         for (Reservation reservation : Database.RESERVATIONS.values()) {
@@ -425,7 +425,8 @@ public class ReservationManager {
             }   
             String date = reservation.getCheckedInDate();
             if (!Helper.LocalDateTimediff(date)) {
-                updateIsExpired(reservation.getReservationId(), false);
+                updateIsExpired(reservation.getReservationId(), true);
+                updateReservationStatus(reservation.getReservationId(), 4);
             }
         }
     }
@@ -440,7 +441,34 @@ public class ReservationManager {
         if (reservation == null) {
             return -1;
         }
-        return (int)Helper.calculateDaysElapsed(reservation.getCheckedInDate(), Helper.getTimeNow());
+        return (int) Helper.calculateDaysElapsed(reservation.getCheckedInDate(), Helper.getTimeNow());
+    }
+    
+    public static void main(String[] args) {
+        Database database = new Database();
+        // create test cases for af1
+        ArrayList<String> guestIds1 = new ArrayList<String>();
+        guestIds1.add("G0001");
+        createReservation("2022-04-09 15:00", "2022-04-13 15:00", guestIds1, "0202", 1, ReservationStatus.CHECKED_IN,
+                RoomStatus.OCCUPIED);
+
+        ArrayList<String> guestIds2 = new ArrayList<String>();
+        guestIds2.add("G0002");
+        createReservation("2022-04-11 15:00", "2022-04-13 15:00", guestIds2, "0203", 1, ReservationStatus.CHECKED_IN,
+                RoomStatus.OCCUPIED);
+
+
+        // create test cases for af2
+        ArrayList<String> guestIds3 = new ArrayList<String>();
+        guestIds3.add("G0003");
+        createReservation("2022-04-11 15:00", "2022-04-13 15:00", guestIds3, "0204", 1, ReservationStatus.CONFIRMED,
+                RoomStatus.RESERVED);
+        
+        // multiple days test
+        ArrayList<String> guestIds4 = new ArrayList<String>();
+        guestIds4.add("G0004");
+        createReservation("2022-04-09 15:00", "2022-04-13 15:00", guestIds4, "0205", 1, ReservationStatus.CHECKED_IN,
+                RoomStatus.OCCUPIED);
     }
 }
 

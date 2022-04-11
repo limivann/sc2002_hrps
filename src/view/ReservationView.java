@@ -47,7 +47,8 @@ public class ReservationView extends MainView {
     @Override
     public void viewApp(){
         int opt = -1;
-        String reservationId;
+        String reservationId; 
+        ReservationManager.checkReservationStatus(); // check is any reservation is expired
         do {
             printMenu();
             opt = Helper.readInt(1,6);
