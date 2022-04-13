@@ -349,16 +349,17 @@ public class ReservationManager {
         }
         Reservation reservation = searchReservation(reservationId);
         ReservationStatus reservationStatus = reservation.getReservationStatus();
-        if (reservationStatus != ReservationStatus.CONFIRMED) {
-            System.out.println("This reservation is " + reservationStatus.reservationStatusAsStr);
-            return false;
-        }
+        
         if (reservationStatus == ReservationStatus.CHECKED_IN) {
             System.out.println("You have already checked in");
             return false;
         }
         if (!Helper.validateTwoDates(reservation.getCheckedInDate(), Helper.getTimeNow())) {
-            System.out.println("Please check in after " +  reservation.getCheckedInDate());
+            System.out.println("Please check in after " + reservation.getCheckedInDate());
+            return false;
+        }
+        if (reservationStatus != ReservationStatus.CONFIRMED) {
+            System.out.println("This reservation is " + reservationStatus.reservationStatusAsStr);
             return false;
         }
         //  manually check in 
@@ -424,7 +425,7 @@ public class ReservationManager {
                 continue;
             }   
             String date = reservation.getCheckedInDate();
-            if (!Helper.LocalDateTimediff(date)) {
+            if (!Helper.validateTwoDates(Helper.getTimeNow(), date) && Helper.LocalDateTimediff(date)) {
                 updateIsExpired(reservation.getReservationId(), true);
                 updateReservationStatus(reservation.getReservationId(), 4);
             }
@@ -453,21 +454,28 @@ public class ReservationManager {
                 RoomStatus.OCCUPIED);
 
         ArrayList<String> guestIds2 = new ArrayList<String>();
-        guestIds2.add("G0002");
+        guestIds2.add("G0001");
         createReservation("2022-04-11 15:00", "2022-04-13 15:00", guestIds2, "0203", 1, ReservationStatus.CHECKED_IN,
                 RoomStatus.OCCUPIED);
 
+                
+        // create test cases for af2
+        ArrayList<String> guestIds4 = new ArrayList<String>();
+        guestIds4.add("G0001");
+        createReservation("2022-04-12 15:00", "2022-04-13 15:00", guestIds4, "0204", 1, ReservationStatus.CONFIRMED,
+                RoomStatus.RESERVED);
+
+        ArrayList<String> guestIds3 = new ArrayList<String>();
+        guestIds3.add("G0001");
+        createReservation("2022-04-11 15:00", "2022-04-13 15:00", guestIds3, "0205", 1, ReservationStatus.CONFIRMED,
+                RoomStatus.RESERVED);
 
         // create test cases for af2
-        ArrayList<String> guestIds3 = new ArrayList<String>();
-        guestIds3.add("G0003");
-        createReservation("2022-04-11 15:00", "2022-04-13 15:00", guestIds3, "0204", 1, ReservationStatus.CONFIRMED,
-                RoomStatus.RESERVED);
         
         // multiple days test
-        ArrayList<String> guestIds4 = new ArrayList<String>();
-        guestIds4.add("G0004");
-        createReservation("2022-04-09 15:00", "2022-04-13 15:00", guestIds4, "0205", 1, ReservationStatus.CHECKED_IN,
+        ArrayList<String> guestIds5 = new ArrayList<String>();
+        guestIds5.add("G0001");
+        createReservation("2022-04-09 15:00", "2022-04-13 15:00", guestIds5, "0206", 1, ReservationStatus.CHECKED_IN,
                 RoomStatus.OCCUPIED);
     }
 }
