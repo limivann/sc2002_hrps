@@ -444,40 +444,6 @@ public class ReservationManager {
         }
         return (int) Helper.calculateDaysElapsed(reservation.getCheckedInDate(), Helper.getTimeNow());
     }
-    
-    public static void main(String[] args) {
-        Database database = new Database();
-        // create test cases for af1
-        ArrayList<String> guestIds1 = new ArrayList<String>();
-        guestIds1.add("G0001");
-        createReservation("2022-04-09 15:00", "2022-04-13 15:00", guestIds1, "0202", 1, ReservationStatus.CHECKED_IN,
-                RoomStatus.OCCUPIED);
-
-        ArrayList<String> guestIds2 = new ArrayList<String>();
-        guestIds2.add("G0001");
-        createReservation("2022-04-11 15:00", "2022-04-13 15:00", guestIds2, "0203", 1, ReservationStatus.CHECKED_IN,
-                RoomStatus.OCCUPIED);
-
-                
-        // create test cases for af2
-        ArrayList<String> guestIds4 = new ArrayList<String>();
-        guestIds4.add("G0001");
-        createReservation("2022-04-12 15:00", "2022-04-13 15:00", guestIds4, "0204", 1, ReservationStatus.CONFIRMED,
-                RoomStatus.RESERVED);
-
-        ArrayList<String> guestIds3 = new ArrayList<String>();
-        guestIds3.add("G0001");
-        createReservation("2022-04-11 15:00", "2022-04-13 15:00", guestIds3, "0205", 1, ReservationStatus.CONFIRMED,
-                RoomStatus.RESERVED);
-
-        // create test cases for af2
-        
-        // multiple days test
-        ArrayList<String> guestIds5 = new ArrayList<String>();
-        guestIds5.add("G0001");
-        createReservation("2022-04-09 15:00", "2022-04-13 15:00", guestIds5, "0206", 1, ReservationStatus.CHECKED_IN,
-                RoomStatus.OCCUPIED);
-    }
 }
 
   

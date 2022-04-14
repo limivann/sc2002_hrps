@@ -476,6 +476,13 @@ public class RoomManager {
         System.out.println(String.format("%-40s", "").replace(" ", "-"));
     }
     
+    /**
+     * Method to update orders made by the room
+     * @param roomId Id of room to update
+     * @param order {@link Order} of the room had made
+     * @param clearRoom {@code true} if we want to clear the room. Otherwise, {@code false}.
+     * @return {@code true} if update orders of the room is successful. Otherwise, {@code false} if room does not exist.
+     */
     public static boolean updateRoomOrders(String roomId, Order order, boolean clearRoom) {
         Room targetRoom = searchRoom(roomId);
         if (targetRoom == null) {

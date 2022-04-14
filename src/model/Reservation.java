@@ -4,7 +4,6 @@ import src.model.enums.ReservationStatus;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import src.helper.Helper;
 /**
  * The Class that handles the data of hotel's reservations.
  * @author Max 
